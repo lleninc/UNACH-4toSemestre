@@ -108,5 +108,5 @@ UNACH-4toSemestre-Lenin-Lopez/
 
 ---
 
-*Lenin Francisco López Cabrera · Cédula: 1002279824*  
+*Lenin López*  
 *UNACH — Facultad de Ingeniería · Período 2026-1S*
