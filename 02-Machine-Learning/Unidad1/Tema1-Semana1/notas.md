@@ -26,45 +26,6 @@ El aprendizaje automático (ML) es la disciplina que desarrolla algoritmos capac
 
 ---
 
-### 1.1.1 Detalle Visual de los 5 Tipos de Aprendizaje Automático
-
-** 1. APRENDIZAJE SUPERVISADO**
-- **Definición:** Utiliza conjuntos de datos con etiquetas conocidas. El modelo aprende a predecir salidas a partir de ejemplos ya clasificados.
-- **Visualización:** Datos de entrada etiquetados (ej: imágenes de gatos  "gato" )
-- **Proceso:** Aprende la relación entrada  salida conocida
-- **Ejemplo:** Clasificar emails como "spam" o "no spam"
-- **Desafío:** Requiere muchos datos etiquetados (costoso)
-
-** 2. APRENDIZAJE NO SUPERVISADO**
-- **Definición:** Trabaja con datos sin etiquetas, descubriendo patrones, agrupamientos o estructuras ocultas.
-- **Visualización:** Puntos dispersos sin clasificar  agrupados en clusters
-- **Proceso:** Encuentra relaciones y similitudes por sí solo
-- **Ejemplo:** Segmentar clientes por comportamiento de compra
-- **Desafío:** Difícil evaluar si los patrones encontrados son correctos
-
-** 3. APRENDIZAJE SEMI-SUPERVISADO**
-- **Definición:** Combina un pequeño conjunto de datos etiquetados con un gran volumen de datos sin etiquetar.
-- **Visualización:** Pocos datos etiquetados + muchos sin etiquetar = mejor generalización
-- **Proceso:** Usa datos etiquetados para guiar el aprendizaje en datos sin etiquetar
-- **Ejemplo:** Genómica con pocos genes clasificados manualmente
-- **Desafío:** Balance entre ambos tipos de datos
-
-** 4. APRENDIZAJE AUTO-SUPERVISADO** 
-- **Definición:** Genera etiquetas artificiales a partir de los propios datos. Es fundamental en grandes modelos de lenguaje.
-- **Visualización:** Documentos/imágenes  crea sus propias etiquetas  aprende representaciones
-- **Proceso:** Enmascarar parte del dato y predecir qué falta
-- **Ejemplo:** ChatGPT, BERT, GPT-3 predicen la siguiente palabra
-- **Desafío:** Diseñar buenas tareas de auto-supervisión
-
-** 5. APRENDIZAJE POR REFUERZO**
-- **Definición:** Entrena agentes mediante la interacción con un entorno, recibiendo recompensas (+1) o penalizaciones (-1).
-- **Visualización:** Agente  Entorno (acción  recompensa/castigo)
-- **Proceso:** Aprende qué acciones maximizan la recompensa acumulada
-- **Ejemplo:** Robots, videojuegos AlphaGo, conducción autónoma
-- **Desafío:** Definir correctamente la función de recompensa
-
----
-
 ### 1.2 Aplicaciones y Desafíos en Ciencia e Ingeniería
 
 **Aplicaciones Reales (Espectro de uso):**
@@ -354,6 +315,5 @@ En este campo, ML se aplica a problemas de riesgo y territorio usando datos hist
 ---
 
 ## Actividades
-
 
 
