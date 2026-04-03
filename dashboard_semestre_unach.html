@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNACH — 4to Semestre 2026-1S</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface2: #f0ede8;
+    --border: rgba(0,0,0,0.1);
+    --border2: rgba(0,0,0,0.18);
+    --text: #1a1916;
+    --text2: #6b6760;
+    --text3: #9e9b96;
+    --accent: #c84b1f;
+    --accent-bg: #fdf0eb;
+    --green: #2d6a2d;
+    --green-bg: #eaf3e0;
+    --amber: #8a5a00;
+    --amber-bg: #fdf3dc;
+    --blue: #1a4f8a;
+    --blue-bg: #e8f0fb;
+    --purple: #5a3fa0;
+    --purple-bg: #f0ecfc;
+    --teal: #0d6b52;
+    --teal-bg: #e2f5ee;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141412;
+      --surface: #1e1d1a;
+      --surface2: #252420;
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.14);
+      --text: #edeae4;
+      --text2: #9e9b96;
+      --text3: #6b6760;
+      --accent: #e8734a;
+      --accent-bg: #2a1a10;
+      --green: #5aad5a;
+      --green-bg: #0f2010;
+      --amber: #d4a030;
+      --amber-bg: #1e1500;
+      --blue: #6aa3e8;
+      --blue-bg: #0a1828;
+      --purple: #a07ae8;
+      --purple-bg: #18102a;
+      --teal: #4dcba0;
+      --teal-bg: #061a12;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+  .layout {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .top-bar h1 {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .top-bar p {
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 3px;
+    font-family: var(--mono);
+  }
+  .semana-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: var(--mono);
+    padding: 5px 12px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+  .feriado {
+    background: var(--amber-bg);
+    color: var(--amber);
+    border: 0.5px solid var(--amber);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 1rem;
+    font-size: 13px;
+    margin-bottom: 1.25rem;
+    font-family: var(--mono);
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border2);
+    margin-bottom: 1.5rem;
+  }
+  .tab {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 16px;
+    cursor: pointer;
+    color: var(--text2);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+    font-family: var(--sans);
+    user-select: none;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Section label */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 1.25rem 0 0.6rem;
+  }
+
+  /* Class cards */
+  .class-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    transition: border-color 0.15s;
+  }
+  .class-card:hover { border-color: var(--border2); }
+  .class-left { flex: 1; }
+  .class-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+  .class-badges { display: flex; gap: 5px; flex-wrap: wrap; }
+  .badge {
+    font-size: 11px;
+    font-family: var(--mono);
+    padding: 2px 7px;
+    border-radius: 4px;
+    border: 0.5px solid transparent;
+  }
+  .badge-day { background: var(--surface2); color: var(--text2); border-color: var(--border); }
+  .badge-live { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
+  .badge-tutorial { background: var(--teal-bg); color: var(--teal); border-color: var(--teal); }
+  .badge-english { background: var(--purple-bg); color: var(--purple); border-color: var(--purple); }
+  .class-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .class-time {
+    font-size: 13px;
+    font-family: var(--mono);
+    color: var(--text2);
+    white-space: nowrap;
+  }
+  .zoom-btn {
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--blue);
+    text-decoration: none;
+    padding: 4px 10px;
+    border: 0.5px solid var(--blue);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .zoom-btn:hover { background: var(--blue-bg); }
+
+  /* Activity cards */
+  .activity-item {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .activity-item.urgent { border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; }
+  .activity-item.soon { border-left: 3px solid var(--amber); border-radius: 0 var(--radius) var(--radius) 0; }
+  .activity-item.ok { border-left: 3px solid var(--green); border-radius: 0 var(--radius) var(--radius) 0; }
+  .activity-name { font-size: 13px; font-weight: 500; color: var(--text); }
+  .activity-meta { font-size: 11px; color: var(--text3); font-family: var(--mono); margin-top: 3px; }
+  .activity-date { font-size: 12px; font-weight: 500; font-family: var(--mono); text-align: right; }
+  .activity-date.urgent { color: var(--accent); }
+  .activity-date.soon { color: var(--amber); }
+  .activity-date.ok { color: var(--green); }
+  .days-left { font-size: 11px; color: var(--text3); font-family: var(--mono); text-align: right; margin-top: 2px; }
+
+  /* Legend */
+  .legend {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    margin-bottom: 1rem; font-size: 12px; color: var(--text2);
+    font-family: var(--mono);
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+  /* Hoy highlight */
+  .today-section {
+    background: var(--surface);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .today-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+  .today-classes { display: flex; flex-direction: column; gap: 6px; }
+  .today-class-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: var(--text);
+    flex-wrap: wrap; gap: 4px;
+  }
+  .today-class-row a {
+    font-size: 12px; font-family: var(--mono);
+    color: var(--blue); text-decoration: none;
+    border: 0.5px solid var(--blue); border-radius: 4px;
+    padding: 2px 8px;
+  }
+  .today-class-row a:hover { background: var(--blue-bg); }
+
+  @media (max-width: 540px) {
+    .top-bar { flex-direction: column; }
+    .class-right { align-items: flex-start; }
+    .class-card { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <div class="top-bar">
+    <div>
+      <h1>UNACH — 4to Semestre</h1>
+      <p>01 abril 2026 — 07 agosto 2026 · 2026-1S</p>
+    </div>
+    <div class="semana-pill">U1 · T1 · S1</div>
+  </div>
+
+  <div class="feriado">Feriado esta semana: viernes 03 de abril</div>
+
+  <div id="today-box" class="today-section"></div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('horario')">Horario</div>
+    <div class="tab" onclick="showTab('actividades')">Actividades urgentes</div>
+    <div class="tab" onclick="showTab('cronograma')">Cronograma completo</div>
+  </div>
+
+  <!-- HORARIO -->
+  <div id="tab-horario" class="tab-content active">
+    <p class="section-label">Lunes</p>
+    <div class="class-card">
+      <div class="class-left">
+        <div class="class-name">Machine Learning 1</div>
+        <div class="class-badges">
+          <span class="badge badge-day">Lunes</span>
+          <span class="badge badge-live">Transmisión en vivo</span>
+        </div>
+      </div>
+      <div class="class-right">
+        <span class="class-time">18:00 – 20:00</span>
+        <a class="zoom-btn" href="https://cedia.zoom.us/j/85982729258" target="_blank">Abrir Zoom</a>
+      </div>
+    </div>
+    <div class="class-card">
+      <div class="class-left">
+        <div class="class-name">Métodos Numéricos y Problemas Complejos</div>
+        <div class="class-badges">
+          <span class="badge badge-day">Lunes</span>
+          <span class="badge badge-live">Transmisión en vivo</span>
+        </div>
+      </div>
+      <div class="class-right">
+        <span class="class-time">20:00 – 22:00</span>
+        <a class="zoom-btn" href="https://cedia.zoom.us/j/87038781387" target="_blank">Abrir Zoom</a>
+      </div>
+    </div>
+
+    <p class="section-label">Martes</p>
+    <div class="class-card">
+      <div class="class-left">
+        <div class="class-name">Administración de Base de Datos</div>
+        <div class="class-badges">
+          <span class="badge badge-day">Martes</span>
+          <span class="badge badge-live">Transmisión en vivo</span>
+        </div>
+      </div>
+      <div class="class-right">
+        <span class="class-time">18:00 – 20:00</span>
+        <a class="zoom-btn" href="https://cedia.zoom.us/j/81389632654" target="_blank">Abrir Zoom</a>
+      </div>
+    </div>
+    <div class="class-card">
+      <div class="class-left">
+        <div class="class-name">Metaheurísticas</div>
+        <div class="class-badges">
+          <span class="badge badge-day">Martes</span>
+          <span class="badge badge-live">Transmisión en vivo</span>
+        </div>
+      </div>
+      <div class="class-right">
+        <span class="class-time">20:00 – 22:00</span>
+        <a class="zoom-btn" href="https://cedia.zoom.us/j/87349957464" target="_blank">Abrir Zoom</a>
+      </div>
+    </div>
+
+    <p class="section-label">Miércoles</p>
+    <div class="class-card">
+      <div class="class-left">
+        <div class="class-name">Machine Learning 1</div>
+        <div class="class-badges">
+          <span class="badge badge-day">Miércoles</span>
+          <span class="badge badge-tutorial">Sesión tutorial</span>
+        </div>
+      </div>
+      <div class="class-right">
+        <span class="class-time">19:00 – 20:00</span>
+        <a class="zoom-btn" href="https://cedia.zoom.us/j/85982729258" target="_blank">Abrir Zoom</a>
+      </div>
+    </div>
+    <div class="class-card">
+      <div class="class-left">
+        <div class="class-name">Metodologías de Analítica de Datos</div>
+        <div class="class-badges">
+          <span class="badge badge-day">Miércoles</span>
+          <span class="badge badge-live">Transmisión en vivo</span>
+        </div>
+      </div>
+      <div class="class-right">
+        <span class="class-time">20:00 – 22:00</span>
+        <a class="zoom-btn" href="https://cedia.zoom.us/j/82520483561" target="_blank">Abrir Zoom</a>
+      </div>
+    </div>
+
+    <p class="section-label">Jueves</p>
+    <div class="class-card">
+      <div class="class-left">
+        <div class="class-name">Metodologías de Analítica de Datos</div>
+        <div class="class-badges">
+          <span class="badge badge-day">Jueves</span>
+          <span class="badge badge-tutorial">Sesión tutorial</span>
+        </div>
+      </div>
+      <div class="class-right">
+        <span class="class-time">18:00 – 19:00</span>
+        <a class="zoom-btn" href="https://cedia.zoom.us/j/82520483561" target="_blank">Abrir Zoom</a>
+      </div>
+    </div>
+    <div class="class-card">
+      <div class="class-left">
+        <div class="class-name">Administración de Base de Datos</div>
+        <div class="class-badges">
+          <span class="badge badge-day">Jueves</span>
+          <span class="badge badge-tutorial">Sesión tutorial</span>
+        </div>
+      </div>
+      <div class="class-right">
+        <span class="class-time">19:00 – 20:00</span>
+        <a class="zoom-btn" href="https://cedia.zoom.us/j/81389632654" target="_blank">Abrir Zoom</a>
+      </div>
+    </div>
+    <div class="class-card">
+      <div class="class-left">
+        <div class="class-name">Métodos Numéricos y Problemas Complejos</div>
+        <div class="class-badges">
+          <span class="badge badge-day">Jueves</span>
+          <span class="badge badge-tutorial">Sesión tutorial</span>
+        </div>
+      </div>
+      <div class="class-right">
+        <span class="class-time">20:00 – 21:00</span>
+        <a class="zoom-btn" href="https://cedia.zoom.us/j/87038781387" target="_blank">Abrir Zoom</a>
+      </div>
+    </div>
+    <div class="class-card">
+      <div class="class-left">
+        <div class="class-name">Metaheurísticas</div>
+        <div class="class-badges">
+          <span class="badge badge-day">Jueves</span>
+          <span class="badge badge-tutorial">Sesión tutorial</span>
+        </div>
+      </div>
+      <div class="class-right">
+        <span class="class-time">21:00 – 22:00</span>
+        <a class="zoom-btn" href="https://cedia.zoom.us/j/87349957464" target="_blank">Abrir Zoom</a>
+      </div>
+    </div>
+
+    <p class="section-label">Viernes</p>
+    <div class="class-card">
+      <div class="class-left">
+        <div class="class-name">Inglés</div>
+        <div class="class-badges">
+          <span class="badge badge-day">Viernes</span>
+          <span class="badge badge-english">Inglés</span>
+        </div>
+      </div>
+      <div class="class-right">
+        <span class="class-time">18:00 – 22:00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIVIDADES URGENTES -->
+  <div id="tab-actividades" class="tab-content">
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Urgente (≤3 días)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div> Próximo (≤7 días)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Con tiempo</div>
+    </div>
+    <div id="activity-list"></div>
+  </div>
+
+  <!-- CRONOGRAMA COMPLETO -->
+  <div id="tab-cronograma" class="tab-content">
+    <div id="full-cronograma"></div>
+  </div>
+
+</div>
+
+<script>
+const activities = [
+  { code: 'QUIZ U1-T1-S1 (APE1)', type: 'Quiz', due: '2026-04-05', semana: 'U1-T1-S1' },
+  { code: 'TASK U1-T1-S1 (APE1)', type: 'Task H5P', due: '2026-05-31', semana: 'U1-T1-S1' },
+  { code: 'QUIZ U1-T1-S2 (APE2)', type: 'Quiz', due: '2026-04-12', semana: 'U1-T1-S2' },
+  { code: 'TASK U1-T1-S2 (APE2)', type: 'Task H5P', due: '2026-05-31', semana: 'U1-T1-S2' },
+  { code: 'Actividad autónoma U1-T1 (AA1)', type: 'Autónomo', due: '2026-04-12', semana: 'U1-T1-S2' },
+  { code: 'QUIZ U1-T2-S3 (APE3)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U1-T2-S3' },
+  { code: 'TASK U1-T2-S3 (APE3)', type: 'Task H5P', due: '2026-05-31', semana: 'U1-T2-S3' },
+  { code: 'QUIZ U1-T2-S4 (APE4)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U1-T2-S4' },
+  { code: 'TASK U1-T2-S4 (APE4)', type: 'Task H5P', due: '2026-05-31', semana: 'U1-T2-S4' },
+  { code: 'Actividad autónoma U1-T2 (AA2)', type: 'Autónomo', due: '2026-04-26', semana: 'U1-T2-S4' },
+  { code: 'QUIZ U2-T1-S1 (APE5)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U2-T1-S1' },
+  { code: 'TASK U2-T1-S1 (APE5)', type: 'Task H5P', due: '2026-05-31', semana: 'U2-T1-S1' },
+  { code: 'QUIZ U2-T1-S2 (APE6)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U2-T1-S2' },
+  { code: 'TASK U2-T1-S2 (APE6)', type: 'Task H5P', due: '2026-05-31', semana: 'U2-T1-S2' },
+  { code: 'Actividad autónoma U2-T1 (AA3)', type: 'Autónomo', due: '2026-05-10', semana: 'U2-T1-S2' },
+  { code: 'QUIZ U2-T2-S3 (APE7)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U2-T2-S3' },
+  { code: 'TASK U2-T2-S3 (APE7)', type: 'Task H5P', due: '2026-05-31', semana: 'U2-T2-S3' },
+  { code: 'QUIZ U2-T2-S4 (APE8)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U2-T2-S4' },
+  { code: 'TASK U2-T2-S4 (APE8)', type: 'Task H5P', due: '2026-05-31', semana: 'U2-T2-S4' },
+  { code: 'Actividad autónoma U2-T2 (AA4)', type: 'Autónomo', due: '2026-05-24', semana: 'U2-T2-S4' },
+  { code: 'QUIZ U3-T1-S1 (APE9)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U3-T1-S1' },
+  { code: 'TASK U3-T1-S1 (APE9)', type: 'Task H5P', due: '2026-07-26', semana: 'U3-T1-S1' },
+  { code: 'Evaluación Primer Parcial', type: 'Parcial', due: '2026-06-05', semana: 'Parcial 1' },
+  { code: 'QUIZ U3-T1-S2 (APE10)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U3-T1-S2' },
+  { code: 'TASK U3-T1-S2 (APE10)', type: 'Task H5P', due: '2026-07-26', semana: 'U3-T1-S2' },
+  { code: 'Actividad autónoma U3-T1 (AA5)', type: 'Autónomo', due: '2026-06-14', semana: 'U3-T1-S2' },
+  { code: 'QUIZ U3-T2-S3 (APE11)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U3-T2-S3' },
+  { code: 'TASK U3-T2-S3 (APE11)', type: 'Task H5P', due: '2026-07-26', semana: 'U3-T2-S3' },
+  { code: 'QUIZ U3-T2-S4 (APE12)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U3-T2-S4' },
+  { code: 'TASK U3-T2-S4 (APE12)', type: 'Task H5P', due: '2026-07-26', semana: 'U3-T2-S4' },
+  { code: 'Actividad autónoma U3-T2 (AA6)', type: 'Autónomo', due: '2026-06-28', semana: 'U3-T2-S4' },
+  { code: 'QUIZ U4-T1-S1 (APE13)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U4-T1-S1' },
+  { code: 'TASK U4-T1-S1 (APE13)', type: 'Task H5P', due: '2026-07-26', semana: 'U4-T1-S1' },
+  { code: 'QUIZ U4-T1-S2 (APE14)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U4-T1-S2' },
+  { code: 'TASK U4-T1-S2 (APE14)', type: 'Task H5P', due: '2026-07-26', semana: 'U4-T1-S2' },
+  { code: 'Actividad autónoma U4-T1 (AA7)', type: 'Autónomo', due: '2026-07-12', semana: 'U4-T1-S2' },
+  { code: 'QUIZ U4-T2-S3 (APE15)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U4-T2-S3' },
+  { code: 'TASK U4-T2-S3 (APE15)', type: 'Task H5P', due: '2026-07-26', semana: 'U4-T2-S3' },
+  { code: 'QUIZ U4-T2-S4 (APE16)', type: 'Quiz', due: 'Medianoche antes de clase', semana: 'U4-T2-S4' },
+  { code: 'TASK U4-T2-S4 (APE16)', type: 'Task H5P', due: '2026-07-26', semana: 'U4-T2-S4' },
+  { code: 'Actividad autónoma U4-T2 (AA8)', type: 'Autónomo', due: '2026-07-26', semana: 'U4-T2-S4' },
+  { code: 'Evaluación Segundo Parcial', type: 'Parcial', due: '2026-07-31', semana: 'Parcial 2' },
+];
+
+const todaySchedule = {
+  0: [], // domingo
+  1: [ // lunes
+    { name: 'Machine Learning 1', time: '18:00–20:00', zoom: 'https://cedia.zoom.us/j/85982729258' },
+    { name: 'Métodos Numéricos y Problemas Complejos', time: '20:00–22:00', zoom: 'https://cedia.zoom.us/j/87038781387' },
+  ],
+  2: [ // martes
+    { name: 'Administración de Base de Datos', time: '18:00–20:00', zoom: 'https://cedia.zoom.us/j/81389632654' },
+    { name: 'Metaheurísticas', time: '20:00–22:00', zoom: 'https://cedia.zoom.us/j/87349957464' },
+  ],
+  3: [ // miércoles
+    { name: 'Machine Learning 1 (tutorial)', time: '19:00–20:00', zoom: 'https://cedia.zoom.us/j/85982729258' },
+    { name: 'Metodologías de Analítica de Datos', time: '20:00–22:00', zoom: 'https://cedia.zoom.us/j/82520483561' },
+  ],
+  4: [ // jueves
+    { name: 'Metodologías de Analítica de Datos (tutorial)', time: '18:00–19:00', zoom: 'https://cedia.zoom.us/j/82520483561' },
+    { name: 'Administración de Base de Datos (tutorial)', time: '19:00–20:00', zoom: 'https://cedia.zoom.us/j/81389632654' },
+    { name: 'Métodos Numéricos (tutorial)', time: '20:00–21:00', zoom: 'https://cedia.zoom.us/j/87038781387' },
+    { name: 'Metaheurísticas (tutorial)', time: '21:00–22:00', zoom: 'https://cedia.zoom.us/j/87349957464' },
+  ],
+  5: [ { name: 'Inglés', time: '18:00–22:00', zoom: null } ], // viernes
+  6: [], // sábado
+};
+
+const today = new Date();
+const dayOfWeek = today.getDay();
+const days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const todayBox = document.getElementById('today-box');
+const todayClasses = todaySchedule[dayOfWeek] || [];
+
+if (todayClasses.length === 0) {
+  todayBox.innerHTML = `<div class="today-label">Hoy · ${days[dayOfWeek]}</div><p style="font-size:13px;color:var(--text2)">No hay clases programadas hoy.</p>`;
+} else {
+  todayBox.innerHTML = `<div class="today-label">Hoy · ${days[dayOfWeek]}</div><div class="today-classes">${
+    todayClasses.map(c => `<div class="today-class-row">
+      <span><strong style="font-weight:500">${c.name}</strong> &nbsp;<span style="color:var(--text2);font-family:var(--mono);font-size:12px">${c.time}</span></span>
+      ${c.zoom ? `<a href="${c.zoom}" target="_blank">Abrir Zoom</a>` : ''}
+    </div>`).join('')
+  }</div>`;
+}
+
+function getDaysLeft(dueStr) {
+  if (!dueStr.startsWith('2026')) return null;
+  const due = new Date(dueStr);
+  const now = new Date(); now.setHours(0,0,0,0);
+  return Math.ceil((due - now) / 86400000);
+}
+
+function getUrgency(days) {
+  if (days === null) return 'ok';
+  if (days <= 3) return 'urgent';
+  if (days <= 7) return 'soon';
+  return 'ok';
+}
+
+function formatDate(dueStr) {
+  if (!dueStr.startsWith('2026')) return dueStr;
+  return new Date(dueStr).toLocaleDateString('es-EC', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function buildItem(a, showDays) {
+  const days = getDaysLeft(a.due);
+  const urgency = getUrgency(days);
+  const daysText = days !== null ? (days === 0 ? 'Hoy' : days < 0 ? 'Vencido' : `${days} días`) : '';
+  return `<div class="activity-item ${urgency}">
+    <div>
+      <div class="activity-name">${a.code}</div>
+      <div class="activity-meta">${a.type} · ${a.semana}</div>
+    </div>
+    <div>
+      <div class="activity-date ${urgency}">${formatDate(a.due)}</div>
+      ${showDays && daysText ? `<div class="days-left">${daysText}</div>` : ''}
+    </div>
+  </div>`;
+}
+
+const urgentEl = document.getElementById('activity-list');
+const upcoming = activities.filter(a => { const d = getDaysLeft(a.due); return d !== null && d >= 0 && d <= 30; })
+  .sort((a,b) => new Date(a.due) - new Date(b.due));
+urgentEl.innerHTML = upcoming.length ? upcoming.map(a => buildItem(a, true)).join('') :
+  '<p style="color:var(--text2);font-size:13px;">No hay actividades en los próximos 30 días.</p>';
+
+document.getElementById('full-cronograma').innerHTML = activities.map(a => buildItem(a, false)).join('');
+
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector(`[onclick="showTab('${name}')"]`).classList.add('active');
+  document.getElementById(`tab-${name}`).classList.add('active');
+}
+</script>
+</body>
+</html>
