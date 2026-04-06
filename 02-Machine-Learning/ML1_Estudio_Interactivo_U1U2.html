@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML1 — Estudio Interactivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0f;--surface:#111118;--card:#16161f;--border:#2a2a3a;
+    --accent:#f5a623;--accent2:#7c6deb;--green:#2ecc71;--red:#e74c3c;
+    --text:#e8e8f0;--muted:#666680;
+    --mono:'Space Mono',monospace;--sans:'Syne',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,109,235,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,109,235,0.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+  .container{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:24px 20px;}
+
+  header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:16px;}
+  .logo-tag{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;}
+  .logo h1{font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1.1;margin-top:4px;}
+  .logo h1 span{color:var(--accent);}
+  .score-display{font-family:var(--mono);text-align:right;}
+  .score-num{font-size:36px;font-weight:700;color:var(--accent);line-height:1;}
+  .score-label{font-size:11px;color:var(--muted);letter-spacing:2px;}
+
+  .main-tabs{display:flex;gap:6px;margin-bottom:28px;background:var(--surface);padding:6px;border-radius:14px;border:1px solid var(--border);flex-wrap:wrap;}
+  .main-tab{flex:1;min-width:90px;padding:10px 12px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.25s;text-align:center;}
+  .main-tab.active{background:var(--accent);color:#000;}
+
+  .stats-strip{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
+  .stat-box{flex:1;min-width:70px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;text-align:center;}
+  .stat-value{font-family:var(--mono);font-size:22px;font-weight:700;display:block;}
+  .stat-value.green{color:var(--green);}.stat-value.red{color:var(--red);}.stat-value.yellow{color:var(--accent);}
+  .stat-label{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+
+  .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+  .pill{font-family:var(--mono);font-size:10px;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;letter-spacing:1px;}
+  .pill.active{border-color:var(--accent2);color:var(--accent2);background:rgba(124,109,235,0.1);}
+  .chip{font-family:var(--mono);font-size:10px;padding:5px 12px;border-radius:20px;background:rgba(124,109,235,0.1);color:var(--accent2);border:1px solid rgba(124,109,235,0.2);cursor:pointer;transition:all 0.2s;letter-spacing:1px;}
+  .chip.active{background:var(--accent2);color:#fff;border-color:var(--accent2);}
+
+  .progress-bar{width:100%;height:3px;background:var(--border);border-radius:2px;margin-bottom:28px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:2px;transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
+
+  .question-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:34px;margin-bottom:18px;position:relative;overflow:hidden;animation:slideIn 0.3s cubic-bezier(0.4,0,0.2,1);}
+  @keyframes slideIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent2),var(--accent));}
+  .q-meta{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+  .q-badge{font-family:var(--mono);font-size:10px;padding:3px 10px;border-radius:5px;letter-spacing:1.5px;}
+  .q-badge.num{color:var(--accent);background:rgba(245,166,35,0.12);}
+  .q-badge.sess{color:var(--accent2);background:rgba(124,109,235,0.1);}
+  .q-badge.topic{color:var(--muted);background:var(--surface);}
+  .q-text{font-size:18px;font-weight:700;line-height:1.45;margin-bottom:26px;}
+  .options{display:flex;flex-direction:column;gap:9px;}
+  .option-btn{display:flex;align-items:flex-start;gap:13px;padding:15px 18px;border-radius:11px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:15px;cursor:pointer;text-align:left;transition:all 0.2s;line-height:1.4;}
+  .option-btn:hover:not(:disabled){border-color:var(--accent2);background:rgba(124,109,235,0.08);transform:translateX(4px);}
+  .option-btn .opt-letter{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--muted);min-width:18px;margin-top:2px;}
+  .option-btn.correct{border-color:var(--green);background:rgba(46,204,113,0.1);}
+  .option-btn.correct .opt-letter{color:var(--green);}
+  .option-btn.wrong{border-color:var(--red);background:rgba(231,76,60,0.1);}
+  .option-btn.wrong .opt-letter{color:var(--red);}
+  .option-btn.reveal-correct{border-color:var(--green);background:rgba(46,204,113,0.06);opacity:0.7;}
+  .feedback{margin-top:18px;padding:16px 20px;border-radius:11px;display:none;animation:fadeUp 0.3s ease;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:translateY(0);}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.3);}
+  .feedback.wrong-fb{background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.3);}
+  .feedback-title{font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
+  .feedback.correct-fb .feedback-title{color:var(--green);}
+  .feedback.wrong-fb .feedback-title{color:var(--red);}
+  .feedback-body{font-size:13px;line-height:1.65;color:var(--text);font-family:var(--mono);}
+
+  .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:10px;flex-wrap:wrap;}
+  .btn{padding:11px 26px;border-radius:10px;border:none;font-family:var(--sans);font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.4px;}
+  .btn-primary{background:var(--accent);color:#000;}
+  .btn-primary:hover{background:#f0b840;transform:translateY(-2px);}
+  .btn-secondary{background:transparent;color:var(--muted);border:1px solid var(--border);}
+  .btn-secondary:hover{color:var(--text);border-color:var(--text);}
+  .btn-ghost{background:rgba(124,109,235,0.13);color:var(--accent2);border:1px solid rgba(124,109,235,0.3);}
+  .btn-ghost:hover{background:rgba(124,109,235,0.23);}
+
+  .flashcard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:48px 36px;text-align:center;cursor:pointer;min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;margin-bottom:18px;}
+  .flashcard::before{content:'';position:absolute;inset:0;border-radius:20px;background:linear-gradient(135deg,rgba(124,109,235,0.05),transparent);pointer-events:none;}
+  .flip-indicator{position:absolute;top:18px;right:22px;font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:1px;}
+  .card-hint{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:2px;margin-bottom:22px;text-transform:uppercase;}
+  .card-content{font-size:21px;font-weight:700;line-height:1.4;}
+  .card-answer{font-size:16px;line-height:1.6;color:var(--green);font-weight:600;}
+
+  .end-screen{text-align:center;padding:56px 20px;display:none;}
+  .end-screen.show{display:block;}
+  .end-emoji{font-size:60px;margin-bottom:18px;}
+  .end-title{font-size:34px;font-weight:800;margin-bottom:10px;letter-spacing:-1px;}
+  .end-sub{color:var(--muted);font-size:15px;margin-bottom:36px;}
+  .end-big-score{font-family:var(--mono);font-size:76px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:6px;}
+  .end-score-label{font-size:13px;color:var(--muted);letter-spacing:2px;margin-bottom:36px;}
+
+  /* ── NOTES ── */
+  #notesMode{display:none;}
+  #notesMode.show{display:block;}
+  .notes-session-tabs{display:flex;gap:8px;margin-bottom:26px;}
+  .notes-tab{flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;text-align:center;}
+  .notes-tab.active{background:var(--accent2);color:#fff;border-color:var(--accent2);}
+  .notes-content{display:none;}
+  .notes-content.show{display:block;}
+
+  .notes-section{margin-bottom:16px;background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;}
+  .notes-section-header{padding:18px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;cursor:pointer;user-select:none;}
+  .notes-section-header:hover{background:rgba(124,109,235,0.04);}
+  .sec-icon{font-size:20px;}
+  .sec-title-wrap{flex:1;}
+  .sec-tag{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:3px;}
+  .sec-title{font-size:16px;font-weight:800;}
+  .toggle-icon{font-family:var(--mono);font-size:15px;color:var(--muted);transition:transform 0.3s;}
+  .notes-section.open .toggle-icon{transform:rotate(180deg);}
+  .notes-body{padding:0 24px;max-height:0;overflow:hidden;transition:max-height 0.45s cubic-bezier(0.4,0,0.2,1),padding 0.3s;}
+  .notes-section.open .notes-body{max-height:3000px;padding:20px 24px 26px;}
+
+  .concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:11px;margin:14px 0;}
+  .cc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:15px 17px;}
+  .cc-icon{font-size:19px;margin-bottom:7px;}
+  .cc-title{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:5px;}
+  .cc-body{font-size:12px;color:var(--muted);line-height:1.6;font-family:var(--mono);}
+
+  .hbox{background:rgba(124,109,235,0.08);border:1px solid rgba(124,109,235,0.22);border-radius:10px;padding:13px 17px;font-family:var(--mono);font-size:13px;line-height:1.6;margin:12px 0;color:var(--text);}
+  .hbox strong{color:var(--accent);}
+  .hbox.green-box{background:rgba(46,204,113,0.06);border-color:rgba(46,204,113,0.2);}
+  .hbox.green-box strong{color:var(--green);}
+
+  .info-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;}
+  .info-table th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--accent);padding:8px 12px;border-bottom:1px solid var(--border);text-transform:uppercase;}
+  .info-table td{padding:9px 12px;border-bottom:1px solid rgba(42,42,58,0.5);color:var(--text);vertical-align:top;line-height:1.5;font-size:13px;}
+  .info-table tr:last-child td{border-bottom:none;}
+  .info-table tr:hover td{background:rgba(124,109,235,0.04);}
+
+  .kp{list-style:none;display:flex;flex-direction:column;gap:9px;margin:12px 0;}
+  .kp li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.55;}
+  .kp li::before{content:'→';font-family:var(--mono);color:var(--accent2);flex-shrink:0;margin-top:1px;}
+
+  .ch-item{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);}
+  .ch-item:last-child{border-bottom:none;}
+  .ch-num{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--accent2);min-width:30px;line-height:1;}
+  .ch-title{font-size:14px;font-weight:700;margin-bottom:4px;}
+  .ch-desc{font-size:12px;color:var(--muted);font-family:var(--mono);line-height:1.5;}
+
+  .tool-row{display:flex;align-items:flex-start;gap:14px;padding:11px 0;border-bottom:1px solid rgba(42,42,58,0.5);}
+  .tool-row:last-child{border-bottom:none;}
+  .tb{font-family:var(--mono);font-size:11px;font-weight:700;color:#000;background:var(--accent);padding:4px 10px;border-radius:5px;min-width:80px;text-align:center;white-space:nowrap;margin-top:2px;}
+  .tb.p{background:var(--accent2);}
+  .tb.g{background:var(--green);}
+  .tb.b{background:#3498db;}
+  .tb.gr{background:#636e72;color:#fff;}
+  .tb.d{background:#2c3e50;color:#fff;}
+  .tool-fn{font-size:13px;font-weight:600;margin-bottom:3px;}
+  .tool-desc{font-size:12px;color:var(--muted);font-family:var(--mono);line-height:1.5;}
+
+  .hidden{display:none!important;}
+  ::-webkit-scrollbar{width:5px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="logo">
+    <span class="logo-tag">UNACH · 4TO SEM · 2026-1S</span>
+    <h1>Machine <span>Learning 1</span></h1>
+  </div>
+  <div class="score-display">
+    <div class="score-num" id="scoreNum">—</div>
+    <div class="score-label">PUNTUACIÓN</div>
+  </div>
+</header>
+
+<div class="main-tabs">
+  <button class="main-tab active" onclick="setMode('quiz')">⚡ Quiz</button>
+  <button class="main-tab" onclick="setMode('flashcard')">🃏 Flashcards</button>
+  <button class="main-tab" onclick="setMode('review')">📋 Ver todo</button>
+  <button class="main-tab" onclick="setMode('notes')">📖 Resumen</button>
+</div>
+
+<div id="statsStrip" class="stats-strip">
+  <div class="stat-box"><span class="stat-value yellow" id="totalQ">0</span><div class="stat-label">Total</div></div>
+  <div class="stat-box"><span class="stat-value green" id="correctQ">0</span><div class="stat-label">Correctas</div></div>
+  <div class="stat-box"><span class="stat-value red" id="wrongQ">0</span><div class="stat-label">Incorrectas</div></div>
+  <div class="stat-box"><span class="stat-value yellow" id="remainQ">0</span><div class="stat-label">Restantes</div></div>
+</div>
+
+<div id="filtersBlock">
+  <div class="filter-row" id="sessionFilter">
+    <button class="pill active" onclick="filterSession('all',this)">TODAS</button>
+    <button class="pill" onclick="filterSession('S1',this)">U1-T1-S1</button>
+    <button class="pill" onclick="filterSession('S2',this)">U1-T1-S2</button>
+  </div>
+  <div class="filter-row" id="topicFilter">
+    <span class="chip active" onclick="filterTopic('all',this)">TODOS</span>
+    <span class="chip" onclick="filterTopic('tipos',this)">Tipos ML</span>
+    <span class="chip" onclick="filterTopic('aplicaciones',this)">Aplicaciones</span>
+    <span class="chip" onclick="filterTopic('matematicas',this)">Math</span>
+    <span class="chip" onclick="filterTopic('herramientas',this)">Herramientas</span>
+    <span class="chip" onclick="filterTopic('historia',this)">Historia IA</span>
+  </div>
+</div>
+
+<div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+<!-- QUIZ -->
+<div id="quizMode">
+  <div id="questionCard"></div>
+  <div class="nav-row">
+    <button class="btn btn-secondary" onclick="skipQ()">Saltar →</button>
+    <button class="btn btn-ghost" onclick="shuffleQ()">🔀 Mezclar</button>
+    <button class="btn btn-primary" id="nextBtn" onclick="nextQ()" style="display:none">Siguiente →</button>
+  </div>
+</div>
+
+<!-- FLASHCARD -->
+<div id="flashcardMode" class="hidden">
+  <div class="flashcard" onclick="flipCard()">
+    <div class="flip-indicator">CLICK PARA VOLTEAR</div>
+    <div class="card-hint" id="cardHint">PREGUNTA</div>
+    <div class="card-content" id="cardContent"></div>
+  </div>
+  <div class="nav-row">
+    <button class="btn btn-secondary" onclick="prevFlash()">← Anterior</button>
+    <button class="btn btn-ghost" id="flashCounter">1 / 1</button>
+    <button class="btn btn-primary" onclick="nextFlash()">Siguiente →</button>
+  </div>
+</div>
+
+<!-- REVIEW -->
+<div id="reviewMode" class="hidden"></div>
+
+<!-- NOTES -->
+<div id="notesMode">
+  <div class="notes-session-tabs">
+    <button class="notes-tab active" onclick="showNotes('s1',this)">📘 U1-T1-S1 · Sesión 1</button>
+    <button class="notes-tab" onclick="showNotes('s2',this)">📗 U1-T1-S2 · Sesión 2</button>
+  </div>
+
+  <!-- S1 NOTES -->
+  <div class="notes-content show" id="notes-s1">
+
+    <div class="notes-section open" id="n1">
+      <div class="notes-section-header" onclick="tog('n1')">
+        <span class="sec-icon">🤖</span>
+        <div class="sec-title-wrap"><div class="sec-tag">1.1 · CONCEPTO</div><div class="sec-title">Concepto y Tipos de ML</div></div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="notes-body">
+        <div class="hbox"><strong>Definición ISO (2023):</strong> El aprendizaje automático es la disciplina que desarrolla algoritmos capaces de mejorar su desempeño en tareas específicas a partir de datos, <strong>sin ser programados explícitamente</strong> para cada caso.</div>
+        <div class="hbox" style="background:rgba(231,76,60,0.06);border-color:rgba(231,76,60,0.2);margin-top:8px"><strong style="color:var(--red)">Diferencia clave vs programación tradicional:</strong> Programación tradicional → el humano escribe las reglas. ML → el algoritmo aprende las reglas a partir de los datos.</div>
+        <div class="concept-grid">
+          <div class="cc"><div class="cc-icon">🏷️</div><div class="cc-title">1. Supervisado</div><div class="cc-body">Datos con etiquetas conocidas. El más usado en industria.<br><br>Ej: clasificación de imágenes, diagnóstico médico, predicción de precios.</div></div>
+          <div class="cc"><div class="cc-icon">🔍</div><div class="cc-title">2. No Supervisado</div><div class="cc-body">Sin etiquetas. Descubre estructuras ocultas en los datos.<br><br>Ej: segmentación de clientes, análisis de redes sociales, PCA.</div></div>
+          <div class="cc"><div class="cc-icon">🔀</div><div class="cc-title">3. Semi-supervisado</div><div class="cc-body">Pocos datos etiquetados + muchos sin etiquetar. Útil cuando etiquetar es costoso.<br><br>Ej: genómica, imágenes médicas.</div></div>
+          <div class="cc"><div class="cc-icon">🎮</div><div class="cc-title">4. Por Refuerzo</div><div class="cc-body">Agente aprende por recompensas / penalizaciones interactuando con un entorno.<br><br>Ej: robótica, videojuegos complejos, trading.</div></div>
+          <div class="cc"><div class="cc-icon">🧠</div><div class="cc-title">5. Auto-supervisado</div><div class="cc-body">Genera sus propias etiquetas desde los datos. Base de LLMs.<br><br>Ej: GPT, BERT, modelos de visión por computadora.</div></div>
+          <div class="cc"><div class="cc-icon">🔗</div><div class="cc-title">Sistemas Híbridos</div><div class="cc-body">Combinan múltiples paradigmas para arquitecturas más robustas y versátiles. Mayor flexibilidad.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes-section" id="n2">
+      <div class="notes-section-header" onclick="tog('n2')">
+        <span class="sec-icon">🌐</span>
+        <div class="sec-title-wrap"><div class="sec-tag">1.2 · APLICACIONES</div><div class="sec-title">Aplicaciones y Desafíos en Ciencia e Ingeniería</div></div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="notes-body">
+        <table class="info-table">
+          <thead><tr><th>Campo</th><th>Aplicaciones de ML</th></tr></thead>
+          <tbody>
+            <tr><td>🏥 Salud y Biomedicina</td><td>Diagnóstico por imágenes · Predicción de riesgos cardiovasculares · Descubrimiento de fármacos moleculares</td></tr>
+            <tr><td>🏗️ Civil y Ambiental</td><td>Detección de fallas estructurales · Predicción de deslizamientos de tierra · Modelado de inundaciones satelitales</td></tr>
+            <tr><td>📡 Telecomunicaciones</td><td>Detección de fraudes · Predicción de congestión de red · Optimización de asignación de recursos</td></tr>
+            <tr><td>📖 Educación Personalizada</td><td>Sistemas adaptativos de contenido según desempeño · Itinerarios de aprendizaje flexibles</td></tr>
+          </tbody>
+        </table>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:2px;margin:16px 0 10px;text-transform:uppercase">DESAFÍOS CRÍTICOS</div>
+        <div class="ch-item"><div class="ch-num">01</div><div><div class="ch-title">Sesgos y Equidad</div><div class="ch-desc">Los algoritmos reproducen sesgos de los datos → retos éticos y sociales (Mersha et al., 2024).</div></div></div>
+        <div class="ch-item"><div class="ch-num">02</div><div><div class="ch-title">Complejidad Computacional</div><div class="ch-desc">Modelos profundos requieren GPU/TPU y alto consumo energético (Hao et al., 2022).</div></div></div>
+        <div class="ch-item"><div class="ch-num">03</div><div><div class="ch-title">Calidad de Datos</div><div class="ch-desc">Ruido, valores faltantes y distribuciones no representativas comprometen la validez del modelo (Dritsas et al., 2025). Regla: "Garbage In = Garbage Out".</div></div></div>
+        <div class="ch-item"><div class="ch-num">04</div><div><div class="ch-title">Interpretabilidad</div><div class="ch-desc">Necesidad de modelos explicables en medicina y finanzas. → Subcampo XAI (Explainable AI) y Physics-Informed ML.</div></div></div>
+      </div>
+    </div>
+
+    <div class="notes-section" id="n3">
+      <div class="notes-section-header" onclick="tog('n3')">
+        <span class="sec-icon">📐</span>
+        <div class="sec-title-wrap"><div class="sec-tag">1.3 · MATH</div><div class="sec-title">Álgebra Lineal, Probabilidad y Estadística</div></div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="notes-body">
+        <div class="concept-grid">
+          <div class="cc" style="border-color:rgba(245,166,35,0.35)"><div class="cc-icon">📐</div><div class="cc-title" style="color:var(--accent)">Álgebra Lineal</div><div class="cc-body">→ Datos en <strong style="color:var(--text)">vectores y matrices</strong><br>→ Transformaciones lineales<br>→ Descomposiciones: SVD, PCA<br>→ Álgebra aleatorizada (big data)</div></div>
+          <div class="cc" style="border-color:rgba(124,109,235,0.35)"><div class="cc-icon">📊</div><div class="cc-title" style="color:var(--accent2)">Probabilidad</div><div class="cc-body">→ Modelar <strong style="color:var(--text)">incertidumbre</strong> con distribuciones<br>→ Procesos estocásticos<br>→ Modelos de Markov (refuerzo)<br>→ Teorema de Bayes</div></div>
+          <div class="cc" style="border-color:rgba(46,204,113,0.35)"><div class="cc-icon">📈</div><div class="cc-title" style="color:var(--green)">Estadística</div><div class="cc-body">→ <strong style="color:var(--text)">Inferencia</strong> y validación<br>→ Pruebas de hipótesis<br>→ Garantizar generalización<br>→ Evitar patrones espurios</div></div>
+        </div>
+        <div class="hbox">Los 3 pilares juntos permiten diseñar algoritmos que equilibren <strong>precisión, eficiencia y capacidad de generalización</strong>.</div>
+      </div>
+    </div>
+
+    <div class="notes-section" id="n4">
+      <div class="notes-section-header" onclick="tog('n4')">
+        <span class="sec-icon">🔑</span>
+        <div class="sec-title-wrap"><div class="sec-tag">RESUMEN · S1</div><div class="sec-title">Conceptos Clave — Lo que debes recordar</div></div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="notes-body">
+        <ul class="kp">
+          <li>ML aprende patrones <strong>sin código explícito</strong> → diferencia fundamental con programación tradicional basada en reglas fijas.</li>
+          <li>Cada tipo de ML tiene un propósito distinto → elige según disponibilidad de etiquetas y tipo de retroalimentación.</li>
+          <li><strong>Los datos son lo más importante</strong> → calidad &gt; cantidad. 80% del trabajo en ML es preparación y limpieza de datos.</li>
+          <li>El término "IA" surgió en los <strong>1950s</strong> — Conferencia de Dartmouth 1956, John McCarthy.</li>
+          <li>Resurgimiento IA en los 2000s = <strong>mayor poder computacional + Big Data</strong>.</li>
+          <li>Los 2010s = era del Deep Learning: AlexNet (2012), Transformers (2017), GPT (2018+).</li>
+          <li>Sesgos y ética son fundamentales → XAI busca transparencia en decisiones críticas.</li>
+          <li>En educación, ML adapta contenido pero debe evitar <strong>sesgos en recomendaciones personalizadas</strong>.</li>
+          <li>En civil/ambiental: ML predice <strong>deslizamientos e inundaciones</strong>, no traduce textos ni genera multimedia.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /notes-s1 -->
+
+  <!-- S2 NOTES -->
+  <div class="notes-content" id="notes-s2">
+
+    <div class="notes-section open" id="n5">
+      <div class="notes-section-header" onclick="tog('n5')">
+        <span class="sec-icon">📐</span>
+        <div class="sec-title-wrap"><div class="sec-tag">1.3 · MATH (S2)</div><div class="sec-title">Álgebra Lineal, Probabilidad y Estadística</div></div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="notes-body">
+        <div class="concept-grid">
+          <div class="cc" style="border-color:rgba(245,166,35,0.35)"><div class="cc-icon">📐</div><div class="cc-title" style="color:var(--accent)">Álgebra Lineal</div><div class="cc-body">→ Datos en <strong style="color:var(--text)">vectores y matrices</strong><br>→ Transformaciones lineales<br>→ SVD, PCA como descomposiciones clave<br>→ Álgebra aleatorizada para datos masivos</div></div>
+          <div class="cc" style="border-color:rgba(124,109,235,0.35)"><div class="cc-icon">📊</div><div class="cc-title" style="color:var(--accent2)">Probabilidad</div><div class="cc-body">→ <strong style="color:var(--text)">Incertidumbre</strong> mediante distribuciones<br>→ Procesos estocásticos<br>→ <strong style="color:var(--text)">Modelos de Markov</strong> esenciales en refuerzo<br>→ Teorema de Bayes</div></div>
+          <div class="cc" style="border-color:rgba(46,204,113,0.35)"><div class="cc-icon">📈</div><div class="cc-title" style="color:var(--green)">Estadística</div><div class="cc-body">→ Métodos de <strong style="color:var(--text)">inferencia</strong> y validación<br>→ Pruebas de hipótesis<br>→ Asegurar generalización<br>→ Evitar patrones espurios (Symeonidis et al., 2022)</div></div>
+        </div>
+        <div class="hbox green-box"><strong>Modelos de Markov:</strong> Modelan procesos <strong>estocásticos y secuenciales</strong>. Probabilidad de transición: P(estado siguiente | estado actual). Son la base matemática del Aprendizaje por Refuerzo. NO son datos deterministas ni se limitan al álgebra lineal.</div>
+        <div class="hbox">Por qué los 3 pilares juntos son esenciales: <strong>Álgebra lineal</strong> (representar datos) + <strong>Probabilidad</strong> (manejar incertidumbre) + <strong>Estadística</strong> (validar y generalizar) → algoritmos robustos y generalizables.</div>
+      </div>
+    </div>
+
+    <div class="notes-section" id="n6">
+      <div class="notes-section-header" onclick="tog('n6')">
+        <span class="sec-icon">🐍</span>
+        <div class="sec-title-wrap"><div class="sec-tag">1.4 · HERRAMIENTAS</div><div class="sec-title">Ecosistema Computacional de ML</div></div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="notes-body">
+        <div class="tool-row"><span class="tb">Python</span><div><div class="tool-fn">Lenguaje principal de ML</div><div class="tool-desc">Simplicidad + extenso ecosistema. Domina sobre R, Java, Scala. Preferido por productividad + comunidad + librerías especializadas.</div></div></div>
+        <div class="tool-row"><span class="tb b">NumPy</span><div><div class="tool-fn">Computación numérica — arreglos multidimensionales</div><div class="tool-desc">Operaciones matriciales eficientes. Base de todo el ecosistema científico Python. No hace visualización ni modelos directamente.</div></div></div>
+        <div class="tool-row"><span class="tb b">Pandas</span><div><div class="tool-fn">Manipulación de datos tabulares (DataFrames)</div><div class="tool-desc">Cargar CSV/Excel, limpiar, filtrar, agrupar, pivotar. Series y DataFrames como estructuras. El "Excel" de Python para ML. No crea redes neuronales.</div></div></div>
+        <div class="tool-row"><span class="tb" style="background:#e67e22">Matplotlib</span><div><div class="tool-fn">Visualización de datos</div><div class="tool-desc">Gráficas, histogramas, scatter plots, reportes visuales. Seaborn lo complementa para visualización estadística. No hace modelado.</div></div></div>
+        <div class="tool-row"><span class="tb g">Scikit-learn</span><div><div class="tool-fn">ML clásico — clasificación, regresión, clustering</div><div class="tool-desc">Interfaz uniforme: fit() → predict() → score(). Estándar para modelos tradicionales. No hace deep learning.</div></div></div>
+        <div class="tool-row"><span class="tb p">TensorFlow</span><div><div class="tool-fn">Deep Learning — Google</div><div class="tool-desc">Construcción y entrenamiento de redes neuronales profundas. Keras como API de alto nivel. Orientado a producción a escala.</div></div></div>
+        <div class="tool-row"><span class="tb p">PyTorch</span><div><div class="tool-fn">Deep Learning flexible — Meta</div><div class="tool-desc">Prototipado y entrenamiento de modelos complejos. Favorito en investigación académica por su dinamismo y facilidad de debug.</div></div></div>
+        <div class="tool-row"><span class="tb gr">Jupyter</span><div><div class="tool-fn">Entorno interactivo reproducible</div><div class="tool-desc">Código + texto + gráficas en un documento. Permite documentar experimentos paso a paso. Estándar en ciencia de datos.</div></div></div>
+        <div class="tool-row"><span class="tb gr">Colab</span><div><div class="tool-fn">Jupyter en la nube — Google</div><div class="tool-desc">GPU/TPU gratis, sin instalación local. Ideal para comenzar proyectos de ML sin hardware especializado.</div></div></div>
+        <div class="tool-row"><span class="tb d">MLOps</span><div><div class="tool-fn">Ingeniería de software + Ciencia de datos</div><div class="tool-desc">Reproducibilidad y escalabilidad en producción. CI/CD de modelos (Symeonidis et al., 2022).</div></div></div>
+      </div>
+    </div>
+
+    <div class="notes-section" id="n7">
+      <div class="notes-section-header" onclick="tog('n7')">
+        <span class="sec-icon">🔑</span>
+        <div class="sec-title-wrap"><div class="sec-tag">RESUMEN · S2</div><div class="sec-title">Conceptos Clave — Lo que debes recordar</div></div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="notes-body">
+        <ul class="kp">
+          <li>Supervisado = pares <strong>entrada→salida</strong> con etiquetas conocidas. Ejemplo clásico y correcto: <strong>filtro de spam</strong>.</li>
+          <li>No supervisado = sin etiquetas, descubre estructura oculta. Ejemplo: <strong>clustering de clientes</strong>.</li>
+          <li>Modelos de Markov = probabilidad aplicada a <strong>procesos secuenciales y estocásticos</strong> (NO son deterministas, NO solo álgebra lineal).</li>
+          <li>Álgebra lineal = lenguaje de ML. Datos como <strong>vectores y matrices</strong>. SVD y PCA son descomposiciones clave.</li>
+          <li>Python preferido por <strong>productividad + comunidad + librerías</strong>, NO porque sea el único con condicionales o no dependa de librerías.</li>
+          <li><strong>Pandas ≠ deep learning</strong>. Pandas = DataFrames tabulares. TensorFlow/PyTorch = redes neuronales profundas.</li>
+          <li>Jupyter = documentación <strong>reproducible</strong>. Colab = Jupyter en la nube con GPU gratis.</li>
+          <li>Los 3 pilares matemáticos <strong>juntos</strong> permiten diseñar algoritmos robustos y generalizables.</li>
+        </ul>
+        <table class="info-table" style="margin-top:14px">
+          <thead><tr><th>Librería</th><th>Función principal</th><th>Lo que NO hace</th></tr></thead>
+          <tbody>
+            <tr><td>NumPy</td><td>Computación numérica, arreglos</td><td>No hace visualización ni ML completo</td></tr>
+            <tr><td>Pandas</td><td>DataFrames, análisis tabular</td><td>No crea redes neuronales</td></tr>
+            <tr><td>Matplotlib</td><td>Gráficas y visualización</td><td>No hace modelado predictivo</td></tr>
+            <tr><td>Scikit-learn</td><td>ML clásico (clasificar, regresionar)</td><td>No hace deep learning</td></tr>
+            <tr><td>TensorFlow</td><td>Redes neuronales profundas</td><td>No es para datos tabulares simples</td></tr>
+            <tr><td>PyTorch</td><td>Deep learning flexible, investigación</td><td>No exclusivo de producción</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /notes-s2 -->
+</div><!-- /notesMode -->
+
+<!-- END SCREEN -->
+<div class="end-screen" id="endScreen">
+  <div class="end-emoji" id="endEmoji">🎉</div>
+  <div class="end-title" id="endTitle">¡Quiz completado!</div>
+  <div class="end-sub" id="endSub"></div>
+  <div class="end-big-score" id="endBigScore"></div>
+  <div class="end-score-label">RESPUESTAS CORRECTAS</div>
+  <button class="btn btn-primary" style="margin:0 auto;display:block;margin-top:12px" onclick="restart()">🔄 Intentar de nuevo</button>
+</div>
+
+</div><!-- /container -->
+
+<script>
+const QS=[
+  {id:1,s:'S1',t:'historia',q:'¿Cuál fue un hito en IA en los 2010s?',o:['El uso de reglas lógicas en todo sistema','La exclusión de datos no estructurados','El éxito de redes profundas en visión y lenguaje'],c:2,e:'Los 2010s = era del Deep Learning: AlexNet (2012), Transformers (2017), GPT-2/3 (2018-2020). Las redes profundas dominaron visión por computadora y NLP.'},
+  {id:2,s:'S1',t:'aplicaciones',q:'¿Qué significa la calidad de datos en ML?',o:['Que basta con tener grandes volúmenes sin importar su fiabilidad','Que los modelos pueden aprender incluso sin datos','Que ruido y valores faltantes afectan la validez del modelo'],c:2,e:'Calidad > Cantidad. Ruido, valores faltantes y distribuciones no representativas comprometen el modelo (Dritsas et al., 2025). "Garbage In, Garbage Out".'},
+  {id:3,s:'S1',t:'tipos',q:'¿En qué consiste el aprendizaje no supervisado?',o:['Depende de etiquetas predefinidas','Identifica estructuras ocultas en datos sin etiquetas','No requiere procesamiento computacional'],c:1,e:'No supervisado trabaja SIN etiquetas, descubriendo estructuras ocultas: agrupamientos (clustering) o componentes principales.'},
+  {id:4,s:'S1',t:'tipos',q:'¿Qué se entiende por aprendizaje automático (ML)?',o:['Algoritmos que solo ejecutan instrucciones predefinidas','Algoritmos que mejoran su desempeño en tareas específicas a partir de datos','Sistemas que reemplazan completamente a los humanos en cualquier tarea'],c:1,e:'ML = disciplina que desarrolla algoritmos capaces de mejorar su desempeño en tareas específicas a partir de datos, sin ser programados explícitamente (ISO, 2023).'},
+  {id:5,s:'S1',t:'aplicaciones',q:'En ingeniería civil y ambiental, el ML puede usarse para:',o:['Traducción automática de textos','Crear contenido multimedia','Predicción de deslizamientos e inundaciones'],c:2,e:'En civil/ambiental: detección de fallas estructurales, predicción de deslizamientos, modelado de inundaciones con datos satelitales.'},
+  {id:6,s:'S1',t:'aplicaciones',q:'¿Por qué es importante la interpretabilidad?',o:['Porque mejora la velocidad de cómputo','Porque sustituye la necesidad de pruebas estadísticas','Porque en áreas críticas se requiere explicar decisiones'],c:2,e:'XAI es crítico en medicina y finanzas donde médicos, pacientes y reguladores necesitan entender las decisiones del modelo (Mersha et al., 2024).'},
+  {id:7,s:'S1',t:'tipos',q:'¿Qué problema busca resolver el aprendizaje auto-supervisado en NLP?',o:['Mejorar hardware de GPUs','Reducir costos en satélites','Crear representaciones de lenguaje sin etiquetas manuales'],c:2,e:'El auto-supervisado crea etiquetas artificiales desde los propios datos. Es la base de GPT, BERT y LLMs modernos, eliminando el etiquetado manual costoso.'},
+  {id:8,s:'S1',t:'historia',q:'¿En qué década surgió el término "inteligencia artificial"?',o:['1940','1980','1950'],c:2,e:'El término "Inteligencia Artificial" fue acuñado por John McCarthy en 1956 (Conferencia de Dartmouth). La década correcta es los 1950s.'},
+  {id:9,s:'S1',t:'historia',q:'¿Qué permitió el resurgimiento de la IA en los 2000?',o:['Mayor poder computacional y big data','La desaparición de la estadística','La caída de internet'],c:0,e:'El resurgimiento fue impulsado por: mayor poder computacional (GPUs), disponibilidad masiva de datos (Big Data) e internet.'},
+  {id:10,s:'S1',t:'aplicaciones',q:'¿Por qué es clave la transparencia en medicina?',o:['Para aumentar la velocidad de consultas','Para reducir el costo de tratamientos','Para que médicos y pacientes comprendan las decisiones del modelo'],c:2,e:'En medicina las decisiones de modelos afectan vidas. Médicos y pacientes deben entender y validar las recomendaciones de la IA.'},
+  {id:11,s:'S1',t:'tipos',q:'¿Qué distingue al aprendizaje supervisado?',o:['Siempre requiere que los datos no tengan etiquetas','Se centra únicamente en simular redes neuronales','Utiliza conjuntos de datos con etiquetas conocidas'],c:2,e:'Supervisado = datos con etiquetas conocidas. El más usado en industria: clasificación de imágenes, predicción de valores, diagnóstico médico (IBM, 2023).'},
+  {id:12,s:'S1',t:'tipos',q:'¿Qué hace único al aprendizaje auto-supervisado?',o:['Genera etiquetas artificiales a partir de los propios datos','Depende exclusivamente de hardware especializado','No utiliza datos'],c:0,e:'El auto-supervisado genera sus propias etiquetas desde los datos de entrada, sin intervención humana. Fundamento de GPT, BERT y LLMs modernos.'},
+  {id:13,s:'S1',t:'tipos',q:'Un sistema híbrido de ML se caracteriza por:',o:['Combinar enfoques para mayor robustez','Limitarse a un único paradigma','No necesitar datos'],c:0,e:'Los sistemas híbridos combinan múltiples paradigmas (supervisado + no supervisado + refuerzo), logrando arquitecturas más robustas y versátiles.'},
+  {id:14,s:'S1',t:'tipos',q:'El aprendizaje por refuerzo se basa en:',o:['Copiar siempre las decisiones humanas','La ausencia de retroalimentación','Recompensas y penalizaciones obtenidas de la interacción con el entorno'],c:2,e:'Refuerzo: agente interactúa con entorno → recompensa (+) o penalización (−) → aprende política óptima. Usado en robótica, videojuegos, trading.'},
+  {id:15,s:'S1',t:'tipos',q:'¿Qué tipo de ML se usa para entrenar un robot a caminar?',o:['Semi-supervisado','Auto-supervisado','Por refuerzo'],c:2,e:'Aprendizaje por refuerzo: el robot prueba movimientos, cae (penalización) o avanza (recompensa), y aprende iterativamente la política para caminar.'},
+  {id:16,s:'S1',t:'aplicaciones',q:'¿Cuál es un desafío clave en la implementación de ML en educación?',o:['Que los modelos siempre generan mejores profesores','Que no requieren datos de estudiantes','Evitar sesgos en recomendaciones personalizadas'],c:2,e:'En educación, los sistemas de ML pueden amplificar sesgos existentes (género, socioeconómico), afectando la equidad en recomendaciones de contenido.'},
+  {id:17,s:'S1',t:'aplicaciones',q:'¿Qué implica la complejidad computacional?',o:['Que los modelos no requieren energía','Que los modelos profundos necesitan hardware especializado y alto consumo','Que solo funcionan en computadores personales antiguos'],c:1,e:'Modelos profundos requieren GPUs/TPUs y consumen energía significativa. Entrenar GPT-3 costó ~$4.6M en cómputo (Hao et al., 2022).'},
+  {id:18,s:'S1',t:'aplicaciones',q:'¿Qué representa el espectro de aplicaciones de IA?',o:['Que cubre desde asistencia humana hasta automatización completa','Que se restringe a educación y salud','Que solo sirve en entornos militares'],c:0,e:'El espectro va desde asistencia humana (apoyo a médicos, ingenieros) hasta automatización completa (sistemas autónomos sin intervención humana).'},
+  {id:19,s:'S1',t:'tipos',q:'¿Cuál es la característica del aprendizaje semi-supervisado?',o:['Solo funciona con datos completamente etiquetados','Combina datos etiquetados y no etiquetados','Se limita a tareas de predicción de precios'],c:1,e:'Semi-supervisado: pocos datos etiquetados (costosos) + muchos sin etiquetar (abundantes). Útil cuando el etiquetado es costoso (genómica, imágenes médicas).'},
+  {id:20,s:'S1',t:'aplicaciones',q:'En educación, ¿qué rol cumple el ML?',o:['Sustituir al profesor','Estandarizar exámenes sin personalización','Adaptar contenidos al desempeño del estudiante'],c:2,e:'ML en educación: sistemas adaptativos que ajustan el contenido, ritmo y ejercicios según el desempeño individual de cada estudiante.'},
+  {id:21,s:'S1',t:'aplicaciones',q:'¿Qué busca la IA explicable (XAI)?',o:['Reducir el costo del hardware','Aumentar la velocidad de procesamiento','Transparencia en las decisiones de los modelos'],c:2,e:'XAI busca que los modelos puedan justificar sus predicciones. Crítico en medicina, finanzas y justicia donde las decisiones tienen alto impacto.'},
+  {id:22,s:'S2',t:'tipos',q:'¿Cuál es un ejemplo clásico de aprendizaje supervisado?',o:['Agrupar clientes sin etiquetas','Filtrar correos como spam o no spam','Generar imágenes sintéticas sin datos reales'],c:1,e:'Spam/no-spam es clasificación supervisada: se entrena con correos ya etiquetados. Agrupar sin etiquetas = no supervisado. Generar imágenes = generativo.'},
+  {id:23,s:'S2',t:'matematicas',q:'¿Qué relación tiene la probabilidad con los modelos de Markov?',o:['Modelan procesos estocásticos y secuenciales','Representan datos deterministas','Solo sirven en álgebra lineal'],c:0,e:'Los modelos de Markov usan probabilidad para describir transiciones entre estados en el tiempo: P(estado siguiente | estado actual). Son base del refuerzo.'},
+  {id:24,s:'S2',t:'herramientas',q:'¿Por qué Python es preferido en proyectos de Machine Learning?',o:['Porque es el único lenguaje que permite condicionales','Porque es simple de aprender y tiene un ecosistema amplio de librerías científicas','Porque no requiere bibliotecas externas'],c:1,e:'Python domina ML por: sintaxis simple, comunidad activa y ecosistema maduro (NumPy, Pandas, Scikit-learn, TensorFlow, PyTorch).'},
+  {id:25,s:'S2',t:'herramientas',q:'¿Cuál es la función de pandas?',o:['Crear redes neuronales profundas','Manipular y analizar datos en tablas (DataFrames)','Renderizar gráficos 3D'],c:1,e:'Pandas: librería para carga, limpieza, transformación y análisis de datos tabulares usando Series y DataFrames. La base del EDA.'},
+  {id:26,s:'S2',t:'matematicas',q:'¿Qué papel cumple el álgebra lineal en el aprendizaje automático?',o:['Permite representar datos en vectores y matrices y aplicar transformaciones lineales','Define reglas de lógica simbólica','Facilita la edición de imágenes en alta resolución'],c:0,e:'Álgebra lineal = lenguaje de ML: datos como vectores, modelos como matrices. SVD, PCA, backpropagation usan álgebra lineal.'},
+  {id:27,s:'S2',t:'matematicas',q:'¿Cómo se representan normalmente los datos en álgebra lineal dentro del aprendizaje automático?',o:['Como tablas periódicas','Como ecuaciones diferenciales','Como vectores y matrices'],c:2,e:'Cada muestra = vector de características. El dataset completo = matriz X de [n_muestras × n_características]. Los pesos del modelo son vectores/matrices.'},
+  {id:28,s:'S2',t:'tipos',q:'¿Qué caracteriza al aprendizaje supervisado?',o:['No requiere etiquetas','Solo se usa en clustering','Se entrena con pares entrada-salida'],c:2,e:'Supervisado: para cada entrada X hay una salida conocida Y (etiqueta). El modelo aprende la función f(X) → Y.'},
+  {id:29,s:'S2',t:'matematicas',q:'¿Por qué la integración de álgebra lineal, probabilidad y estadística es esencial en ML?',o:['Porque son asignaturas independientes','Porque eliminan la necesidad de programación','Porque juntas permiten diseñar algoritmos robustos y generalizables'],c:2,e:'Los 3 pilares: Álgebra lineal (representación), Probabilidad (incertidumbre), Estadística (validación). Juntos equilibran precisión y generalización.'},
+  {id:30,s:'S2',t:'tipos',q:'¿Qué caracteriza al aprendizaje semi-supervisado?',o:['Usa solo datos etiquetados','Combina datos etiquetados y no etiquetados','Requiere árboles de decisión siempre'],c:1,e:'Semi-supervisado: combina pocos datos etiquetados (costosos) con muchos no etiquetados (abundantes). Útil en genómica, NLP.'},
+  {id:31,s:'S2',t:'tipos',q:'¿Qué caracteriza al aprendizaje no supervisado?',o:['Los datos incluyen etiquetas definidas','Solo se usa en imágenes médicas','El modelo encuentra patrones sin etiquetas previas'],c:2,e:'No supervisado: el modelo explora datos sin respuestas conocidas. Algoritmos: K-Means, DBSCAN (clustering), PCA (reducción), Autoencoders.'},
+  {id:32,s:'S2',t:'tipos',q:'¿Qué aporta el aprendizaje no supervisado?',o:['Utiliza regresión lineal','Descubre estructuras ocultas sin etiquetas','Depende exclusivamente de pruebas de hipótesis'],c:1,e:'No supervisado descubre estructura oculta: clusters, componentes principales, distribuciones latentes. No hay respuesta correcta predefinida.'},
+  {id:33,s:'S2',t:'matematicas',q:'¿Qué aportan las estadísticas al aprendizaje automático?',o:['Ayudan a diseñar arquitecturas neuronales profundas','Permiten únicamente calcular promedios','Ofrecen métodos de inferencia y validación para asegurar la generalización'],c:2,e:'Estadística en ML: inferencia (generalizar desde muestra), validación cruzada, pruebas de hipótesis, intervalos de confianza.'},
+  {id:34,s:'S2',t:'herramientas',q:'¿Qué entorno interactivo permite documentar procesos reproducibles?',o:['Jupyter Notebook','Visual Studio Code','Eclipse'],c:0,e:'Jupyter Notebook: entorno web para código + texto + gráficas en un mismo documento. Permite reproducibilidad total de experimentos de ML.'},
+  {id:35,s:'S2',t:'herramientas',q:'¿Cuál es la función de pandas? (variante)',o:['Manipular y analizar datos en tablas (DataFrames)','Renderizar gráficos 3D','Crear redes neuronales profundas'],c:0,e:'Pandas = manipulación de datos tabulares. DataFrames permiten leer CSV/Excel, filtrar, agrupar, pivotar, manejar nulos. El "Excel" de Python para ML.'}
+];
+
+let cur=[],filt=[...QS],idx=0,ans=false,ok=0,ko=0,mode='quiz',fi=0,ff=false,sf='all',tf='all';
+const TL={tipos:'Tipos ML',aplicaciones:'Aplicaciones',matematicas:'Math',herramientas:'Herramientas',historia:'Historia IA'};
+function tl(t){return TL[t]||t;}
+function shuf(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+
+function applyF(){
+  filt=QS.filter(q=>(sf==='all'||q.s===sf)&&(tf==='all'||q.t===tf));
+  cur=shuf([...filt]);idx=0;ok=0;ko=0;ans=false;
+  if(mode==='quiz')renderQ();else if(mode==='flashcard'){fi=0;ff=false;renderF();}else if(mode==='review')renderRv();
+  updStats();
+}
+function filterSession(s,el){sf=s;document.querySelectorAll('#sF .pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');applyF();}
+function filterTopic(t,el){tf=t;document.querySelectorAll('#tF .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');applyF();}
+
+function setMode(m){
+  mode=m;
+  document.querySelectorAll('.main-tab').forEach((t,i)=>t.classList.toggle('active',['quiz','flashcard','review','notes'][i]===m));
+  const isN=m==='notes';
+  document.getElementById('statsStrip').classList.toggle('hidden',isN);
+  document.getElementById('filtersBlock').classList.toggle('hidden',isN||m==='review');
+  document.getElementById('progressBar').classList.toggle('hidden',isN);
+  document.getElementById('quizMode').classList.toggle('hidden',m!=='quiz');
+  document.getElementById('flashcardMode').classList.toggle('hidden',m!=='flashcard');
+  document.getElementById('reviewMode').classList.toggle('hidden',m!=='review');
+  document.getElementById('endScreen').classList.remove('show');
+  if(isN){document.getElementById('notesMode').classList.add('show');}
+  else{document.getElementById('notesMode').classList.remove('show');
+    if(m==='flashcard'){fi=0;ff=false;renderF();}else if(m==='review')renderRv();else renderQ();}
+}
+
+function updStats(){
+  const tot=cur.length,rem=Math.max(0,tot-idx-(ans?1:0));
+  document.getElementById('totalQ').textContent=tot;
+  document.getElementById('correctQ').textContent=ok;
+  document.getElementById('wrongQ').textContent=ko;
+  document.getElementById('remainQ').textContent=rem;
+  document.getElementById('progressFill').style.width=(tot?((idx+(ans?1:0))/tot)*100:0)+'%';
+  const t=ok+ko;document.getElementById('scoreNum').textContent=t?Math.round((ok/t)*100)+'%':'—';
+}
+
+function renderQ(){
+  document.getElementById('endScreen').classList.remove('show');
+  document.getElementById('quizMode').classList.remove('hidden');
+  ans=false;document.getElementById('nextBtn').style.display='none';
+  if(idx>=cur.length){showEnd();return;}
+  const q=cur[idx];updStats();
+  document.getElementById('questionCard').innerHTML=`<div class="question-card"><div class="q-meta"><span class="q-badge num">P ${idx+1}/${cur.length}</span><span class="q-badge sess">${q.s}</span><span class="q-badge topic">${tl(q.t)}</span></div><div class="q-text">${q.q}</div><div class="options">${q.o.map((o,i)=>`<button class="option-btn" onclick="sel(${i})" id="op${i}"><span class="opt-letter">${['A','B','C'][i]}</span>${o}</button>`).join('')}</div><div class="feedback" id="fb"></div></div>`;
+}
+
+function sel(i){
+  if(ans)return;ans=true;
+  const q=cur[idx];
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('fb');
+  if(i===q.c){ok++;document.getElementById('op'+i).classList.add('correct');fb.className='feedback correct-fb show';fb.innerHTML=`<div class="feedback-title">✓ Correcto</div><div class="feedback-body">${q.e}</div>`;}
+  else{ko++;document.getElementById('op'+i).classList.add('wrong');document.getElementById('op'+q.c).classList.add('reveal-correct');fb.className='feedback wrong-fb show';fb.innerHTML=`<div class="feedback-title">✗ Incorrecto — La correcta: "${q.o[q.c]}"</div><div class="feedback-body">${q.e}</div>`;}
+  document.getElementById('nextBtn').style.display='inline-block';updStats();
+}
+
+function nextQ(){idx++;renderQ();}
+function skipQ(){if(idx<cur.length){const sk=cur.splice(idx,1)[0];cur.push(sk);renderQ();}}
+function shuffleQ(){cur=shuf([...filt]);idx=0;ok=0;ko=0;renderQ();}
+function restart(){idx=0;ok=0;ko=0;ans=false;cur=shuf([...filt]);document.getElementById('endScreen').classList.remove('show');document.getElementById('quizMode').classList.remove('hidden');renderQ();}
+
+function showEnd(){
+  document.getElementById('quizMode').classList.add('hidden');
+  const tot=ok+ko,pct=tot?Math.round((ok/tot)*100):0;
+  document.getElementById('endScreen').classList.add('show');
+  document.getElementById('endBigScore').textContent=`${ok}/${tot}`;
+  document.getElementById('endSub').textContent=`Sesión: ${sf==='all'?'Todas':sf} · Tema: ${tf==='all'?'Todos':tl(tf)}`;
+  document.getElementById('endEmoji').textContent=pct>=90?'🏆':pct>=70?'💪':'📚';
+  document.getElementById('endTitle').textContent=pct>=90?'¡Excelente dominio!':pct>=70?'¡Buen trabajo!':'Sigue repasando';
+  document.getElementById('progressFill').style.width='100%';
+}
+
+function renderF(){
+  ff=false;const q=cur[fi%cur.length];
+  document.getElementById('cardHint').textContent='PREGUNTA';
+  document.getElementById('cardContent').className='card-content';
+  document.getElementById('cardContent').innerHTML=q.q;
+  document.getElementById('flashCounter').textContent=`${(fi%cur.length)+1} / ${cur.length}`;
+}
+function flipCard(){
+  ff=!ff;const q=cur[fi%cur.length];
+  if(ff){document.getElementById('cardHint').textContent='RESPUESTA CORRECTA';document.getElementById('cardContent').innerHTML=`<div class="card-answer">✓ ${q.o[q.c]}</div><div style="margin-top:13px;font-size:12px;color:var(--muted);font-family:var(--mono);line-height:1.6">${q.e}</div>`;}
+  else renderF();
+}
+function nextFlash(){fi=(fi+1)%cur.length;renderF();}
+function prevFlash(){fi=(fi-1+cur.length)%cur.length;renderF();}
+
+function renderRv(){
+  document.getElementById('reviewMode').innerHTML=QS.map((q,i)=>`<div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 24px;margin-bottom:12px;"><div style="display:flex;gap:7px;margin-bottom:10px;flex-wrap:wrap"><span style="font-family:var(--mono);font-size:10px;color:var(--accent);background:rgba(245,166,35,0.1);padding:3px 9px;border-radius:5px;letter-spacing:2px">P${i+1}</span><span style="font-family:var(--mono);font-size:10px;color:var(--accent2);background:rgba(124,109,235,0.1);padding:3px 9px;border-radius:5px">${q.s}</span><span style="font-family:var(--mono);font-size:10px;color:var(--muted);background:var(--surface);padding:3px 9px;border-radius:5px">${tl(q.t)}</span></div><div style="font-size:15px;font-weight:700;margin-bottom:11px;line-height:1.4">${q.q}</div>${q.o.map((o,j)=>`<div style="padding:8px 12px;border-radius:8px;margin-bottom:5px;font-size:13px;background:${j===q.c?'rgba(46,204,113,0.1)':'var(--surface)'};border:1px solid ${j===q.c?'rgba(46,204,113,0.4)':'var(--border)'};color:${j===q.c?'var(--green)':'var(--muted)'}"><strong style="font-family:var(--mono)">${['A','B','C'][j]}.</strong> ${o} ${j===q.c?'✓':''}</div>`).join('')}<div style="margin-top:11px;padding:11px 15px;background:rgba(124,109,235,0.07);border-radius:9px;font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.6;border:1px solid rgba(124,109,235,0.15)">${q.e}</div></div>`).join('');
+}
+
+function tog(id){document.getElementById(id).classList.toggle('open');}
+function showNotes(s,el){document.querySelectorAll('.notes-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.notes-content').forEach(c=>c.classList.remove('show'));el.classList.add('active');document.getElementById('notes-'+s).classList.add('show');}
+
+// Alias filter IDs
+document.getElementById('sessionFilter').id='sF';
+document.getElementById('topicFilter').id='tF';
+
+// Init
+cur=shuf([...filt]);renderQ();updStats();
+</script>
+</body>
+</html>
