@@ -1,0 +1,315 @@
+pages 5
+
+--- PAGE 1 ---
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ASIGNATURA MACHINE LEARNING 
+Actividad Autónoma 1 
+Nombre de la actividad: Conceptos, aplicaciones y 
+fundamentos de Machine Learning 
+Unidad 1: Fundamentos de Machine Learning 
+Tema 1: Introducción y fundamentos 
+ 
+ 
+Nombres: 
+Fecha: 
+Carrera: 
+Periodo académico: 
+Semestre: 
+
+
+--- PAGE 2 ---
+  
+ 
+ 
+1 
+ 
+Objetivo de la actividad:   Aplicar los conceptos básicos de aprendizaje 
+automático, sus principales tipos, aplicaciones prácticas y fundamentos 
+matemáticos y computacionales que los sustentan 
+Recursos o temas que debe haber estudiado antes de hacer la actividad: 
+• Concepto de aprendizaje automático. 
+• Tipos de aprendizaje automático: supervisado, no supervisado, por 
+refuerzo, semi-supervisado y aprendizaje profundo. 
+• Aplicaciones y desafíos del ML en ciencia e ingeniería. 
+• Fundamentos matemáticos: álgebra lineal, probabilidad y 
+estadística. 
+• Herramientas computacionales: Python, Jupyter Notebook, librerías 
+NumPy, Pandas, scikit-learn y Matplotlib. 
+ 
+Formato de entrega: PDF  
+Instrucciones:  
+• Realizar la actividad autónoma en hojas A4. 
+• Si está dentro de sus posibilidades, puede imprimir el documento 
+para desarrollar los problemas a mano. 
+• Cuando se requiera cálculo o justificación, el procedimiento debe 
+mostrarse claramente. 
+• Las respuestas finales deben estar destacadas en un recuadro rojo. 
+• Escanear el documento y subirlo al aula virtual en formato PDF. 
+• Nombrar el archivo de la siguiente manera: 
+Apellido_Nombre_Grupo_X. 
+• El plagio será calificado con cero. 
+Contenido  
+Concepto y tipos de aprendizaje automático 
+1. Explique con sus propias palabras qué es el aprendizaje 
+automático y cuál es la diferencia con la programación 
+tradicional. 
+2. Clasifique los siguientes casos en el tipo de aprendizaje automático 
+que corresponda y justifique su respuesta: 
+a) Un sistema que recomienda películas en Netflix. 
+b) Un robot que aprende a caminar evitando obstáculos 
+mediante ensayo y error. 
+
+--- PAGE 3 ---
+  
+ 
+ 
+2 
+ 
+c) Un algoritmo que agrupa clientes según patrones de compra 
+sin etiquetas previas. 
+Aplicaciones y desafíos del ML 
+3. Mencione tres aplicaciones reales del aprendizaje automático en 
+su área de estudios (ingeniería o ciencias aplicadas). 
+4. Describa al menos dos desafíos éticos o técnicos del uso de ML en 
+la sociedad 
+Fundamentos matemáticos 
+5. Dada la matriz de características 
+𝑋 = [1 2 3
+4 5 6] 
+y el vector de pesos 
+𝑤 = [
+0.2
+0.5
+0.3
+] 
+calcule el producto  𝑋 × 𝑤 e interprete su significado como 
+combinación lineal de variables de entrada. 
+6. Si la probabilidad de que un sensor detecte un objeto es P(A)=0.88 
+y la probabilidad de que otro sensor independiente lo detecte es 
+P(B)=0.7: 
+a) Calcule la probabilidad 𝑃(𝐴 ∩ 𝐵) 
+b) Calcule la probabilidad 𝑃(𝐴⋂𝐵) 
+c) Interprete qué significan estos resultados en el contexto de 
+un sistema de visión computacional. 
+Herramientas computacionales 
+7. ¿Qué papel cumplen las siguientes librerías en Python? 
+a) NumPy 
+b) Pandas 
+c) scikit-learn 
+d) Matplotlib 
+8. Elabore un código en Python que genere un arreglo con las edades 
+de 10 personas y muestre el promedio utilizando NumPy. Adjunte 
+captura del código y resultado. 
+
+--- PAGE 4 ---
+  
+ 
+ 
+3 
+ 
+Bibliografía:  
+• Benítez, R., Escudero, G., Kanaan, S., & Rodó, D. M. 
+(2018). Inteligencia artificial avanzada. Editorial UOC. 
+• Liz Marzán, E. (2022). Apuntes de álgebra lineal. Universidade de 
+Vigo. Recuperado de 
+https://www.dma.uvigo.es/~eliz/pdf/apuntes-2022.pdf 
+• Rengifo, E. (2023). Estadística y probabilidad  (1ª ed. corregida). 
+ResearchGate. https://doi.org/10.13140/RG.2.2.35392.05122  
+ 
+ 
+ 
+ 
+  
+
+--- PAGE 5 ---
+  
+ 
+ 
+4 
+ 
+Rúbrica de evaluación  
+                
+Componente de aprendizaje:  Autónomo                     X Contacto con 
+el Docente    
+Nombre de la Unidad: Unidad 1: Fundamentos de Machine Learning 
+Resultado(s) de aprendizaje: El estudiante comprenderá los fundamentos computacionales y matemáticos de ML.  
+Nombre de la Actividad: Conceptos, aplicaciones y fundamentos de Machine Learning  
+                
+  Escala de Valoración 
+Criterios  
+de Evaluación  
+Excelente 
+(10 - 9,1) 
+Bueno 
+(9 - 8,1) 
+Satisfactorio 
+(8 - 7) 
+Necesita 
+mejorar 
+(6,9 - 0,1) 
+No 
+entrega 
+(0) 
+Puntaje 
+ 
+Comentarios 
+(SIGEA) 
+1. Explicación de 
+conceptos y tipos 
+de aprendizaje 
+automático. 
+Define con precisión el 
+concepto y diferencia 
+con programación 
+tradicional; clasifica y 
+justifica correctamente 
+todos los casos. 
+Define el concepto 
+con claridad y 
+clasifica la mayoría 
+de los casos con 
+justificación 
+adecuada. 
+Explica 
+parcialmente el 
+concepto y 
+clasifica algunos 
+casos con 
+justificación 
+limitada. 
+Definiciones 
+incompletas o 
+confusas, sin 
+justificación 
+adecuada en 
+la clasificación. 
+No 
+entrega   
+2. Aplicaciones y 
+desafíos del ML 
+en ciencia e 
+ingeniería. 
+Presenta ≥3 aplicaciones 
+pertinentes y ≥2 desafíos 
+éticos/técnicos bien 
+fundamentados. 
+Presenta ≥2 
+aplicaciones y ≥2 
+desafíos con 
+justificación 
+aceptable. 
+Presenta al 
+menos 1 
+aplicación y 1 
+desafío con 
+explicación 
+básica. 
+Respuestas 
+vagas, sin 
+ejemplos claros 
+o fuera de 
+contexto. 
+No 
+entrega   
+3. Fundamentos 
+matemáticos: 
+álgebra lineal y 
+probabilidad. 
+Resuelve correctamente 
+los cálculos (producto 
+matricial y 
+probabilidades) con 
+interpretación clara en el 
+contexto de visión 
+computacional. 
+Resuelve la mayoría 
+de los cálculos con 
+interpretación 
+aceptable. 
+Realiza 
+parcialmente los 
+cálculos, con 
+errores en 
+interpretación. 
+Procedimientos 
+incorrectos o 
+incompletos, sin 
+interpretación. 
+No 
+entrega   
+4.  Uso de 
+herramientas 
+computacionales 
+en Pytho 
+Explica roles de NumPy, 
+Pandas, scikit-learn y 
+Matplotlib con claridad; 
+presenta código 
+funcional y captura del 
+resultado. 
+Explica la mayoría 
+de librerías y 
+presenta código 
+funcional con 
+resultado parcial. 
+Explica 
+superficialmente 
+y el código 
+presenta errores 
+leves. 
+Descripciones 
+vagas, código 
+incompleto o 
+no funcional. 
+No 
+entrega   
+5. Presentación, 
+autonomía y 
+alineación a ejes 
+formativos 
+(Introspección y 
+Prospectiva) 
+Documento claro, 
+ordenado y sin plagio; 
+refleja autonomía, 
+adaptabilidad e 
+innovación; responde a 
+ejes como ética, 
+comunicación y 
+tecnologías. 
+Documento 
+ordenado, con 
+pequeños errores 
+de presentación, 
+evidencia 
+autonomía básica. 
+Documento con 
+desorden o poca 
+evidencia de 
+autonomía; 
+limitado 
+alineamiento a 
+ejes. 
+Documento 
+desordenado, 
+sin autonomía 
+ni alineación a 
+ejes formativos. 
+No 
+entrega   
+        
+  
+  
+ 
+ 
+ 
+ 
+ 
+     Puntaje 
+total   50   
