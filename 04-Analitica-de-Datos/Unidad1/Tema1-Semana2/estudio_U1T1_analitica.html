@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>U1·T1 — Metodologías de Analítica de Datos</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #151820;
+    --surface2: #1c2030;
+    --border: #252a3a;
+    --accent: #f5a623;
+    --accent2: #4fd8c4;
+    --accent3: #e05c8a;
+    --text: #e8eaf0;
+    --muted: #8892aa;
+    --correct: #3ecf8e;
+    --wrong: #f0516a;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; gap: 2rem;
+  }
+  .logo {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    padding: 1rem 0;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+  }
+  .logo span { color: var(--muted); font-weight: 400; }
+  nav { display: flex; gap: 0.25rem; margin-left: auto; }
+  nav button {
+    background: none; border: none;
+    color: var(--muted); font-family: var(--font-body);
+    font-size: 0.85rem; padding: 0.5rem 1rem;
+    border-radius: 6px; cursor: pointer;
+    transition: all .2s;
+  }
+  nav button:hover { color: var(--text); background: var(--surface2); }
+  nav button.active { color: var(--accent); background: rgba(245,166,35,.1); }
+
+  /* ── LAYOUT ── */
+  main { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
+  /* ── TABS ── */
+  .tab { display: none; }
+  .tab.visible { display: block; animation: fadeUp .35s ease; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTION HEADER ── */
+  .sec-head {
+    margin-bottom: 2rem;
+  }
+  .sec-head h2 {
+    font-family: var(--font-head);
+    font-size: 2rem; font-weight: 800;
+    line-height: 1.1; letter-spacing: -0.03em;
+    color: var(--text);
+  }
+  .sec-head h2 em { color: var(--accent); font-style: normal; }
+  .sec-head p { color: var(--muted); margin-top: .5rem; font-size: .9rem; }
+
+  /* ── RESUMEN CARDS ── */
+  .badge {
+    display: inline-block; padding: .2rem .7rem;
+    border-radius: 100px; font-size: .7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .07em;
+    margin-bottom: 1.2rem;
+  }
+  .badge-s1 { background: rgba(245,166,35,.15); color: var(--accent); }
+  .badge-s2 { background: rgba(79,216,196,.15); color: var(--accent2); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1.5rem;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: #353d55; }
+  .card h3 {
+    font-family: var(--font-head);
+    font-size: 1.05rem; font-weight: 700;
+    margin-bottom: .8rem;
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .card h3 .icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .85rem; flex-shrink: 0;
+  }
+  .icon-a { background: rgba(245,166,35,.15); color: var(--accent); }
+  .icon-b { background: rgba(79,216,196,.15); color: var(--accent2); }
+  .icon-c { background: rgba(224,92,138,.15); color: var(--accent3); }
+
+  .card p { color: var(--muted); font-size: .9rem; margin-bottom: .6rem; }
+  .card p:last-child { margin-bottom: 0; }
+  .card p strong { color: var(--text); }
+
+  /* triple grid */
+  .grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 1.5rem; }
+  @media(max-width: 640px){ .grid3 { grid-template-columns: 1fr; } }
+  .mini-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.2rem;
+  }
+  .mini-card .tag {
+    font-size: .65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; margin-bottom: .5rem;
+  }
+  .mini-card h4 { font-family: var(--font-head); font-size: .95rem; margin-bottom: .4rem; }
+  .mini-card p { font-size: .8rem; color: var(--muted); }
+
+  /* pill list */
+  .pill-list { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .7rem; }
+  .pill {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 100px; padding: .2rem .75rem;
+    font-size: .78rem; color: var(--muted);
+  }
+
+  /* step flow */
+  .steps { display: flex; flex-direction: column; gap: .5rem; margin-top: .8rem; }
+  .step {
+    display: flex; align-items: flex-start; gap: .75rem;
+    padding: .7rem 1rem; background: var(--surface2);
+    border-radius: 10px;
+  }
+  .step-num {
+    min-width: 24px; height: 24px; border-radius: 6px;
+    background: rgba(245,166,35,.15); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+  }
+  .step-body strong { font-size: .88rem; display: block; color: var(--text); }
+  .step-body span { font-size: .8rem; color: var(--muted); }
+
+  /* divider */
+  .divider { height: 1px; background: var(--border); margin: 2rem 0; }
+
+  /* sector table */
+  .sector-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: .75rem; }
+  @media(max-width: 540px){ .sector-grid { grid-template-columns: 1fr; } }
+  .sector-item {
+    background: var(--surface2); border-radius: 10px;
+    padding: .9rem 1.1rem;
+  }
+  .sector-item strong { font-size: .88rem; color: var(--accent2); display: block; margin-bottom: .25rem; }
+  .sector-item span { font-size: .78rem; color: var(--muted); }
+
+  /* ── QUIZ ── */
+  .quiz-meta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .q-stat {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: .75rem 1.2rem;
+    text-align: center; min-width: 90px;
+  }
+  .q-stat .num {
+    font-family: var(--font-head); font-size: 1.6rem;
+    font-weight: 800; line-height: 1;
+  }
+  .q-stat .lbl { font-size: .7rem; color: var(--muted); margin-top: .2rem; }
+  .num-total { color: var(--accent); }
+  .num-ok { color: var(--correct); }
+  .num-wrong { color: var(--wrong); }
+  .num-pend { color: var(--accent2); }
+
+  .quiz-controls {
+    display: flex; gap: .75rem; flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .btn {
+    padding: .6rem 1.3rem; border-radius: 8px;
+    border: none; cursor: pointer;
+    font-family: var(--font-body); font-size: .85rem; font-weight: 500;
+    transition: all .2s;
+  }
+  .btn-primary { background: var(--accent); color: #0d0f14; }
+  .btn-primary:hover { background: #f7b84b; }
+  .btn-outline {
+    background: none; border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* question card */
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.6rem 1.8rem;
+    margin-bottom: 1.2rem;
+    transition: border-color .2s;
+  }
+  .q-card.answered-ok  { border-color: var(--correct); }
+  .q-card.answered-bad { border-color: var(--wrong); }
+
+  .q-number {
+    font-size: .72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--muted); margin-bottom: .6rem;
+  }
+  .q-text { font-size: .95rem; margin-bottom: 1rem; }
+
+  .options { display: flex; flex-direction: column; gap: .5rem; }
+  .opt {
+    display: flex; align-items: flex-start; gap: .8rem;
+    padding: .75rem 1rem; border-radius: 9px;
+    border: 1px solid var(--border); cursor: pointer;
+    background: var(--surface2); transition: all .15s;
+    font-size: .88rem;
+  }
+  .opt:hover:not(.disabled) { border-color: var(--accent); color: var(--accent); }
+  .opt.selected { border-color: var(--accent); background: rgba(245,166,35,.08); }
+  .opt.correct  { border-color: var(--correct); background: rgba(62,207,142,.08); color: var(--correct); }
+  .opt.wrong    { border-color: var(--wrong);   background: rgba(240,81,106,.08);  color: var(--wrong); }
+  .opt.disabled { cursor: default; pointer-events: none; }
+  .opt-letter {
+    min-width: 22px; height: 22px; border-radius: 6px;
+    background: var(--border); display: flex; align-items: center;
+    justify-content: center; font-size: .72rem; font-weight: 700;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  .q-feedback {
+    display: none; margin-top: .9rem; padding: .75rem 1rem;
+    border-radius: 9px; font-size: .83rem; line-height: 1.5;
+  }
+  .q-feedback.show { display: block; }
+  .fb-ok  { background: rgba(62,207,142,.1);  border: 1px solid rgba(62,207,142,.3);  color: var(--correct); }
+  .fb-bad { background: rgba(240,81,106,.1);  border: 1px solid rgba(240,81,106,.3);  color: var(--wrong); }
+  .q-feedback strong { display: block; margin-bottom: .25rem; }
+
+  /* progress bar */
+  .prog-wrap { background: var(--surface2); border-radius: 100px; height: 6px; margin-bottom: 2rem; overflow: hidden; }
+  .prog-bar { height: 100%; background: var(--accent); border-radius: 100px; transition: width .4s ease; }
+
+  /* filter tabs */
+  .filter-tabs { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .ftab {
+    padding: .35rem .9rem; border-radius: 100px;
+    border: 1px solid var(--border); background: none;
+    color: var(--muted); font-size: .78rem; cursor: pointer;
+    transition: all .15s;
+  }
+  .ftab:hover { border-color: var(--accent); color: var(--accent); }
+  .ftab.active { background: var(--accent); border-color: var(--accent); color: #0d0f14; font-weight: 600; }
+
+  /* score banner */
+  .score-banner {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.5rem 1.8rem;
+    margin-bottom: 2rem; display: flex; gap: 1.5rem;
+    align-items: center; flex-wrap: wrap;
+  }
+  .score-big {
+    font-family: var(--font-head); font-size: 3rem; font-weight: 800;
+    line-height: 1; color: var(--accent);
+  }
+  .score-info p { color: var(--muted); font-size: .85rem; }
+  .score-info strong { color: var(--text); }
+
+  /* hidden */
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">U1·T1 <span>Analítica de Datos</span></div>
+  <nav>
+    <button class="active" onclick="showTab('resumen',this)">Resumen</button>
+    <button onclick="showTab('quiz',this)">Quiz</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ══════════════════════════════════════════════
+     TAB: RESUMEN
+══════════════════════════════════════════════ -->
+<div id="tab-resumen" class="tab visible">
+
+  <!-- S1 -->
+  <div class="sec-head">
+    <span class="badge badge-s1">Sesión 1 · S1</span>
+    <h2>Fundamentos &amp; <em>Tipos de Analítica</em></h2>
+    <p>Conceptos base, metodología, clasificación de datos y los tres enfoques analíticos.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon icon-a">📊</span>¿Qué es la analítica de datos?</h3>
+    <p>Es el <strong>examen, organización y modelado de datos</strong> para obtener información útil que informe la toma de decisiones. No se limita a crear dashboards ni a almacenar datos: convierte datos en conocimiento accionable.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon icon-b">🗺️</span>¿Qué es la metodología de analítica de datos?</h3>
+    <p>Es el <strong>marco de trabajo</strong> que ordena, paso a paso, cómo usar datos para resolver un problema real de forma <strong>reproducible, medible y ética</strong>. <em>No es un algoritmo</em>, sino un proceso con principios, fases, roles y entregables claros.</p>
+    <div class="pill-list">
+      <span class="pill">🎯 Problema antes que herramienta</span>
+      <span class="pill">🔗 Calidad y trazabilidad del dato</span>
+      <span class="pill">🔄 Iteración y validación</span>
+      <span class="pill">🔒 Ética y privacidad</span>
+      <span class="pill">📢 Comunicación clara y accionable</span>
+      <span class="pill">♾️ Mejora continua</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon icon-c">⚙️</span>Fases generales de la metodología</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Comprensión del problema</strong><span>Alinear necesidad del negocio y definir éxito.</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Adquisición de datos</strong><span>Identificar fuentes, evaluar pertinencia y calidad.</span></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Preparación (curación) de datos</strong><span>Limpiar, integrar y transformar los datos.</span></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Exploración</strong><span>Entender patrones iniciales y formular hipótesis.</span></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Modelado (solución analítica)</strong><span>Construir y comparar modelos alineados al problema.</span></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><strong>Evaluación y comunicación</strong><span>Validar resultados con el negocio y decidir el siguiente paso.</span></div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-body"><strong>Implementación (despliegue)</strong><span>Llevar la solución al uso real: dashboard, API, lotes.</span></div></div>
+      <div class="step"><div class="step-num">8</div><div class="step-body"><strong>Monitoreo y mejora continua</strong><span>Controlar desempeño, gestionar drift y actualizar la solución.</span></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon icon-a">🗃️</span>Clasificación de datos</h3>
+    <div class="grid3" style="margin-top:.8rem;margin-bottom:0;">
+      <div class="mini-card">
+        <div class="tag" style="color:var(--accent)">Estructurados</div>
+        <h4>Formato fijo</h4>
+        <p>Tablas relacionales, hojas de cálculo. Fáciles de organizar, limpiar y analizar.</p>
+        <p style="margin-top:.5rem;font-size:.75rem;color:var(--accent)">Ej: Tabla Ventas (FECHA, TIENDA_ID, PRODUCTO_ID…)</p>
+      </div>
+      <div class="mini-card">
+        <div class="tag" style="color:var(--accent2)">No estructurados</div>
+        <h4>Formato libre</h4>
+        <p>Imágenes, audio, texto complejo. Requieren NLP, visión por computadora, etc.</p>
+        <p style="margin-top:.5rem;font-size:.75rem;color:var(--accent2)">Ej: reseñas .txt, fotos .jpg, correos .eml</p>
+      </div>
+      <div class="mini-card">
+        <div class="tag" style="color:var(--accent3)">Semi-estructurados</div>
+        <h4>Parcialmente ordenados</h4>
+        <p>JSON, XML, logs. Tienen etiquetas pero no encajan en tablas rígidas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="card">
+    <h3><span class="icon icon-b">🔍</span>Los 3 tipos de analítica</h3>
+    <div class="grid3" style="margin-top:.8rem;margin-bottom:0;">
+      <div class="mini-card">
+        <div class="tag" style="color:var(--accent)">Descriptiva</div>
+        <h4>¿Qué ocurrió?</h4>
+        <p>Sintetiza información histórica. Genera KPIs, reportes y dashboards. Base de diagnóstico.</p>
+        <p style="margin-top:.5rem;font-size:.75rem;color:var(--accent)">Herramientas: Power BI, Tableau, R</p>
+      </div>
+      <div class="mini-card">
+        <div class="tag" style="color:var(--accent2)">Predictiva</div>
+        <h4>¿Qué podría ocurrir?</h4>
+        <p>Usa patrones históricos y ML para producir pronósticos o puntuaciones de riesgo.</p>
+        <p style="margin-top:.5rem;font-size:.75rem;color:var(--accent2)">Ej: demanda por producto, riesgo de churn</p>
+      </div>
+      <div class="mini-card">
+        <div class="tag" style="color:var(--accent3)">Prescriptiva</div>
+        <h4>¿Qué conviene hacer?</h4>
+        <p>Recomienda acciones bajo metas y restricciones. Usa optimización y/o simulación.</p>
+        <p style="margin-top:.5rem;font-size:.75rem;color:var(--accent3)">Ej: precios dinámicos, plan de reposición</p>
+      </div>
+    </div>
+    <p style="margin-top:1rem;font-size:.82rem;color:var(--muted)">📌 En un proyecto sólido se <strong style="color:var(--text)">encadenan las tres</strong>: descriptiva → predictiva → prescriptiva. La complejidad técnica crece con cada enfoque.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- S2 -->
+  <div class="sec-head" style="margin-top:.5rem;">
+    <span class="badge badge-s2">Sesión 2 · S2</span>
+    <h2>Ciclo de Vida &amp; <em>Aplicaciones</em></h2>
+    <p>Las etapas del ciclo completo y ejemplos por sector industrial.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon icon-b">🔄</span>Ciclo de vida de un proyecto de analítica</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Definición del problema</strong><span>Identificar la pregunta, los objetivos y los criterios de éxito.</span></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Recolección de datos</strong><span>Fuentes: bases internas, APIs de terceros, redes sociales. Alta calidad alineada al problema.</span></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Preparación de datos</strong><span>Eliminar duplicados, corregir errores, crear variables. Python/R con librerías especializadas.</span></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Análisis de datos</strong><span>Métodos estadísticos y algoritmos de ML para extraer patrones y tendencias.</span></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Interpretación de resultados</strong><span>Traducir hallazgos a lenguaje comprensible. Comunicar clara y convincentemente a stakeholders.</span></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><strong>Toma de decisiones</strong><span>Definir acciones con base en resultados. Involucrar a todas las partes interesadas.</span></div></div>
+      <div class="step"><div class="step-num">7</div><div class="step-body"><strong>Implementación</strong><span>Poner en práctica la decisión. Requiere coordinación interdepartamental y seguimiento.</span></div></div>
+      <div class="step"><div class="step-num">8</div><div class="step-body"><strong>Medición de resultados</strong><span>Establecer KPIs para evaluar la efectividad de lo implementado.</span></div></div>
+      <div class="step"><div class="step-num">9</div><div class="step-body"><strong>Monitoreo y evaluación</strong><span>Medir impacto, aprender y ajustar la solución en el tiempo. El ciclo es iterativo.</span></div></div>
+    </div>
+    <p style="margin-top:1rem;font-size:.82rem;color:var(--muted)">⚠️ <strong style="color:var(--text)">Práctica transversal</strong>: ética, privacidad y transparencia deben aplicarse en TODAS las etapas.</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="icon icon-a">🏭</span>Aplicaciones por sector</h3>
+    <div class="sector-grid" style="margin-top:.8rem;">
+      <div class="sector-item"><strong>🏛️ Gobierno</strong><span>Políticas basadas en evidencia, priorización de recursos, detección de anomalías en compras.</span></div>
+      <div class="sector-item"><strong>🎓 Academia</strong><span>Riesgo de deserción (asistencia + notas + LMS), asignación de tutorías, becas, horarios.</span></div>
+      <div class="sector-item"><strong>🏥 Salud</strong><span>Demanda de consultas, reingresos, planificación de citas, reducción de tiempos de espera.</span></div>
+      <div class="sector-item"><strong>💰 Finanzas</strong><span>Detección de fraude, crédito responsable, gestión de morosidad, estrategias de cobranza.</span></div>
+      <div class="sector-item"><strong>🛒 Retail</strong><span>Pronóstico de demanda, planes de reposición, personalización de promociones y precios.</span></div>
+      <div class="sector-item"><strong>🚚 Logística</strong><span>Rutas con ETA estimada, asignación de flota, reducción de costo por entrega, puntualidad.</span></div>
+      <div class="sector-item"><strong>⚡ Energía</strong><span>Mantenimiento predictivo, detección de pérdidas, optimización de cargas y tarifas.</span></div>
+      <div class="sector-item"><strong>🏗️ Manufactura</strong><span>Predicción de fallas, programación de mantenimiento, planificación integrada de producción.</span></div>
+      <div class="sector-item"><strong>📣 Marketing</strong><span>Segmentación, modelos de propensión, asignación óptima de presupuesto entre canales.</span></div>
+      <div class="sector-item"><strong>👥 RRHH</strong><span>Predicción de rotación, planificación de dotación, asignación de formación por brechas.</span></div>
+      <div class="sector-item"><strong>📡 Telecom</strong><span>Monitoreo de redes, predicción de churn, priorización de incidentes por impacto.</span></div>
+    </div>
+  </div>
+
+</div><!-- /tab-resumen -->
+
+
+<!-- ══════════════════════════════════════════════
+     TAB: QUIZ
+══════════════════════════════════════════════ -->
+<div id="tab-quiz" class="tab">
+
+  <div class="sec-head">
+    <h2>Repaso con <em>Quiz</em></h2>
+    <p>Todas las preguntas de los quizzes APE1 (S1) y APE2 (S2). Selecciona una opción para ver si acertaste.</p>
+  </div>
+
+  <div class="quiz-meta">
+    <div class="q-stat"><div class="num num-total" id="stat-total">0</div><div class="lbl">Total</div></div>
+    <div class="q-stat"><div class="num num-ok" id="stat-ok">0</div><div class="lbl">Correctas</div></div>
+    <div class="q-stat"><div class="num num-wrong" id="stat-bad">0</div><div class="lbl">Incorrectas</div></div>
+    <div class="q-stat"><div class="num num-pend" id="stat-pend">0</div><div class="lbl">Pendientes</div></div>
+  </div>
+
+  <div class="prog-wrap"><div class="prog-bar" id="prog" style="width:0%"></div></div>
+
+  <div class="quiz-controls">
+    <button class="btn btn-primary" onclick="resetQuiz()">↺ Reiniciar</button>
+    <button class="btn btn-outline" onclick="shuffleQuiz()">🔀 Aleatorizar</button>
+  </div>
+
+  <div class="filter-tabs">
+    <button class="ftab active" onclick="filterQ('all',this)">Todas</button>
+    <button class="ftab" onclick="filterQ('s1',this)">APE1 · S1</button>
+    <button class="ftab" onclick="filterQ('s2',this)">APE2 · S2</button>
+    <button class="ftab" onclick="filterQ('wrong',this)">Incorrectas</button>
+    <button class="ftab" onclick="filterQ('pending',this)">Pendientes</button>
+  </div>
+
+  <div id="quiz-container"></div>
+
+</div><!-- /tab-quiz -->
+
+</main>
+
+<script>
+// ═══════════════════════════════════════════════
+// QUESTIONS DATA
+// ═══════════════════════════════════════════════
+const QUESTIONS = [
+  // ── APE1 · S1 · Intento 1 (9/10) ──
+  {id:1, session:'s1', text:'La "Exploración" permite:',
+   opts:['Entender patrones iniciales y formular hipótesis.','Definir contratos legales.','Desplegar en producción.'],
+   answer:0, feedback:'Ofrece visión descriptiva inicial y línea base para KPIs.'},
+
+  {id:2, session:'s1', text:'Producto típico de analítica descriptiva:',
+   opts:['Un plan de precios óptimos.','Un motor de recomendación en línea.','Reportes/indicadores y dashboards históricos.'],
+   answer:2, feedback:'Comunica el pasado y establece una línea base.'},
+
+  {id:3, session:'s1', text:'En "Evaluación y comunicación" se debe:',
+   opts:['Evitar métricas técnicas.','Decidir sin involucrar negocio.','Validar resultados y decidir el siguiente paso con las partes interesadas.'],
+   answer:2, feedback:'Se evalúa técnica y negocio; se comunica para decidir acciones.'},
+
+  {id:4, session:'s1', text:'La fase "Comprensión del problema" busca:',
+   opts:['Ajustar hiperparámetros.','Construir la API de despliegue.','Alinear necesidad del negocio y definir éxito.'],
+   answer:2, feedback:'Es el punto de partida que fija objetivos y métricas de éxito.'},
+
+  {id:5, session:'s1', text:'Ejemplo de datos estructurados:',
+   opts:['Clips de audio.','Tabla relacional de ventas.','Fotos sin etiquetas.'],
+   answer:1, feedback:'Las tablas poseen columnas/filas con tipos definidos.'},
+
+  {id:6, session:'s1', text:'Ejemplo de analítica predictiva en retail:',
+   opts:['Contar ventas ya realizadas.','Definir manual de marca.','Predecir demanda por producto y tienda.'],
+   answer:2, feedback:'Se usan históricos, estacionalidad y variables externas.'},
+
+  {id:7, session:'s1', text:'Un principio clave de la metodología es:',
+   opts:['Evitar validar con negocio.','Problema antes que herramienta.','Herramienta antes que problema.'],
+   answer:1, feedback:'Primero se define el problema y objetivos; luego se eligen técnicas.'},
+
+  {id:8, session:'s1', text:'La analítica prescriptiva busca:',
+   opts:['Sólo predecir sin actuar.','Recomendar acciones considerando metas y restricciones.','Describir el pasado.'],
+   answer:1, feedback:'Optimiza decisiones usando modelos, simulación y/o optimización.'},
+
+  {id:9, session:'s1', text:'"Implementación (despliegue)" significa:',
+   opts:['Eliminar el modelo.','Sólo publicar un paper.','Llevar la solución al uso real (dashboard, API, lotes).'],
+   answer:2, feedback:'Consiste en operacionalizar la solución para generar valor.'},
+
+  {id:10, session:'s1', text:'En "Adquisición de datos" se debe:',
+   opts:['Identificar fuentes y evaluar pertinencia/calidad.','Inventar datos faltantes.','Publicar resultados.'],
+   answer:0, feedback:'Se seleccionan fuentes con calidad y alineadas al problema.'},
+
+  // ── APE1 · S1 · Intento 2 (10/10) ──
+  {id:11, session:'s1', text:'Complejidad por enfoque:',
+   opts:['Descriptiva usa simulaciones complejas.','Predictiva requiere modelado; Prescriptiva integra optimización/simulación.','Todas usan sólo conteos simples.'],
+   answer:1, feedback:'A mayor ambición (prescribir), mayor complejidad técnica.'},
+
+  {id:12, session:'s1', text:'Integración de enfoques en un proyecto sólido implica:',
+   opts:['Empezar por despliegue.','Encadenar descriptiva→predictiva→prescriptiva para pasar de evidencia a acción.','Usar sólo predictiva.'],
+   answer:1, feedback:'La secuencia asegura impacto y medición de resultados.'},
+
+  {id:13, session:'s1', text:'La analítica predictiva responde:',
+   opts:['¿Qué podría ocurrir bajo ciertas condiciones?','¿Qué se debe hacer sí o sí?','¿Qué ocurrió?'],
+   answer:0, feedback:'Pronostica o puntúa riesgos a partir de patrones históricos.'},
+
+  {id:14, session:'s1', text:'"Operación y mejora continua" se traduce en:',
+   opts:['Quitar controles de acceso.','Desplegar, monitorear drift y actualizar periódicamente.','Publicar y abandonar el proyecto.'],
+   answer:1, feedback:'Se preserva el valor en producción con monitoreo y revisiones.'},
+
+  {id:15, session:'s1', text:'¿Qué se entiende por analítica de datos?',
+   opts:['Sólo crear dashboards estéticos.','Examen, organización y modelado de datos para informar decisiones.','Guardar datos sin procesarlos.'],
+   answer:1, feedback:'La analítica convierte datos en información útil para decidir.'},
+
+  {id:16, session:'s1', text:'Detección de tendencias y patrones ayuda a:',
+   opts:['Anticiparse y ser proactivo.','Reaccionar tarde.','Evitar cambios.'],
+   answer:0, feedback:'Permite prever escenarios y actuar antes.'},
+
+  {id:17, session:'s1', text:'"Monitoreo y mejora continua" permite:',
+   opts:['Desactivar alertas.','Controlar desempeño y actualizar la solución.','Ignorar el drift.'],
+   answer:1, feedback:'Se rastrea degradación/deriva y se actualiza cuando corresponde.'},
+
+  {id:18, session:'s1', text:'"Comunicación clara y accionable" significa:',
+   opts:['Relato que conecte problema-datos-hallazgos con decisiones.','Lenguaje técnico exclusivo.','Presentaciones sin métricas.'],
+   answer:0, feedback:'Se comunica para decidir y ejecutar, no sólo para informar.'},
+
+  {id:19, session:'s1', text:'Ejemplo de analítica prescriptiva ante exceso de inventario:',
+   opts:['Proponer precios dinámicos o promociones específicas.','Ignorar el problema.','Reportar el stock actual.'],
+   answer:0, feedback:'Ofrece planes de acción concretos para reducir inventario.'},
+
+  {id:20, session:'s1', text:'La trazabilidad del dato implica:',
+   opts:['Poder seguir cada resultado hasta su origen y transformaciones.','No documentar cambios.','Usar sólo datos recientes.'],
+   answer:0, feedback:'La trazabilidad documenta linaje y cambios para reproducibilidad.'},
+
+  // ── APE1 · S1 · Intento 3 (10/10) ──
+  {id:21, session:'s1', text:'El "Modelado" busca:',
+   opts:['Eliminar variables arbitrariamente.','Asignar presupuestos.','Construir y comparar soluciones alineadas al problema.'],
+   answer:2, feedback:'Se prueban técnicas y se comparan con criterios claros.'},
+
+  {id:22, session:'s1', text:'Optimización de procesos se logra mediante:',
+   opts:['Opiniones.','Adivinación.','Análisis de datos internos que revela cuellos de botella.'],
+   answer:2, feedback:'La evidencia de datos internos revela ineficiencias concretas.'},
+
+  // ── APE2 · S2 · Intento 1 (9/10) ──
+  {id:23, session:'s2', text:'En salud, la analítica apoya:',
+   opts:['Planificación de citas para reducir tiempos de espera.','Compra de equipos sin datos.','Diseño de uniformes.'],
+   answer:0, feedback:'Los modelos ayudan a mejorar flujos de atención y capacidad.'},
+
+  {id:24, session:'s2', text:'Si se omite la definición del problema:',
+   opts:['Se mejora el tiempo total.','Se logran mejores modelos por azar.','Los esfuerzos posteriores pueden ser poco útiles.'],
+   answer:2, feedback:'Un mal planteamiento descarrila el proyecto desde el inicio.'},
+
+  {id:25, session:'s2', text:'En gobierno, la prescriptiva ayuda a:',
+   opts:['Priorizar recursos donde generan mayor impacto.','Aumentar papeleo.','Evitar la transparencia.'],
+   answer:0, feedback:'Optimiza la asignación bajo restricciones y evidencia.'},
+
+  {id:26, session:'s2', text:'La preparación de datos incluye:',
+   opts:['Configurar colores del dashboard.','Limpieza, transformación y creación de variables.','Sólo eliminar duplicados.'],
+   answer:1, feedback:'Preparar datos garantiza que el análisis sea confiable y útil.'},
+
+  {id:27, session:'s2', text:'Durante el análisis de datos se:',
+   opts:['Diseña el logotipo.','Define el presupuesto anual.','Aplican métodos estadísticos y de ML para hallar patrones.'],
+   answer:2, feedback:'El análisis busca patrones, relaciones y tendencias para responder la pregunta.'},
+
+  {id:28, session:'s2', text:'En energía/utilities, destaca:',
+   opts:['Gamificación de la intranet.','Mantenimiento predictivo y optimización operativa.','Diseño de merchandising.'],
+   answer:1, feedback:'Los sensores permiten anticipar fallas y ajustar cargas/horarios.'},
+
+  {id:29, session:'s2', text:'En manufactura, la analítica permite:',
+   opts:['Campañas de marketing.','Predicción de fallas y programación de mantenimiento.','Control de acceso únicamente.'],
+   answer:1, feedback:'Se minimizan paros y se planifica producción y abastecimiento.'},
+
+  {id:30, session:'s2', text:'La implementación exitosa requiere:',
+   opts:['Coordinación interdepartamental y seguimiento.','Evitar cambios de proceso.','Sólo al equipo de datos.'],
+   answer:0, feedback:'Operativizar una solución exige trabajo conjunto y control.'},
+
+  {id:31, session:'s2', text:'El monitoreo y la evaluación permiten:',
+   opts:['Eliminar documentación.','Aprender y ajustar la solución en el tiempo.','Evitar auditorías.'],
+   answer:1, feedback:'El ciclo es iterativo: medir, aprender y mejorar.'},
+
+  {id:32, session:'s2', text:'Fuentes de datos válidas pueden ser:',
+   opts:['Blogs personales sin verificación.','Sólo encuestas físicas.','Bases internas, APIs y redes sociales.'],
+   answer:2, feedback:'Combinar múltiples fuentes confiables enriquece el análisis.'},
+
+  // ── APE2 · S2 · Intento 2 (10/10) ──
+  {id:33, session:'s2', text:'Herramientas para preparar datos:',
+   opts:['Bloc de notas.','PowerPoint.','Python o R con librerías de limpieza.'],
+   answer:2, feedback:'Lenguajes con librerías especializadas agilizan la preparación.'},
+
+  {id:34, session:'s2', text:'Cerrar el ciclo con despliegue y monitoreo implica:',
+   opts:['Operar el modelo y ajustar con evidencias.','Dejar el modelo sin mantenimiento.','Hacer pilotos sin medir.'],
+   answer:0, feedback:'La mejora continua sostiene el valor en el tiempo.'},
+
+  {id:35, session:'s2', text:'En marketing, un uso común es:',
+   opts:['Modelos de propensión y asignación óptima de presupuesto.','Eliminar datos de interacción.','Aleatorizar inversión entre canales.'],
+   answer:0, feedback:'Se optimiza conversión y valor de vida del cliente.'},
+
+  {id:36, session:'s2', text:'¿Cuál es la primera etapa del ciclo de vida de analítica de datos?',
+   opts:['Recolección de datos.','Definición del problema.','Sólo implementar la solución.'],
+   answer:1, feedback:'Siempre se inicia delimitando el problema y sus objetivos.'},
+
+  {id:37, session:'s2', text:'En educación superior, la predictiva permite:',
+   opts:['Calcular promedios históricos.','Estimar riesgo de deserción.','Asignar aulas sin criterios.'],
+   answer:1, feedback:'Modelos con asistencia y notas anticipan el abandono estudiantil.'},
+
+  {id:38, session:'s2', text:'La comunicación efectiva con stakeholders debe ser:',
+   opts:['Clara y convincente.','Opcional.','Excesivamente técnica.'],
+   answer:0, feedback:'La claridad incrementa confianza y adopción de los resultados.'},
+
+  {id:39, session:'s2', text:'Al definir el problema, lo esencial es:',
+   opts:['Seleccionar una herramienta de visualización.','Precisar la pregunta y los objetivos.','Entrenar modelos inmediatamente.'],
+   answer:1, feedback:'Un buen planteamiento alinea expectativas, alcance y criterios de éxito.'},
+
+  {id:40, session:'s2', text:'En retail, una pregunta correcta es:',
+   opts:['¿Cuánto cuesta un nuevo logo?','¿Qué música poner en la tienda?','¿Qué factores limitan las ventas en línea?'],
+   answer:2, feedback:'La pregunta analítica debe estar ligada al objetivo de negocio.'},
+
+  {id:41, session:'s2', text:'Práctica transversal al ciclo:',
+   opts:['Compartir datos sin consentimiento.','Ética, privacidad y transparencia.','Evitar documentar cambios.'],
+   answer:1, feedback:'El gobierno responsable de datos es obligatorio en todas las fases.'},
+
+  {id:42, session:'s2', text:'En logística, la analítica mejora:',
+   opts:['Únicamente encuestas.','Sólo el diseño del logo.','Ruteo y asignación de flota para puntualidad.'],
+   answer:2, feedback:'Ayuda a reducir costos y tiempos de entrega con rutas optimizadas.'},
+
+  {id:43, session:'s2', text:'En telecomunicaciones, la analítica se usa para:',
+   opts:['Diseñar el logotipo corporativo.','Monitoreo de redes y predicción de churn.','Elaborar nóminas únicamente.'],
+   answer:1, feedback:'Se monitoran redes y se anticipan bajas de clientes para actuar proactivamente.'},
+
+  {id:44, session:'s2', text:'En recursos humanos, la analítica predictiva permite:',
+   opts:['Contratar sin criterios de desempeño.','Predecir rotación y planificar dotación.','Solo gestionar nómina.'],
+   answer:1, feedback:'Se anticipan renuncias y brechas de habilidades para actuar a tiempo.'},
+];
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+let state = {}; // {id: {answered: bool, correct: bool}}
+let currentFilter = 'all';
+let currentOrder = [...QUESTIONS.map(q=>q.id)];
+
+function initState(){
+  state = {};
+  QUESTIONS.forEach(q => state[q.id] = {answered:false, correct:false, chosen:-1});
+}
+
+// ═══════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════
+function renderQuiz(){
+  const container = document.getElementById('quiz-container');
+  const visibleIds = getFilteredIds();
+  container.innerHTML = '';
+
+  if(visibleIds.length === 0){
+    container.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:3rem">
+      No hay preguntas en esta categoría.</div>`;
+    return;
+  }
+
+  visibleIds.forEach(id => {
+    const q = QUESTIONS.find(x=>x.id===id);
+    const s = state[id];
+    const card = document.createElement('div');
+    card.className = 'q-card' + (s.answered ? (s.correct?' answered-ok':' answered-bad') : '');
+    card.id = 'qcard-'+id;
+
+    const sesLabel = q.session === 's1' ? 'APE1 · S1' : 'APE2 · S2';
+    const letters = ['a','b','c','d','e'];
+
+    let optsHTML = q.opts.map((o,i)=>{
+      let cls = 'opt';
+      if(s.answered){
+        cls += ' disabled';
+        if(i === q.answer) cls += ' correct';
+        else if(i === s.chosen) cls += ' wrong';
+      }
+      return `<div class="${cls}" onclick="answer(${id},${i})">
+        <span class="opt-letter">${letters[i]}</span>
+        <span>${o}</span>
+      </div>`;
+    }).join('');
+
+    let fbHTML = '';
+    if(s.answered){
+      const ok = s.correct;
+      fbHTML = `<div class="q-feedback show ${ok?'fb-ok':'fb-bad'}">
+        <strong>${ok ? '✅ ¡Correcto!' : '❌ Incorrecto'}</strong>
+        ${!ok ? `<span>La respuesta correcta es: <strong>${q.opts[q.answer]}</strong></span><br>` : ''}
+        <span>${q.feedback}</span>
+      </div>`;
+    }
+
+    card.innerHTML = `
+      <div class="q-number">${sesLabel} · Pregunta ${id}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="options">${optsHTML}</div>
+      ${fbHTML}
+    `;
+    container.appendChild(card);
+  });
+
+  updateStats();
+}
+
+function getFilteredIds(){
+  let filtered;
+  if(currentFilter === 'all') filtered = currentOrder;
+  else if(currentFilter === 's1') filtered = currentOrder.filter(id => QUESTIONS.find(q=>q.id===id).session==='s1');
+  else if(currentFilter === 's2') filtered = currentOrder.filter(id => QUESTIONS.find(q=>q.id===id).session==='s2');
+  else if(currentFilter === 'wrong') filtered = currentOrder.filter(id => state[id].answered && !state[id].correct);
+  else if(currentFilter === 'pending') filtered = currentOrder.filter(id => !state[id].answered);
+  return filtered;
+}
+
+function answer(id, chosen){
+  if(state[id].answered) return;
+  const q = QUESTIONS.find(x=>x.id===id);
+  state[id].answered = true;
+  state[id].chosen = chosen;
+  state[id].correct = (chosen === q.answer);
+
+  // Re-render just this card for performance
+  const card = document.getElementById('qcard-'+id);
+  if(!card) return;
+  card.className = 'q-card ' + (state[id].correct ? 'answered-ok' : 'answered-bad');
+
+  const opts = card.querySelectorAll('.opt');
+  opts.forEach((el, i) => {
+    el.classList.add('disabled');
+    if(i === q.answer) el.classList.add('correct');
+    else if(i === chosen) el.classList.add('wrong');
+  });
+
+  const letters = ['a','b','c','d','e'];
+  const ok = state[id].correct;
+  const fbDiv = document.createElement('div');
+  fbDiv.className = `q-feedback show ${ok?'fb-ok':'fb-bad'}`;
+  fbDiv.innerHTML = `<strong>${ok ? '✅ ¡Correcto!' : '❌ Incorrecto'}</strong>
+    ${!ok ? `<span>La respuesta correcta es: <strong>${q.opts[q.answer]}</strong></span><br>` : ''}
+    <span>${q.feedback}</span>`;
+  card.appendChild(fbDiv);
+
+  updateStats();
+}
+
+function updateStats(){
+  const total = QUESTIONS.length;
+  const answered = Object.values(state).filter(s=>s.answered);
+  const ok = answered.filter(s=>s.correct).length;
+  const bad = answered.filter(s=>!s.correct).length;
+  const pend = total - answered.length;
+
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-ok').textContent = ok;
+  document.getElementById('stat-bad').textContent = bad;
+  document.getElementById('stat-pend').textContent = pend;
+
+  const pct = total > 0 ? Math.round((answered.length / total) * 100) : 0;
+  document.getElementById('prog').style.width = pct + '%';
+}
+
+function resetQuiz(){
+  initState();
+  currentOrder = [...QUESTIONS.map(q=>q.id)];
+  renderQuiz();
+}
+
+function shuffleQuiz(){
+  currentOrder.sort(()=>Math.random()-.5);
+  renderQuiz();
+}
+
+function filterQ(filter, btn){
+  currentFilter = filter;
+  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderQuiz();
+}
+
+// ═══════════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════════
+function showTab(name, btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('visible'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('visible');
+  btn.classList.add('active');
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+initState();
+renderQuiz();
+</script>
+</body>
+</html>
