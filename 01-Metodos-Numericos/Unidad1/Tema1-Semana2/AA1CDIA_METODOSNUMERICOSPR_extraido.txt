@@ -1,0 +1,398 @@
+pages 7
+
+--- PAGE 1 ---
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+METODOS NUMÉRICOS Y PROBLEMAS COMPLEJOS 
+Actividad Autónoma 1 
+Nombre de la actividad: Sistemas numéricos y su presentación 
+Unidad 1: Fundamentos y errores en el cálculo numérico 
+Tema 1: Sistemas numéricos y su representación en el punto flotante 
+ 
+ 
+Nombres: 
+Fecha: 
+Carrera: 
+Periodo académico: 
+Semestre: 
+ 
+ 
+ 
+
+
+--- PAGE 2 ---
+Objetivo de la actividad:  Analizar y aplicar los fundamentos de los sistemas 
+numéricos y su representación en computadoras digitales. 
+ 
+Recursos o temas que debe haber estudiado antes de hacer la actividad: 
+• Sistemas de numeración. 
+• Métodos de conversión entre bases. 
+• Representación binaria de enteros. 
+• Representación de números reales en punto flotante. 
+ 
+Formato de entrega: PDF  
+Instrucciones:  
+• Realizar la actividad autónoma a mano. 
+• Los enunciados de diferente color de bolígrafo 
+• Debe realizarse obligatoriamente el procedimiento. 
+• La respuesta debe estar encerrada en un recuadro de color. 
+• Mantener orden y claridad en la elaboración de la tarea. 
+• La tarea se realizará a mano en hojas cuadriculadas en donde 
+conste el enunciado del problema. 
+• Nombrar al archivo de la siguiente manera: 
+Apellido_Nombre_MetodosNumericosyProblemasComplejos 
+• Si se detecta plagio, la nota de la actividad será de cero. 
+• Asegurarse que el contenido del documento pueda observarse de 
+manera clara. 
+Se deberá entregar hasta la fecha dispuesta en el aula virtual Tiempo es- 
+timado para la tarea 120 minutos. 
+ 
+Contenido  
+Apartado A: Conversión entre sistemas numéricos 
+1. Convertir de sistema decimal a binario (aplicando el procedimiento 
+manual): 
+a) 28₁₀ 
+b) 64₁₀ 
+c) 91₁₀ 
+ 
+
+--- PAGE 3 ---
+2. Convertir de sistema binario a decimal: 
+a) 110101₂ 
+b) 101110₂ 
+c) 111000₂ 
+ 
+3. Convertir números decimales fraccionarios a binario: 
+a) 0.625₁₀ 
+b) 0.4375₁₀ 
+c) 0.8125₁₀ 
+ 
+4. Convertir números binarios fraccionarios a decimal: 
+a) 0.1011₂ 
+b) 0.0101₂ 
+c) 0.1110₂ 
+Apartado B: Representación numérica en el computador 
+1. Representar los siguientes números en binario con signo (8 bits): 
+a) +7 
+b) -12 
+c) -3 
+d) +20 
+e) +5 
+2. Completar la tabla del estándar de punto flotante: 
+Precisión Bits de 
+signo 
+Bits de 
+exponente 
+Bits de 
+mantisa 
+Simple       
+Doble       
+ 
+Apartado C: Programación y conversión numérica en Python 
+Desarrollar un programa en Python que convierta un número decimal entero a 
+binario mediante divisiones sucesivas. 
+ 
+ 
+ 
+
+--- PAGE 4 ---
+Bibliografía: 
+ 
+• Burden, R., & Faires, J. (2011). Análisis Numérico (9a ed.). Cengage Learning.  
+• Chapra, S., & Canale, R. (2007). Métodos numéricos para ingenieros (5a ed.). 
+McGraw-Hill.  
+• Cheney, W., & Kincaid, D. (2011). Matemáticas numéricas y computación. 
+Cengage Learning.  
+• Press, W., Teukolsky, S., Vetterling, W., & Flannery, B. (2007). Numerical Recipes: The 
+Art of Scientific Computing. Cambridge University Press.  
+• Patterson, D., & Hennessy, J. (2011). Computer Organization and Design: The 
+Hardware/Software Interface. Morgan Kaufmann.  
+ 
+
+--- PAGE 5 ---
+Rúbrica de evaluación 
+ 
+ 
+Componente de aprendizaje: 
+Autónom
+o 
+ 
+X Contacto con el 
+Docente 
+ 
+Nombre de la Unidad: Unidad 1:  Fundamentos y errores en el cálculo numérico  
+ 
+Resultado(s) de aprendizaje: 
+• Conoce sobre los sistemas de numeración y representación de punto flotante IEEE-754 y comprende 
+las limitaciones de la aritmética computacional. 
+• Aplica el conocimiento para calcular medidas de error absoluto, relativo, porcentual y cuantifica el 
+error de propagación en las  operaciones aritméticas y en funciones, alineándose con los ODS 13 
+(Acción por el clima) y 9 (Industria, innovación e infraestructura).  
+• Sustenta la gestión del conocimiento ajustada al entorno cultural y legal, tanto nacional como 
+internacional. 
+Nombre de la Actividad: 
+ 
+ 
+ 
+ 
+ 
+Criterios 
+de Evaluación 
+Escala de Valoración 
+Excelente (10 - 
+9,1) 
+Bueno (9 -
+8,1) 
+Satisfactorio 
+(8 - 7) 
+Necesita 
+mejorar (6,9 
+- 0,1) 
+ 
+No entrega        
+(0) 
+ 
+Puntaje Comentarios 
+(SIGEA) 
+1. Aplicación de 
+conceptos. 
+El estudiante 
+aplica de manera 
+excepcional los 
+conceptos relevantes al 
+problema, 
+demostrando una 
+comprensión 
+profunda del 
+contexto. 
+El estudiante 
+aplica 
+de 
+manera 
+efectiva 
+los 
+concept
+os, 
+mostrando una 
+buena 
+comprensión 
+del contexto 
+del problema. 
+ 
+El estudiante 
+aplica los 
+conceptos 
+de manera 
+básica, con 
+algunas 
+limitaciones 
+en la 
+comprensión 
+del contexto. 
+ 
+El estudiante 
+tiene dificultades 
+para aplicar los 
+conceptos de 
+manera 
+significativa al 
+problema. 
+ 
+ 
+ 
+ 
+No entrega 
+  
+2. Proceso de 
+resolución. El proceso de 
+resolución se 
+presenta de manera 
+lógica y ordenada. 
+El proceso de 
+resolución es 
+lógico, con 
+una 
+organización 
+adecuada. 
+El proceso de 
+resolución es 
+comprensible
+, pero puede 
+haber falta 
+de claridad 
+El proceso de 
+resolución es 
+confuso, 
+desorganizado o 
+poco claro. 
+ 
+ 
+No entrega 
+  
+3. Exactitud. 
+ 
+El estudiante realiza 
+cálculos con 
+exactitud y sin 
+errores 
+significativos. 
+ 
+El estudiante 
+comete 
+errores 
+mínimos y 
+demuestra 
+una alta 
+exactitud en 
+los cálculos. 
+El estudiante 
+comete 
+algunos 
+errores, pero 
+estos no 
+afectan 
+significativame
+n te la 
+exactitud 
+global 
+El estudiante 
+comete numerosos 
+errores que afectan 
+significativamen te 
+la exactitud de los 
+cálculos. 
+ 
+ 
+ 
+No entrega 
+  
+4. Presentación y 
+claridad. 
+La presentación 
+es estéticamente 
+agradable, con una 
+organización 
+impecable y una 
+claridad 
+excepcional en la 
+presentación de 
+cálculos y resultados 
+La presentación 
+es clara y 
+estéticament
+e aceptable, 
+con una 
+organización 
+efectiva y 
+buena 
+claridad en la 
+mayoría de 
+los aspectos. 
+La 
+presentación 
+es 
+comprensibl
+e, pero 
+puede 
+haber falta 
+de estética 
+y claridad 
+en algunos 
+elementos. 
+ 
+La presentación 
+carece de 
+estética y 
+claridad, 
+dificultando la 
+comprensión de 
+los cálculos y 
+resultados. 
+ 
+ 
+ 
+ 
+No entrega 
+  
+
+--- PAGE 6 ---
+ 
+ 
+ 
+ 
+ 
+ 
+Puntaje total 
+ 
+Los criterios 4 y 5 están alineados a los ejes de formación del Modelo Educativo UNACH “Introspección y Prospectiva” responden 
+principalmente a dos de los siguientes ejes: 
+1. Ambiente; 
+2. Autonomía y adaptabilidad; 
+3. Comunicación; 
+4. Desarrollo humano; 
+5. Ética y valores; 
+6. Emprendimiento; 
+7. Inter y multidisciplinariedad; 
+8. Innovación; 
+9. Inclusión e interculturalidad; 
+10. Investigación; 
+11. Impacto social; 
+12. Tecnologías. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+5. Autenticidad y 
+transparencia. El enfoque del 
+estudiante es 
+altamente original y 
+muestra ideas 
+creativas y únicas en la 
+resolución del 
+problema. 
+El enfoque del 
+estudiante 
+es original y 
+presenta 
+ideas 
+creativas 
+que 
+contribuyen a 
+la resolución 
+del problema. 
+Muestra cierto 
+grado de 
+originalidad
+, pero las 
+ideas son 
+convencional
+es o 
+previsibles en 
+su mayoría. 
+El desarrollo 
+carece de 
+originalidad, 
+reflejando un 
+patrón común 
+al de otros 
+trabajos. 
+ 
+ 
+ 
+No entrega 
+  
+
+--- PAGE 7 ---
+ 

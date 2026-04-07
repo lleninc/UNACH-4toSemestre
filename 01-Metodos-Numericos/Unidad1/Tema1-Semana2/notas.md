@@ -143,5 +143,120 @@ Si se redondea demasiado pronto, el error puede acumularse y afectar el resultad
 
 ## Quiz
 
+### Pregunta 1: Punto flotante de 32 bits
+
+**Pregunta:** En precisión simple (32 bits) de punto flotante, al signo le corresponde:
+
+**Opciones:**
+- ✅ 1 bit.
+- ❌ 23 bits.
+- ❌ 8 bits.
+
+**Respuesta correcta:** 1 bit.
+
+**Explicación breve:**
+En IEEE 754 de 32 bits: 1 bit para signo, 8 bits para exponente y 23 bits para mantisa.
+
+### Pregunta 2: Definición de byte
+
+**Pregunta:** Un byte está compuesto por:
+
+**Opciones:**
+- ❌ 10 bits
+- ✅ 8 bits
+- ❌ 2 bits
+
+**Respuesta correcta:** 8 bits.
+
+**Explicación breve:**
+Un byte es la unidad básica de almacenamiento y equivale a 8 bits.
+
+### Pregunta 3: Magnitud con signo en 8 bits
+
+**Pregunta:** En el sistema de magnitud con signo, el número 12 representado en 8 bits, sería:
+
+**Opciones:**
+- ✅ 00001100
+- ❌ 10001000
+- ❌ 00001110
+
+**Respuesta correcta:** 00001100.
+
+**Explicación breve:**
+Para un número positivo, el bit de signo es 0 y la magnitud de 12 en binario es 0001100, por eso queda 00001100.
+
+### Pregunta 4: Primer bit en magnitud con signo
+
+**Pregunta:** En el sistema de magnitud con signo, el primer bit corresponde:
+
+**Opciones:**
+- ✅ Al signo
+- ❌ A la base 2
+- ❌ A un exponente
+
+**Respuesta correcta:** Al signo.
+
+**Explicación breve:**
+El primer bit indica el signo del número: 0 para positivo y 1 para negativo.
+
+### Pregunta 5: Estructura de punto flotante
+
+**Pregunta:** La representación estándar de un número en punto flotante posee:
+
+**Opciones:**
+- ❌ Entero, Fracción, Exponente.
+- ✅ Signo, Mantisa, Exponente.
+- ❌ Precisión, Rango, Base.
+
+**Respuesta correcta:** Signo, Mantisa, Exponente.
+
+**Explicación breve:**
+La estructura estándar separa el número en signo, exponente y mantisa (o significando).
+
+### Pregunta 6: Verdadero o falso
+
+**Afirmación:** El método de Müller utiliza una aproximación lineal (una recta) que pasa por dos puntos para estimar la siguiente aproximación de la raíz.
+
+**Respuesta correcta:** Falso.
+
+**Explicación breve:**
+El método de Müller usa una aproximación cuadrática (una parábola) construida con tres puntos, no una recta de dos puntos.
+
+### Pregunta 7: Verdadero o falso
+
+**Afirmación:** El método de Bairstow está diseñado específicamente para encontrar las raíces de polinomios, extrayendo factores cuadráticos de forma iterativa.
+
+**Respuesta correcta:** Verdadero.
+
+**Explicación breve:**
+Bairstow es un método iterativo orientado a polinomios que busca factores cuadráticos para obtener raíces reales y complejas.
+
+### Pregunta 8: Verdadero o falso
+
+**Afirmación:** Una ventaja del método de Müller es que, incluso partiendo de estimaciones iniciales reales, puede converger a raíces complejas.
+
+**Respuesta correcta:** Verdadero.
+
+**Explicación breve:**
+Al usar una aproximación cuadrática, el método de Müller puede generar iteraciones en el plano complejo y converger a raíces complejas.
+
+### Pregunta 9: Verdadero o falso
+
+**Afirmación:** Para iniciar el método de Müller, se necesitan únicamente dos puntos iniciales.
+
+**Respuesta correcta:** Falso.
+
+**Explicación breve:**
+El método de Müller requiere tres puntos iniciales para construir la aproximación cuadrática (parábola).
+
+### Pregunta 10: Verdadero o falso
+
+**Afirmación:** Para iniciar el método de Müller, no requiere el cálculo de la derivada de la función, a diferencia del método de Newton-Raphson.
+
+**Respuesta correcta:** Verdadero.
+
+**Explicación breve:**
+Müller utiliza interpolación cuadrática con valores de la función, mientras que Newton-Raphson sí necesita la derivada.
+
 ## Actividades
 
