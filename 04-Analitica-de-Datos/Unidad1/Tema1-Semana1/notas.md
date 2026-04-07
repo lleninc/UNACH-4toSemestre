@@ -48,6 +48,78 @@ En un proyecto sólido, los tres enfoques se integran: la descriptiva aporta com
 4. ¿Qué hace la analítica predictiva?
 5. ¿Qué aporta la analítica prescriptiva a la toma de decisiones?
 
+## Quiz
+
+### Pregunta 1: Producto de analítica descriptiva
+
+**Pregunta:** Producto típico de analítica descriptiva:
+
+**Opciones:**
+- ✅ Reportes/indicadores y dashboards históricos.
+- ❌ Un plan de precios óptimos.
+- ❌ Un motor de recomendación en línea.
+
+**Respuesta correcta:** Reportes/indicadores y dashboards históricos.
+
+**Explicación breve:**
+La analítica descriptiva resume y comunica el comportamiento pasado de las variables mediante reportes, indicadores y tableros.
+
+### Pregunta 2: Definición de analítica de datos
+
+**Pregunta:** ¿Qué se entiende por analítica de datos?
+
+**Opciones:**
+- ✅ Examen, organización y modelado de datos para informar decisiones.
+- ❌ Sólo crear dashboards estéticos.
+- ❌ Guardar datos sin procesarlos.
+
+**Respuesta correcta:** Examen, organización y modelado de datos para informar decisiones.
+
+**Explicación breve:**
+La analítica de datos busca transformar datos en información útil para decidir; no se limita al diseño visual ni al simple almacenamiento.
+
+### Pregunta 3: Optimización de procesos
+
+**Pregunta:** Optimización de procesos se logra mediante:
+
+**Opciones:**
+- ❌ Opiniones.
+- ❌ Adivinación.
+- ✅ Análisis de datos internos que revela cuellos de botella.
+
+**Respuesta correcta:** Análisis de datos internos que revela cuellos de botella.
+
+**Explicación breve:**
+La optimización de procesos requiere evidencia de operación real; el análisis interno permite detectar ineficiencias y definir mejoras concretas.
+
+### Pregunta 4: Comprensión del problema
+
+**Pregunta:** La fase “Comprensión del problema” busca:
+
+**Opciones:**
+- ❌ Construir la API de despliegue.
+- ✅ Alinear necesidad del negocio y definir éxito.
+- ❌ Ajustar hiperparámetros.
+
+**Respuesta correcta:** Alinear necesidad del negocio y definir éxito.
+
+**Explicación breve:**
+Esta fase establece el objetivo del proyecto y los criterios de éxito del negocio; las tareas técnicas de modelado y despliegue vienen después.
+
+### Pregunta 5: Evaluación y comunicación
+
+**Pregunta:** En “Evaluación y comunicación” se debe:
+
+**Opciones:**
+- ❌ Decidir sin involucrar negocio.
+- ✅ Validar resultados y decidir el siguiente paso con las partes interesadas.
+- ❌ Evitar métricas técnicas.
+
+**Respuesta correcta:** Validar resultados y decidir el siguiente paso con las partes interesadas.
+
+**Explicación breve:**
+En esta fase se contrastan resultados con criterios del negocio y métricas técnicas, para acordar decisiones informadas con los stakeholders.
+
 ## Actividades
 - [ ] Explicar con tus palabras qué es una metodología de analítica.
 - [ ] Dar un ejemplo de dato estructurado y uno no estructurado.
