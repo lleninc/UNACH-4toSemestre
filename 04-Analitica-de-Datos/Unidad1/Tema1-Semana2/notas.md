@@ -51,6 +51,78 @@ Ejemplos de aplicación:
 4. ¿Por qué el monitoreo es parte del proyecto?
 5. ¿En qué sectores se puede aplicar la analítica de datos?
 
+## Quiz
+
+### Pregunta 1: Durante el análisis de datos
+
+**Pregunta:** Durante el análisis de datos se:
+
+**Opciones:**
+- ✅ Aplican métodos estadísticos y de ML para hallar patrones.
+- ❌ Define el presupuesto anual.
+- ❌ Diseña el logotipo.
+
+**Respuesta correcta:** Aplican métodos estadísticos y de ML para hallar patrones.
+
+**Explicación breve:**
+La fase de análisis se centra en explorar datos, encontrar patrones y generar hallazgos para apoyar decisiones; actividades como presupuesto o diseño de logotipo no pertenecen a esta etapa.
+
+### Pregunta 2: Primera etapa del ciclo de vida
+
+**Pregunta:** ¿Cuál es la primera etapa del ciclo de vida de analítica de datos?
+
+**Opciones:**
+- ✅ Definición del problema.
+- ❌ Sólo implementar la solución.
+- ❌ Recolección de datos.
+
+**Respuesta correcta:** Definición del problema.
+
+**Explicación breve:**
+La primera etapa es definir con claridad el problema y los objetivos; sin esa base, el resto del ciclo pierde dirección.
+
+### Pregunta 3: Comunicación con stakeholders
+
+**Pregunta:** La comunicación efectiva con stakeholders debe ser:
+
+**Opciones:**
+- ❌ Opcional.
+- ✅ Clara y convincente.
+- ❌ Excesivamente técnica.
+
+**Respuesta correcta:** Clara y convincente.
+
+**Explicación breve:**
+Los resultados analíticos deben comunicarse con claridad para facilitar decisiones; si el mensaje es opcional o demasiado técnico, se pierde impacto.
+
+### Pregunta 4: Monitoreo y evaluación
+
+**Pregunta:** El monitoreo y la evaluación permiten:
+
+**Opciones:**
+- ❌ Evitar auditorías.
+- ✅ Aprender y ajustar la solución en el tiempo.
+- ❌ Eliminar documentación.
+
+**Respuesta correcta:** Aprender y ajustar la solución en el tiempo.
+
+**Explicación breve:**
+Monitorear y evaluar ayuda a medir impacto, detectar desvíos y mejorar la solución de forma continua tras su implementación.
+
+### Pregunta 5: Prescriptiva en retail
+
+**Pregunta:** En retail, la prescriptiva permite:
+
+**Opciones:**
+- ❌ Ignorar restricciones logísticas.
+- ❌ Promociones al azar.
+- ✅ Planes de reposición con límites de presupuesto y capacidad.
+
+**Respuesta correcta:** Planes de reposición con límites de presupuesto y capacidad.
+
+**Explicación breve:**
+La analítica prescriptiva recomienda acciones factibles bajo restricciones reales de operación, como presupuesto, inventario y capacidad logística.
+
 ## Actividades
 - [ ] Dibujar el ciclo de vida de un proyecto de analítica.
 - [ ] Escribir un ejemplo por sector.
