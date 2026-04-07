@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Métodos Numéricos — U1 T1 | UNACH 2026-1S</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161d;
+    --surface2: #1a1e28;
+    --border: #252b3a;
+    --accent: #f0a500;
+    --accent2: #3ecfcf;
+    --accent3: #e05a5a;
+    --text: #e8eaf0;
+    --text-muted: #7a8099;
+    --correct: #2ecc71;
+    --incorrect: #e74c3c;
+    --tag-bg: #1e2535;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', Georgia, serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Header ── */
+  header {
+    position: relative;
+    padding: 60px 40px 50px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #0d0f14 0%, #131928 100%);
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,165,0,0.12) 0%, transparent 70%);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 200px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(62,207,207,0.08) 0%, transparent 70%);
+  }
+  .header-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(240,165,0,0.1);
+    border: 1px solid rgba(240,165,0,0.3);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: var(--text);
+  }
+  header h1 span { color: var(--accent); }
+  .header-sub {
+    margin-top: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .header-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .stat-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent2);
+  }
+  .stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── Nav tabs ── */
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 24px 0 0;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .tab-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ── Section titles ── */
+  .section-block { display: none; padding-top: 36px; }
+  .section-block.visible { display: block; }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  /* ── Summary cards ── */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .summary-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent2);
+  }
+  .summary-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .card-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+  .card-body {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #b0b8cc;
+  }
+
+  /* ── Concept boxes ── */
+  .concept-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .concept-box.accent2 { border-left-color: var(--accent2); }
+  .concept-box.accent3 { border-left-color: var(--accent3); }
+  .concept-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .concept-box.accent2 .concept-title { color: var(--accent2); }
+  .concept-box.accent3 .concept-title { color: var(--accent3); }
+  .concept-body {
+    font-size: 14px;
+    line-height: 1.75;
+    color: #b8c0d4;
+  }
+  .concept-body code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    background: var(--tag-bg);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: var(--accent2);
+  }
+
+  /* ── IEEE Table ── */
+  .ieee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0 28px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+  }
+  .ieee-table th {
+    background: var(--surface2);
+    color: var(--accent);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 2px solid var(--accent);
+  }
+  .ieee-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .ieee-table tr:hover td { background: var(--surface2); }
+  .ieee-table .highlight { color: var(--accent2); font-weight: 500; }
+
+  /* ── Quiz cards ── */
+  .quiz-meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .quiz-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+  .badge-s1 { background: rgba(240,165,0,0.15); color: var(--accent); border: 1px solid rgba(240,165,0,0.3); }
+  .badge-s2 { background: rgba(62,207,207,0.15); color: var(--accent2); border: 1px solid rgba(62,207,207,0.3); }
+  .badge-score { background: rgba(46,204,113,0.15); color: var(--correct); border: 1px solid rgba(46,204,113,0.3); }
+
+  .question-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 14px;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+  .question-card:hover { border-color: #3a4260; }
+  .question-card.expanded { border-color: var(--accent2); }
+
+  .q-header {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .q-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    min-width: 28px;
+    padding-top: 2px;
+  }
+  .q-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    flex: 1;
+  }
+  .q-toggle {
+    font-size: 18px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    min-width: 20px;
+    text-align: center;
+  }
+  .question-card.expanded .q-toggle { transform: rotate(180deg); color: var(--accent2); }
+
+  .q-options {
+    display: none;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    padding-left: 42px;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .question-card.expanded .q-options { display: flex; }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #8c94ad;
+    background: var(--tag-bg);
+    border: 1px solid transparent;
+  }
+  .option.correct {
+    background: rgba(46,204,113,0.08);
+    border-color: rgba(46,204,113,0.35);
+    color: #b8f0ce;
+  }
+  .option.correct .opt-letter { color: var(--correct); font-weight: 600; }
+  .opt-letter {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    min-width: 16px;
+    padding-top: 1px;
+  }
+  .opt-text { flex: 1; }
+  .opt-check {
+    font-size: 14px;
+    color: var(--correct);
+  }
+
+  .q-explanation {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: rgba(62,207,207,0.06);
+    border-left: 3px solid var(--accent2);
+    border-radius: 4px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: #9ab8cc;
+    font-style: italic;
+  }
+  .q-explanation strong {
+    font-style: normal;
+    color: var(--accent2);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Search ── */
+  .search-wrap {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .search-input {
+    width: 100%;
+    padding: 12px 16px 12px 44px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: var(--accent2); }
+  .search-icon {
+    position: absolute;
+    left: 14px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 16px;
+  }
+
+  /* ── Conversion section ── */
+  .convert-demo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  @media (max-width: 600px) { .convert-demo { grid-template-columns: 1fr; } }
+  .demo-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+  }
+  .demo-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .demo-steps {
+    list-style: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: #8c94ad;
+    line-height: 2;
+  }
+  .demo-steps li { display: flex; justify-content: space-between; }
+  .demo-steps .residuo { color: var(--accent); }
+  .demo-result {
+    margin-top: 12px;
+    padding: 8px;
+    background: rgba(240,165,0,0.08);
+    border-radius: 4px;
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  /* ── Progress bar ── */
+  .progress-wrap { margin: 20px 0; }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .progress-bar {
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 3px;
+    transition: width 1s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    header { padding: 40px 20px 36px; }
+    .container { padding: 0 16px 60px; }
+    .nav-tabs { gap: 0; }
+    .tab-btn { padding: 10px 14px; font-size: 11px; }
+  }
+
+  /* ── Scroll to top ── */
+  .scroll-top {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    width: 42px; height: 42px;
+    background: var(--accent);
+    color: #000;
+    border: none; border-radius: 50%;
+    font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+    font-weight: bold;
+  }
+  .scroll-top.visible { opacity: 1; }
+</style>
+</head>
+<body>
+
+<header>
+  <div style="max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1">
+    <div class="header-tag">UNACH · 4to Semestre · 2026-1S</div>
+    <h1>Métodos Numéricos<br><span>y Problemas Complejos</span></h1>
+    <p class="header-sub">Unidad 1 — Tema 1 // Sistemas numéricos y representación en punto flotante</p>
+    <div class="header-stats">
+      <div class="stat"><span class="stat-val">30+</span><span class="stat-label">Preguntas de quiz</span></div>
+      <div class="stat"><span class="stat-val">4</span><span class="stat-label">Intentos APE</span></div>
+      <div class="stat"><span class="stat-val">100%</span><span class="stat-label">Calificación S1</span></div>
+      <div class="stat"><span class="stat-val">IEEE 754</span><span class="stat-label">Estándar</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- NAV TABS -->
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('resumen')">📋 Resumen</button>
+    <button class="tab-btn" onclick="showTab('conversiones')">🔄 Conversiones</button>
+    <button class="tab-btn" onclick="showTab('s1')">Quiz S1 — APE1</button>
+    <button class="tab-btn" onclick="showTab('s2')">Quiz S2 — APE2</button>
+    <button class="tab-btn" onclick="showTab('todos')">🗂 Todos</button>
+  </div>
+
+  <!-- ===== RESUMEN ===== -->
+  <div id="tab-resumen" class="section-block visible">
+    <div style="height:8px"></div>
+    <p class="section-desc">Conceptos clave de U1 T1 — para repasar antes del examen</p>
+
+    <div class="section-title">Sistemas numéricos</div>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="card-num">01 // DECIMAL</div>
+        <div class="card-title">Sistema base 10</div>
+        <div class="card-body">Usa los dígitos 0–9. Un número real tiene signo, parte entera y parte decimal separadas por el punto decimal.</div>
+      </div>
+      <div class="summary-card">
+        <div class="card-num">02 // BINARIO</div>
+        <div class="card-title">Sistema base 2</div>
+        <div class="card-body">Solo usa <strong>0</strong> y <strong>1</strong>. Es el lenguaje nativo de las computadoras: representa presencia (1) o ausencia (0) de pulso eléctrico. La unidad mínima es el <em>bit</em>.</div>
+      </div>
+      <div class="summary-card">
+        <div class="card-num">03 // BYTE y PALABRA</div>
+        <div class="card-title">Agrupación de bits</div>
+        <div class="card-body"><strong>1 byte = 8 bits</strong>. Una "palabra" puede tener 8–64 bits. Una palabra de 32 bits = 4 bytes, de 64 bits = 8 bytes.</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:24px">Representación de enteros</div>
+    <div class="concept-box">
+      <div class="concept-title">Magnitud con signo (Sign-Magnitude)</div>
+      <div class="concept-body">
+        El <strong>primer bit (MSB)</strong> indica el signo: <code>0 = positivo</code>, <code>1 = negativo</code>.<br>
+        Los bits restantes almacenan la magnitud del número.<br>
+        Ejemplo: −6 en 8 bits → 6₁₀ = 00000110₂ → con signo negativo: <code>10000110</code><br>
+        Ejemplo: +12 en 8 bits → 12₁₀ = 00001100₂ → con signo positivo: <code>00001100</code>
+      </div>
+    </div>
+    <div class="concept-box accent2">
+      <div class="concept-title">Complemento a 2 — Rangos de enteros</div>
+      <div class="concept-body">
+        Fórmula del rango: <code>[−2^(n−1), 2^(n−1) − 1]</code>
+      </div>
+    </div>
+    <table class="ieee-table">
+      <thead>
+        <tr><th>Tipo</th><th>Bits</th><th>Rango</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>short (entero corto)</td><td class="highlight">16</td><td>[−2¹⁵, 2¹⁵ − 1]</td></tr>
+        <tr><td>int (entero)</td><td class="highlight">32</td><td>[−2³¹, 2³¹ − 1]</td></tr>
+        <tr><td>long (entero largo)</td><td class="highlight">64</td><td>[−2⁶³, 2⁶³ − 1]</td></tr>
+      </tbody>
+    </table>
+
+    <div class="section-title" style="margin-top:8px">Punto flotante — IEEE 754</div>
+    <div class="concept-box">
+      <div class="concept-title">Estructura general</div>
+      <div class="concept-body">
+        Un número en punto flotante se descompone en tres partes:<br>
+        <strong>Signo (S)</strong> — indica positivo (0) o negativo (1)<br>
+        <strong>Exponente (E)</strong> — determina el orden de magnitud; permite que el punto "flote"<br>
+        <strong>Mantisa / Fracción (M)</strong> — contiene los dígitos significativos, representa la precisión
+      </div>
+    </div>
+    <table class="ieee-table">
+      <thead>
+        <tr><th>Precisión</th><th>Total bits</th><th>Signo</th><th>Exponente</th><th>Mantisa</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Simple (float)</td>
+          <td class="highlight">32 bits</td>
+          <td>1 bit</td>
+          <td class="highlight">8 bits</td>
+          <td>23 bits</td>
+        </tr>
+        <tr>
+          <td>Doble (double)</td>
+          <td class="highlight">64 bits</td>
+          <td>1 bit</td>
+          <td class="highlight">11 bits</td>
+          <td>52 bits</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="summary-grid" style="margin-top:4px">
+      <div class="summary-card">
+        <div class="card-num">OVERFLOW</div>
+        <div class="card-title">Desbordamiento</div>
+        <div class="card-body">El exponente es <strong>demasiado grande</strong> para ser representado en su campo. El número supera el máximo representable.</div>
+      </div>
+      <div class="summary-card">
+        <div class="card-num">UNDERFLOW</div>
+        <div class="card-title">Subdesbordamiento</div>
+        <div class="card-body">El exponente negativo es <strong>menor al mínimo representable</strong> (más negativo). El número es demasiado pequeño en magnitud.</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:24px">Errores en métodos numéricos</div>
+    <div class="concept-box accent3">
+      <div class="concept-title">Tipos de error</div>
+      <div class="concept-body">
+        <strong>Error de truncamiento:</strong> reemplazar un proceso infinito por uno finito (cortar una serie).<br>
+        <strong>Error de redondeo:</strong> limitar cifras decimales (usar 3.1416 en lugar de π).<br>
+        <strong>Error acumulado:</strong> se suma en operaciones sucesivas.<br><br>
+        <strong>Precisión:</strong> qué tan cerca están múltiples resultados entre sí.<br>
+        <strong>Exactitud:</strong> qué tan cerca está el resultado del valor verdadero.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CONVERSIONES ===== -->
+  <div id="tab-conversiones" class="section-block">
+    <div style="height:8px"></div>
+    <p class="section-desc">Procedimientos y ejemplos de conversión entre sistemas</p>
+
+    <div class="section-title">Decimal → Binario (entero)</div>
+    <div class="concept-box">
+      <div class="concept-title">Método: divisiones sucesivas entre 2</div>
+      <div class="concept-body">
+        1. Divide N entre 2, anota cociente y residuo.<br>
+        2. Repite con el cociente hasta que sea 0.<br>
+        3. Lee los residuos <strong>de abajo hacia arriba</strong>.
+      </div>
+    </div>
+    <div class="convert-demo">
+      <div class="demo-card">
+        <h4>25₁₀ → binario</h4>
+        <ul class="demo-steps">
+          <li><span>25 ÷ 2 = 12</span><span class="residuo">r=1</span></li>
+          <li><span>12 ÷ 2 = 6</span><span class="residuo">r=0</span></li>
+          <li><span>6 ÷ 2 = 3</span><span class="residuo">r=0</span></li>
+          <li><span>3 ÷ 2 = 1</span><span class="residuo">r=1</span></li>
+          <li><span>1 ÷ 2 = 0</span><span class="residuo">r=1</span></li>
+        </ul>
+        <div class="demo-result">25₁₀ = 11001₂</div>
+      </div>
+      <div class="demo-card">
+        <h4>44₁₀ → binario</h4>
+        <ul class="demo-steps">
+          <li><span>44 ÷ 2 = 22</span><span class="residuo">r=0</span></li>
+          <li><span>22 ÷ 2 = 11</span><span class="residuo">r=0</span></li>
+          <li><span>11 ÷ 2 = 5</span><span class="residuo">r=1</span></li>
+          <li><span>5 ÷ 2 = 2</span><span class="residuo">r=1</span></li>
+          <li><span>2 ÷ 2 = 1</span><span class="residuo">r=0</span></li>
+          <li><span>1 ÷ 2 = 0</span><span class="residuo">r=1</span></li>
+        </ul>
+        <div class="demo-result">44₁₀ = 101100₂</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:24px">Binario → Decimal (entero)</div>
+    <div class="concept-box">
+      <div class="concept-title">Fórmula: suma de potencias de 2</div>
+      <div class="concept-body">
+        N = a<sub>n</sub>×2<sup>n</sup> + a<sub>n-1</sub>×2<sup>n-1</sup> + … + a<sub>1</sub>×2<sup>1</sup> + a<sub>0</sub>×2<sup>0</sup><br>
+        Numerar los bits de <strong>derecha a izquierda desde 0</strong>.
+      </div>
+    </div>
+    <div class="convert-demo">
+      <div class="demo-card">
+        <h4>111011₂ → decimal</h4>
+        <ul class="demo-steps">
+          <li><span>1×2⁵ = 32</span></li>
+          <li><span>1×2⁴ = 16</span></li>
+          <li><span>1×2³ = 8</span></li>
+          <li><span>0×2² = 0</span></li>
+          <li><span>1×2¹ = 2</span></li>
+          <li><span>1×2⁰ = 1</span></li>
+        </ul>
+        <div class="demo-result">111011₂ = 59₁₀</div>
+      </div>
+      <div class="demo-card">
+        <h4>111100₂ → decimal</h4>
+        <ul class="demo-steps">
+          <li><span>1×2⁵ = 32</span></li>
+          <li><span>1×2⁴ = 16</span></li>
+          <li><span>1×2³ = 8</span></li>
+          <li><span>1×2² = 4</span></li>
+          <li><span>0×2¹ = 0</span></li>
+          <li><span>0×2⁰ = 0</span></li>
+        </ul>
+        <div class="demo-result">111100₂ = 60₁₀</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:24px">Decimal → Binario (fracción)</div>
+    <div class="concept-box">
+      <div class="concept-title">Método: multiplicaciones sucesivas por 2</div>
+      <div class="concept-body">
+        1. Multiplica la parte fraccionaria por 2.<br>
+        2. La parte entera del resultado (0 o 1) es el siguiente bit.<br>
+        3. Repite con la parte fraccionaria restante.<br>
+        4. Lee los bits <strong>de arriba hacia abajo</strong>.
+      </div>
+    </div>
+    <div class="convert-demo">
+      <div class="demo-card">
+        <h4>0.6875₁₀ → binario</h4>
+        <ul class="demo-steps">
+          <li><span>0.6875×2 = 1.375</span><span class="residuo">→1</span></li>
+          <li><span>0.375×2 = 0.75</span><span class="residuo">→0</span></li>
+          <li><span>0.75×2 = 1.50</span><span class="residuo">→1</span></li>
+          <li><span>0.50×2 = 1.00</span><span class="residuo">→1</span></li>
+        </ul>
+        <div class="demo-result">0.6875₁₀ = 0.1011₂</div>
+      </div>
+      <div class="demo-card">
+        <h4>0.4375₁₀ → binario</h4>
+        <ul class="demo-steps">
+          <li><span>0.4375×2 = 0.875</span><span class="residuo">→0</span></li>
+          <li><span>0.875×2 = 1.75</span><span class="residuo">→1</span></li>
+          <li><span>0.75×2 = 1.50</span><span class="residuo">→1</span></li>
+          <li><span>0.50×2 = 1.00</span><span class="residuo">→1</span></li>
+        </ul>
+        <div class="demo-result">0.4375₁₀ = 0.0111₂</div>
+      </div>
+    </div>
+    <div class="concept-box accent3" style="margin-top:8px">
+      <div class="concept-title">Representación infinita</div>
+      <div class="concept-body">
+        Algunos decimales no tienen representación binaria exacta. Ejemplo: 0.65₁₀ = (0.1010011…)₂ — secuencia infinita periódica. La computadora almacena una <strong>aproximación</strong>.
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top:24px">Binario → Decimal (fracción)</div>
+    <div class="concept-box">
+      <div class="concept-title">Fórmula: suma de potencias negativas de 2</div>
+      <div class="concept-body">
+        F = b₁×2⁻¹ + b₂×2⁻² + b₃×2⁻³ + …<br>
+        Donde b₁ es el primer bit después del punto, b₂ el segundo, etc.
+      </div>
+    </div>
+    <div class="convert-demo">
+      <div class="demo-card">
+        <h4>0.1111₂ → decimal</h4>
+        <ul class="demo-steps">
+          <li><span>1×2⁻¹ = 0.5</span></li>
+          <li><span>1×2⁻² = 0.25</span></li>
+          <li><span>1×2⁻³ = 0.125</span></li>
+          <li><span>1×2⁻⁴ = 0.0625</span></li>
+        </ul>
+        <div class="demo-result">0.1111₂ = 0.9375₁₀</div>
+      </div>
+      <div class="demo-card">
+        <h4>0.1101₂ → decimal</h4>
+        <ul class="demo-steps">
+          <li><span>1×2⁻¹ = 0.5</span></li>
+          <li><span>1×2⁻² = 0.25</span></li>
+          <li><span>0×2⁻³ = 0</span></li>
+          <li><span>1×2⁻⁴ = 0.0625</span></li>
+        </ul>
+        <div class="demo-result">0.1101₂ = 0.8125₁₀</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== QUIZ S1 ===== -->
+  <div id="tab-s1" class="section-block">
+    <div style="height:8px"></div>
+    <div class="quiz-meta">
+      <span class="quiz-badge badge-s1">APE1 — Sesión 1</span>
+      <span class="quiz-badge badge-score">100% — 10/10</span>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" placeholder="Buscar pregunta..." oninput="filterQuestions(this.value, 's1')">
+    </div>
+    <div id="questions-s1"></div>
+  </div>
+
+  <!-- ===== QUIZ S2 ===== -->
+  <div id="tab-s2" class="section-block">
+    <div style="height:8px"></div>
+    <div class="quiz-meta">
+      <span class="quiz-badge badge-s2">APE2 — Sesión 2</span>
+      <span class="quiz-badge badge-score">Múltiples intentos</span>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" placeholder="Buscar pregunta..." oninput="filterQuestions(this.value, 's2')">
+    </div>
+    <div id="questions-s2"></div>
+  </div>
+
+  <!-- ===== TODOS ===== -->
+  <div id="tab-todos" class="section-block">
+    <div style="height:8px"></div>
+    <p class="section-desc">Todas las preguntas de ambas sesiones agrupadas</p>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" placeholder="Buscar en todas las preguntas..." oninput="filterQuestions(this.value, 'all')">
+    </div>
+    <div id="questions-all"></div>
+  </div>
+
+</div>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ── DATA ────────────────────────────────────────────────────────────────────
+const questionsS1 = [
+  {
+    q: "La representación binaria del número 25₁₀ es:",
+    opts: ["10011₂","11010₂","11001₂"],
+    correct: 2,
+    explanation: "25 ÷ 2 sucesivamente: residuos leídos de abajo hacia arriba dan 11001₂. Verificación: 16+8+0+0+1 = 25 ✓"
+  },
+  {
+    q: "La representación en sistema decimal del número 0.1111₂ es:",
+    opts: ["0.8375₁₀","0.7375₁₀","0.9375₁₀"],
+    correct: 2,
+    explanation: "F = 1/2 + 1/4 + 1/8 + 1/16 = 0.5 + 0.25 + 0.125 + 0.0625 = 0.9375₁₀"
+  },
+  {
+    q: "La representación en sistema decimal del número 100001₂ es:",
+    opts: ["33₁₀","23₁₀","43₁₀"],
+    correct: 0,
+    explanation: "N = 1×2⁵ + 0+0+0+0+1×2⁰ = 32 + 1 = 33₁₀"
+  },
+  {
+    q: "La representación binaria del número 0.65₁₀ es aproximadamente:",
+    opts: ["(0.1110011…)₂","(0.1011111…)₂","(0.1010011…)₂"],
+    correct: 2,
+    explanation: "0.65×2=1.30→1, 0.30×2=0.60→0, 0.60×2=1.20→1, 0.20×2=0.40→0, 0.40×2=0.80→0... → (0.1010011…)₂"
+  },
+  {
+    q: "La representación en sistema decimal del número 0.111₂ es:",
+    opts: ["0.765₁₀","0.875₁₀","0.975₁₀"],
+    correct: 1,
+    explanation: "F = 1/2 + 1/4 + 1/8 = 0.5 + 0.25 + 0.125 = 0.875₁₀"
+  },
+  {
+    q: "La representación en sistema decimal del número 110111₂ es:",
+    opts: ["45₁₀","35₁₀","55₁₀"],
+    correct: 2,
+    explanation: "N = 32+16+0+4+2+1 = 55₁₀"
+  },
+  {
+    q: "La representación en sistema decimal del número 111100₂ es:",
+    opts: ["80₁₀","70₁₀","60₁₀"],
+    correct: 2,
+    explanation: "N = 32+16+8+4+0+0 = 60₁₀"
+  },
+  {
+    q: "La representación en sistema decimal del número 11111₂ es:",
+    opts: ["31₁₀","33₁₀","35₁₀"],
+    correct: 0,
+    explanation: "N = 16+8+4+2+1 = 31₁₀"
+  },
+  {
+    q: "La representación en sistema decimal del número 101001₂ es:",
+    opts: ["41₁₀","31₁₀","51₁₀"],
+    correct: 0,
+    explanation: "N = 32+0+8+0+0+1 = 41₁₀"
+  },
+  {
+    q: "La representación en sistema decimal del número 111011₂ es:",
+    opts: ["69₁₀","59₁₀","49₁₀"],
+    correct: 1,
+    explanation: "N = 32+16+8+0+2+1 = 59₁₀"
+  },
+  {
+    q: "La representación binaria del número 0.4375₁₀ es:",
+    opts: ["0.0111₂","0.0011₂","0.1111₂"],
+    correct: 0,
+    explanation: "0.4375×2=0.875→0, 0.875×2=1.75→1, 0.75×2=1.5→1, 0.5×2=1.0→1. Resultado: 0.0111₂"
+  },
+  {
+    q: "La representación binaria del número 27₁₀ es:",
+    opts: ["10011₂","11010₂","11011₂"],
+    correct: 2,
+    explanation: "27 = 16+8+2+1. Proceso: 27→1, 13→1, 6→0, 3→1, 1→1. Residuos arriba-abajo: 11011₂"
+  },
+  {
+    q: "La representación binaria del número 44₁₀ es:",
+    opts: ["101110₂","101100₂","101101₂"],
+    correct: 1,
+    explanation: "44 = 32+8+4. Proceso de divisiones: 44→0, 22→0, 11→1, 5→1, 2→0, 1→1. Resultado: 101100₂"
+  },
+  {
+    q: "La representación en sistema decimal del número 11101₂ es:",
+    opts: ["29₁₀","33₁₀","31₁₀"],
+    correct: 0,
+    explanation: "N = 16+8+4+0+1 = 29₁₀"
+  },
+  {
+    q: "La representación en sistema decimal del número 10010₂ es:",
+    opts: ["18₁₀","20₁₀","22₁₀"],
+    correct: 0,
+    explanation: "N = 16+0+0+2+0 = 18₁₀"
+  },
+  {
+    q: "La representación en sistema decimal del número 10001₂ es:",
+    opts: ["20₁₀","23₁₀","17₁₀"],
+    correct: 2,
+    explanation: "N = 16+0+0+0+1 = 17₁₀"
+  },
+  {
+    q: "La representación binaria del número 0.6875₁₀ es:",
+    opts: ["0.1101₂","0.1110₂","0.1011₂"],
+    correct: 2,
+    explanation: "0.6875×2=1.375→1, 0.375×2=0.75→0, 0.75×2=1.5→1, 0.5×2=1.0→1. Resultado: 0.1011₂"
+  },
+  {
+    q: "La representación binaria del número 60₁₀ es:",
+    opts: ["100110₂","111100₂","110110₂"],
+    correct: 1,
+    explanation: "60 = 32+16+8+4. Proceso: 60→0, 30→0, 15→1, 7→1, 3→1, 1→1. Resultado: 111100₂"
+  },
+  {
+    q: "En el sistema binario se utilizan:",
+    opts: ["Dígitos del 0 al 9","Los dígitos 0 y 1","Los dígitos 1 y 2"],
+    correct: 1,
+    explanation: "El sistema binario usa solo dos dígitos: 0 y 1, que representan la ausencia (0) o presencia (1) de un pulso eléctrico."
+  },
+  {
+    q: "La representación en sistema decimal del número 0.1101₂ es:",
+    opts: ["0.9125₁₀","0.7125₁₀","0.8125₁₀"],
+    correct: 2,
+    explanation: "F = 1×2⁻¹ + 1×2⁻² + 0×2⁻³ + 1×2⁻⁴ = 0.5 + 0.25 + 0 + 0.0625 = 0.8125₁₀"
+  },
+  {
+    q: "La representación binaria del número 0.09375₁₀ es:",
+    opts: ["0.10111₂","0.00011₂","0.01011₂"],
+    correct: 1,
+    explanation: "0.09375×2=0.1875→0, 0.1875×2=0.375→0, 0.375×2=0.75→0, 0.75×2=1.5→1, 0.5×2=1.0→1. Resultado: 0.00011₂"
+  }
+];
+
+const questionsS2 = [
+  {
+    q: "En precisión doble (64 bits) de punto flotante, al signo le corresponde:",
+    opts: ["52 bits","1 bit","11 bits"],
+    correct: 1,
+    explanation: "IEEE 754 doble precisión (64 bits): 1 bit signo | 11 bits exponente | 52 bits mantisa."
+  },
+  {
+    q: "En cuanto al punto flotante, el subdesbordamiento se refiere a que:",
+    opts: ["El exponente positivo es muy grande para ser representado","La mantisa es demasiado pequeña para ser representada","El exponente negativo es menor al mínimo representable"],
+    correct: 2,
+    explanation: "Underflow/subdesbordamiento: el exponente negativo cae por debajo del mínimo representable en su campo."
+  },
+  {
+    q: "En el sistema de magnitud con signo, el primer bit corresponde:",
+    opts: ["A la base 2","Al signo","A un exponente"],
+    correct: 1,
+    explanation: "El primer bit (MSB) es el bit de signo: 0 = positivo, 1 = negativo."
+  },
+  {
+    q: "En el sistema de magnitud con signo, el número −6 representado en 8 bits, sería:",
+    opts: ["10001100","00000010","10000110"],
+    correct: 2,
+    explanation: "6₁₀ = 0000110₂. Como es negativo, bit de signo = 1. Resultado: 10000110."
+  },
+  {
+    q: "En notación de punto flotante, la mantisa:",
+    opts: ["Determina el orden de magnitud del número","Indica el signo del número","Contiene los dígitos significativos del número"],
+    correct: 2,
+    explanation: "Mantisa (M): contiene los dígitos significativos (0.d₁d₂d₃…) y representa la precisión del número."
+  },
+  {
+    q: "En precisión simple (32 bits) de punto flotante, al signo le corresponde:",
+    opts: ["23 bits","1 bit","8 bits"],
+    correct: 1,
+    explanation: "IEEE 754 precisión simple (32 bits): 1 bit signo | 8 bits exponente | 23 bits mantisa."
+  },
+  {
+    q: "En cuanto al punto flotante, el término 'underflow' hace referencia a:",
+    opts: ["Al subdesbordamiento","Al desbordamiento","Al signo del exponente"],
+    correct: 0,
+    explanation: "Underflow = subdesbordamiento. El número es demasiado pequeño para ser representado."
+  },
+  {
+    q: "En cuanto al punto flotante, el término 'overflow' hace referencia a:",
+    opts: ["Al signo del exponente","Al subdesbordamiento","Al desbordamiento"],
+    correct: 2,
+    explanation: "Overflow = desbordamiento. El número es demasiado grande para ser representado."
+  },
+  {
+    q: "En precisión doble (64 bits) de punto flotante, a la mantisa le corresponde:",
+    opts: ["11 bits","52 bits","1 bit"],
+    correct: 1,
+    explanation: "IEEE 754 doble precisión: 1 bit signo | 11 bits exponente | 52 bits mantisa."
+  },
+  {
+    q: "En el sistema de magnitud con signo, el número 12 representado en 8 bits, sería:",
+    opts: ["00001110","00001100","10001000"],
+    correct: 1,
+    explanation: "12₁₀ = 0001100₂. Como es positivo, bit de signo = 0. Resultado: 00001100."
+  },
+  {
+    q: "En el sistema de complemento a 2, el rango de representación de una variable entera long, es:",
+    opts: ["[−2¹⁵, 2¹⁵ − 1]","[−2³¹, 2³¹ − 1]","[−2⁶³, 2⁶³ − 1]"],
+    correct: 2,
+    explanation: "Long = 64 bits. Rango en complemento a 2 con n bits: [−2^(n-1), 2^(n-1)−1] → [−2⁶³, 2⁶³−1]."
+  },
+  {
+    q: "En el sistema de magnitud con signo, el número −12 representado en 8 bits, sería:",
+    opts: ["00001000","10001100","10001110"],
+    correct: 1,
+    explanation: "12₁₀ = 0001100₂. Negativo → bit de signo = 1. Resultado: 10001100."
+  },
+  {
+    q: "En 8 bytes se tendrán:",
+    opts: ["16 bits","64 bits","32 bits"],
+    correct: 1,
+    explanation: "1 byte = 8 bits. Por tanto: 8 bytes × 8 bits/byte = 64 bits."
+  },
+  {
+    q: "En el sistema de complemento a 2, el rango de representación de una variable int, es:",
+    opts: ["[−2³¹, 2³¹ − 1]","[−2¹⁵, 2¹⁵ − 1]","[−2⁶³, 2⁶³ − 1]"],
+    correct: 0,
+    explanation: "int = 32 bits. Rango: [−2³¹, 2³¹−1] ≈ [−2147483648, 2147483647]."
+  },
+  {
+    q: "En el sistema de magnitud con signo, si el dígito inicial es igual a 0, este corresponde:",
+    opts: ["Al signo negativo","A una base","Al signo positivo"],
+    correct: 2,
+    explanation: "Bit inicial 0 = positivo. Bit inicial 1 = negativo. ¡Ojo! Elegir 'signo negativo' es la trampa más frecuente en este quiz."
+  },
+  {
+    q: "En precisión simple (32 bits) de punto flotante, al exponente le corresponde:",
+    opts: ["8 bits","1 bit","23 bits"],
+    correct: 0,
+    explanation: "IEEE 754 precisión simple: 1 bit signo | 8 bits exponente | 23 bits mantisa."
+  },
+  {
+    q: "En cuanto al punto flotante, el desbordamiento se refiere a que:",
+    opts: ["El exponente es demasiado grande para ser representado en su campo","El exponente es demasiado pequeño para ser representado en su campo","La mantisa es demasiado grande para ser representada en su campo"],
+    correct: 0,
+    explanation: "Overflow/desbordamiento: el exponente supera el máximo representable en su campo."
+  },
+  {
+    q: "Un byte está compuesto por:",
+    opts: ["2 bits","10 bits","8 bits"],
+    correct: 2,
+    explanation: "Por definición, 1 byte = 8 bits. Es la unidad básica de almacenamiento en informática."
+  },
+  {
+    q: "La representación estándar de un número en punto flotante posee:",
+    opts: ["Entero, Fracción, Exponente","Precisión, Rango, Base","Signo, Mantisa, Exponente"],
+    correct: 2,
+    explanation: "Las tres partes del punto flotante son: Signo (S), Exponente (E) y Mantisa/Fracción (M)."
+  }
+];
+
+// ── RENDER ──────────────────────────────────────────────────────────────────
+function renderQuestions(data, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = data.map((q, i) => `
+    <div class="question-card" id="${containerId}-q${i}" onclick="toggleQ('${containerId}-q${i}')">
+      <div class="q-header">
+        <span class="q-num">Q${String(i+1).padStart(2,'0')}</span>
+        <span class="q-text">${q.q}</span>
+        <span class="q-toggle">▾</span>
+      </div>
+      <div class="q-options">
+        ${q.opts.map((opt, j) => `
+          <div class="option ${j === q.correct ? 'correct' : ''}">
+            <span class="opt-letter">${String.fromCharCode(65+j)}.</span>
+            <span class="opt-text">${opt}</span>
+            ${j === q.correct ? '<span class="opt-check">✓</span>' : ''}
+          </div>
+        `).join('')}
+        <div class="q-explanation"><strong>Explicación //</strong> ${q.explanation}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleQ(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('expanded');
+}
+
+function filterQuestions(val, section) {
+  const lower = val.toLowerCase();
+  const containers = {
+    's1': document.querySelectorAll('#questions-s1 .question-card'),
+    's2': document.querySelectorAll('#questions-s2 .question-card'),
+    'all': document.querySelectorAll('#questions-all .question-card')
+  };
+  const cards = containers[section];
+  cards.forEach(card => {
+    const text = card.querySelector('.q-text').textContent.toLowerCase();
+    card.style.display = text.includes(lower) ? '' : 'none';
+  });
+}
+
+// ── TABS ─────────────────────────────────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.section-block').forEach(b => b.classList.remove('visible'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('visible');
+  event.currentTarget.classList.add('active');
+}
+
+// ── SCROLL TOP ───────────────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollTop');
+  btn.classList.toggle('visible', window.scrollY > 400);
+});
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+renderQuestions(questionsS1, 'questions-s1');
+renderQuestions(questionsS2, 'questions-s2');
+renderQuestions([...questionsS1, ...questionsS2], 'questions-all');
+</script>
+</body>
+</html>
