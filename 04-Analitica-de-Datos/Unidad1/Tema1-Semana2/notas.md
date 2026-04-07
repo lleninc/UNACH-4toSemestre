@@ -1,55 +1,58 @@
 ﻿# 04-Analitica-de-Datos - U1 T1 S2
 
+## Objetivo de la semana
+Comprender el ciclo de vida de un proyecto de analítica de datos y reconocer sus aplicaciones principales en distintos sectores.
+
 ## Notas de clase
 
-## Quiz
+### 1.3 Ciclo de vida de proyectos de analítica de datos
+El ciclo de vida de un proyecto de analítica de datos reúne las etapas que se siguen desde la definición del problema hasta su implementación y seguimiento. Cada fase tiene un propósito específico y ayuda a convertir datos en decisiones útiles.
 
+Etapas principales:
+- Definición del problema: alinea la necesidad del negocio y define el éxito del proyecto.
+- Recolección de datos: identifica fuentes y evalúa pertinencia y calidad.
+- Preparación de datos: limpia, integra y transforma la información.
+- Análisis de datos: aplica métodos estadísticos y algoritmos para encontrar patrones.
+- Interpretación de resultados: traduce hallazgos a un lenguaje comprensible.
+- Toma de decisiones: define acciones con base en los resultados.
+- Implementación: pone en práctica la decisión o solución.
+- Medición de resultados: evalúa el desempeño con indicadores clave.
+- Monitoreo y evaluación: controla el impacto y permite ajustes futuros.
 
+La idea central es que el proceso no termina con el modelo o el análisis, sino con la implementación, la medición y el aprendizaje continuo.
 
-### Pregunta 11: Verdadero o falso
+### 1.4 Aplicaciones de la analítica en la industria
+La analítica se utiliza para mejorar decisiones, optimizar recursos y reducir riesgos en distintos sectores. Su impacto crece cuando se conectan los enfoques descriptivo, predictivo y prescriptivo y se cierra el ciclo con despliegue y monitoreo.
 
-**Afirmación:** La analítica de datos consiste únicamente en aplicar algoritmos para predecir resultados.
+Ejemplos de aplicación:
+- Gobierno: políticas basadas en evidencia, priorización de recursos y detección de anomalías.
+- Academia: riesgo de deserción, asignación de tutorías, becas y horarios.
+- Salud: demanda de consultas, reingresos, agenda de citas y reducción de tiempos de espera.
+- Finanzas: fraude, crédito responsable y gestión de morosidad.
+- Retail y consumo: ventas, demanda, inventario, promociones y precios.
+- Logística y transporte: rutas, ETA, flota y puntualidad.
+- Energía y utilities: mantenimiento predictivo, detección de pérdidas y optimización operativa.
+- Manufactura: monitoreo de líneas, predicción de fallas y mantenimiento.
+- Marketing y clientes: segmentación, propensión, presupuesto y secuencias de contacto.
+- Recursos humanos: rotación, dotación y formación.
+- Telecomunicaciones: monitoreo de redes, churn y priorización de incidentes.
 
-**Respuesta correcta:** Falso.
+## Resumen para estudiar
+1. Un proyecto de analítica sigue una secuencia de fases conectadas.
+2. Definir bien el problema es la base de todo el ciclo.
+3. La calidad de los datos influye en todas las etapas.
+4. La implementación debe ir acompañada de medición y monitoreo.
+5. La analítica tiene aplicaciones claras en gobierno, educación, salud, finanzas, retail, logística y más.
 
-**Explicación breve:**
-La analítica de datos también incluye recopilar, limpiar, explorar, interpretar y comunicar datos para apoyar decisiones, no solo predecir.
-
-### Pregunta 12: Verdadero o falso
-
-**Afirmación:** Una metodología de analítica de datos es un proceso estructurado con principios, fases, roles y entregables que conectan el análisis con la toma de decisiones.
-
-**Respuesta correcta:** Verdadero.
-
-**Explicación breve:**
-Una metodología ordena el trabajo analítico para que el proceso sea reproducible, claro y útil para decidir con base en datos.
-
-### Pregunta 13: Verdadero o falso
-
-**Afirmación:** En las fases generales, la implementación ocurre antes de la evaluación y comunicación con el negocio.
-
-**Respuesta correcta:** Falso.
-
-**Explicación breve:**
-Por lo general, primero se evalúan los resultados y se comunican hallazgos al negocio; después se implementan las acciones o soluciones acordadas.
-
-### Pregunta 14: Verdadero o falso
-
-**Afirmación:** Un principio clave de la metodología es “problema antes que herramienta” y la calidad/trazabilidad del dato.
-
-**Respuesta correcta:** Verdadero.
-
-**Explicación breve:**
-Primero se define bien el problema y luego se elige la herramienta; además, la calidad y trazabilidad del dato sostienen la confiabilidad del análisis.
-
-### Pregunta 15: Verdadero o falso
-
-**Afirmación:** El monitoreo y la mejora continua buscan controlar el desempeño del modelo, gestionar el drift y actualizar la solución tras el despliegue.
-
-**Respuesta correcta:** Verdadero.
-
-**Explicación breve:**
-Después del despliegue, es necesario vigilar el comportamiento del modelo, detectar cambios en los datos o en el entorno y ajustar la solución cuando sea necesario.
+## Preguntas rápidas
+1. ¿Cuál es la primera fase del ciclo de vida?
+2. ¿Por qué la preparación de datos es crítica?
+3. ¿Qué diferencia hay entre interpretar resultados y tomar decisiones?
+4. ¿Por qué el monitoreo es parte del proyecto?
+5. ¿En qué sectores se puede aplicar la analítica de datos?
 
 ## Actividades
+- [ ] Dibujar el ciclo de vida de un proyecto de analítica.
+- [ ] Escribir un ejemplo por sector.
+- [ ] Relacionar una aplicación con un tipo de analítica.
 
