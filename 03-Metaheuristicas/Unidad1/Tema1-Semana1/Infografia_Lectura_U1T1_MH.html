@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infografia - Lectura U1T1 MH</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --paper: #fffdf8;
+      --ink: #1f2a37;
+      --muted: #5f6f7f;
+      --accent: #ff6f3c;
+      --accent-2: #1b9aaa;
+      --accent-3: #f4b400;
+      --accent-4: #2e8b57;
+      --line: #e3d9c7;
+      --shadow: 0 10px 30px rgba(31, 42, 55, 0.12);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,111,60,0.14), transparent 35%),
+        radial-gradient(circle at 80% 15%, rgba(27,154,170,0.14), transparent 35%),
+        radial-gradient(circle at 75% 85%, rgba(244,180,0,0.13), transparent 40%),
+        var(--bg);
+      font-family: "Source Sans 3", sans-serif;
+      line-height: 1.45;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 18px 36px;
+    }
+
+    .hero {
+      background: var(--paper);
+      border: 2px solid var(--line);
+      border-radius: calc(var(--radius) + 6px);
+      padding: 26px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      animation: rise 0.7s ease-out both;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      right: -60px;
+      top: -70px;
+      background: conic-gradient(from 90deg, var(--accent), var(--accent-3), var(--accent-2), var(--accent));
+      opacity: 0.15;
+      border-radius: 50%;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Montserrat", sans-serif;
+      letter-spacing: 0.2px;
+    }
+
+    h1 {
+      font-size: clamp(1.55rem, 3.8vw, 2.7rem);
+      margin-bottom: 8px;
+      max-width: 900px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 900px;
+    }
+
+    .pill-row {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .grid {
+      margin-top: 18px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    .card {
+      background: var(--paper);
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      animation: rise 0.8s ease both;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-7 { grid-column: span 7; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+
+    .list {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .list li { margin-bottom: 6px; }
+
+    .legend {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+      transform: translateY(1px);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .stage {
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 10px;
+      background: #fff;
+    }
+
+    .stage b {
+      display: inline-block;
+      margin-bottom: 4px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.92rem;
+    }
+
+    .mini {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .talk {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .talk-item {
+      border-left: 5px solid var(--accent-2);
+      background: #fff;
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+
+    .time {
+      font-weight: 700;
+      color: #0f4c5c;
+      font-family: "Montserrat", sans-serif;
+      margin-right: 8px;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .span-4, .span-5, .span-6, .span-7, .span-8, .span-12 { grid-column: span 12; }
+      .timeline { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .timeline { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Metaheuristicas Bioinspiradas: resumen visual de la lectura U1T1-MH</h1>
+      <p class="subtitle">
+        En problemas complejos de ingenieria e industria, los metodos tradicionales suelen quedarse cortos.
+        Las metaheuristicas inspiradas en la naturaleza ofrecen soluciones de alta calidad con buena adaptabilidad.
+      </p>
+      <div class="pill-row">
+        <span class="pill">Tema central: Optimizacion</span>
+        <span class="pill">Enfoque: Bioinspirado</span>
+        <span class="pill">Tiempo de exposicion: 5 min</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card span-7">
+        <h2>1) Por que surgen estas tecnicas</h2>
+        <svg viewBox="0 0 640 220" width="100%" role="img" aria-label="Comparacion conceptual de escalabilidad">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#ff6f3c" />
+              <stop offset="100%" stop-color="#f4b400" />
+            </linearGradient>
+            <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#1b9aaa" />
+              <stop offset="100%" stop-color="#2e8b57" />
+            </linearGradient>
+          </defs>
+
+          <rect x="55" y="20" width="540" height="170" fill="#fff" stroke="#e3d9c7" rx="10" />
+
+          <text x="70" y="42" fill="#5f6f7f" font-size="12">Costo de resolver el problema</text>
+          <text x="440" y="185" fill="#5f6f7f" font-size="12">Complejidad del problema</text>
+
+          <polyline points="85,160 190,145 290,120 390,90 490,52 570,35" fill="none" stroke="url(#g1)" stroke-width="5"/>
+          <polyline points="85,165 190,156 290,145 390,132 490,117 570,100" fill="none" stroke="url(#g2)" stroke-width="5"/>
+
+          <text x="395" y="68" fill="#a53e1d" font-size="12" font-weight="600">Metodos tradicionales</text>
+          <text x="398" y="125" fill="#0f6470" font-size="12" font-weight="600">Metaheuristicas bioinspiradas</text>
+        </svg>
+        <p class="muted">
+          La lectura destaca que, al crecer la escala del problema, los enfoques clasicos pueden volverse lentos o poco efectivos.
+          Las metaheuristicas ayudan a escapar de optimos locales y acercarse a soluciones globales de mejor calidad.
+        </p>
+      </article>
+
+      <article class="card span-5">
+        <h2>2) Computacion natural: 3 clases</h2>
+        <svg viewBox="0 0 400 240" width="100%" role="img" aria-label="Tres clases de computacion natural">
+          <rect x="20" y="20" width="360" height="52" rx="10" fill="#ffe9de" stroke="#ff6f3c"/>
+          <text x="32" y="48" font-size="14" fill="#7a2b12" font-weight="700">A) Inspirada en la naturaleza</text>
+          <text x="32" y="64" font-size="12" fill="#7a2b12">Modela comportamientos naturales para optimizar.</text>
+
+          <rect x="20" y="95" width="360" height="52" rx="10" fill="#dff4f7" stroke="#1b9aaa"/>
+          <text x="32" y="123" font-size="14" fill="#0b4f57" font-weight="700">B) Simulacion y emulacion</text>
+          <text x="32" y="139" font-size="12" fill="#0b4f57">Reproduce fenomenos naturales en computadora.</text>
+
+          <rect x="20" y="170" width="360" height="52" rx="10" fill="#e6f5eb" stroke="#2e8b57"/>
+          <text x="32" y="198" font-size="14" fill="#175233" font-weight="700">C) Computar con materiales naturales</text>
+          <text x="32" y="214" font-size="12" fill="#175233">Ejemplos: computacion con ADN y cuantica.</text>
+        </svg>
+      </article>
+
+      <article class="card span-8">
+        <h2>3) Familias principales de metaheuristicas</h2>
+        <svg viewBox="0 0 760 280" width="100%" role="img" aria-label="Mapa de familias y ejemplos">
+          <rect x="290" y="18" width="180" height="40" rx="10" fill="#fff" stroke="#1f2a37" stroke-width="1.5"/>
+          <text x="317" y="43" font-size="15" font-weight="700" fill="#1f2a37">Metaheuristicas</text>
+
+          <line x1="380" y1="58" x2="160" y2="106" stroke="#e3d9c7" stroke-width="2"/>
+          <line x1="380" y1="58" x2="380" y2="106" stroke="#e3d9c7" stroke-width="2"/>
+          <line x1="380" y1="58" x2="600" y2="106" stroke="#e3d9c7" stroke-width="2"/>
+
+          <rect x="48" y="106" width="225" height="150" rx="12" fill="#fff4ed" stroke="#ff6f3c"/>
+          <text x="62" y="132" font-size="14" font-weight="700" fill="#7a2b12">Evolutivas</text>
+          <text x="62" y="154" font-size="12" fill="#7a2b12">Basadas en seleccion natural</text>
+          <text x="62" y="174" font-size="12" fill="#7a2b12">Ejemplos:</text>
+          <text x="62" y="192" font-size="12" fill="#7a2b12">- GA (algoritmos geneticos)</text>
+          <text x="62" y="208" font-size="12" fill="#7a2b12">- ES (estrategias evolutivas)</text>
+          <text x="62" y="224" font-size="12" fill="#7a2b12">- GP (programacion genetica)</text>
+          <text x="62" y="240" font-size="12" fill="#7a2b12">- Differential Evolution</text>
+
+          <rect x="268" y="106" width="225" height="150" rx="12" fill="#eefbfc" stroke="#1b9aaa"/>
+          <text x="282" y="132" font-size="14" font-weight="700" fill="#0b4f57">Basadas en fisica</text>
+          <text x="282" y="154" font-size="12" fill="#0b4f57">Modelan leyes y fenomenos fisicos</text>
+          <text x="282" y="174" font-size="12" fill="#0b4f57">Ejemplos:</text>
+          <text x="282" y="192" font-size="12" fill="#0b4f57">- Simulated Annealing</text>
+          <text x="282" y="208" font-size="12" fill="#0b4f57">- Gravitational Search</text>
+          <text x="282" y="224" font-size="12" fill="#0b4f57">- Big Bang - Big Crunch</text>
+
+          <rect x="488" y="106" width="225" height="150" rx="12" fill="#eef8f1" stroke="#2e8b57"/>
+          <text x="502" y="132" font-size="14" font-weight="700" fill="#175233">Inteligencia de enjambre</text>
+          <text x="502" y="154" font-size="12" fill="#175233">Comportamiento colectivo de agentes</text>
+          <text x="502" y="174" font-size="12" fill="#175233">Ejemplos:</text>
+          <text x="502" y="192" font-size="12" fill="#175233">- ACO (hormigas)</text>
+          <text x="502" y="208" font-size="12" fill="#175233">- PSO (particulas)</text>
+          <text x="502" y="224" font-size="12" fill="#175233">- Grey Wolf, Whale, Firefly</text>
+        </svg>
+      </article>
+
+      <article class="card span-4">
+        <h2>4) Idea clave del rendimiento</h2>
+        <svg viewBox="0 0 320 260" width="100%" role="img" aria-label="Balance exploracion-explotacion">
+          <rect x="18" y="16" width="284" height="220" rx="12" fill="#fff" stroke="#e3d9c7"/>
+          <text x="35" y="40" font-size="13" font-weight="700" fill="#1f2a37">Balance exploracion - explotacion</text>
+
+          <line x1="46" y1="210" x2="272" y2="210" stroke="#9aa8b5" />
+          <line x1="46" y1="210" x2="46" y2="62" stroke="#9aa8b5" />
+
+          <polyline points="50,90 90,110 130,126 170,148 210,165 260,178" fill="none" stroke="#1b9aaa" stroke-width="4"/>
+          <polyline points="50,185 90,160 130,145 170,126 210,108 260,88" fill="none" stroke="#ff6f3c" stroke-width="4"/>
+
+          <text x="53" y="80" font-size="11" fill="#0f6470">Exploracion</text>
+          <text x="211" y="80" font-size="11" fill="#a53e1d">Explotacion</text>
+          <text x="178" y="226" font-size="11" fill="#5f6f7f">Iteraciones</text>
+        </svg>
+        <p class="muted">
+          La lectura concluye que la calidad de una metaheuristica depende de equilibrar busqueda global y refinamiento local.
+        </p>
+      </article>
+
+      <article class="card span-6">
+        <h2>5) Aplicaciones destacadas</h2>
+        <ul class="list">
+          <li>Optimización combinatoria (por ejemplo, rutas y asignaciones).</li>
+          <li>Problemas de ingenieria con restricciones y funciones no lineales.</li>
+          <li>Tareas de clasificacion, reconocimiento de patrones y clustering.</li>
+          <li>Escenarios industriales donde se necesita buena solucion en tiempo razonable.</li>
+        </ul>
+        <p class="muted" style="margin-top:10px;">
+          Mensaje central: no existe un algoritmo universalmente mejor para todo problema
+          (idea del teorema No Free Lunch).
+        </p>
+      </article>
+
+      <article class="card span-6">
+        <h2>6) Mini-guion para exponer en 5 minutos</h2>
+        <div class="talk">
+          <div class="talk-item"><span class="time">0:00-0:45</span>Problema: por que los metodos clasicos no escalan bien en problemas grandes.</div>
+          <div class="talk-item"><span class="time">0:45-1:45</span>Que es computacion natural y sus 3 clases.</div>
+          <div class="talk-item"><span class="time">1:45-3:10</span>Familias de metaheuristicas y ejemplos representativos (GA, SA, ACO/PSO).</div>
+          <div class="talk-item"><span class="time">3:10-4:20</span>Concepto de exploracion vs explotacion y riesgo de optimos locales.</div>
+          <div class="talk-item"><span class="time">4:20-5:00</span>Conclusion: elegir la tecnica segun el problema y ajustar parametros.</div>
+        </div>
+      </article>
+
+      <article class="card span-12">
+        <h2>7) Linea temporal sintetica</h2>
+        <div class="timeline">
+          <div class="stage">
+            <b>1943-1980</b>
+            <div class="mini">Bases teoricas: neuronas artificiales y primeros modelos inspirados en naturaleza.</div>
+          </div>
+          <div class="stage">
+            <b>1980-2000</b>
+            <div class="mini">Consolidacion de GA, EP, GP y metodos como Simulated Annealing.</div>
+          </div>
+          <div class="stage">
+            <b>2000-2015</b>
+            <div class="mini">Explosion de algoritmos de fisica y enjambre para optimizacion real.</div>
+          </div>
+          <div class="stage">
+            <b>2015-actualidad</b>
+            <div class="mini">Hibridaciones, ajuste de parametros y aplicaciones multiindustria.</div>
+          </div>
+        </div>
+
+        <div class="legend">
+          <span><span class="dot" style="background:#ff6f3c"></span>Evolutivas</span>
+          <span><span class="dot" style="background:#1b9aaa"></span>Fisica</span>
+          <span><span class="dot" style="background:#2e8b57"></span>Enjambre</span>
+          <span><span class="dot" style="background:#f4b400"></span>Enfoque aplicado</span>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

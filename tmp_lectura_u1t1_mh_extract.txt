@@ -1,0 +1,736 @@
+
+
+--- PAGE 1 ---
+National Conference on Emerging Trends, Challenges and Opportunities in Data Mining and Information Security 
+(NTCOMIS-2020) 
+ 
+Bio-inspired Optimization: metaheuristic algorithms 
+for optimization 
+ 
+Pravin S. Game  
+Research Scholar, Shri. JJT University,  
+Jhunjhunu, Rajasthan, India 
+pravinsgame@gmail.com 
+Dr. Vinod Vaze 
+Shri. JJT University 
+Jhunjhunu, Rajasthan, India 
+ 
+Dr. Emmanuel M.  
+Department of Information 
+Technology, Pune Institute of 
+Computer Technology, Pune. 
+ 
+Abstract— In today’s day and time solving real -world 
+complex problems has become fundamentally vital and critical 
+task. Many of these are combinatorial problems, w here 
+optimal solutions are sought rather than exact solutions. 
+Traditional optimization methods  are found to be  effective for 
+small scale problems. However, for real -world large scale 
+problems, traditional methods either do not scale up or fail to 
+obtain optimal solutions or they end-up giving solutions after a 
+long running time. Even earlier artificial intelligence (AI) 
+based techniques used to solve these problems could not give 
+acceptable results.  However, last two decades have seen many 
+new methods in AI based on the characteristics and behaviors 
+of the living organism s in the nature  which are categorized as 
+bio-inspired or nature inspired optimization algorithms. These 
+methods, are also termed metaheuristic optimization methods, 
+have been proved theore tically and implemented using 
+simulation as well used to create many useful applications. 
+They have been used extensively to solve many industrial and 
+engineering complex problems due to being easy to 
+understand, flexible, simple to adapt to the problem at  hand 
+and most importantly their ability to come out of local optima 
+traps. This local optima avoidance property helps in finding 
+global optimal solutions.  
+This paper is aimed at understanding how nature has 
+inspired many optimization algorithms, basic ca tegorization of 
+them, major bio -inspired optimization algorithms invented in 
+recent time with their applications. 
+Keywords— optimization methods, bio -inspired, applications, 
+evolutionary, metaheuristic. 
+I. INTRODUCTION 
+Historically, it has been observed that human beings are 
+always intrigued by the nature and its functioning.  Nature is 
+very complex. From seeing the nature only as source of food 
+and shelter, humans started seeing it objectively as well as 
+subjectively. Various physical phenomena, food foraging 
+behaviors of insects and animals, socio-cultural conducts of 
+insects and animals were observed and studied by the 
+humans to better understand the functioning of nature, to 
+manage nature, to adapt to natural conditions, then to create 
+genetically modified f oods, seeds, and animals, and even to 
+control spread of diseases using vaccines.  
+However, things started changing when the computing 
+machines (computers) were invented and were evolved to 
+become better and better in computational power and 
+efficiency. Com puter was used to solve the complex 
+optimization problems using traditional methods, however, 
+had its limitations. Now, nature was seen as de -facto source 
+of inspiration for building new algorithms applicable to solve 
+such complex optimization problems. Su ch systems build 
+using nature inspired algorithms were called nature-inspired 
+systems or bio -inspired systems or natural computing 
+systems. Many even termed it as a new revolution in 
+computing – natural computing revolution. This bio-inspired 
+computing has started reducing the gap between computing 
+and nature. This natural computing has been divided into 
+three major classes by [1] , viz. a) computing inspired by 
+nature b) simulation and emulation of nature c) computing 
+with natural materials. In this natural  computing various 
+nature based algorithms are developed and used. As said 
+these nature based algorithms are metaheuristic algorithms 
+which are also classified into three parts  [2], viz. a) 
+evolutionary algorithms, b) Physics -based algorithms and c) 
+swarm intelligence algorithms. It should be noted that these 
+three types of algorithms fall in the first category of natural 
+computing i.e. computing inspired by nature.    
+The rest of the paper is organized as follows: sections II 
+briefs the three natural compu ting classes, section III 
+presents the review of various categorized recent algorithms, 
+and section IV presents the conclusions. 
+II. NATURAL COMPUTING 
+Over the period of time , it is understood that though 
+nature is complex, its processes and functions can be 
+modeled as some set of basic finite rules and parameters 
+which can then be transferred for computing. The entire 
+domain of bioinspired computing is based on searching for 
+these basic rules governing the natural system under 
+consideration. Once these set of rules are identified, these are 
+then mapped to the corresponding computing paradigm. Let 
+us briefly understand this through following sections.   
+A. Computing inspired by nature 
+This is the oldest and most researched approach of 
+natural computing with two maj or objectives: 1) build 
+theoretical model of natural phenomenon and simulate using 
+computers, and 2) develop alternative algorithms to solve 
+complex problems which otherwise could not be solved 
+satisfactorily by traditional methods. 
+The earliest pioneering  work in this direction could be 
+attributed to the development of a logical model of neuron by 
+[3] in 1943. Here, propositional logic was used to represent 
+the neurons, neural events and their relationships. This model 
+of neural nets, in later times, gave rise to a field of study 
+called artificial neural networks (ANN).  
+
+--- PAGE 2 ---
+ 
+ 
+In the following decades many works based on Darwin‟s 
+theory of evolution which talks of survival of the fittest were 
+developed. Three principles of this evolution theory are 
+population reproduces, genetic varies and selection of fittest. 
+Such biology inspired computing approaches are called as 
+evolutionary computing where evolutionary algorithms 
+(EAs) are developed to solve search and optimization 
+problems. Then there is other class in this  where physics -
+based phenomenon are studied and modeled. For example 
+simulated annealing [4] , inspired from the statistical 
+thermodynamics for annealing of solids, was claimed to be 
+very useful in solving complex combinatorial optimization 
+problems. Then b ased the behaviors of birds and animals 
+many swarm based algorithms were developed creating a 
+new category of nature inspired computing called as swarm 
+intelligence (SI) algorithms. More on EAs, physics -based 
+and SI algorithms will be discussed in section III.  
+B. Simulation and Emulation of nature in computer 
+Nature is full of fractals, for example, mountains, tree 
+leaves, coastlines, cauliflower, brain, lungs, kidney are all 
+fractals. In computer graphics, fractals can be emulated using 
+fractal geometry. Suc h models when simulated or emulated 
+by computers become very useful not only in analyzing a 
+natural phenomenon but also can be extended for cancer cell 
+identification, binding of antibodies to antigens, detailing 
+forest fires etc.  But more interesting fiel d of these 
+simulations & emulations is found in creation of artificial 
+life. Artificial life deals with creation of systems mimicking 
+the behaviors of organisms or phenomenon in order to 
+synthesize it and understand it. The major goal here is to 
+create living systems from non -living parts. An example of 
+this is Artificial Intelligence robot (AIBO)  [5], emulated 
+robotic pet dogs. Another example where natural concept is 
+implemented for computer is virus. Computer virus is 
+metaphor for virus from nature, having similar properties. 
+C. Computing with natural material 
+With the limitation of spacing transistors in integrated 
+circuits, the obvious question would be can silicon be 
+replaced by other material? Nature comes to rescue from this 
+question by providing altern ate solutions for computing . 
+There is lot of research going on for identifying the solutions 
+based on nature  specifically DNA computing and quantum 
+computing. For DNA computing was used to find square 
+roots of numbers [6] and  quantum computing based service 
+was recently launched by Amazon web service [7].  
+III. BIO-INSPIRED METAHEURISTIC OPTIMIZATION 
+APPROACHES 
+The relevant definition of heuristic from Merriam -
+Webster dictionary is „of or relating to exploratory problem -
+solving techniques that uti lize self -educating techniques to 
+improve performance‟. These algorithms use some available 
+information for taking next step towards the solution. 
+Metaheuristic is a heuristic defined to select a heuristic 
+providing better solutions. Metaheuristics are generally 
+problem independent, and can be of following types: 
+a) local search based and global search based.  
+b) single-solution based and population-based  
+c) with memory and memoryless  
+d) greedy and  iterative 
+e) Parallel  
+f) Nature-inspired and hybridized  
+Fig.1 is a good representative of the metaheuristics 
+classification [8].  
+Metaheuristic optimization methods with 
+inspiration from nature have led to discovery of large 
+number of optimization algorithms in various categories as 
+detailed below. 
+ 
+Fig. 1 Euler‟s diagram of the different classifications of 
+metaheuristics 
+A. Evolutionary algorithms 
+Darwin‟s theory of evolution, though radical and 
+controversial, initiated a lot of research and  led to 
+development of lot of nature inspired algorithms for 
+evolutionary computing. EAs consider that finding a 
+solution for the problem is nothing but a search task, in 
+which starting with a random solution from solution space; 
+algorithm is employed to search for better solutions than the 
+already considered one. Genetic algorithms (GA) are 
+foremost in this category w here chromosomes were used to 
+code a nd process the information  [9, 10, 11,  12].  These 
+chromosomes, also called candidate solutions, ar e processed 
+by various genetic operators, viz. reproduction, crossover, 
+mutation, and selection until termination criteria is reached.  
+Termination criteria could be maximum number of 
+iterations, convergence of solution or reaching a best 
+solution.  
+Evolutionary strategies (ES) are credited to German 
+researchers Rechenberg and Schwefel [13,14] , considered as 
+black box optimization technique are based on natural 
+evolution.  ES also has a population which is iterated as 
+generation. In each generation, the indi vidual, every 
+genotype is evaluated based on a fitness function, best are 
+kept and remaining are discarded. Those retained genotypes 
+are mutated for improving the fitness. The fittest are 
+
+--- PAGE 3 ---
+ 
+ 
+selected as population of next iteration (generation) and the 
+process is repeated to get optimized results. ES have proved 
+to be good algorithms to so lve many optimization problems. 
+This class of EAs has continued to attract researchers [15, 
+16, 17, 18, 19, 20]. 
+As an alternative to AI, evolutionary programming  (EP) 
+was invented by Fogel and others in 1966 [21]. Fin ite state 
+machine (FSM) was employed in this. Finite alphabet 
+produces finite sequence of symbols which creates an 
+environment. Intelligent behavior considers prediction of 
+this environment. With a well -defined e valuation function, 
+algorithm is evolved by processing this set of sequences to 
+produce new output from the current state and current input. 
+As it is well known that the FSM  provides a good predictive 
+mechanism for set of inpu ts, its use for evolving the 
+algorithm to improve the performance of algorithm is 
+appropriate. In evolutionary programming selection operator 
+is based on tournament selection method and for mutation 
+operator is Gaussian mutation. The procedure of EP is 
+similar to EA. It has been quite useful in pattern recognition 
+and classification. 
+David Goldberg, a student of John Holland, coined the 
+term genetic programming  (GP). Two seminal works on 
+genetic programming were published by the students of 
+Holland in 1985 by Cramer [22] and in 1988 by Koza [23]. 
+It‟s class of GA where programs are the initial population. 
+GP works on these set of programs and evolution of 
+programs is done by using selection, crossover, and 
+mutation operators. Programs are evaluated for their fitness 
+in each iteration  and evolved to get optimal program over 
+the iterations . This EA category has also been widely 
+researched and various types of GP are developed, like tree -
+based GP, stack-based GP, Cartesian GP etc. [24].  
+Differential Evolution proposed in [25] is a direct se arch 
+method, inherently parallel, finds true global minimum with 
+faster convergence. It starts with creation of random 
+population and generation of trial parameter vectors. 
+Random variation is added to third vector by taking 
+weighted difference between two random parameter vectors. 
+This newly created random vector is then compared with the 
+selected vector and it is better then added to the population 
+in next iteration.  
+Other two EAs of interest here are Biogeography -Based 
+optimization (BBO) [26] and Popula tion-Based Incremental 
+Learning (PBIL) [27, 28]. 
+B. Physics-based optimization algorithms 
+Table 1 gives a list of physics-based algorithms and the 
+related physics law. 
+TABLE 1 MAPPING OF OPTIMIZATION ALGORITHM WITH LAWS OF PHYSICS 
+Optimization algorithm Law(s)/concepts of Physics 
+Hysteresis Optimization [29] Demagnetization process 
+Gravitational Local Search[30] Law of Gravitation 
+Electromagnetism-like Algorithm [31] Electromagnetism law 
+Space Gravitational Algorithm [32] Theories of relativity and 
+gravity 
+Particle Collision Algorithm [33] Nuclear collision reactions 
+Small World Optimization Algorithm 
+[34] Small world phenomenon 
+Optimization algorithm Law(s)/concepts of Physics 
+Big Bang Big Crunch [35] Big bang theory and big -
+crunch theory 
+Central Force Optimization [36] Gravitational kinematics 
+Integrated Radiation Algorithm [37] Gravitational radiation 
+Big Crunch Algorithm [38] Closed universe theory 
+Gravitational Search Algorithm [39] Laws of gravity and motion 
+River formation dynamics algorithm 
+[40] 
+Ground erosion and 
+sediment deposits 
+Intelligent Water Drops [41] Water drops moving as a 
+big swarm in river 
+Artificial Physics Algorithm [42] 
+Physicomimetics 
+framework and physical 
+forces 
+Light Ray Optimization [43] Optical refraction and 
+reflection of light rays 
+Charged System Search algorithm  [44] Gauss and Coulomb laws 
+Gravitation Field Algorithm [45] Solar Nebula Disk Model 
+Artificial Chemical Reaction 
+Optimization Algorithm [46] 
+Types and occurring of 
+chemical reactions 
+Galaxy based Search Algorithm [47] Spiral arms of spiral 
+galaxies 
+Magnetic Optimization Algorithm [48] Theory of magnetism 
+Gravitaional Interactions Optimization 
+[49] Laws of gravity and motion 
+Spiral Optimization Algorithm [50] Spiral phenomenon 
+Water Flow Algorithm [51] 
+Hydrological cycle of 
+meteorology and erosion 
+phenomenon 
+Black Hole [52] Black hole phenomenon 
+Ray Optimization [53] Snell‟s law 
+Curve Space Optimization [54] General relativity theory 
+Water Cycle Aalgorithm [55] Condensation and 
+evaporation of water 
+Ion Motion Optimization [56] Push & pull forces of anions 
+and cations 
+Tug of war optimization [57] Newton‟s laws of 
+mechanics 
+C. Swarm Intelligence based algorithms 
+This category of bioinspired metaheuristic has seen 
+rampant development of numerous algorithms. Swarm 
+intelligence (SI) represents the emerg ent properties from the 
+interactions of the group of simple individuals or agents. It 
+considers that synergetic behaviors of agents provide better 
+solutions than the individual ones. SI has its advantages over 
+evolutionary algorithms in terms of fewer para meters, 
+memorization of past best results, lesser operators and ease 
+of implementation.  
+Swarm intelligence metaheuristic are inspired mostly from 
+the insect and bird colonies, flocks of birds, school of fishes, 
+herds of animals. Earliest used SI methods i nclude ant 
+colony optimization (ACO)  [58], and particle swarm 
+optimization (PSO) [59]. ACO and PSO have been used in 
+solving many optimization problems including travelling 
+salesman problem and are generally used for comparing the 
+results of newly proposed  swarm algorithms. ACO is based 
+on the food foraging behaviors of ants and has seen wide 
+applicability like for route optimization, pattern recognition, 
+classification and clustering among others . Ants remember 
+the path travelled by the level of pheromone.  PSO assigns a 
+random velocity to each particle (candidate solution) and 
+
+--- PAGE 4 ---
+ 
+ 
+then these particles are flown through the solution space 
+(hyperspace). PSO keeps tracks of best fitness obtained 
+globally (called gbest) and each particle remembers the best 
+solution (called pbest) it has obtained so far. Algorithms 
+proceeds by accelerating the particles towards the gbest and 
+pbest. PSO is also widely used in application ranging from 
+engineering to medical sciences.  Last two decade has seen a 
+rising interest of resear chers in developing metaheuristic 
+algorithms taking inspiration from the evolution or various 
+behaviors of insects, birds and animals. Table 2 lists down 
+some prominent algorithms in this category. 
+TABLE 2 SI ALGORITHMS 
+Optimization algorithm Behavior(s) considered  
+Bat Algorithm [60] Echo-cancellation  
+Cuckoo search [61] Obligate brood parasitic 
+behavior 
+Flower-pollination algorithm [62] Pollination process  of 
+flowers 
+Fire-fly algorithm [63] Flashing light patterns 
+Moth-flame optimization [64] Spiral flying path of moth 
+Glowworm Swarm Optimization [65] Luciferin induced glow ing 
+behavior 
+Bees Algorithm [66] Food foraging behavior of 
+honeybees 
+Artificial Bee Colony [67] Swarming around hive by 
+honey bees 
+Cuckoo optimization algorithm [68] Cuckoos‟ survival efforts 
+Grey wolf optimizer [69] Hunting behavior & social 
+hierarchy 
+Dolphin echolocation [70] Echolocation ability 
+Ant-lion optimizer [71] Hunting mechanism 
+Whale optimization algorithm [72] Bubble-net hunting 
+Fruit fly optimization [73] Food foraging behavior 
+Hunting search  [74] Group hunting behavior  
+Salp swarm algorithm [75] Navigation and foraging 
+behaviors 
+Grasshopper optimization algorithm  
+[76] 
+Social interaction and food 
+foraging 
+Dragonfly algorithm [77] Static and dynamic 
+swarming behavior 
+Deer hunting optimization [78] Hunting behavior of 
+humans 
+SailFish optimizer [79] Hunting behavior 
+Barnacles mating optimizer [80] Mating behavior 
+Manta ray foraging optimizer [81] Foraging behaviors - chain, 
+cyclone, somersault 
+ 
+IV. DISCUSSION AND CONCLUSIONS 
+Irrespective of type of  metaheuristic, search for solution 
+is a task divided into exploration phase and exploitation 
+phase. Where exploration is search for broader areas 
+containing possible solutions, exploitation refers to 
+concentrating on a local area to find best solution in the 
+region. This is generally called as local solution and global 
+solution. Whereas local solution is best in the region but may 
+not be optimal globally. This may happen because of local 
+optima trap. However, to contin ue search for better global 
+solution by more exploration takes more execution time. 
+Hence algorithm needs to be efficient enough to balance the 
+exploration and exploitation.  Most of the research in this 
+field is then dedicated to developing approache s for 
+balancing these two phases by hybridizing the algorithms, 
+modifying the parameters, adding evolutionary operators or 
+using one optimization technique to optimize parameters of 
+other optimizer etc. However, it is to be noted that every 
+algorithm will not gi ve best solution for every problem at 
+hand. This is in line with the „No Free lunches‟ theorem of 
+[82]. As well, though evolutionary algorithms are usable in 
+any field, tuning of their parameters and objective functions 
+is a crucial task.  
+This paper revie wed various nature inspired computing 
+paradigm as well as various algorithms based on natural 
+phenomenon considering the earliest works from 1943 to the 
+latest works published in January 2020. It can be easily 
+inferred that nature is inspiring so many algo rithms for 
+optimizing various engineering and industrial problems. Bio-
+inspired optimization has unlocked many techniques for 
+solving complex optimization issues - constrained, linear, 
+non-linear and alike. This works takes the interested reader 
+on a detour  touching many aspects of bioinspired 
+optimization.  
+While writing this work it is observed that these basic 
+methods are further studied by many researchers either for 
+testing their applicability to other problems or for improving 
+the performance. For exam ple, after going through the 
+literature based on grey wolf optimizer, it is observed that in 
+a short span of five years GWO has been modified, 
+hybridized and applied through more than 300 published 
+works. This shows that there is huge scope of using these 
+bio-inspired algorithms for solving many complex problems. 
+REFERENCES 
+[1] L. N. de Castro, Fundamentals of Natural Computing: Basic concepts, 
+Algorithms and Applications, Chapman and Hall/CRC, 2007 
+[2] S. Mirjalili, S. M. Mirjalili, A. Lewis, “Grey Wolf Optimizer, ” 
+Advances in Engineering Software, Vol. 69, pp. 46-61, 2014 
+[3] W. S. McCulloch, W. Pitts, “A Logical calculus of the ideas 
+immanent in nervous activity,” Bulletin of Mathematical Biophysics, 
+Vol. 5, pp. 115-133, 1943. 
+[4] S. Kirkpatrick, C. D. Gelatt, Jr., M. P.  Vecchi, “Optimization by 
+simulated annealing,” Science, Vol. 220, No. 4598, pp. 671 -680, 
+1983. 
+[5] AIBO, https://us.aibo.com, Accessed on 28 December 2019. 
+[6] C. Y. Zhou, H. M. Geng, P. F. Wang, C. L. Guo, “Praogrammable 
+DNA n anoindicator-based platform for large -scale square root logic 
+biocomputing,” Small, Vol. 15, 1903489. 
+https://doi.org/10.1002/smll.201903489. October 2019. 
+[7] I. Koksal, “ AWS officially launched its Quan tum computing 
+service,” Published on 30 December 2019. [Available online 
+https://www.forbes.com/sites/ilkerkoksal/2020/12/30/aws-officially-
+launched-its-quantum-computing-service/#21a14a0c3a6c]. 
+[8] Classification of metaheuristics, Available online 
+http://metah.nojhan.net/post/2007/10/12/Classification-of-
+metaheuristics, Accessed on 30 December 2019. 
+[9] J. H. Holland, “Adaptation in natural and artificial systems,” MIT 
+Press, 1975. 
+[10] J. H. Holland, “ Genetic Algorithms and Adaptation ,” In: Selfridge 
+O.G., Rissland E.L., Arbib M.A. (eds) Adaptive Control of Ill -
+Defined Systems. NATO Conference Series (II Systems Science), vol 
+16. Springer, Boston, MA, 1984 
+[11] J. H. Holland, “Genetic Algorithms,” Scientific American, Vol. 267, 
+No. 1, pp. 66-73, 1992 
+[12] D. E. Goldberg, “Genetic algorithms in search, optimi zation and 
+machine learning,” AddisonWesley Publishing.  
+[13] I. Rechenberg, “Evolution strategy for optimization of technical 
+system according to the principles of biological evolution,” 
+Frommann-Holzboog Stuttgart, 1973. 
+
+--- PAGE 5 ---
+ 
+ 
+[14] H. P. Schwefel, “Evolution strategies for numerical optimization,” in 
+Numerical optimization of computer models using the evolution 
+strategy, https://doi.org/10.1007/978-3-0348-5927-1_5, 1977. 
+[15] Y. S un, D. Wierstra, T. Schaul, J. Schmid huber, “Stochastic search 
+using the natural  gradient,” International Conference on Machine 
+Learning, 2009. 
+[16] Y. Sun, D. Wierstra, T. Schaul,  J. Schmidhuber , “Efficient natural 
+evolution strategies,” Genetic and Evolutionary Computation 
+Conference, 2009. 
+[17] T. G lasmachers, T. Schaul, J. Schmidhuber, “ A natural evolution 
+strategy for multi -objective optimization,” Parallel Problem Solving 
+from Nature, 2010. 
+[18] T. Glasmachers, T. Schaul, Y. Sun, D. Wierstra, J. Schmidhuber, 
+“Exponential natural evolution strategies,” Genetic and Evol utionary 
+Computation Conference, Portland, USA, 2010. 
+[19] T. Schaul, T. Glasmachers, J. Schmidhuber,  “High dimensions and 
+heavy tails for natural evolution strategies,” Genetic and Evolutionary 
+Computation Conference, 2011. 
+[20] D. Wierstra, T. Scha ul, T. Glasmachers, Y. Sun, J. Peters, J. 
+Schmidhuber, “Natural evolution strategies,” Journal of Machine 
+Learning Research, Vol. 15, pp. 949-980, 2014. 
+[21] L. J. Fogel, A. J. Owens, M. J. Walsh, “Artificial intelligence through 
+simulated evolution,” John Wiley & Sons, 1966. 
+[22] N. L. Cramer, “A representation for the adaptive generation of simple 
+sequential programs,” Proceedings of an International Conference on 
+Genetic Algorithms, Carnegie-Mellon University, Pittsburg, US, July 
+1985. 
+[23] J. R. Koza, “Non-linear genetic algorithms for solving problems,” US 
+Patent, US -4935877-A. Fi1ed 1988/05/20, Publication date 
+1990/06/09. 
+[24] About Genetic Programming, Available online 
+http://geneticprogramming.com/. Accessed on 30 Dec 2019. 
+[25] R. M. Storn, K. Price, “Differential Evolution - A simple and efficient 
+heuristic for global optimization over continuous space,” Journal of 
+Global Optimization, Vol. 11, Issue 4, pp. 341-359, 1997. 
+[26]  D. Simon, “Biogeography -based optimization,” IEEE Trans actions 
+on Evolutionary Computation, Vol. 12, Issue 6, pp. 702-713, 2008 
+[27] M. Hohfeld, G. Rudolph, “Towards a theory of population -based 
+incremental learning,” Proceedings of 4 th IEEE Conference on 
+Evolutionary Computation, 1997. 
+[28] S. Baluja, “Population -based incremental learning: A method for 
+integrating genetic search based function optimization and 
+competitive learning,” School of Computer Science, Carnegie Mellon 
+University, 1994. Available online 
+https://www.ri.cmu.edu/pub_files/pub1/baluja_shumeet_1994_2/baluj
+a_shumeet_1994_2.pdf, Accessed on 28 December 2019. 
+[29] G. Zarand, F. Pazmandi, K. F. Pal, G. T. Zimanyi, “Using hysteresis 
+for optimization,” Physical Review Letters, Vol. 89, 150201, 2002. 
+[30] B. Webster , P. J. Bernhard,  “A local search optimization algorithm 
+based on natural principles of gravitation ,” Proceedings of the 2003 
+international conference on information and knowledge engineering 
+(IKE‟03), Las Vegas, Nevada, USA,  pp. 255–261, 2003. 
+[31] S. I. Birbil, S. C. Fang, “An electromagnetism -like mechanism for 
+global optimization,” Journal of Global Optimization, vol. 25, pp. 
+263-282, 2003. 
+[32] Y. T. Hsiao, C. L. Chuang, J. A. Jiang, C. C. Chien, “A novel 
+optimization algorithm: Space Gravitational Optimization,” IEEE 
+International Conference on Systems, Man and Cybernetics, Vol. 3, 
+pp. 2323-2328, 2005. 
+[33] F. S. Wagner, R. E. Cassiano, “A new stochastic optimization 
+algorithm based on a particle collision metaheurist ic,” 6 th World 
+Congress of Structural and Multidisciplinary Optimization, Brazil, 
+2005. 
+[34] H. Du, X. Wu, J. Zhuang, “Small -world optimization algorithm for 
+function optimization,” Advances in Natural Computation. ICNC 
+2006. Lecture Notes in Computer Science, Vol. 4222, pp. 264-273, 
+2006. 
+[35] O. K. Erol, I. Eksin, “Anew optimization method: Big bang -big 
+crunch,” Advances in Engineering Software, Vol.37, Issue 2, pp. 106-
+111, 2006. 
+[36] R. A. Formato, “Central force optimization: a new metaheuristic with 
+applications in applied electromagnetics,” Progress in 
+Electromagnetic Research, Vol. 77, pp. 425-491, 2007. 
+[37] C. C. Chuang, J. A. Jiang, “Integrated radiation optimization: inspired 
+by the gravitational radiation in the curvature of space -time,” IEEE 
+Congress on Evolutiona ry Computation, Singapore, pp. 3157 -3164, 
+2007. 
+[38] M. Kripka, R. M. L. Kripka, “Big Crunch Optimization Method,”  
+International Conference on Engineering Optimization, Rio de 
+Janeiro, 2008. 
+[39] E. Rashedi, H. Nezamabadi, S. Saryazdi, “Gravitational Search 
+Algorithm,” Information Sciences, Vol. 179, pp. 2232-2248, 2009. 
+[40] P. Robanal, I. Rodriguez, F. Rubio, “Applying River Formation 
+Dynamics to the Steiner Tree Problem,” 9th IEEE International 
+Conference on Cognitive Informatics (ICCI), Beijing, PP. 704 -711, 
+2010. 
+[41] H. Shah-Hosseini, " The intelligent water drops algorithm: a nature -
+inspired swarm-based optimization algorithm,” International Journal 
+of Bio-Inspired Computation, Vol.1, No.1/2, pp. 71-79, 2009. 
+[42] L. Xie, J. Zeng, Z. Cui, “General framework of Artificial Phys ics 
+Optimization Algorithm,” World Congress on Nature & Biologically 
+Inspired Computing, Coimbatore, India, pp. 1321-1326, 2009. 
+[43] J. H. Shen, Y. Li, “Light Ray Optimization and its parameter 
+analysis,” International Joint Conference on Computational Science  
+and Optimization, pp. 918-922, 2009. 
+[44] A. Kaveh, S. Talatahari, “A novel heuristic optimization method: 
+charged system search,” Acta Mechanica, Vol. 213, pp. 267 -289, 
+2010. 
+[45] M. Zeng, G. Liu, C. Zhou, Y. Liang, Y. Wang, “Gravitation Field 
+Algorithm And Its Ap plication in Gene Cluster,” Algorithms for 
+Molecular Biology, Vol. 5, Article no. 32, pp. 1-11, 2010. 
+[46] B. Alatas, “ACROA: artificial chemical reaction optimization 
+algorithm for global optimization,” Expert Systems with 
+Applications: An International Journa l, Vol. 38, No. 10, pp. 13170 -
+13180, 2011. 
+[47] H. Shah -Hosseini, “Principal components analysis by the galaxy -
+based search algorithm: a novel metaheuristic for continuous 
+optimisation,” International Journal of  Computational Science and 
+Engineering, Vol. 6, pp. 132-140, 2011. 
+[48] S. Mirjalili, A. S. Sadiq, “Magnetic optimization algorithm for 
+training Multi Layer Perceptron,”  IEEE Conference on 
+Communication Software and Networks (ICCSN), China, pp. 42 -46, 
+2011. 
+[49] J. J. Flores, R. Lopez, J. Barrera, “Gravitational interactions 
+optimization, learning and intelligent optimization, Lecture Notes in 
+Computer Science, Vol. 6683, pp. 226-237, 2011. 
+[50] K. Tamura, K. Yasuda, “Spiral Dynamics Inspired Optimization,” J . 
+Adv. Comput. Intell. Intell. Inform., Vol.15, No.8, pp. 111 6-1122, 
+2011. 
+[51] T. T. Hieu, “A water flow algorithm for optimization problems,” PhD 
+Thesis, Department of Industrial and Systems Engineering, National 
+University of Singapore, 2011. 
+[52] A. Hatamlou, “Black hole: A new heuristic optimization approach for 
+data clustring,” Information Sciences, Vol. 222, pp. 175-184, 2013. 
+[53] A. Kaveh, M. Khayatazad, “A new meta -heuristic method: Ray 
+Optimization,” Computers and Structures, Vol. 112-113, pp. 283-294, 
+2012 
+[54] F. F. Moghaddam, R. F. Moghaddam, M. Cheriet, “Curved space 
+optimization: a random search based on general relativity theory,” 
+arXiv:1208.2214v1[cs.NE], 2012. 
+[55] H. Eskandar, A. Sadollah, A. Bahreininejad, M. Hamdi, “Water cycle 
+algorithm – a novel metaheuristic optimization method for solving 
+constrained engineering opti mization problems”, Computers & 
+Structures, Vol. 110-111, pp. 151-166, 2012. 
+[56] B. Javidy, A. Hatamlou, S. Mirjalili, “Ions motion algorithm for 
+solving optimization problems,” Applied Soft Computing, Vol. 32, 
+pp. 72-79, 2015. 
+[57] A. Kaveh, A. Zolghadr, “A novel meta-heuristic algorithm: Tug of 
+war optimization,” International Journal of Optimization in Civil 
+Engineering, Vol. 6, No. 4, pp. 469-492, 2016. 
+[58] M. Dorigo, M. Birattari, T. Stutzle, “Ant colony optimization,” IEEE 
+Computational Intelligence Magazine, Vol.  1, Issue 4, pp. 28 -39, 
+2006.  
+[59]  R. Eberhart, J. Kennedy, “A new optimizer using particle swarm 
+theory,” Sixth Internatoonal Symposium on Micro Machine and 
+Human  Science, pp. 39-43, 1995. 
+
+--- PAGE 6 ---
+ 
+ 
+[60] X. Yang, “A new metaheuristic bat -inspired algorithm,” In: González 
+J.R., Pelta D.A., Cruz C., Terrazas G., Krasnogor N. (eds) Nature 
+Inspired Cooperative Strategies for Optimization (NICSO 2010). 
+Studies in Computational Intelligence, vol . 284, pp. 65-74, Springer, 
+2010. 
+[61] X. Yang, S. Deb, “Cuckoo search via levy flights,” 2009 World 
+Congress on Nature & Biologically Inspired Computing (NaBIC), 
+Coimbatore, India, pp. 210-214, 2009. 
+[62] X. Yang, “Flower Pollination Algorithm for Global Optimization” In: 
+Durand-Lose J., Jonoska N. (eds) Unconventional Computation and 
+Natural Compu tation. UCNC 2012. Lecture Notes in Computer 
+Science, vol 7445, pp. 240-249. Springer, 2012. 
+[63] X. Yang, “Firefly Algorithms for Multimodal Optimization ,” In: 
+Watanabe O., Zeugmann T. (eds) Stochastic Algorithms: Foundations 
+and Applications, Lecture Notes in  Computer Science, vol 5792 , pp. 
+169-178, 2009. 
+[64] S. Mirjalili, “Moth -flame optimization algorithm: A novel nature -
+inspired heuristic paradigm,” Knowledge-Based systems, Vol. 89, pp. 
+228-249, 2015. 
+[65] K. N. Krishnana nd, D. Ghose, “Glowworm swarm optimization: a  
+new method for optimizing mulimodal functions,” International 
+Journal of Computational Intelligence Studies, Vol.1, Issue 1, pp. 93 -
+119, 2009. 
+[66] D. T. Pham, A. Ghanbarzadeh, E. K. S. Otri, S. Rahim, M. Zaidi, 
+“The bees algorithm - a novel tool for complex op timization 
+problems,” Editor(s): D.T. Pham, E.E. Eldukhri, A.J. Soroka, 
+Intelligent Production Machines and Systems, Elsevier Science Ltd, 
+pp.  454-459, 2006. 
+[67] D. Karaboga, B. Basturk, “A Powerful and efficient algorithm for 
+numerical function optimization:  artificial bee colony (ABC) 
+algorithm,” Journal of Global Optimization, Vol. 39, Issue 3, pp. 459-
+471, 2007. 
+[68] R. Rajabioun, “Cuckoo optimization algorithm,” Applied Soft 
+Computing, Vol. 11, No. 8, pp. 5508-5518, 2011. 
+[69] S. Mirjalili, S. M. Mirjalili, A. Lewi s, “Grey wolf optimizer,” 
+Advances in Engineering Software, Vol. 69, pp. 46-61, 2014. 
+[70] A. Kaveh, N. Farhoudi, “A new optimization method: Dolphin 
+echolocation,” Advances in Engineering Software, Vol. 59, pp. 53-70, 
+2013. 
+[71] S. Mirjalili, “The ant lion optimize r,” Advances in Engineering 
+Software, Vol. 83, pp. 80-98, 2015. 
+[72] S. Mirjalili, A. Lewis, “The whale optimization algorithm,” Advances 
+in Engineering Software, Vol. 95, pp. 51-67, 2016 
+[73] W. Pan, “A new fruit fly optimization algorithm: taking the financial 
+distress model as an example,” Knowledge -Based Systems, Vol. 26, 
+pp. 69-74, 2012. 
+[74] R. Oftadeh, M. J. Mahjoob, M. Shariatpanahi, “A novel meta -
+heuristic optimization algorithm inspired by group hunting of 
+animals: Hunting search,” Computers & Mathematics with 
+Applications, Vol. 60, Issue 7, pp. 2087-2098, 2010. 
+[75] S. Mirjalili, A. H. Gandomi, S. Z. Mirjalili, S. Saremi, H. Faris, S. M. 
+Mirjalili, “Salp swarm algorithm: A bio -inspired optimizer for 
+engineering design problems,” Advances in Engineering Software, 
+Vol. 114, pp. 163-191, 2017. 
+[76] S. Saremi, S. Mirjalili, A. Lewis, “Grasshopper optimization 
+algorithm: Theory and application,” Advances in Engineering 
+Software, Vol. 105, pp. 30-47, 2017. 
+[77] S. Mirjalili, “Dragonfly algorithm: a new meta -heuristic optimization 
+technique for solving single -objective, discrete and multi -objective 
+problems,” Natural Computing and Applications, Vol. 27, pp. 1053 -
+1073, 2016. 
+[78] G. Brammya, S. Praveena, N. S. NinuPreetha, R. Ramya, B. R. 
+Rajkumar, D. Binu, “Deer hunting optimization algorit hm: a new 
+nature-inspired meta -heuristic paradigm,” The Computer Journal, 
+bxy133, https://doi.org/10.1093/comjnl/bxy133, 2019. 
+[79] S. Shadravan, H. R. Naji, V. K. Bardsiri, “The sailfish optimizer: a 
+novel nature-inspired metaheuristic algorithm for solving constrained 
+engineering optimization problems,” Engineering Applications of 
+Artificial Intelligence, Vol. 80, pp. 20-34, 2019. 
+[80] M. H. Sulaiman, Z. Mustaffa, M. M. Saari, H. Daniyal, “Barnacles 
+mating optim izer: a new bio -inspired algorithm for solving 
+engineering optimization problems,” Engineering Aplications of 
+Artificial Intelligence, Vol. 87, 103330, January 2020. 
+[81] W. Zhao, Z. Zhang, L. Wang, “Manta ray foraging optimization: an 
+effective bio -inspired op timizer for engineering applications,” 
+Engineering Applications of Artificial Intelligence,” Vol. 87, 103300, 
+January 2020. 
+[82] D. H. Wolpert, W. G. Macready, “No free lunch theorems for 
+optimization,” IEEE Transactions on Evolutionary Computation, Vol. 
+1 No. 1, pp. 67-82, April 1997. 
+ 
+ 
+Pravin S. Game is a Ph.D. scholar  in Computer Engineering at 
+Shri JJT University, Jhu njhunu, Rajasthan. He receiv ed his 
+Master of Engineering in Computer Engineering from 
+Savitribai Phule Pune University and Bachelor of Enginee ring 
+in Computer Science & Engineering from Sant Gadge Baba  
+Amravati University. Currently, he is working at Pune 
+Institute of Computer Technology, Pune. His r esearch 
+interests include data mining, big data analysis, machine 
+learning. 
+Email:pravinsgame@gmail.com. 
+ 
+Dr. Vinod Vaze is Ph.D. in Computer Engineering.  He is B. Tech. 
+from I.I.T., Kanpur, and has also earned PGDFM, Diploma in 
+Cyber Law. He is currently working in Department of 
+Computer Science and Engineering at Shri JJT University, 
+Jhunjhunu, Rajashtan.  His research interest includes machine 
+learning, and cyber security. 
+ 
+Dr. Emmanuel M. is Ph.D. in Computer Science and Engineering. 
+He is M. Tech. and B. Tech. in Computer Science and 
+Engineering. He is currently working at Pune Institute of 
+Computer Technology, Pune. He is leading the Big Data 
+research group at PICT. His research interest includes big 
+data, business intelligence, medical image processing and 
+machine learning. 
+ 

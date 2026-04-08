@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metaheurísticas Bio-inspiradas</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050d1a;
+    --surface: #0a1628;
+    --accent1: #00f5c4;
+    --accent2: #7b4fff;
+    --accent3: #ff6b35;
+    --text: #e8f4f8;
+    --muted: #5a7a8a;
+    --card: #0d1f35;
+    --border: rgba(0,245,196,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent1);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s;
+    mix-blend-mode: screen;
+  }
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,196,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,196,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+
+  /* Slides container */
+  .slides { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  /* Timer bar */
+  .timer-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    z-index: 100;
+    transition: width 1s linear;
+    box-shadow: 0 0 10px var(--accent1);
+  }
+
+  /* Nav */
+  .nav {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+    align-items: center;
+  }
+
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .dot.active { background: var(--accent1); width: 24px; border-radius: 4px; box-shadow: 0 0 8px var(--accent1); }
+
+  .nav-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--accent1);
+    padding: 8px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    margin: 0 8px;
+  }
+  .nav-btn:hover { background: rgba(0,245,196,0.1); box-shadow: 0 0 12px rgba(0,245,196,0.3); }
+
+  .timer-display {
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    position: fixed;
+    top: 14px;
+    right: 20px;
+    z-index: 100;
+  }
+
+  .slide-counter {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    position: fixed;
+    top: 14px;
+    left: 20px;
+    z-index: 100;
+  }
+
+  /* ===== SLIDE 1: PORTADA ===== */
+  .slide-1 { text-align: center; }
+
+  .slide-1 .badge {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent1);
+    border: 1px solid var(--accent1);
+    padding: 4px 16px;
+    border-radius: 2px;
+    margin-bottom: 30px;
+    display: inline-block;
+    animation: blink 2s infinite;
+  }
+
+  @keyframes blink {
+    0%,100%{ opacity:1 } 50%{ opacity:0.5 }
+  }
+
+  .slide-1 h1 {
+    font-size: clamp(48px, 7vw, 90px);
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, #fff 0%, var(--accent1) 50%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+  }
+
+  .slide-1 .subtitle {
+    font-size: 18px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+  }
+
+  .slide-1 .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+  .orb1 { width: 400px; height: 400px; background: var(--accent1); top: -100px; right: -100px; animation: float 8s infinite ease-in-out; }
+  .orb2 { width: 300px; height: 300px; background: var(--accent2); bottom: -80px; left: -80px; animation: float 10s infinite ease-in-out reverse; }
+
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+
+  .tags { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .tag {
+    padding: 6px 16px;
+    background: rgba(123,79,255,0.15);
+    border: 1px solid rgba(123,79,255,0.3);
+    border-radius: 20px;
+    font-size: 13px;
+    color: #a78bfa;
+    font-family: 'Fira Code', monospace;
+  }
+
+  /* ===== SLIDE 2: ¿Qué es? ===== */
+  .slide-2 { gap: 30px; }
+
+  .slide-title {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .slide-title span { color: var(--accent1); }
+
+  .slide-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--accent1);
+    margin-top: 10px;
+    box-shadow: 0 0 10px var(--accent1);
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; max-width: 1000px; }
+
+  .info-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .info-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent1);
+  }
+
+  .info-card h3 {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--accent1);
+    font-family: 'Fira Code', monospace;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .info-card p { font-size: 15px; color: #b0c4d4; line-height: 1.6; }
+
+  .def-box {
+    background: linear-gradient(135deg, rgba(0,245,196,0.08), rgba(123,79,255,0.08));
+    border: 1px solid rgba(0,245,196,0.2);
+    border-radius: 8px;
+    padding: 24px 32px;
+    max-width: 900px;
+    text-align: center;
+  }
+
+  .def-box p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #d0e8f0;
+  }
+
+  .def-box strong { color: var(--accent1); }
+
+  /* ===== SLIDE 3: CLASIFICACIÓN ===== */
+  .slide-3 { gap: 30px; }
+
+  .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; width: 100%; max-width: 1050px; }
+
+  .cat-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 28px 22px;
+    border: 1px solid transparent;
+    transition: all 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cat-card:hover { transform: translateY(-4px); }
+
+  .cat-card.ev { border-color: rgba(0,245,196,0.3); }
+  .cat-card.ev::after { content: ''; position: absolute; inset: 0; background: rgba(0,245,196,0.03); }
+  .cat-card.ev .cat-icon { color: var(--accent1); }
+
+  .cat-card.ph { border-color: rgba(255,107,53,0.3); }
+  .cat-card.ph::after { content: ''; position: absolute; inset: 0; background: rgba(255,107,53,0.03); }
+  .cat-card.ph .cat-icon { color: var(--accent3); }
+
+  .cat-card.sw { border-color: rgba(123,79,255,0.3); }
+  .cat-card.sw::after { content: ''; position: absolute; inset: 0; background: rgba(123,79,255,0.03); }
+  .cat-card.sw .cat-icon { color: var(--accent2); }
+
+  .cat-icon { font-size: 36px; margin-bottom: 14px; display: block; }
+  .cat-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 10px; }
+  .cat-card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  .algo-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .algo-tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+  }
+  .ev .algo-tag { background: rgba(0,245,196,0.12); color: var(--accent1); }
+  .ph .algo-tag { background: rgba(255,107,53,0.12); color: var(--accent3); }
+  .sw .algo-tag { background: rgba(123,79,255,0.12); color: #a78bfa; }
+
+  /* ===== SLIDE 4: EXPLORACIÓN vs EXPLOTACIÓN ===== */
+  .slide-4 { gap: 32px; }
+
+  .balance-viz {
+    width: 100%;
+    max-width: 900px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 30px;
+    position: relative;
+  }
+
+  .balance-track {
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    border-radius: 4px;
+    position: relative;
+    margin: 20px 0;
+    box-shadow: 0 0 20px rgba(0,245,196,0.2);
+  }
+
+  .balance-thumb {
+    width: 20px; height: 20px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    animation: slide 4s ease-in-out infinite;
+  }
+
+  @keyframes slide {
+    0%,100% { left: 20%; }
+    50% { left: 80%; }
+  }
+
+  .balance-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+  }
+
+  .balance-labels .left { color: var(--accent1); }
+  .balance-labels .right { color: var(--accent2); }
+
+  .two-feat { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; }
+
+  .feat-box {
+    padding: 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .feat-box.exp-lo { background: rgba(0,245,196,0.08); border: 1px solid rgba(0,245,196,0.2); }
+  .feat-box.exp-ta { background: rgba(123,79,255,0.08); border: 1px solid rgba(123,79,255,0.2); }
+  .feat-box h4 { font-size: 13px; letter-spacing: 2px; margin-bottom: 8px; font-family: 'Fira Code', monospace; }
+  .feat-box.exp-lo h4 { color: var(--accent1); }
+  .feat-box.exp-ta h4 { color: var(--accent2); }
+  .feat-box p { color: #b0c4d4; }
+
+  .nfl-banner {
+    background: rgba(255,107,53,0.08);
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 8px;
+    padding: 14px 24px;
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    color: var(--accent3);
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+  }
+
+  /* ===== SLIDE 5: CONCLUSIONES ===== */
+  .slide-5 { text-align: center; gap: 28px; }
+
+  .key-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; max-width: 860px; width: 100%; }
+
+  .kp {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    text-align: left;
+  }
+
+  .kp-num {
+    font-family: 'Fira Code', monospace;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--accent1);
+    opacity: 0.4;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .kp-text { font-size: 14px; line-height: 1.5; color: #b0c4d4; }
+  .kp-text strong { color: var(--text); }
+
+  .final-quote {
+    max-width: 700px;
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-style: italic;
+    border-left: 3px solid var(--accent1);
+    padding-left: 20px;
+    text-align: left;
+  }
+
+  .source-tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    opacity: 0.5;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="timer-bar" id="timerBar"></div>
+<div class="timer-display" id="timerDisplay">05:00</div>
+<div class="slide-counter" id="slideCounter">01 / 05</div>
+
+<div class="slides">
+
+  <!-- SLIDE 1: PORTADA -->
+  <div class="slide slide-1 active" data-slide="1">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="badge">METAHEURÍSTICAS · U1T1</div>
+    <h1>Optimización<br>Bio-Inspirada</h1>
+    <p class="subtitle">Algoritmos metaheurísticos para problemas complejos</p>
+    <div class="tags">
+      <span class="tag">Algoritmos Evolutivos</span>
+      <span class="tag">Física</span>
+      <span class="tag">Inteligencia de Enjambre</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: QUÉ ES -->
+  <div class="slide slide-2" data-slide="2">
+    <div class="slide-title">¿Qué es una <span>Metaheurística</span>?</div>
+    <div class="def-box">
+      <p>Una <strong>metaheurística</strong> es una estrategia de alto nivel que guía y selecciona heurísticas para encontrar soluciones <strong>suficientemente buenas</strong> a problemas complejos de optimización, donde los métodos exactos son inviables o muy lentos.</p>
+    </div>
+    <div class="two-col">
+      <div class="info-card">
+        <h3>Problema que resuelve</h3>
+        <p>Los métodos tradicionales fallan en problemas de gran escala: no escalan, quedan atrapados en óptimos locales o tardan demasiado. Las metaheurísticas ofrecen soluciones prácticas.</p>
+      </div>
+      <div class="info-card">
+        <h3>Inspiración en la naturaleza</h3>
+        <p>La naturaleza lleva millones de años "resolviendo problemas". Sus procesos — evolución, comportamiento animal, física — se modelan como algoritmos de búsqueda eficiente.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: CLASIFICACIÓN -->
+  <div class="slide slide-3" data-slide="3">
+    <div class="slide-title">Las 3 <span>Categorías</span> Principales</div>
+    <div class="three-col">
+      <div class="cat-card ev">
+        <span class="cat-icon">🧬</span>
+        <h3>Evolutivos (EA)</h3>
+        <p>Basados en la teoría de Darwin: selección natural, reproducción y mutación para evolucionar soluciones.</p>
+        <div class="algo-tags">
+          <span class="algo-tag">GA</span>
+          <span class="algo-tag">GP</span>
+          <span class="algo-tag">ES</span>
+          <span class="algo-tag">EP</span>
+          <span class="algo-tag">DE</span>
+        </div>
+      </div>
+      <div class="cat-card ph">
+        <span class="cat-icon">⚛️</span>
+        <h3>Basados en Física</h3>
+        <p>Modelan leyes físicas como gravedad, termodinámica, electromagnetismo para guiar la búsqueda.</p>
+        <div class="algo-tags">
+          <span class="algo-tag">SA</span>
+          <span class="algo-tag">GSA</span>
+          <span class="algo-tag">Big Bang</span>
+          <span class="algo-tag">WCA</span>
+        </div>
+      </div>
+      <div class="cat-card sw">
+        <span class="cat-icon">🐝</span>
+        <h3>Inteligencia de Enjambre</h3>
+        <p>Emergencia colectiva de agentes simples: hormigas, partículas, lobos, ballenas cooperando.</p>
+        <div class="algo-tags">
+          <span class="algo-tag">PSO</span>
+          <span class="algo-tag">ACO</span>
+          <span class="algo-tag">GWO</span>
+          <span class="algo-tag">WOA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: EXPLORACIÓN vs EXPLOTACIÓN -->
+  <div class="slide slide-4" data-slide="4">
+    <div class="slide-title">El Balance <span>Clave</span></div>
+    <div class="balance-viz">
+      <div class="balance-labels">
+        <span class="left">EXPLORACIÓN</span>
+        <span class="right">EXPLOTACIÓN</span>
+      </div>
+      <div class="balance-track"><div class="balance-thumb"></div></div>
+      <div class="two-feat">
+        <div class="feat-box exp-lo">
+          <h4>EXPLORACIÓN</h4>
+          <p>Búsqueda amplia en todo el espacio de soluciones. Evita quedar atrapado en óptimos locales. Mayor diversidad, mayor tiempo.</p>
+        </div>
+        <div class="feat-box exp-ta">
+          <h4>EXPLOTACIÓN</h4>
+          <p>Refinamiento intensivo en zonas prometedoras. Converge más rápido pero puede perderse el óptimo global.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nfl-banner">
+      ⚠️ Teorema "No Free Lunch" (Wolpert & Macready, 1997) — Ningún algoritmo es óptimo para todos los problemas
+    </div>
+  </div>
+
+  <!-- SLIDE 5: CONCLUSIONES -->
+  <div class="slide slide-5" data-slide="5">
+    <div class="slide-title">Puntos <span>Clave</span></div>
+    <div class="key-points">
+      <div class="kp">
+        <div class="kp-num">01</div>
+        <div class="kp-text"><strong>Independencia del problema:</strong> son algoritmos de propósito general adaptables a distintos dominios.</div>
+      </div>
+      <div class="kp">
+        <div class="kp-num">02</div>
+        <div class="kp-text"><strong>Evitan óptimos locales:</strong> su exploración estocástica les permite escapar de trampas que fallan los métodos clásicos.</div>
+      </div>
+      <div class="kp">
+        <div class="kp-num">03</div>
+        <div class="kp-text"><strong>3 grandes familias:</strong> Evolutivos, Basados en Física e Inteligencia de Enjambre, con +50 algoritmos modernos.</div>
+      </div>
+      <div class="kp">
+        <div class="kp-num">04</div>
+        <div class="kp-text"><strong>Balance E-E crítico:</strong> el diseño del equilibrio exploración-explotación define la calidad del algoritmo.</div>
+      </div>
+    </div>
+    <div class="final-quote">
+      "La naturaleza lleva millones de años resolviendo problemas complejos. Las metaheurísticas traducen esa sabiduría al lenguaje de la computación."
+    </div>
+    <div class="source-tag">FUENTE: Game, P.S. et al. — Bio-inspired Optimization: metaheuristic algorithms for optimization. NTCOMIS-2020</div>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button class="nav-btn" onclick="prevSlide()">← PREV</button>
+  <div id="dots"></div>
+  <button class="nav-btn" onclick="nextSlide()">NEXT →</button>
+</div>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX - 6 + 'px';
+    cursor.style.top = e.clientY - 6 + 'px';
+  });
+
+  // Slides
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const dotsContainer = document.getElementById('dots');
+
+  // Build dots
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsContainer.appendChild(d);
+  }
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    current = (n + total) % total;
+    slides[current].classList.add('active');
+    document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i === current));
+    document.getElementById('slideCounter').textContent =
+      String(current + 1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+  }
+
+  function nextSlide() { goTo(current + 1); }
+  function prevSlide() { goTo(current - 1); }
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+
+  // Timer 5 min
+  const timerBar = document.getElementById('timerBar');
+  const timerDisplay = document.getElementById('timerDisplay');
+  let seconds = 300;
+
+  timerBar.style.width = '100%';
+
+  const interval = setInterval(() => {
+    seconds--;
+    const pct = (seconds / 300) * 100;
+    timerBar.style.width = pct + '%';
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    timerDisplay.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    if (seconds <= 0) {
+      clearInterval(interval);
+      timerDisplay.textContent = '00:00';
+      timerDisplay.style.color = '#ff4444';
+    }
+    if (seconds <= 30) timerDisplay.style.color = '#ff6b35';
+  }, 1000);
+</script>
+</body>
+</html>
