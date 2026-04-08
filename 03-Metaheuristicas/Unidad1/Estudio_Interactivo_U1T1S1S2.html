@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metaheurísticas — Estudio Interactivo U1T1S1-S2</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#07111f;
+    --bg2:#0d1b2e;
+    --surface:#111d31;
+    --surface2:#16253c;
+    --card:#12243b;
+    --border:#243753;
+    --text:#edf4ff;
+    --muted:#93a4bf;
+    --accent:#ffb347;
+    --accent2:#46d3c5;
+    --accent3:#8ea6ff;
+    --good:#38d57a;
+    --bad:#ff6f61;
+    --mono:'IBM Plex Mono', monospace;
+    --sans:'Space Grotesk', sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background:
+      radial-gradient(circle at top left, rgba(70,211,197,0.18), transparent 30%),
+      radial-gradient(circle at top right, rgba(255,179,71,0.14), transparent 24%),
+      radial-gradient(circle at bottom left, rgba(142,166,255,0.16), transparent 28%),
+      linear-gradient(180deg, var(--bg), var(--bg2));
+  }
+  body::before {
+    content:'';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 46px 46px;
+    opacity: 0.45;
+  }
+
+  .app {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 28px 18px 40px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 18px;
+    align-items: stretch;
+    margin-bottom: 18px;
+  }
+
+  .hero-main, .hero-side, .panel, .notes-section, .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: 0 14px 45px rgba(0,0,0,0.26);
+    backdrop-filter: blur(10px);
+  }
+
+  .hero-main { padding: 28px; }
+  .hero-side { padding: 22px; display:flex; flex-direction:column; justify-content:space-between; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2.6px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1 {
+    margin: 0 0 10px;
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    line-height: 0.98;
+    letter-spacing: -1px;
+  }
+  .subtitle {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.04rem;
+    line-height: 1.6;
+    max-width: 820px;
+  }
+
+  .meta-row, .mini-row, .filter-row, .tab-row, .session-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .meta-row { margin-top: 18px; }
+
+  .pill, .mini-pill, .tab, .session-pill {
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    color: var(--text);
+    padding: 9px 13px;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  .pill.active, .tab.active, .session-pill.active {
+    background: var(--accent);
+    color: #1c1405;
+    border-color: transparent;
+    font-weight: 700;
+  }
+  .pill:hover, .tab:hover, .session-pill:hover { transform: translateY(-1px); }
+
+  .hero-side .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .metric {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+  }
+  .metric-value {
+    display:block;
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .metric-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.8px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .metric-value.a { color: var(--accent); }
+  .metric-value.b { color: var(--accent2); }
+  .metric-value.c { color: var(--accent3); }
+  .metric-value.d { color: var(--good); }
+
+  .subnote {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .toolbar {
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .tab, .session-pill, .mini-pill { font-family: var(--sans); }
+  .tab { min-width: 120px; text-align:center; }
+
+  .stats {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .stat {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+  }
+  .stat-val { display:block; font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
+  .stat-val.a { color: var(--accent); }
+  .stat-val.b { color: var(--accent2); }
+  .stat-val.c { color: var(--accent3); }
+  .stat-val.d { color: var(--good); }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .progress {
+    width: 100%;
+    height: 4px;
+    background: #1a2940;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 10px 0 18px;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    transition: width 0.35s ease;
+  }
+
+  .panel { padding: 20px; margin-bottom: 16px; }
+  .panel-header {
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap: 14px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .panel-title { margin: 0; font-size: 1.35rem; }
+  .panel-sub { color: var(--muted); margin-top: 4px; font-size: 0.95rem; line-height: 1.5; }
+  .badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #111;
+    background: var(--accent);
+    padding: 6px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+
+  .question-card, .flashcard, .review-item, .note-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+  }
+  .question-card { padding: 24px; margin-bottom: 12px; }
+  .q-top, .r-top, .flash-top, .note-top {
+    display:flex; justify-content:space-between; gap: 12px; align-items:flex-start; flex-wrap:wrap;
+  }
+  .q-tags, .r-tags, .note-tags { display:flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 5px 10px;
+    color: var(--muted);
+    background: rgba(255,255,255,0.02);
+  }
+  .tag.s1 { color: var(--accent2); border-color: rgba(70,211,197,0.28); }
+  .tag.s2 { color: var(--accent); border-color: rgba(255,179,71,0.24); }
+  .tag.mcq { color: #c3d2ff; }
+  .tag.fill { color: #ffdba0; }
+  .tag.vf { color: #b9f2d1; }
+
+  .q-title { margin: 12px 0 16px; font-size: 1.12rem; line-height: 1.55; }
+  .options { display:flex; flex-direction:column; gap: 10px; }
+  .option {
+    display:flex;
+    gap: 12px;
+    align-items:flex-start;
+    width: 100%;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    color: var(--text);
+    border-radius: 14px;
+    padding: 13px 14px;
+    cursor:pointer;
+    text-align:left;
+    transition: 0.2s ease;
+  }
+  .option:hover:not(:disabled) { border-color: rgba(70,211,197,0.5); transform: translateX(3px); }
+  .option:disabled { cursor: default; }
+  .option .letter {
+    width: 24px; height: 24px; border-radius: 7px;
+    display:grid; place-items:center;
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    background: rgba(255,255,255,0.06); color: var(--muted);
+    flex-shrink:0;
+  }
+  .option.correct { border-color: rgba(56,213,122,0.45); background: rgba(56,213,122,0.08); }
+  .option.correct .letter { color: var(--good); background: rgba(56,213,122,0.16); }
+  .option.wrong { border-color: rgba(255,111,97,0.45); background: rgba(255,111,97,0.08); }
+  .option.wrong .letter { color: var(--bad); background: rgba(255,111,97,0.14); }
+
+  .fill-box {
+    display:grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items:center;
+  }
+  .fill-box input {
+    width:100%; padding: 14px 16px;
+    border-radius: 14px; border: 1px solid var(--border);
+    background: rgba(0,0,0,0.18); color: var(--text); outline:none;
+    font-family: var(--sans); font-size: 1rem;
+  }
+  .fill-box input:focus { border-color: rgba(70,211,197,0.55); }
+
+  .btn {
+    border:none; border-radius: 12px; padding: 12px 18px;
+    font-family: var(--sans); font-size: 0.96rem; font-weight: 700;
+    cursor:pointer; transition: 0.2s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); color: #201703; }
+  .btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn.ghost { background: rgba(70,211,197,0.14); color: var(--accent2); border: 1px solid rgba(70,211,197,0.25); }
+
+  .feedback {
+    display:none;
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    line-height: 1.55;
+  }
+  .feedback.show { display:block; }
+  .feedback.good { background: rgba(56,213,122,0.08); border:1px solid rgba(56,213,122,0.25); }
+  .feedback.bad { background: rgba(255,111,97,0.08); border:1px solid rgba(255,111,97,0.25); }
+  .feedback-title { font-family: var(--mono); font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 6px; }
+  .feedback.good .feedback-title { color: var(--good); }
+  .feedback.bad .feedback-title { color: var(--bad); }
+  .feedback-body { color: var(--text); font-size: 0.96rem; }
+
+  .nav-row {
+    display:flex; justify-content:space-between; gap: 10px; flex-wrap: wrap; align-items:center; margin-top: 14px;
+  }
+  .nav-center { font-family: var(--mono); color: var(--muted); font-size: 0.95rem; }
+
+  .flashcard {
+    padding: 28px;
+    min-height: 300px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    position: relative;
+    cursor:pointer;
+  }
+  .flashcard::before {
+    content:''; position:absolute; inset:0;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(70,211,197,0.08), transparent 40%, rgba(255,179,71,0.08));
+    pointer-events:none;
+  }
+  .flash-indicator {
+    position:absolute; top: 16px; right: 18px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.6px;
+  }
+  .flash-label { font-family: var(--mono); color: var(--accent2); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px; }
+  .flash-text { font-size: clamp(1.35rem, 2.8vw, 2rem); line-height: 1.35; font-weight: 800; max-width: 900px; }
+  .flash-answer { display:none; margin-top: 18px; color: var(--good); font-weight: 600; font-size: 1rem; line-height: 1.55; }
+  .flashcard.flipped .flash-answer { display:block; }
+  .flashcard.flipped .flash-text { color: #cfe6ff; }
+
+  .review-list { display:grid; gap: 12px; }
+  .review-item { padding: 18px; }
+  .review-q { font-size: 1rem; line-height:1.55; font-weight: 700; margin: 8px 0 12px; }
+  .review-a { color: var(--good); font-weight: 700; margin-bottom: 8px; }
+  .review-e { color: var(--muted); line-height: 1.55; font-size: 0.95rem; }
+
+  .notes-tabs { display:flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .notes-tab { border: 1px solid var(--border); background: rgba(255,255,255,0.03); color: var(--text); padding: 10px 14px; border-radius: 12px; cursor:pointer; font-weight:700; }
+  .notes-tab.active { background: var(--accent3); color: #0d1530; border-color: transparent; }
+  .notes-content { display:none; }
+  .notes-content.show { display:block; }
+
+  .notes-section { overflow:hidden; margin-bottom: 12px; }
+  .notes-head {
+    display:flex; align-items:flex-start; gap: 12px; justify-content:space-between;
+    padding: 18px 20px;
+    cursor:pointer;
+  }
+  .notes-head:hover { background: rgba(255,255,255,0.03); }
+  .notes-left { display:flex; gap: 12px; align-items:flex-start; }
+  .notes-icon { font-size: 1.5rem; }
+  .notes-title { margin: 0; font-size: 1.06rem; }
+  .notes-sub { color: var(--muted); margin-top: 4px; font-size: 0.92rem; line-height:1.5; }
+  .arrow { font-family: var(--mono); color: var(--muted); transition: transform .2s ease; margin-top: 5px; }
+  .notes-section.open .arrow { transform: rotate(180deg); }
+  .notes-body { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .25s ease; padding: 0 20px; }
+  .notes-section.open .notes-body { max-height: 4000px; padding: 0 20px 20px; }
+
+  .concept-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 14px; }
+  .concept {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+  }
+  .concept h4 { margin: 0 0 6px; font-size: 1rem; }
+  .concept p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 0.92rem; }
+
+  .info-box {
+    background: rgba(70,211,197,0.08);
+    border: 1px solid rgba(70,211,197,0.25);
+    border-radius: 16px;
+    padding: 15px 16px;
+    line-height: 1.6;
+    color: var(--text);
+    margin: 12px 0;
+  }
+  .info-box strong { color: var(--accent2); }
+  .info-box.alt {
+    background: rgba(255,179,71,0.08);
+    border-color: rgba(255,179,71,0.25);
+  }
+  .info-box.alt strong { color: var(--accent); }
+
+  .table-wrap { overflow-x:auto; border: 1px solid var(--border); border-radius: 16px; margin-top: 12px; }
+  table {
+    width: 100%; border-collapse: collapse; min-width: 740px; background: rgba(255,255,255,0.02);
+  }
+  th, td { padding: 12px 14px; border-bottom: 1px solid rgba(36,55,83,0.7); vertical-align: top; }
+  th {
+    text-align: left; font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); background: rgba(255,255,255,0.02);
+  }
+  td { font-size: 0.93rem; line-height: 1.55; color: var(--text); }
+
+  .bullet-list { margin: 10px 0 0; padding-left: 18px; color: var(--text); line-height: 1.7; }
+  .bullet-list li { margin-bottom: 6px; }
+
+  .hidden { display:none !important; }
+  .empty-state { padding: 28px; text-align:center; color: var(--muted); }
+
+  .footer-note {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-top: 18px;
+  }
+
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 720px) {
+    .app { padding: 18px 12px 32px; }
+    .hero-main, .hero-side, .panel, .notes-section, .card { border-radius: 18px; }
+    .stats { grid-template-columns: 1fr; }
+    .fill-box { grid-template-columns: 1fr; }
+    .nav-row { align-items: stretch; }
+    .nav-row .btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <section class="hero">
+    <div class="hero-main">
+      <div class="eyebrow">Metaheurísticas · Unidad 1 · Tema 1</div>
+      <h1>Estudio interactivo de U1T1S1 y U1T1S2</h1>
+      <p class="subtitle">Página de repaso para <strong>algoritmos bioinspirados</strong>: fundamentos, clasificación, ventajas, aplicaciones y ejercicios clave. Incluye quiz, flashcards y un resumen para estudiar más rápido.</p>
+      <div class="meta-row">
+        <span class="pill">Quiz interactivo</span>
+        <span class="pill">Flashcards</span>
+        <span class="pill">Resumen académico</span>
+        <span class="pill">U1-T1-S1 · U1-T1-S2</span>
+      </div>
+      <p class="subnote">Sugerencia de uso: repasa primero el resumen, luego practica con el quiz y termina con las flashcards para fijar conceptos.</p>
+    </div>
+    <div class="hero-side">
+      <div class="metric-grid">
+        <div class="metric"><span class="metric-value a" id="mQuestions">0</span><div class="metric-label">preguntas</div></div>
+        <div class="metric"><span class="metric-value b" id="mSessions">2</span><div class="metric-label">sesiones</div></div>
+        <div class="metric"><span class="metric-value c" id="mFlash">0</span><div class="metric-label">flashcards</div></div>
+        <div class="metric"><span class="metric-value d" id="mDone">0</span><div class="metric-label">respondidas</div></div>
+      </div>
+      <div class="subnote" style="margin-top:14px;">
+        <strong>Objetivo:</strong> dominar los fundamentos de los algoritmos bioinspirados y diferenciar sus tipos principales con ejemplos reales y recientes.
+      </div>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <button class="tab active" onclick="setMode('quiz', this)">⚡ Quiz</button>
+    <button class="tab" onclick="setMode('flash', this)">🃏 Flashcards</button>
+    <button class="tab" onclick="setMode('notes', this)">📖 Resumen</button>
+    <button class="tab" onclick="setMode('review', this)">📋 Ver todo</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><span class="stat-val a" id="statTotal">0</span><div class="stat-label">total</div></div>
+    <div class="stat"><span class="stat-val b" id="statGood">0</span><div class="stat-label">aciertos</div></div>
+    <div class="stat"><span class="stat-val c" id="statBad">0</span><div class="stat-label">errores</div></div>
+    <div class="stat"><span class="stat-val d" id="statLeft">0</span><div class="stat-label">pendientes</div></div>
+  </div>
+
+  <div class="filter-row" style="margin-bottom: 10px;">
+    <button class="session-pill active" onclick="setSession('all', this)">TODAS</button>
+    <button class="session-pill" onclick="setSession('S1', this)">U1-T1-S1</button>
+    <button class="session-pill" onclick="setSession('S2', this)">U1-T1-S2</button>
+  </div>
+  <div class="filter-row" style="margin-bottom: 12px;">
+    <button class="mini-pill active" onclick="setType('all', this)">TODOS</button>
+    <button class="mini-pill" onclick="setType('mcq', this)">Opción múltiple</button>
+    <button class="mini-pill" onclick="setType('tf', this)">Verdadero / Falso</button>
+    <button class="mini-pill" onclick="setType('fill', this)">Completar</button>
+  </div>
+
+  <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+  <!-- QUIZ -->
+  <section id="quizView" class="panel">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Modo Quiz</h2>
+        <div class="panel-sub">Responde una pregunta a la vez. El sistema te muestra retroalimentación y avanza con el mismo estilo de estudio interactivo.</div>
+      </div>
+      <div class="badge" id="quizBadge">U1-T1-S1 + S2</div>
+    </div>
+    <div id="quizCard"></div>
+    <div class="nav-row">
+      <button class="btn secondary" onclick="previousQuestion()">← Anterior</button>
+      <div class="nav-center" id="quizCounter">0 / 0</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn ghost" onclick="shuffleQuestions()">🔀 Mezclar</button>
+        <button class="btn primary" onclick="nextQuestion()">Siguiente →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLASH -->
+  <section id="flashView" class="panel hidden">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Flashcards</h2>
+        <div class="panel-sub">Voltea cada tarjeta para reforzar definiciones y conceptos clave.</div>
+      </div>
+      <div class="badge" id="flashBadge">Repaso conceptual</div>
+    </div>
+    <div class="flashcard" id="flashCard" onclick="flipFlash()">
+      <div class="flash-indicator">CLICK PARA VOLTEAR</div>
+      <div class="flash-label" id="flashLabel">Concepto</div>
+      <div class="flash-text" id="flashFront"></div>
+      <div class="flash-answer" id="flashBack"></div>
+    </div>
+    <div class="nav-row">
+      <button class="btn secondary" onclick="prevFlash()">← Anterior</button>
+      <div class="nav-center" id="flashCounter">0 / 0</div>
+      <button class="btn primary" onclick="nextFlash()">Siguiente →</button>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notesView" class="panel hidden">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Resumen por sesión</h2>
+        <div class="panel-sub">Versión condensada de las notas para repasar antes de responder el quiz.</div>
+      </div>
+      <div class="badge">Contenido base</div>
+    </div>
+
+    <div class="notes-tabs">
+      <button class="notes-tab active" onclick="showNotes('s1', this)">U1-T1-S1</button>
+      <button class="notes-tab" onclick="showNotes('s2', this)">U1-T1-S2</button>
+    </div>
+
+    <div class="notes-content show" id="notes-s1">
+      <div class="notes-section open">
+        <div class="notes-head" onclick="toggleSection(this)">
+          <div class="notes-left">
+            <div class="notes-icon">🤖</div>
+            <div>
+              <h3 class="notes-title">Fundamentos de algoritmos bioinspirados</h3>
+              <div class="notes-sub">Qué son, por qué surgieron y en qué sistemas naturales se apoyan.</div>
+            </div>
+          </div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="notes-body">
+          <div class="info-box"><strong>Idea central:</strong> son técnicas de optimización que imitan procesos naturales para resolver problemas complejos, sobre todo cuando los métodos exactos no son prácticos.</div>
+          <div class="concept-grid">
+            <div class="concept"><h4>Motivación científica</h4><p>Modelar y comprender fenómenos naturales complejos y convertirlos en estrategias de búsqueda útiles.</p></div>
+            <div class="concept"><h4>Motivación tecnológica</h4><p>Resolver optimización, planificación, asignación de recursos y análisis de datos con soluciones aproximadas.</p></div>
+            <div class="concept"><h4>Base biológica</h4><p>Evolución natural, selección, recombinación, mutación y comportamiento colectivo.</p></div>
+            <div class="concept"><h4>Base física / ecológica</h4><p>Recocido Simulado, templado de metales, cooperación y competencia entre especies.</p></div>
+          </div>
+          <div class="info-box alt"><strong>Ejemplo clave:</strong> PSO se inspira en el movimiento coordinado de aves para explorar el espacio de soluciones.</div>
+          <ul class="bullet-list">
+            <li>Exploran muchas soluciones posibles.</li>
+            <li>Aprenden del comportamiento del sistema.</li>
+            <li>Se adaptan sin programar reglas exactas para cada caso.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="notes-section">
+        <div class="notes-head" onclick="toggleSection(this)">
+          <div class="notes-left">
+            <div class="notes-icon">🧩</div>
+            <div>
+              <h3 class="notes-title">Conceptos clave y pregunta guía</h3>
+              <div class="notes-sub">Elementos que debes recordar para resolver el quiz.</div>
+            </div>
+          </div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="notes-body">
+          <div class="concept-grid">
+            <div class="concept"><h4>ACO</h4><p>Hormigas y feromonas para rutas eficientes.</p></div>
+            <div class="concept"><h4>PSO</h4><p>Aves que coordinan su búsqueda para encontrar alimento.</p></div>
+            <div class="concept"><h4>Recocido Simulado</h4><p>Inspirado en el enfriamiento controlado de metales.</p></div>
+            <div class="concept"><h4>Estigmergia</h4><p>Comunicación indirecta a través del entorno.</p></div>
+          </div>
+          <div class="info-box">Los algoritmos bioinspirados no garantizan la solución exacta, pero sí pueden encontrar soluciones buenas o aproximadas en tiempo razonable.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes-content" id="notes-s2">
+      <div class="notes-section open">
+        <div class="notes-head" onclick="toggleSection(this)">
+          <div class="notes-left">
+            <div class="notes-icon">🌿</div>
+            <div>
+              <h3 class="notes-title">Clasificación general de los algoritmos bioinspirados</h3>
+              <div class="notes-sub">Evolutivos, de enjambre, físicos y ecológicos.</div>
+            </div>
+          </div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="notes-body">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Tipo</th><th>Idea base</th><th>Ejemplo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Evolutivos</td><td>Selección natural, genética y mejora por generaciones.</td><td>GA, Evolución Diferencial</td></tr>
+                <tr><td>Enjambre</td><td>Comportamiento colectivo de animales sociales.</td><td>PSO, ACO</td></tr>
+                <tr><td>Físicos</td><td>Fenómenos físicos como enfriamiento o gravedad.</td><td>Recocido Simulado</td></tr>
+                <tr><td>Ecológicos</td><td>Competencia, cooperación y simbiosis entre especies.</td><td>Modelos ecológicos</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="concept-grid">
+            <div class="concept"><h4>Característica común</h4><p>No requieren conocer completamente la estructura matemática del problema.</p></div>
+            <div class="concept"><h4>Ventaja práctica</h4><p>Pueden usarse en ingeniería, logística, robótica e inteligencia artificial.</p></div>
+            <div class="concept"><h4>Balance clave</h4><p>Exploración global + explotación local mediante mecanismos estocásticos.</p></div>
+            <div class="concept"><h4>Diferencia fuerte</h4><p>Trabajan con poblaciones de soluciones y mantienen diversidad para evitar convergencia temprana.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notes-section">
+        <div class="notes-head" onclick="toggleSection(this)">
+          <div class="notes-left">
+            <div class="notes-icon">🏭</div>
+            <div>
+              <h3 class="notes-title">Aplicación y uso real</h3>
+              <div class="notes-sub">Por qué siguen siendo relevantes en la innovación tecnológica.</div>
+            </div>
+          </div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="notes-body">
+          <div class="info-box alt"><strong>Resumen rápido:</strong> los algoritmos bioinspirados combinan adaptabilidad, diversidad, paralelización e interpretabilidad conceptual.</div>
+          <ul class="bullet-list">
+            <li>Se usan en optimización de rutas y asignación de recursos.</li>
+            <li>Ayudan a resolver problemas de gran dimensión con soluciones aproximadas.</li>
+            <li>Su rendimiento depende del ajuste de parámetros y de la función objetivo.</li>
+            <li>No existe un método universalmente mejor para todos los problemas.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEW -->
+  <section id="reviewView" class="panel hidden">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Revisión completa</h2>
+        <div class="panel-sub">Todas las preguntas seleccionadas con respuesta y explicación para repasar rápido.</div>
+      </div>
+      <div class="badge">Autoevaluación</div>
+    </div>
+    <div id="reviewList" class="review-list"></div>
+  </section>
+
+  <p class="footer-note">Este material reúne la información de U1T1S1 y U1T1S2 en una sola experiencia de estudio. Si quieres, después puedo hacer una segunda versión más visual, tipo infografía o presentación en una sola página.</p>
+</div>
+
+<script>
+  const QUESTIONS = [
+    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿Qué comportamiento de los insectos inspira la Optimización de Colonias de Hormigas (ACO)?', options:['La búsqueda de alimento usando feromonas.','La metamorfosis.','El canto de los grillos.'], answer:0, explanation:'ACO se basa en cómo las hormigas dejan y siguen rastros de feromonas para encontrar rutas eficientes hacia la comida.'},
+    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿Cuál es la principal característica de los algoritmos bioinspirados?', options:['Resuelven únicamente problemas matemáticos simples.','Se inspiran en procesos naturales para resolver problemas complejos.','Se limitan a copiar algoritmos tradicionales.'], answer:1, explanation:'Su rasgo distintivo es que toman ideas de la naturaleza para construir estrategias de búsqueda y optimización eficaces.'},
+    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿Cuál es el beneficio principal de los algoritmos bioinspirados frente a los métodos tradicionales?', options:['Solo sirven en problemas biológicos específicos.','Pueden obtener soluciones aproximadas en problemas complejos y de gran dimensionalidad.','Siempre encuentran la solución exacta en poco tiempo.'], answer:1, explanation:'Son útiles cuando el problema es demasiado grande o complejo para métodos exactos eficientes.'},
+    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿Qué fuente de inspiración es la más prolífica para los algoritmos bioinspirados?', options:['La astronomía.','La biología.','La lingüística.'], answer:1, explanation:'La biología aporta muchos modelos exitosos, como evolución, cooperación y comportamiento colectivo.'},
+    {session:'S1', type:'tf', topic:'fundamentos', prompt:'Los algoritmos bioinspirados imitan procesos naturales para resolver problemas complejos.', options:['Verdadero','Falso'], answer:0, explanation:'Esa es precisamente la idea central de los algoritmos bioinspirados.'},
+    {session:'S1', type:'tf', topic:'fundamentos', prompt:'El principal beneficio de los algoritmos bioinspirados es que siempre encuentran la solución exacta y óptima.', options:['Verdadero','Falso'], answer:1, explanation:'Normalmente buscan soluciones buenas o aproximadas, no una garantía de óptimo exacto.'},
+    {session:'S1', type:'tf', topic:'fundamentos', prompt:'La optimización por enjambre de partículas (PSO) se inspira en el comportamiento de las aves al buscar alimento.', options:['Verdadero','Falso'], answer:0, explanation:'PSO toma como referencia la búsqueda colectiva y coordinada de alimento que realizan las aves.'},
+    {session:'S1', type:'tf', topic:'fundamentos', prompt:'Una característica clave de los algoritmos bioinspirados es que permiten generar soluciones aproximadas en problemas de gran complejidad.', options:['Verdadero','Falso'], answer:0, explanation:'Ese es uno de sus principales beneficios.'},
+    {session:'S1', type:'tf', topic:'fundamentos', prompt:'El algoritmo de Recocido Simulado se basa en principios de la ecología.', options:['Verdadero','Falso'], answer:1, explanation:'Está inspirado en un proceso físico de enfriamiento controlado, no en principios ecológicos.'},
+    {session:'S1', type:'tf', topic:'fundamentos', prompt:'Las colonias de hormigas han inspirado algoritmos bioinspirados a través del concepto de estigmergia.', options:['Verdadero','Falso'], answer:0, explanation:'En ACO, la estigmergia describe la comunicación indirecta mediante feromonas en el entorno.'},
+    {session:'S1', type:'tf', topic:'fundamentos', prompt:'La biología es la única fuente de inspiración de los algoritmos bioinspirados.', options:['Verdadero','Falso'], answer:1, explanation:'También existen enfoques inspirados en la física y la ecología.'},
+
+    {session:'S2', type:'mcq', topic:'clasificacion', prompt:'¿Qué ventaja general tienen los algoritmos bioinspirados?', options:['Solo se aplican en problemas simples.','Dependen de reglas fijas invariables.','Se adaptan dinámicamente al problema.'], answer:2, explanation:'Los algoritmos bioinspirados ajustan su búsqueda según el comportamiento del problema.'},
+    {session:'S2', type:'mcq', topic:'aplicaciones', prompt:'¿Qué ventaja tienen en aplicabilidad?', options:['Pueden usarse en ingeniería, logística, robótica e IA.','No pueden aplicarse en bioinformática.','Solo sirven en problemas matemáticos muy específicos.'], answer:0, explanation:'Su flexibilidad les permite adaptarse a distintos tipos de problemas reales.'},
+    {session:'S2', type:'mcq', topic:'tipos', prompt:'¿Qué caracteriza a los algoritmos evolutivos?', options:['Usan selección, cruce y mutación inspirados en la genética.','Dependen únicamente de fórmulas algebraicas exactas.','Trabajan siempre con una sola solución.'], answer:0, explanation:'Los algoritmos evolutivos manejan una población de soluciones y aplican operadores genéticos.'},
+    {session:'S2', type:'mcq', topic:'tipos', prompt:'¿Cuál es un ejemplo de algoritmo físico?', options:['Optimización por Colonia de Hormigas.','Optimización por Enjambre de Partículas.','Recocido Simulado.'], answer:2, explanation:'El Recocido Simulado se inspira en el proceso físico de enfriamiento de metales.'},
+    {session:'S2', type:'mcq', topic:'tipos', prompt:'¿Qué caracteriza a los algoritmos de enjambre?', options:['La resolución de problemas solo con ecuaciones lineales.','El comportamiento colectivo inspirado en animales sociales.','El trabajo individual de una sola partícula.'], answer:1, explanation:'Se inspiran en la cooperación de insectos, aves o peces para resolver problemas de forma distribuida.'},
+    {session:'S2', type:'fill', topic:'tipos', prompt:'Los algoritmos __________ se inspiran en la selección natural y la genética, aplicando operadores como selección, cruce y mutación.', answer:['evolutivos'], explanation:'Los algoritmos evolutivos toman ideas de la evolución biológica para mejorar una población de soluciones.'},
+    {session:'S2', type:'fill', topic:'tipos', prompt:'La Optimización por Enjambre de Partículas ____________ se inspira en el comportamiento colectivo de las aves.', answer:['PSO'], explanation:'PSO significa Particle Swarm Optimization y toma inspiración del movimiento grupal de aves y peces.'},
+    {session:'S2', type:'fill', topic:'tipos', prompt:'El algoritmo de ____ Simulado modela el proceso metalúrgico de calentamiento y enfriamiento para encontrar soluciones óptimas.', answer:['Recocido'], explanation:'El Recocido Simulado se inspira en el enfriamiento controlado de metales.'},
+    {session:'S2', type:'fill', topic:'tipos', prompt:'Los algoritmos _______ toman como referencia interacciones entre especies como competencia y cooperación en ecosistemas.', answer:['ecológicos'], explanation:'Los algoritmos ecológicos imitan dinámicas de ecosistemas para modelar cooperación, competencia y adaptación.'},
+    {session:'S2', type:'fill', topic:'tipos', prompt:'Una característica común de los algoritmos bioinspirados es que no requieren un conocimiento previo de la __________ matemática del problema.', answer:['estructura'], explanation:'Pueden trabajar sin modelar completamente la estructura matemática del problema.'},
+    {session:'S2', type:'fill', topic:'tipos', prompt:'Los algoritmos bioinspirados equilibran la exploración global y la explotación local mediante mecanismos __________.', answer:['estocásticos'], explanation:'Los mecanismos estocásticos permiten ajustar la búsqueda y balancear exploración y refinamiento.'},
+    {session:'S2', type:'fill', topic:'tipos', prompt:'A diferencia de las heurísticas tradicionales, los algoritmos bioinspirados mantienen poblaciones de soluciones para garantizar la ______ en la búsqueda.', answer:['diversidad'], explanation:'Trabajar con poblaciones permite mantener diversidad de candidatos y evitar convergencia temprana.'},
+    {session:'S2', type:'fill', topic:'tipos', prompt:'Los algoritmos bioinspirados son fácilmente __________, ya que imitan fenómenos de la naturaleza como evolución y ecología.', answer:['interpretables'], explanation:'Al estar basados en analogías naturales, su lógica de búsqueda suele resultar más intuitiva.'},
+    {session:'S2', type:'fill', topic:'tipos', prompt:'Una ventaja de los algoritmos bioinspirados es que pueden ejecutarse en entornos de computación ____________ gracias a su diseño paralelizable.', answer:['distribuida'], explanation:'Muchos algoritmos bioinspirados operan con múltiples soluciones en paralelo.'}
+  ];
+
+  const FLASHCARDS = [
+    {session:'S1', front:'¿Qué son los algoritmos bioinspirados?', back:'Técnicas de optimización que imitan procesos naturales para resolver problemas complejos.'},
+    {session:'S1', front:'¿Cuál es su beneficio principal?', back:'Permiten obtener soluciones aproximadas en problemas grandes o complejos.'},
+    {session:'S1', front:'¿Qué inspira a ACO?', back:'La búsqueda de alimento de las hormigas mediante feromonas.'},
+    {session:'S1', front:'¿Qué inspira a PSO?', back:'El movimiento coordinado de aves al buscar alimento.'},
+    {session:'S1', front:'¿Qué inspira al Recocido Simulado?', back:'El enfriamiento controlado de materiales metálicos.'},
+    {session:'S1', front:'¿Qué es la estigmergia?', back:'Comunicación indirecta a través del entorno, como ocurre en las colonias de hormigas.'},
+    {session:'S2', front:'¿Qué caracteriza a los algoritmos evolutivos?', back:'Poblaciones de soluciones, selección, cruce y mutación.'},
+    {session:'S2', front:'¿Qué caracteriza a los algoritmos de enjambre?', back:'Comportamiento colectivo y coordinación entre agentes simples.'},
+    {session:'S2', front:'¿Qué caracteriza a los algoritmos físicos?', back:'Modelan fenómenos como enfriamiento, gravedad o dinámica de partículas.'},
+    {session:'S2', front:'¿Qué caracteriza a los algoritmos ecológicos?', back:'Modelan competencia, cooperación y simbiosis entre especies.'},
+    {session:'S2', front:'¿Por qué son útiles en ingeniería?', back:'Porque se adaptan a restricciones complejas y pueden paralelizarse con facilidad.'},
+    {session:'S2', front:'¿Qué significa balancear exploración y explotación?', back:'Buscar zonas nuevas del espacio de soluciones sin perder el refinamiento local.'}
+  ];
+
+  let mode = 'quiz';
+  let sessionFilter = 'all';
+  let typeFilter = 'all';
+  let quizSet = [];
+  let quizIndex = 0;
+  let flashIndex = 0;
+  let flashFlipped = false;
+  let score = 0;
+  let answeredMap = {};
+
+  function norm(value) {
+    return String(value || '')
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .trim();
+  }
+
+  function filteredQuestions() {
+    return QUESTIONS.filter(q => (sessionFilter === 'all' || q.session === sessionFilter) && (typeFilter === 'all' || q.type === typeFilter));
+  }
+
+  function filteredFlashcards() {
+    return FLASHCARDS.filter(c => sessionFilter === 'all' || c.session === sessionFilter);
+  }
+
+  function refreshSets(resetQuiz = true) {
+    quizSet = filteredQuestions();
+    if (resetQuiz) quizIndex = 0;
+    if (quizIndex >= quizSet.length) quizIndex = Math.max(quizSet.length - 1, 0);
+    if (quizSet.length === 0) quizIndex = 0;
+    flashIndex = Math.min(flashIndex, Math.max(filteredFlashcards().length - 1, 0));
+    flashFlipped = false;
+    renderAll();
+  }
+
+  function renderStats() {
+    const total = QUESTIONS.length;
+    const good = Object.values(answeredMap).filter(v => v === 'good').length;
+    const bad = Object.values(answeredMap).filter(v => v === 'bad').length;
+    const done = good + bad;
+    const left = Math.max(total - done, 0);
+    document.getElementById('statTotal').textContent = total;
+    document.getElementById('statGood').textContent = good;
+    document.getElementById('statBad').textContent = bad;
+    document.getElementById('statLeft').textContent = left;
+    document.getElementById('mQuestions').textContent = total;
+    document.getElementById('mFlash').textContent = FLASHCARDS.length;
+    document.getElementById('mDone').textContent = done;
+    document.getElementById('mSessions').textContent = 2;
+    document.getElementById('progressFill').style.width = total ? `${Math.round((done / total) * 100)}%` : '0%';
+    document.getElementById('scoreNum').textContent = total ? `${good}/${total}` : '0/0';
+  }
+
+  function setMode(nextMode, button) {
+    mode = nextMode;
+    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+    if (button) button.classList.add('active');
+    document.getElementById('quizView').classList.toggle('hidden', mode !== 'quiz');
+    document.getElementById('flashView').classList.toggle('hidden', mode !== 'flash');
+    document.getElementById('notesView').classList.toggle('hidden', mode !== 'notes');
+    document.getElementById('reviewView').classList.toggle('hidden', mode !== 'review');
+    if (mode === 'review') renderReview();
+    if (mode === 'flash') renderFlash();
+    if (mode === 'quiz') renderQuiz();
+  }
+
+  function setSession(nextSession, button) {
+    sessionFilter = nextSession;
+    document.querySelectorAll('.session-pill').forEach(el => el.classList.remove('active'));
+    if (button) button.classList.add('active');
+    refreshSets();
+    document.getElementById('quizBadge').textContent = nextSession === 'all' ? 'U1-T1-S1 + S2' : nextSession;
+  }
+
+  function setType(nextType, button) {
+    typeFilter = nextType;
+    document.querySelectorAll('.mini-pill').forEach(el => el.classList.remove('active'));
+    if (button) button.classList.add('active');
+    refreshSets();
+  }
+
+  function qProgress() {
+    const total = quizSet.length;
+    document.getElementById('quizCounter').textContent = total ? `${quizIndex + 1} / ${total}` : '0 / 0';
+  }
+
+  function renderQuiz() {
+    const host = document.getElementById('quizCard');
+    host.innerHTML = '';
+    if (!quizSet.length) {
+      host.innerHTML = '<div class="empty-state">No hay preguntas para el filtro seleccionado.</div>';
+      document.getElementById('quizCounter').textContent = '0 / 0';
+      return;
+    }
+    const q = quizSet[quizIndex];
+    const wrapper = document.createElement('div');
+    wrapper.className = 'question-card';
+    const tags = `<div class="q-tags"><span class="tag ${q.session === 'S1' ? 's1' : 's2'}">${q.session}</span><span class="tag ${q.type === 'mcq' ? 'mcq' : q.type === 'tf' ? 'vf' : 'fill'}">${q.type === 'mcq' ? 'Opción múltiple' : q.type === 'tf' ? 'V/F' : 'Completar'}</span><span class="tag">${q.topic}</span></div>`;
+    wrapper.innerHTML = `
+      <div class="q-top">
+        ${tags}
+        <div class="badge">${quizIndex + 1} / ${quizSet.length}</div>
+      </div>
+      <div class="q-title">${q.prompt}</div>
+      <div id="answerArea"></div>
+      <div id="feedback" class="feedback"></div>
+    `;
+    host.appendChild(wrapper);
+
+    const answerArea = wrapper.querySelector('#answerArea');
+    const feedback = wrapper.querySelector('#feedback');
+    if (q.type === 'fill') {
+      answerArea.innerHTML = `
+        <div class="fill-box">
+          <input id="fillInput" type="text" placeholder="Escribe tu respuesta aquí..." autocomplete="off" />
+          <button class="btn primary" id="checkBtn">Comprobar</button>
+        </div>
+      `;
+      wrapper.querySelector('#checkBtn').onclick = () => checkFill(q, feedback, answerArea.querySelector('#fillInput'));
+      answerArea.querySelector('#fillInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkFill(q, feedback, answerArea.querySelector('#fillInput')); });
+    } else {
+      const letters = ['A','B','C','D'];
+      answerArea.innerHTML = `
+        <div class="options">
+          ${q.options.map((opt, idx) => `<button class="option" data-idx="${idx}"><span class="letter">${letters[idx]}</span><span>${opt}</span></button>`).join('')}
+        </div>
+      `;
+      answerArea.querySelectorAll('.option').forEach(btn => {
+        btn.addEventListener('click', () => checkOption(q, Number(btn.dataset.idx), feedback, answerArea));
+      });
+    }
+    qProgress();
+  }
+
+  function markDone(question, correct) {
+    const key = `${question.session}|${question.prompt}`;
+    answeredMap[key] = correct ? 'good' : 'bad';
+    renderStats();
+  }
+
+  function lockOptions(answerArea) {
+    answerArea.querySelectorAll('.option').forEach(btn => btn.disabled = true);
+  }
+
+  function checkOption(q, selected, feedback, answerArea) {
+    if (feedback.classList.contains('show')) return;
+    lockOptions(answerArea);
+    const buttons = [...answerArea.querySelectorAll('.option')];
+    buttons[q.answer].classList.add('correct');
+    const correct = selected === q.answer;
+    if (correct) {
+      buttons[selected].classList.add('correct');
+      feedback.className = 'feedback show good';
+      feedback.innerHTML = `<div class="feedback-title">Correcto</div><div class="feedback-body">${q.explanation}</div>`;
+      markDone(q, true);
+    } else {
+      buttons[selected].classList.add('wrong');
+      feedback.className = 'feedback show bad';
+      feedback.innerHTML = `<div class="feedback-title">Respuesta correcta</div><div class="feedback-body">${q.options[q.answer]}<br><br>${q.explanation}</div>`;
+      markDone(q, false);
+    }
+  }
+
+  function checkFill(q, feedback, input) {
+    if (feedback.classList.contains('show')) return;
+    const user = norm(input.value);
+    const accepted = q.answer.map(norm);
+    const ok = accepted.includes(user);
+    if (ok) {
+      feedback.className = 'feedback show good';
+      feedback.innerHTML = `<div class="feedback-title">Correcto</div><div class="feedback-body">${q.explanation}</div>`;
+      markDone(q, true);
+    } else {
+      feedback.className = 'feedback show bad';
+      feedback.innerHTML = `<div class="feedback-title">Respuesta correcta</div><div class="feedback-body">${q.answer.join(', ')}<br><br>${q.explanation}</div>`;
+      markDone(q, false);
+    }
+    input.disabled = true;
+    const btn = input.parentElement.querySelector('button');
+    if (btn) btn.disabled = true;
+  }
+
+  function nextQuestion() {
+    if (!quizSet.length) return;
+    quizIndex = Math.min(quizIndex + 1, quizSet.length - 1);
+    renderQuiz();
+  }
+
+  function previousQuestion() {
+    if (!quizSet.length) return;
+    quizIndex = Math.max(quizIndex - 1, 0);
+    renderQuiz();
+  }
+
+  function shuffleQuestions() {
+    if (quizSet.length < 2) return;
+    quizSet = quizSet.sort(() => Math.random() - 0.5);
+    quizIndex = 0;
+    renderQuiz();
+  }
+
+  function renderFlash() {
+    const cards = filteredFlashcards();
+    if (!cards.length) {
+      document.getElementById('flashFront').textContent = 'No hay flashcards para este filtro.';
+      document.getElementById('flashBack').textContent = '';
+      document.getElementById('flashLabel').textContent = 'Vacio';
+      document.getElementById('flashCounter').textContent = '0 / 0';
+      return;
+    }
+    if (flashIndex >= cards.length) flashIndex = 0;
+    const card = cards[flashIndex];
+    document.getElementById('flashLabel').textContent = `${card.session} · ${flashIndex + 1}/${cards.length}`;
+    document.getElementById('flashFront').textContent = card.front;
+    document.getElementById('flashBack').textContent = card.back;
+    document.getElementById('flashCounter').textContent = `${flashIndex + 1} / ${cards.length}`;
+    document.getElementById('flashCard').classList.toggle('flipped', flashFlipped);
+  }
+
+  function flipFlash() {
+    flashFlipped = !flashFlipped;
+    renderFlash();
+  }
+  function nextFlash() {
+    const cards = filteredFlashcards();
+    if (!cards.length) return;
+    flashIndex = (flashIndex + 1) % cards.length;
+    flashFlipped = false;
+    renderFlash();
+  }
+  function prevFlash() {
+    const cards = filteredFlashcards();
+    if (!cards.length) return;
+    flashIndex = (flashIndex - 1 + cards.length) % cards.length;
+    flashFlipped = false;
+    renderFlash();
+  }
+
+  function renderReview() {
+    const host = document.getElementById('reviewList');
+    if (!quizSet.length) {
+      host.innerHTML = '<div class="empty-state">No hay resultados para mostrar con el filtro actual.</div>';
+      return;
+    }
+    host.innerHTML = quizSet.map((q, idx) => {
+      const answer = q.type === 'fill' ? q.answer.join(', ') : q.options[q.answer];
+      return `
+        <div class="review-item">
+          <div class="r-top">
+            <div class="r-tags">
+              <span class="tag ${q.session === 'S1' ? 's1' : 's2'}">${q.session}</span>
+              <span class="tag ${q.type === 'mcq' ? 'mcq' : q.type === 'tf' ? 'vf' : 'fill'}">${q.type === 'mcq' ? 'Opción múltiple' : q.type === 'tf' ? 'V/F' : 'Completar'}</span>
+              <span class="tag">#${idx + 1}</span>
+            </div>
+            <span class="badge">${q.topic}</span>
+          </div>
+          <div class="review-q">${q.prompt}</div>
+          <div class="review-a">Respuesta: ${answer}</div>
+          <div class="review-e">${q.explanation}</div>
+        </div>`;
+    }).join('');
+  }
+
+  function showNotes(next, button) {
+    document.querySelectorAll('.notes-tab').forEach(el => el.classList.remove('active'));
+    if (button) button.classList.add('active');
+    document.getElementById('notes-s1').classList.toggle('show', next === 's1');
+    document.getElementById('notes-s2').classList.toggle('show', next === 's2');
+  }
+
+  function toggleSection(header) {
+    const section = header.parentElement;
+    section.classList.toggle('open');
+  }
+
+  function renderAll() {
+    renderStats();
+    if (mode === 'quiz') renderQuiz();
+    if (mode === 'flash') renderFlash();
+    if (mode === 'review') renderReview();
+  }
+
+  refreshSets();
+  renderAll();
+</script>
+</body>
+</html>
