@@ -1,0 +1,284 @@
+
+
+--- PAGE 1 ---
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+METAHEURÍSTICA 
+Actividad Autónoma 1 
+Nombre de la actividad: Análisis comparativo de los 
+fundamentos y aplicaciones de los algoritmos bioinspirados 
+ 
+Unidad 1: Algoritmos bioinspirados 
+ 
+Tema 1: Fundamentos de Algoritmos Bioinspirados 
+ 
+ 
+ 
+ 
+ 
+ 
+Nombres: 
+Fecha: 
+Carrera: 
+Periodo académico: 
+Semestre:
+
+
+--- PAGE 2 ---
+1 
+ 
+ 
+ 
+Objetivo de la actividad: 
+ 
+Analizar los fundamentos teóricos de los algoritmos bioinspirados, 
+clasificarlos según su origen (biológico, físico y ecológico), y evaluar sus 
+ventajas frente a otras metaheurísticas, aplicando el pensamiento crítico 
+en la identificación de escenarios prácticos donde puede implementarse. 
+ 
+Recursos o temas que debe haber estudiado antes de hacer la actividad: 
+ 
+• Concepto general de metaheurísticas y su utilidad en problemas 
+complejos. 
+• Definición de algoritmos bioinspir ados y  sus b ases en si stemas 
+naturales. 
+•   Tipos principales de algoritmos bioinspirados: 
+-    Evolutivos (p. ej., Algoritmos Genéticos). 
+-    De enjambre (p. ej., PSO, ACO). 
+-    Físicos (p. ej., Recocido Simulado). 
+-    Ecológicos (p. ej., modelos de cooperación y competencia) 
+ 
+Formato de entrega: PDF 
+ 
+Instrucciones: 
+ 
+1.  Realice un resumen conceptual (máximo 2 páginas) sobre ¿qué son 
+los algoritmos bioinspirados?, s us m otivaciones científicas y 
+tecnológicas, así como sus bases en la biología, física y ecología. 
+ 
+ 
+2.  Elabore una tabla comparativa que muestre las diferencias entre los 
+algoritmos bioinspirados y otras metaheurísticas (mínimo 4 aspectos 
+comparativos). 
+ 
+ 
+3.  Seleccione tres tipos de algoritmos bioinspirados (por ejemplo: GA, 
+PSO y ACO), e investigue una aplicación práctica (de los últimos 6 
+años) p ara c ada uno. Describa en  pocos p árrafos ¿cómo se 
+implementaron y qué ventajas y desventajas presentaron? 
+ 
+ 
+4. Redacte un ensayo breve (míni mo de 300 palabras) acerca de la 
+importancia de los algoritmos bioinspirados en la inn ovación 
+tecnológica y su impacto en la sociedad actual. 
+ 
+ 
+5.  Incluya una bibliografía con al menos 4 referencias académicas en 
+APA 7.
+
+--- PAGE 3 ---
+3 
+ 
+ 
+ 
+ 
+Bibliografía: 
+ 
+Ahmed, Z., Haron, H., & Al-Tameem, A. (2024). Appropriate 
+Combination of Crossover Operator and Mutation Operator in 
+Genetic Algorithms for the Travelling Salesman Problem. 
+Computers, Materials & Continua, 79(2), 2399-2425. 
+https://doi.org/10.32604/cmc.2024.049704 
+Fan, S., Wang, R., Song, Y., Crosbee, D., & Su, K. (2025). Nature-inspired 
+adaptive differential evolution: A unified meta-heuristic 
+framework for complex engineering optimisation and UAV path 
+planning. Results in Engineering, 27, 106530. 
+https://doi.org/10.1016/j.rineng.2025.106530 
+Game, P., Vaze, V., & Emmanuel, M. (2020). Bio-inspired 
+Optimization: metaheuristic algorithms for optimization. arXiv: 
+Neural and Evolutionary Computing. 
+http://arxiv.org/pdf/2003.11637.pdf 
+Khalid, A. M., Hosny, K. M., & Mirjalili, S. (2022). COVIDOA: A novel 
+evolutionary optimization algorithm based on coronavirus 
+disease replication lifecycle. Neural Computing and 
+Applications, 34(24), 
+22465-22492. https://doi.org/10.1007/s00521-022-07639-
+x. Zeb, A., Din, F., Fayaz, M., Mehmood, G., & Zamli, K. Z. 
+(2023). ASystematic Literature Review on Robust Swarm 
+Intelligence Algorithms in Search-Based Software Engineering. 
+Complexity, 2023, 1-22. https://doi.org/10.1155/2023/4577581 
+
+--- PAGE 4 ---
+4 
+ 
+ 
+ Rúbrica de evaluación    
+                 
+  
+Componente de aprendizaje:   Autónomo                      X  Contacto con el  
+Docente       
+Nombre de la Unidad:  
+Unidad 1: Algoritmos bioinspirados  
+Resultado(s) de aprendizaje:  • Comprender los principios fundamentales de los algoritmos bioinspirados, reconociendo su origen natural y c 
+según sus características generales.  
+• Analizar y comparar los distintos tipos de algoritmos bioinspirados, identificando sus estructuras 
+fundamentales aplicaciones más relevantes.  
+Nombre de la Actividad:  Análisis comparativo de los fundamentos y aplicaciones de los algoritmos bioinspirados  
+                        
+   
+Criterios 
+de 
+Evaluación   
+  Escala de Valoración     
+Excelente  
+(10 - 9,1)  
+Bueno  
+(9 - 8,1)  
+Satisfactorio  
+(8 - 7)  
+Necesita mejorar  
+(6,9 - 0,1)  
+No entrega  
+(0)  Puntaje  
+  
+Comentario 
+s  
+(SIGEA)  
+1. Resumen 
+conceptual  
+Explica claramente 
+fundamentos, motivaciones y 
+bases en biología, física y 
+ecología con redacción 
+académica impecable.  
+Presenta 
+fundamentos y 
+motivaciones con 
+algunos vacíos o 
+redacción 
+mejorable.  
+Explica de 
+forma parcial, 
+omite 
+aspectos 
+clave o tiene 
+errores 
+menores.  
+Explicación 
+incompleta, con 
+errores 
+conceptuales o 
+poco rigor 
+académico.  
+No entrega      
+2. Tabla 
+comparativa  
+Incluye al menos 5 diferencias 
+bien argumentadas entre 
+bioinspirados y otras 
+metaheurísticas, con ejemplos 
+claros.  
+Presenta 4 o 5 
+diferencias, pero 
+algunas poco 
+desarrolladas.  
+Presenta 
+menos de 4 
+diferencias o 
+con errores 
+notables.  
+Comparación 
+muy incompleta o 
+incorrecta.  
+No entrega      
+3. Aplicaciones 
+recientes  
+Selecciona 2 algoritmos y 
+describe aplicaciones 
+actuales (≤5 años) con detalle 
+y ventajas identificadas.  
+Selecciona 2 
+algoritmos con 
+aplicaciones, pero 
+con explicaciones 
+limitadas.  
+Selecciona 
+solo 1 
+algoritmo o 
+aplicaciones 
+poco 
+actualizadas.  
+Aplicaciones 
+vagas, sin 
+evidencia o sin 
+relación con el 
+tema.  
+No entrega      
+4. Reflexión crítica  
+(Ejes: Innovación 
+/  
+Impacto social)  
+Reflexión profunda, conecta 
+teoría, práctica e impacto 
+social y tecnológico.  
+Reflexión 
+adecuada, con 
+aportes prácticos 
+pero menos 
+profundos.  
+Reflexión 
+general, poco 
+crítica.  
+Reflexión 
+superficial, sin 
+análisis.  
+No entrega      
+5. Bibliografía (Eje:  
+Ética y valores /  
+Comunicación 
+académica)  
+Incluye ≥5 fuentes 
+académicas en APA 7, 
+actualizadas y correctamente 
+citadas.  
+Incluye 4-5 
+fuentes, con 
+pequeños errores 
+de formato.  
+Incluye 3 
+fuentes, con 
+errores de 
+citación.  
+Incluye menos de 
+3 fuentes o sin 
+formato APA.  
+No entrega      
+                
+ 
+Los criterios 4 y 5 están alineados a los ejes de formación del Modelo Educativo UNACH “Introspección y Prospectiva” y respon den principalmente  
+a dos de los siguientes ejes: 
+1. Ambiente; 
+2. Autonomía y adaptabilidad; 
+3. Comunicación; 
+4. Desarrollo humano; 
+5. Ética y valores; 
+6. Emprendimiento; 
+7. Inter y multidisciplinariedad; 
+8. Innovación; 
+9. Inclusión e interculturalidad; 
+10. Investigación; 
+11. Impacto social; 
+12. Tecnologías. 
+Puntaje total  
+  
+   
+  
+   
+  
