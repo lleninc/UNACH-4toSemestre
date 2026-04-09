@@ -1,0 +1,847 @@
+
+
+===== PAGINA 1 =====
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ASIGNATURA METODOLOGÍAS DE ANALÍTICA DE DATOS 
+Actividad Autónoma 1 
+Nombre de la actividad: Conceptos, aplicaciones y 
+fundamentos de la analítica de datos 
+ 
+Unidad 1: Fundamentos de análisis de datos 
+ 
+Tema 1: Introducción a las metodologías de  
+análisis de datos 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Nombres: 
+Fecha: 
+Carrera: 
+Periodo académico: 
+Semestre:
+
+
+===== PAGINA 2 =====
+
+1 
+ 
+ 
+ 
+Objetivo de la actividad: Distinguir con precisión los enfoques descriptivo, 
+predictivo y prescr iptivo, justificando su uso en problemas reales y 
+definiendo para cada uno pregunta, datos de entrada,  técnicas, 
+salida/entregable y métrica de éxito 
+ 
+Recursos o temas que debe haber estudiado antes de hacer la actividad: 
+ 
+Conceptos básicos de analítica de datos 
+ 
+•   Diferencias entre analítica descriptiva, predictiva y prescriptiva 
+•   Ciclo de Vida de Proyectos de Analítica de Datos 
+•   Aplicaciones de la analítica en la industria 
+ 
+Formato de entrega: PDF 
+ 
+Instrucciones: 
+ 
+•   Redacte claramente las respuestas solicitadas. 
+•   Siga los pasos de la actividad autónoma en secuencia estricta. 
+• Incluya una bibliografía con al menos 5 referencias académicas 
+en APA 7. 
+• Nombrar el archivo de la siguiente manera: 
+Apellido_Nombre_Grupo_X. 
+ 
+Contenido 
+ 
+1.  Explique ¿qué es una metodología de análisis de datos y por qué 
+es necesaria en proyectos de analítica? 
+ 
+ 
+ 
+ 
+2. Clasifique  los siguientes casos en descriptiva, predictiva o 
+prescriptiva y justifique su respuesta de 2  hasta 3 líneas usando las 
+pistas: 
+ 
+a) Un dashboard mensual que muestra ventas por región, top 10 
+productos y variación vs. el año anterior. 
+ 
+b) Un modelo  que estima  la demanda de p araguas por ciudad 
+según clima y estacionalidad para el próximo mes. 
+ 
+c) Un sistema que propone el mejor precio y la cantidad a reponer 
+por tienda maximizando margen y minimizando quiebres de stock, 
+considerando restricciones de logística. 
+ 
+d) Un in forme que segmenta clientes por RFM (recencia, 
+frecuencia, monto) para entender el valor actual de la cartera.
+
+===== PAGINA 3 =====
+
+2 
+ 
+ 
+ 
+e) Un algoritmo que asigna probabilidad de abandono (churn) a 
+cada cliente en los próximos 60 días. 
+ 
+f) Un optimizador de rutas de distribución que recomienda el orden 
+de visitas y horarios para reducir 20% el tiempo total de reparto. 
+ 
+3.  Mencione al menos seis etapas del ciclo de vida de un proyecto de 
+analítica de datos y describa en una línea el objetivo y  un 
+entregable típico de cada una. 
+ 
+Pistas: Definición del problema, Recolección de datos, Preparación 
+de datos, Análisis/Modelado, Interpretación/Comunicación, Toma 
+de decisiones, Implementación, Me dición (KPIs), Monitoreo y 
+mejora. 
+ 
+4.  Ordene  cronológicamente y asigne la etapa correspondiente a 
+cada actividad. Justifique en 1 frase por qué va en esa etapa. 
+ 
+a) Eliminar duplicados y crear variables derivadas. 
+b) Definir KPI “tasa de conversión online” y la meta del trimestre. 
+c) Extraer datos de ventas de la base interna y del panel de redes 
+sociales. 
+d) Entrenar un modelo de pronóstico de demanda para el próximo 
+mes. 
+e) Presentar   hallazgos    a    gerencia    con    un    dashboard    y 
+conclusiones clave. 
+f)  Desplegar reglas de reposición y precios en la tienda online. 
+g) Revisar semanalmente los KPIs y ajustar parámetros del modelo. 
+ 
+5.  Realice el siguiente ejercicio: 
+ 
+Problema: Una cadena de farmacias minoristas en Riobamba detecta 
+pérdidas por “faltas de stock” y  reposiciones tardías en varios 
+productos críticos (analgésicos, antigripales y otros).  La  operación 
+repone semanalmente y sus proveedores tardan entre 3 y 10 días en 
+entregar (lead time). Se dispone del archivo 
+ejercicio_fases_analitica_farmacia.csv con re gistro semanal p or 
+producto que incluye: producto, se mana, fecha_semana, 
+stock_inicio_sem, unidades_vendidas, stock_fin_sem, lead_time_dias y 
+un indicador stockout_sem (0/1). La gerencia solicita: (1) me dir y 
+visualizar el % de semanas sin stock por producto para identificar los 
+más críticos; (2) analizar la tendencia de ventas totales por semana; 
+(3) pronosticar las unidades totales para la próxi ma semana c on un 
+modelo lineal sencillo; y (4) emitir alertas prescriptivas de reorden para 
+la última semana observada, combinando cobertura en  semanas 
+(stock/forecast), lead time y percentiles históricos de stock y tasa de
+
+===== PAGINA 4 =====
+
+3 
+ 
+ 
+ 
+venta, para priorizar qué productos reabastecer primero y reducir 
+pérdidas por desabastecimiento. 
+ 
+Paso 1: Ingrese a:  https://jupyter.org/try-jupyter/lab/ 
+ 
+ 
+ 
+Seleccione    Pyodide    dado    que    sirve    para    ejecutar    Python 
+directamente en el navegador. 
+ 
+Paso 2: Suba el archivo “ejercicio_fases_analitica_farmacia.csv” con 
+la flecha indicada en la imagen. 
+ 
+ 
+ 
+Paso 3: Copie el siguiente código: 
+ 
+import pandas as pd, numpy as np, matplotlib.pyplot as plt 
+import pandas as pd, numpy as np, matplotlib.pyplot as plt
+
+
+===== PAGINA 5 =====
+
+4 
+ 
+ 
+plt.rcParams["figure.figsize"]=(9,4); plt.rcParams["axes.grid"]=True 
+ 
+CSV = "ejercicio_fases_analitica_farmacia.csv"  # <- usa este nombre 
+exacto 
+ 
+df = pd.read_csv(CSV)  
+ 
+# tipos y fechas 
+ 
+df["fecha_semana"] 
+errors="coerce") 
+ 
+= 
+ 
+pd.to_datetime(df["fecha_semana"], 
+ 
+df["semana"] = df["semana"].astype(int) 
+ 
+# features útiles 
+ 
+df["tasa_venta"] = df["unidades_vendidas"] / df["stock_inicio_sem"] 
+ 
+df.head() 
+ 
+Explicación: Este código carga las librerías necesarias (pandas, numpy 
+y matplotlib), ajusta el tamaño de las figuras y activa la grilla para que 
+los gráficos se vean claros; luego lee el archivo 
+ejercicio_fases_analitica_farmacia.csv y lo convierte en una tabla de 
+trabajo (df). A continuación, corrige tipos de datos: transforma 
+fecha_semana a formato de fecha y  asegura que semana sea 
+numérica. Con esos datos limpios, crea una nueva métrica llamada 
+tasa_venta, que calcula qué proporción del stock inicial se vendió en 
+la semana (unidades_vendidas dividido para stock_inicio_sem). 
+Finalmente, muestra las primeras filas con df.head() para que verifiques 
+rápido que la lectura y l as transformaciones salieron bien (fech as 
+correctas, semana como número y la columna tasa_venta creada). 
+ 
+Salida: 
+ 
+ 
+ 
+Paso 4: Celda 2 — Analítica descriptiva (¿qué pasó?) 
+Copie el siguiente código
+
+
+===== PAGINA 6 =====
+
+5 
+ 
+ 
+import matplotlib.ticker as mtick 
+ 
+ 
+ 
+ 
+# --- Top productos por semanas sin stock --- 
+ 
+# (renombra el indicador si quieres mantener consistencia en todo 
+el notebook) 
+ 
+df = df.rename(columns={"stockout_sem": "semana_sin_stock"}) 
+ 
+ 
+ 
+ 
+top_sin_stock = ( 
+ 
+df.groupby("producto")["semana_sin_stock"] 
+ 
+.mean()                           # proporción de semanas sin stock 
+ 
+.sort_values(ascending=False) 
+ 
+.head(10) 
+ 
+) 
+ 
+ 
+ 
+ 
+# Muestra la serie (formato porcentaje opcional) 
+ 
+display(top_sin_stock.rename("%_semanas_sin_stock").map(lambda 
+x: f"{x*100:.2f}%")) 
+ 
+ 
+ 
+ 
+ax = top_sin_stock.plot(kind="bar") 
+ 
+ax.yaxis.set_major_formatter(mtick.PercentFormatter(1.0))  # 0.04 -> 
+4% 
+ 
+plt.title("% de semanas sin stock por producto") 
+plt.ylabel("% de semanas sin stock") 
+plt.xlabel("Producto") 
+plt.tight_layout()
+
+===== PAGINA 7 =====
+
+6 
+ 
+ 
+plt.show() 
+ 
+# --- Tendencia de unidades vendidas por semana (total) --- 
+serie_total = df.groupby("semana")["unidades_vendidas"].sum() 
+ax = serie_total.plot(marker="o") 
+plt.title("Unidades vendidas (total) por semana") 
+ 
+plt.ylabel("Unidades") 
+plt.xlabel("Semana") 
+plt.tight_layout() 
+plt.show() 
+ 
+Explicación: Este código calcula y grafica dos análisis. Primero, 
+identifica los 10 productos con mayor frecuencia de quiebres de stock 
+o que se agota en el inventario: agrupa la tabla por producto, toma el 
+promedio de st ockout_sem (que suele ser un indicador 0/1 o un 
+porcentaje de semanas sin stock en el inventario), ordena de mayor a 
+menor y muestra los 10 primeros; luego los grafica en barras con el título 
+“% de semanas con quiebre por producto” y la etiqueta del eje Y como 
+“% stockout”. Segundo, evalúa la  tendencia semanal de ventas 
+totales: agrupa por semana, s uma unidades_vendidas para c ada 
+semana y lo grafica como serie temporal (línea con marcad ores) 
+titulada “Unidades vendidas (total) por semana” con el eje  Y 
+“Unidades”. En conjunto, la primera parte sirve para detectar 
+productos crític os por stock de in ventario, y la segunda para ver el 
+comportamiento global de ventas a lo largo de las semanas. 
+ 
+Salida: 
+ 
+
+
+===== PAGINA 8 =====
+
+7 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Paso 5: Celda 3 — Predictiva (¿qué podría pasar?) + Prescriptiva (¿qué 
+conviene hacer?) 
+ 
+#  ===  PREDICTIVA:  tendencia  lineal  del  total  y  (opcional)  por 
+producto === 
+ 
+import numpy as np 
+import pandas as pd 
+ 
+ 
+ 
+# Total por semana 
+ 
+serie                                                                                                             = 
+df.groupby("semana")["unidades_vendidas"].sum().reset_index() 
+X = serie["semana"].to_numpy().reshape(-1,1) 
+y = serie["unidades_vendidas"].to_numpy() 
+ 
+Xd = np.hstack([X, np.ones_like(X)])                     # [semana, 1] 
+ 
+a,b = (np.linalg.pinv(Xd.T@Xd)@(Xd.T@y)).tolist()               # mínimos 
+cuadrados 
+ 
+next_week = int(serie["semana"].max() + 1) 
+ 
+y_next = a*next_week + b 
+ 
+print(f"Pronóstico TOTAL para la semana {next_week}:  {y_next:.1f} 
+unidades")
+
+===== PAGINA 9 =====
+
+8 
+ 
+ 
+ 
+ 
+# (Opcional) por producto prod = 
+"Paracetamol_500mg" s_prod = 
+(df[df["producto"]==prod] 
+ 
+ 
+.groupby("semana")["unidades_vendidas"].sum().reset_index()) 
+ 
+if len(s_prod) >= 3: 
+ 
+Xp = s_prod["semana"].to_numpy().reshape(-1,1) 
+yp = s_prod["unidades_vendidas"].to_numpy() 
+Xpd = np.hstack([Xp, np.ones_like(Xp)]) 
+ap,bp = (np.linalg.pinv(Xpd.T@Xpd)@(Xpd.T@yp)).tolist() 
+ 
+y_next_prod = ap*next_week + bp 
+ 
+print(f"{prod}:     pronóstico     para     semana     {next_week}     = 
+{y_next_prod:.1f} unidades") 
+ 
+ 
+ 
+ 
+#  ===  PRESCRIPTIVA:  alertas  de  reorden  en  la  última  semana 
+observada === 
+ 
+# Asegurar tasa_venta 
+ 
+if "tasa_venta" not in df.columns: 
+ 
+df = df.copy() 
+ 
+df["tasa_venta"]             =             df["unidades_vendidas"]             / 
+df["stock_inicio_sem"].replace(0, np.nan) 
+ 
+ 
+ 
+ 
+last_w = int(df["semana"].max()) 
+ 
+base = df.loc[df["semana"] == last_w].copy() 
+ 
+base["tasa_venta"] = base.get("tasa_venta",
+
+===== PAGINA 10 =====
+
+9 
+ 
+ 
+base["unidades_vendidas"]                                        / 
+base["stock_inicio_sem"].replace(0, np.nan)) 
+ 
+ 
+ 
+ 
+# Pronóstico simple por producto = media de últimas 3 semanas 
+ 
+agg                        =                        df.groupby(["producto","semana"], 
+as_index=False)["unidades_vendidas"].sum() 
+ 
+hist3 = (agg.sort_values(["producto","semana"]) 
+ 
+.groupby("producto", group_keys=False).tail(3)) 
+ 
+prom3                             =                             (hist3.groupby("producto", 
+as_index=False)["unidades_vendidas"] 
+ 
+ 
+ 
+.mean().rename(columns={"unidades_vendidas":"forecast_next"})) 
+ 
+base = base.merge(prom3, on="producto", how="left") 
+ 
+base["forecast_next"]                                                                                = 
+base["forecast_next"].fillna(base["unidades_vendidas"]).clip(lower=1 
+) 
+ 
+ 
+ 
+ 
+# Cobertura en semanas 
+ 
+base["cobertura_sem"]            =            (base["stock_fin_sem"]            / 
+base["forecast_next"]) \ 
+ 
+.replace([np.inf,-np.inf], np.nan).fillna(999.0) 
+ 
+ 
+ 
+ 
+# Percentiles para lógica C 
+ 
+p25_stock                                                                                                   = 
+df.groupby("producto")["stock_fin_sem"].quantile(0.25).rename("p25 
+_stock") 
+ 
+p75_tasa                                                                                                     = 
+df.groupby("producto")["tasa_venta"].quantile(0.75).rename("p75_t 
+asa")
+
+===== PAGINA 11 =====
+
+10 
+ 
+ 
+base             =             base.merge(p25_stock,             on="producto", 
+how="left").merge(p75_tasa, on="producto", how="left") 
+ 
+ 
+ 
+# Lógica A — umbrales simples (conservador) 
+UMBRAL_COBERTURA_A     =     1.5;     UMBRAL_LEADTIME_A     =     4; 
+UMBRAL_STOCK_BAJO = 30 
+base["alerta_A"] = ( 
+(base["cobertura_sem"] < UMBRAL_COBERTURA_A) | 
+(base["stock_fin_sem"] <= UMBRAL_STOCK_BAJO) | 
+((base["tasa_venta"]    >    0.50)    &    (base["lead_time_dias"]    >= 
+UMBRAL_LEADTIME_A)) 
+ 
+).astype(int) 
+ 
+ 
+ 
+ 
+# Lógica B — cobertura + lead time (recomendada) 
+UMBRAL_COBERTURA_B = 1.2; UMBRAL_LEADTIME_B = 5 
+base["alerta_B"] = ( 
+(base["cobertura_sem"] < UMBRAL_COBERTURA_B) & 
+(base["lead_time_dias"] >= UMBRAL_LEADTIME_B) 
+).astype(int) 
+ 
+ 
+ 
+ 
+# Lógica C — percentiles (auto-calibrada) 
+ 
+base["alerta_C"] = ( 
+ 
+(base["stock_fin_sem"]                                                                        <= 
+base["p25_stock"].fillna(base["stock_fin_sem"].min())) | 
+ 
+((base["tasa_venta"]                                                                           >= 
+base["p75_tasa"].fillna(base["tasa_venta"].median())) &
+
+===== PAGINA 12 =====
+
+11 
+ 
+ 
+(base["lead_time_dias"] >= 5)) 
+ 
+).astype(int) 
+ 
+ 
+ 
+ 
+# Motivos y priorización 
+ 
+base["motivo_A"] = np.where(base["alerta_A"]==1, "Cobertura/Stock 
+bajo o Tasa+LT", "") 
+ 
+base["motivo_B"]                 =                 np.where(base["alerta_B"]==1, 
+"Cobertura<umbral & LeadTime", "") 
+ 
+base["motivo_C"]   =   np.where(base["alerta_C"]==1,    "Percentiles: 
+stock bajo o tasa alta", "") 
+lead_max = max(1., float(base["lead_time_dias"].max())) 
+tasa_max = max(1e-9, float(base["tasa_venta"].max())) 
+inv_cov = 1.0 / np.maximum(base["cobertura_sem"], 0.1) 
+ 
+base["score_prioridad"]                  = 0.5*inv_cov + 
+0.3*(base["lead_time_dias"]/lead_max)  + 
+0.2*(base["tasa_venta"]/tasa_max)   
+ 
+ 
+ 
+ 
+cols                                                                                                              = 
+["producto","stock_fin_sem","forecast_next","cobertura_sem","tasa_v 
+enta","lead_time_dias", 
+ 
+ 
+ 
+"alerta_A","alerta_B","alerta_C","motivo_A","motivo_B","motivo_C","sc 
+ore_prioridad"] 
+tabla_alertas = base[cols].sort_values( 
+["alerta_B","alerta_A","alerta_C","score_prioridad"], 
+ascending=[False,False,False,False] 
+ 
+).reset_index(drop=True) 
+ 
+ 
+ 
+ 
+print("Resumen de alertas (última semana): "
+
+===== PAGINA 13 =====
+
+12 
+ 
+ 
+f"A={int(base['alerta_A'].sum())} | B={int(base['alerta_B'].sum())} | 
+C={int(base['alerta_C'].sum())}") 
+ 
+display(tabla_alertas.head(15)) 
+ 
+Explicación: Este código primero realiza una parte predictiva: resume 
+las ventas totales por semana, ajusta una regresión lineal simple para 
+estimar la relación uni dades_vendidas = a·semana + b y con ese 
+modelo pronostica l as unidades para la próxima semana (y 
+opcionalmente para un producto específico si hay suficientes datos). 
+Luego aplica la parte prescriptiva sobre la última semana observada: 
+garantiza la métrica tasa_venta, calcula un pronóstico por producto 
+como el promedio de las últimas 3 semanas y, con ello, la cobertura 
+en semanas (stock_fin_sem / forecast_next). Con esos insumos dispara 
+tres lógicas de alerta de reorden: A) por umbrales simples (cobertura 
+baja, stock bajo o combinación de tasa alta y lead time elevado), B) 
+por cobertura + lead time (re comendada) y C) p or percentiles 
+históricos (stock b ajo vs p25 o tasa alta vs p75 con lead time alto). 
+Además añade el m otivo de cada alerta, calcula un score de 
+prioridad (menos cobertura, mayor lead time y mayor tasa de venta 
+pesan más) y entrega una tabla priorizada de los pro ductos críticos 
+para facilitar decisiones de reabastecimiento. 
+ 
+Salida: 
+ 
+ 
+ 
+Responda: Una vez realizado el ejercicio indique tres decisiones que 
+debería tomar la farmacia con respecto al análisis de datos realizado.
+
+
+===== PAGINA 14 =====
+
+15 
+ 
+ 
+ 
+ 
+Bibliografía: 
+ 
+• freeCodeCamp. (s. f.). Data Analysis with Python. Recuperado el 18 
+de septiembre de 2025, de 
+https://www.freecodecamp.org/learn/data-analysis-with-python 
+• Chopra,  S.,  &  Meindl,  P.  (2020).  Supply  chain  management: 
+Strategy, planning, and operation (7th ed.). Pearson. 
+•   Hunter,  J.  D.  (2007).  Matplotlib:  A  2D  graphics  environment. 
+Computing      in      Science      &      Engineering,      9(3),      90–95. 
+https://doi.org/10.1109/MCSE.2007.55 
+• Hyndman, R. J., & Athanasopoulos, G. (2021). Forecasting: Principles 
+and practice (3rd ed.). OTexts. https://otexts.com/fpp3/ 
+•   McKinney, W. (2022). Python for data analysis (3rd ed.). O’Reilly 
+Media. 
+• Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., 
+Grisel, O.,Duchesnay,  É.  (2011).  Scikit-learn:  Machine  learning in 
+Python. Journal of Machine  Learning Research, 12, 2825–2830. 
+https://jmlr.org/papers/v12/pedregosa11a.html 
+•   Zipkin,   P.   H.   (2000).   Foundations   of   inventory   management. 
+McGraw-Hill. 
+ 
+ 
+  
+
+
+===== PAGINA 15 =====
+
+16 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Rúbrica de evaluación    
+                 
+Componente de aprendizaje:   Autónomo                      X  Contacto con el  
+Docente       
+Nombre de la Unidad:  Unidad 1: Fundamentos de análisis de datos 
+Resultado(s) de aprendizaje:  • Explicar los fundamentos de la analítica de datos y sus metodologías principales.  
+• Identificar las diferencias entre enfoques de análisis (descriptivo, predictivo, prescriptivo).  
+Nombre de la Actividad:  Conceptos, aplicaciones y fundamentos de la analítica de datos 
+                        
+ 
+Criterios  de 
+Evaluación   
+  Escala de Valoración     
+Excelente  
+(10 - 9,1)  
+Bueno  
+(9 - 8,1)  
+Satisfactorio  
+(8 - 7)  
+Necesita 
+mejorar 
+(6,9 - 0,1) 
+No 
+entrega  
+(0)  
+Puntaje  
+  
+Comentarios  
+(SIGEA)  
+1. Explicación de 
+conceptos de 
+análisis de datos 
+Define el concepto con 
+claridad y clasifica la 
+mayoría de los casos con 
+justificación adecuada 
+Define el concepto con 
+claridad y clasifica la 
+mayoría de los casos con 
+justificación adecuada 
+Explica parcialmente 
+el concepto y clasifica 
+algunos casos con 
+justificación limitada . 
+Definición es 
+incompleta o 
+confusas, sin 
+justificación 
+adecuada en la 
+clasificación. 
+ 
+ 
+No 
+entrega  
+    
+2. Identifica el tipo 
+de analítica 
+descriptiva, 
+predictiva o 
+prescriptiva 
+Identifica con exactitud 
+el tipo de analítica 
+descriptiva, predictiva o 
+prescriptiva y sustenta 
+con métricas y evidencia 
+Identifica el tipo de 
+analítica descriptiva, 
+predictiva o prescriptiva 
+y clasifica la mayoría de 
+los casos con 
+justificación adecuada. 
+Explica parcialmente 
+el concepto y clasifica 
+algunos casos con 
+justificación limitada. 
+No identifica y 
+con 
+justificaciones 
+incompletas o 
+confusas 
+ 
+ 
+No 
+entrega 
+    
+3. Identifica los 
+ciclos de vida de 
+un proyecto de 
+analítica de datos 
+Identifica con 
+exactitud al menos seis 
+de las fases del ciclo 
+de vida de un 
+proyecto de analítica 
+de datos 
+Identifica con 
+exactitud al menos 
+cuatro de las fases del 
+ciclo de vida de un 
+proyecto de analítica 
+de datos. 
+Identifica con 
+exactitud al menos dos 
+de las fases del ciclo 
+de vida de un 
+proyecto de analítica 
+de datos 
+Identifica 
+con exactitud 
+a una de seis 
+de las fases 
+del ciclo de 
+vida de un 
+proyecto de 
+analítica de 
+datos 
+ 
+ 
+No 
+entrega 
+    
+4. Identifica las 
+actividades y el 
+orden a las que 
+pertenecen 
+dentro del ciclo de 
+vida de un 
+proyecto de 
+analítica de datos. 
+Ordena correctamente y 
+justifica adecuadamente 
+las siete actividades 
+Ordena correctamente y 
+justifica adecuada 
+mente al menos cinco 
+actividades 
+Ordena 
+correctamente y 
+justifica 
+adecuadamente al 
+menos tres 
+actividades. 
+Ordena correcta 
+mente y justifica 
+adecuadament
+e al menos una 
+actividad. 
+ 
+ 
+ 
+No 
+entrega 
+    
+5. Innovación en 
+soluciones (Eje: 
+Innovación / 
+Autonomía) 
+Sigue las instrucciones y 
+resuelve correctamente 
+el problema planteado 
+y entrega resultados 
+realistas y ajustados a la 
+problemática 
+Sigue las instrucciones y 
+resuelve correctamente 
+el problema, dando 
+resultados que no se 
+encuentran alineados al 
+problema 
+Resuelve el 
+problema, pero los 
+resultados obtenidos 
+son inexactos y sin 
+coherencia 
+No 
+propone 
+mejoras 
+ 
+No 
+entrega 
+    
+                
+ 
+Los criterios 4 y 5 están alineados a los ejes de formación del Modelo Educativo UNACH “Introspección y Prospectiva” y respon den principalmente a dos 
+de los siguientes ejes: 
+1. Ambiente; 
+2. Autonomía y adaptabilidad; 
+3. Comunicación; 
+4. Desarrollo humano; 
+5. Ética y valores; 
+6. Emprendimiento; 
+7. Inter y multidisciplinariedad; 
+8. Innovación; 
+9. Inclusión e interculturalidad; 
+10. Investigación; 
+11. Impacto social; 
+12. Tecnologías. 
+Puntaje total  
+  
+   
+  
+   
+  
