@@ -51,6 +51,78 @@ En SQL, esto se implementa con sentencias como BEGIN TRANSACTION, COMMIT y ROLLB
 4. ¿Qué garantiza la propiedad de aislamiento?
 5. ¿Por qué ACID es crítico en sistemas multiusuario?
 
+## Quiz
+
+### Pregunta 1: Responsabilidad principal del DBA
+
+**Pregunta:** ¿Cuál es la responsabilidad principal de un DBA?
+
+**Opciones:**
+- ❌ Diseñar campañas de marketing.
+- ✅ Garantizar continuidad, seguridad y rendimiento del entorno de datos.
+- ❌ Crear únicamente interfaces gráficas.
+
+**Respuesta correcta:** Garantizar continuidad, seguridad y rendimiento del entorno de datos.
+
+**Explicación breve:**
+El DBA administra la base de datos para que los datos estén disponibles, íntegros, seguros y accesibles.
+
+### Pregunta 2: Buenas prácticas del DBA
+
+**Pregunta:** ¿Por qué es importante documentar procesos en administración de BD?
+
+**Opciones:**
+- ❌ Para aumentar la cantidad de tablas.
+- ✅ Para facilitar mantenimiento, auditoría y recuperación ante fallos.
+- ❌ Para evitar el uso de transacciones.
+
+**Respuesta correcta:** Para facilitar mantenimiento, auditoría y recuperación ante fallos.
+
+**Explicación breve:**
+La documentación ayuda a reproducir procedimientos, entender cambios y responder mejor ante incidentes.
+
+### Pregunta 3: COMMIT y ROLLBACK
+
+**Pregunta:** ¿Qué diferencia hay entre COMMIT y ROLLBACK?
+
+**Opciones:**
+- ✅ COMMIT confirma los cambios y ROLLBACK los deshace.
+- ❌ Ambos eliminan los datos de la tabla.
+- ❌ ROLLBACK guarda los cambios y COMMIT los cancela.
+
+**Respuesta correcta:** COMMIT confirma los cambios y ROLLBACK los deshace.
+
+**Explicación breve:**
+COMMIT hace permanentes los cambios; ROLLBACK revierte la transacción en caso de error.
+
+### Pregunta 4: Aislamiento
+
+**Pregunta:** ¿Qué garantiza la propiedad de aislamiento?
+
+**Opciones:**
+- ❌ Que todas las transacciones se ejecuten al mismo tiempo.
+- ✅ Que las transacciones concurrentes no interfieran entre sí.
+- ❌ Que ninguna transacción pueda hacer lecturas.
+
+**Respuesta correcta:** Que las transacciones concurrentes no interfieran entre sí.
+
+**Explicación breve:**
+El aislamiento protege la consistencia evitando que una transacción vea estados intermedios de otra.
+
+### Pregunta 5: Importancia de ACID
+
+**Pregunta:** ¿Por qué ACID es crítico en sistemas multiusuario?
+
+**Opciones:**
+- ❌ Porque reemplaza los respaldos.
+- ✅ Porque protege consistencia y confiabilidad al ejecutar varias transacciones a la vez.
+- ❌ Porque elimina la necesidad de claves primarias.
+
+**Respuesta correcta:** Porque protege consistencia y confiabilidad al ejecutar varias transacciones a la vez.
+
+**Explicación breve:**
+ACID asegura transacciones seguras, estables y confiables incluso cuando muchos usuarios trabajan al mismo tiempo.
+
 ## Actividades
 - [ ] Explicar con tus palabras el rol del DBA en una organización.
 - [ ] Identificar dos riesgos si no existen respaldos periódicos.

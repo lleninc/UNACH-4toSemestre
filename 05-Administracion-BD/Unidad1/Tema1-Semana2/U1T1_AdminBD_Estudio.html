@@ -3,1274 +3,564 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin BD · U1 T1 · Guía de Estudio</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>Admin BD · U1 T1 · Estudio Interactivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d0f14;
-    --surface: #13161e;
-    --surface2: #1a1e2a;
-    --border: #252a38;
-    --accent: #f0b429;
-    --accent2: #3ecf8e;
-    --accent3: #5e8ef7;
-    --danger: #e05252;
-    --text: #e8eaf0;
-    --text-muted: #7a8098;
-    --text-dim: #4a5068;
-    --font-mono: 'Space Mono', monospace;
-    --font-body: 'Sora', sans-serif;
+    --bg:#0a0a0f;--surface:#111118;--card:#16161f;--border:#2a2a3a;
+    --accent:#f5a623;--accent2:#7c6deb;--green:#2ecc71;--red:#e74c3c;
+    --text:#e8e8f0;--muted:#666680;
+    --mono:'Space Mono',monospace;--sans:'Syne',sans-serif;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 15px;
-    line-height: 1.7;
-    min-height: 100vh;
-  }
-
-  /* NOISE OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* HEADER */
-  header {
-    position: relative;
-    padding: 3rem 2rem 2rem;
-    border-bottom: 1px solid var(--border);
-    background: linear-gradient(135deg, #0d0f14 0%, #13161e 50%, #0d1220 100%);
-    overflow: hidden;
-  }
-
-  header::after {
-    content: 'BD';
-    position: absolute;
-    right: -1rem;
-    top: -1rem;
-    font-family: var(--font-mono);
-    font-size: 12rem;
-    font-weight: 700;
-    color: rgba(240, 180, 41, 0.04);
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .header-tag {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--accent);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    opacity: 0;
-    animation: fadeUp 0.5s ease forwards;
-  }
-
-  header h1 {
-    font-size: clamp(1.6rem, 4vw, 2.8rem);
-    font-weight: 700;
-    line-height: 1.15;
-    max-width: 700px;
-    opacity: 0;
-    animation: fadeUp 0.5s 0.1s ease forwards;
-  }
-
-  header h1 span {
-    color: var(--accent);
-  }
-
-  .header-meta {
-    margin-top: 1.2rem;
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.5s 0.2s ease forwards;
-  }
-
-  .badge {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    padding: 0.3rem 0.8rem;
-    border-radius: 2px;
-    border: 1px solid;
-    letter-spacing: 0.05em;
-  }
-  .badge-gold { color: var(--accent); border-color: var(--accent); background: rgba(240,180,41,0.08); }
-  .badge-green { color: var(--accent2); border-color: var(--accent2); background: rgba(62,207,142,0.08); }
-  .badge-blue { color: var(--accent3); border-color: var(--accent3); background: rgba(94,142,247,0.08); }
-
-  /* NAV TABS */
-  .tabs {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    overflow-x: auto;
-  }
-
-  .tab-btn {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 1rem 1.5rem;
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-
-  .tab-btn:hover { color: var(--text); }
-  .tab-btn.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-
-  /* MAIN LAYOUT */
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-  }
-
-  .section { display: none; }
-  .section.active { display: block; }
-
-  /* RESUMEN */
-  .topic-block {
-    margin-bottom: 2rem;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    opacity: 0;
-    animation: fadeUp 0.4s ease forwards;
-  }
-
-  .topic-header {
-    background: var(--surface);
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .topic-num {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--accent);
-    min-width: 2rem;
-  }
-
-  .topic-header h2 {
-    font-size: 1rem;
-    font-weight: 600;
-    flex: 1;
-  }
-
-  .topic-toggle {
-    font-family: var(--font-mono);
-    color: var(--text-dim);
-    font-size: 1rem;
-    transition: transform 0.2s;
-  }
-
-  .topic-body {
-    padding: 1.5rem;
-    background: var(--surface2);
-  }
-
-  .topic-body p {
-    color: #c5c8d5;
-    margin-bottom: 1rem;
-  }
-
-  .topic-body ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    margin-bottom: 1rem;
-  }
-
-  .topic-body ul li {
-    padding-left: 1.2rem;
-    position: relative;
-    color: #c5c8d5;
-  }
-
-  .topic-body ul li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-  }
-
-  .highlight-box {
-    border-left: 3px solid var(--accent);
-    background: rgba(240,180,41,0.06);
-    padding: 1rem 1.2rem;
-    border-radius: 0 4px 4px 0;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    color: #d4c5a0;
-  }
-
-  .highlight-box.green {
-    border-left-color: var(--accent2);
-    background: rgba(62,207,142,0.06);
-    color: #a0d4bc;
-  }
-
-  .highlight-box.blue {
-    border-left-color: var(--accent3);
-    background: rgba(94,142,247,0.06);
-    color: #a0b4d4;
-  }
-
-  /* ACID grid */
-  .acid-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.8rem;
-    margin-bottom: 1rem;
-  }
-
-  .acid-card {
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1rem;
-    background: var(--surface);
-  }
-
-  .acid-letter {
-    font-family: var(--font-mono);
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-
-  .acid-name {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 0.4rem;
-  }
-
-  .acid-desc {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-  }
-
-  /* Isolation table */
-  .iso-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.82rem;
-    margin-bottom: 1rem;
-  }
-
-  .iso-table th {
-    background: var(--surface);
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.05em;
-    padding: 0.6rem 0.8rem;
-    text-align: left;
-    border: 1px solid var(--border);
-  }
-
-  .iso-table td {
-    padding: 0.55rem 0.8rem;
-    border: 1px solid var(--border);
-    color: #c5c8d5;
-  }
-
-  .iso-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-
-  .ok { color: var(--accent2); font-family: var(--font-mono); }
-  .no { color: var(--danger); font-family: var(--font-mono); }
-
-  /* CODE */
-  pre {
-    background: #090b10;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1rem;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: #a8b4d0;
-    overflow-x: auto;
-    line-height: 1.7;
-    margin-bottom: 1rem;
-  }
-
-  .kw { color: #5e8ef7; }
-  .cm { color: #4a5568; }
-  .st { color: #3ecf8e; }
-  .fn { color: #f0b429; }
-
-  /* QUIZ SECTION */
-  .quiz-controls {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-    align-items: center;
-  }
-
-  .quiz-filter {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.05em;
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    background: var(--surface);
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-
-  .quiz-filter:hover,
-  .quiz-filter.active {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(240,180,41,0.08);
-  }
-
-  .quiz-stats {
-    margin-left: auto;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-  }
-
-  .quiz-stats span {
-    color: var(--accent2);
-    font-weight: 700;
-  }
-
-  /* QUESTION CARD */
-  .q-card {
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    margin-bottom: 1.2rem;
-    background: var(--surface);
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-
-  .q-card:hover { border-color: var(--accent); }
-
-  .q-header {
-    padding: 1rem 1.5rem;
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-  }
-
-  .q-num {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    color: var(--text-dim);
-    min-width: 2.5rem;
-    padding-top: 2px;
-  }
-
-  .q-text {
-    font-size: 0.92rem;
-    font-weight: 500;
-    flex: 1;
-    color: var(--text);
-  }
-
-  .q-tag {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    padding: 0.2rem 0.5rem;
-    border-radius: 2px;
-    white-space: nowrap;
-  }
-
-  .q-tag-dba { background: rgba(94,142,247,0.15); color: var(--accent3); }
-  .q-tag-acid { background: rgba(240,180,41,0.12); color: var(--accent); }
-  .q-tag-bloqueo { background: rgba(62,207,142,0.12); color: var(--accent2); }
-  .q-tag-indice { background: rgba(224,82,82,0.12); color: var(--danger); }
-  .q-tag-sql { background: rgba(160,100,240,0.12); color: #b07ef5; }
-
-  .q-reveal-btn {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    color: var(--text-dim);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding-top: 2px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    transition: color 0.2s;
-  }
-
-  .q-reveal-btn:hover { color: var(--accent); }
-
-  .q-body {
-    display: none;
-    padding: 1.2rem 1.5rem;
-    background: var(--surface2);
-  }
-
-  .q-body.open { display: block; }
-
-  .option {
-    display: flex;
-    gap: 0.8rem;
-    padding: 0.55rem 0.8rem;
-    border-radius: 3px;
-    margin-bottom: 0.4rem;
-    font-size: 0.88rem;
-    color: #c5c8d5;
-    border: 1px solid transparent;
-    transition: background 0.15s;
-  }
-
-  .option.correct {
-    background: rgba(62,207,142,0.1);
-    border-color: rgba(62,207,142,0.3);
-    color: var(--accent2);
-  }
-
-  .option.wrong {
-    background: rgba(224,82,82,0.05);
-    border-color: transparent;
-    color: var(--text-dim);
-    text-decoration: line-through;
-  }
-
-  .opt-letter {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 700;
-    min-width: 1.2rem;
-  }
-
-  .q-explanation {
-    margin-top: 1rem;
-    padding: 0.8rem 1rem;
-    background: rgba(62,207,142,0.06);
-    border-left: 3px solid var(--accent2);
-    border-radius: 0 4px 4px 0;
-    font-size: 0.85rem;
-    color: #9fd4b8;
-  }
-
-  .q-explanation strong {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--accent2);
-    display: block;
-    margin-bottom: 0.3rem;
-  }
-
-  /* PROGRESS BAR */
-  .progress-bar-container {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .progress-label {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    margin-bottom: 0.8rem;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .progress-label span { color: var(--accent2); }
-
-  .prog-bar {
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .prog-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent2), var(--accent));
-    transition: width 0.5s ease;
-    border-radius: 2px;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .topic-block:nth-child(1) { animation-delay: 0.05s; }
-  .topic-block:nth-child(2) { animation-delay: 0.1s; }
-  .topic-block:nth-child(3) { animation-delay: 0.15s; }
-  .topic-block:nth-child(4) { animation-delay: 0.2s; }
-
-  /* FOOTER */
-  footer {
-    text-align: center;
-    padding: 2rem;
-    border-top: 1px solid var(--border);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--text-dim);
-    letter-spacing: 0.05em;
-  }
-
-  /* SCROLL */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
-
-  @media (max-width: 600px) {
-    .acid-grid { grid-template-columns: 1fr; }
-    .tabs { flex-wrap: nowrap; }
-    .container { padding: 1.5rem 1rem; }
-  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,109,235,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,109,235,0.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+  .container{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:24px 20px;}
+
+  header{margin-bottom:32px;}
+  .logo-tag{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
+  .logo h1{font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1.1;}
+  .logo h1 span{color:var(--accent);}
+
+  .main-tabs{display:flex;gap:6px;margin-bottom:28px;background:var(--surface);padding:6px;border-radius:14px;border:1px solid var(--border);flex-wrap:wrap;}
+  .main-tab{flex:1;min-width:100px;padding:10px 12px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.25s;text-align:center;}
+  .main-tab.active{background:var(--accent);color:#000;}
+
+  .score-display{display:flex;gap:12px;align-items:center;margin-bottom:22px;}
+  .score-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 16px;text-align:center;}
+  .score-val{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--accent);display:block;}
+  .score-lbl{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+
+  #studyMode, #notesMode, #quizMode { display:none; }
+  #studyMode.show, #notesMode.show, #quizMode.show { display:block; }
+
+  /* NOTES & STUDY SECTIONS */
+  .notes-section{margin-bottom:16px;background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;}
+  .notes-header{padding:18px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;cursor:pointer;user-select:none;transition:background 0.2s;}
+  .notes-header:hover{background:rgba(124,109,235,0.04);}
+  .sec-icon{font-size:18px;}
+  .sec-wrap{flex:1;}
+  .sec-tag{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:3px;text-transform:uppercase;}
+  .sec-title{font-size:16px;font-weight:800;}
+  .toggle-icon{font-family:var(--mono);font-size:15px;color:var(--muted);transition:transform 0.3s;}
+  .notes-section.open .toggle-icon{transform:rotate(180deg);}
+  .notes-body{max-height:0;overflow:hidden;transition:max-height 0.45s cubic-bezier(0.4,0,0.2,1);}
+  .notes-section.open .notes-body{max-height:50000px;padding:20px 24px;}
+
+  .nb-para{font-size:14px;color:var(--text);line-height:1.65;margin-bottom:14px;}
+  .nb-code{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 12px;font-family:var(--mono);font-size:12px;color:#a8c5d0;line-height:1.7;overflow-x:auto;margin-bottom:14px;display:block;white-space:pre-wrap;word-break:break-word;}
+  .nb-list{list-style:none;margin:12px 0 14px;margin-left:1rem;}
+  .nb-list li{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:7px;position:relative;padding-left:18px;}
+  .nb-list li::before{content:'→';position:absolute;left:0;color:var(--accent);font-family:var(--mono);}
+
+  .hbox{background:rgba(124,109,235,0.08);border:1px solid rgba(124,109,235,0.22);border-radius:10px;padding:13px 17px;font-family:var(--mono);font-size:12px;line-height:1.6;margin:14px 0;color:var(--text);}
+  .hbox strong{color:var(--accent);}
+
+  /* QUIZ STYLES */
+  .question-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:34px;margin-bottom:18px;position:relative;overflow:hidden;animation:slideIn 0.3s cubic-bezier(0.4,0,0.2,1);}
+  @keyframes slideIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+  .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent2),var(--accent));}
+  .q-meta{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+  .q-badge{font-family:var(--mono);font-size:10px;padding:3px 10px;border-radius:5px;letter-spacing:1.5px;}
+  .q-badge.num{color:var(--accent);background:rgba(245,166,35,0.12);}
+  .q-badge.topic{color:var(--accent2);background:rgba(124,109,235,0.1);}
+  .q-text{font-size:18px;font-weight:700;line-height:1.45;margin-bottom:26px;}
+  .options{display:flex;flex-direction:column;gap:9px;}
+  .option-btn{display:flex;align-items:flex-start;gap:13px;padding:15px 18px;border-radius:11px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:15px;cursor:pointer;text-align:left;transition:all 0.2s;line-height:1.4;}
+  .option-btn:hover:not(:disabled){border-color:var(--accent2);background:rgba(124,109,235,0.08);transform:translateX(4px);}
+  .option-btn .opt-letter{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--muted);min-width:18px;margin-top:2px;}
+  .option-btn.correct{border-color:var(--green);background:rgba(46,204,113,0.1);}
+  .option-btn.correct .opt-letter{color:var(--green);}
+  .option-btn.wrong{border-color:var(--red);background:rgba(231,76,60,0.1);}
+  .option-btn.wrong .opt-letter{color:var(--red);}
+  .feedback{margin-top:18px;padding:16px 20px;border-radius:11px;display:none;animation:fadeUp 0.3s ease;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:translateY(0);}}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.3);}
+  .feedback.wrong-fb{background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.3);}
+  .feedback-title{font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;}
+  .feedback.correct-fb .feedback-title{color:var(--green);}
+  .feedback.wrong-fb .feedback-title{color:var(--red);}
+  .feedback-body{font-size:13px;line-height:1.65;color:var(--text);font-family:var(--mono);}
+
+  .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:10px;flex-wrap:wrap;}
+  .btn{padding:11px 26px;border-radius:10px;border:none;font-family:var(--sans);font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.4px;}
+  .btn-primary{background:var(--accent);color:#000;}
+  .btn-primary:hover{background:#f0b840;transform:translateY(-2px);}
+  .btn-secondary{background:transparent;color:var(--muted);border:1px solid var(--border);}
+  .btn-secondary:hover{color:var(--text);border-color:var(--text);}
+
+  .progress-bar{width:100%;height:3px;background:var(--border);border-radius:2px;margin-bottom:28px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:2px;transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
+
+  .end-screen{text-align:center;padding:56px 20px;display:none;}
+  .end-screen.show{display:block;}
+  .end-emoji{font-size:60px;margin-bottom:18px;}
+  .end-title{font-size:34px;font-weight:800;margin-bottom:10px;letter-spacing:-1px;}
+  .end-sub{color:var(--muted);font-size:15px;margin-bottom:36px;}
+  .end-big-score{font-family:var(--mono);font-size:76px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:6px;}
+  .end-score-label{font-size:13px;color:var(--muted);letter-spacing:2px;margin-bottom:36px;}
+
+  footer{text-align:center;padding:28px 20px;border-top:1px solid var(--border);margin-top:40px;font-family:var(--mono);font-size:11px;color:var(--muted);}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-tag">UNACH · 4to Semestre · 2026-1S</div>
-  <h1>Administración de <span>Bases de Datos</span><br>Unidad 1 · Tema 1</h1>
-  <div class="header-meta">
-    <span class="badge badge-gold">U1 T1 Completo</span>
-    <span class="badge badge-green">4 Quizzes · 100%</span>
-    <span class="badge badge-blue">30 Preguntas</span>
-  </div>
-</header>
-
-<nav class="tabs">
-  <button class="tab-btn active" onclick="showTab('resumen', this)">📖 Resumen</button>
-  <button class="tab-btn" onclick="showTab('banco', this)">🧠 Banco de Preguntas</button>
-</nav>
-
-<!-- ══════════════════════════════════════
-     SECCIÓN: RESUMEN
-═══════════════════════════════════════ -->
-<div id="resumen" class="section active">
 <div class="container">
 
-  <!-- 1.1 DBA -->
-  <div class="topic-block">
-    <div class="topic-header" onclick="toggleTopic(this)">
-      <span class="topic-num">1.1</span>
-      <h2>Rol y Funciones del DBA</h2>
-      <span class="topic-toggle">▼</span>
-    </div>
-    <div class="topic-body">
-      <p>La <strong>administración de bases de datos</strong> es la disciplina que planifica, organiza y controla los datos almacenados en un SGBD, garantizando disponibilidad, integridad, seguridad y accesibilidad.</p>
-      <div class="highlight-box">
-        <strong>Definición:</strong> El DBA es el profesional responsable de garantizar que la información sea segura, íntegra y esté disponible. Combina conocimientos técnicos con habilidades para resolver problemas y tomar decisiones oportunas.
+<header>
+  <div class="logo-tag">UNACH · 4to Semestre · 2026-1S</div>
+  <h1>Administración de <span>Bases de Datos</span><br>Unidad 1 · Tema 1</h1>
+</header>
+
+<div class="main-tabs">
+  <button class="main-tab active" onclick="switchTab('study')">📖 Estudio</button>
+  <button class="main-tab" onclick="switchTab('notes')">📝 Notas</button>
+  <button class="main-tab" onclick="switchTab('quiz')">🎯 Banco de Preguntas</button>
+</div>
+
+<!-- ═══════════════════════════════════════════ ESTUDIO ═══════════════════════════════════════════ -->
+<div id="studyMode" class="show">
+  <div class="notes-section open">
+    <div class="notes-header" onclick="toggleSection(this)">
+      <span class="sec-icon">📋</span>
+      <div class="sec-wrap">
+        <div class="sec-tag">Tema 1</div>
+        <div class="sec-title">Rol y funciones del DBA</div>
       </div>
-      <p><strong>Funciones principales del DBA:</strong></p>
-      <ul>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="notes-body">
+      <p class="nb-para">La <strong>administración de bases de datos</strong> es la disciplina que planifica, organiza y controla los datos almacenados en un SGBD, garantizando disponibilidad, integridad, seguridad y accesibilidad.</p>
+      <div class="hbox"><strong>Definición:</strong> El DBA es el profesional responsable de garantizar que la información sea segura, íntegra y esté disponible. Combina conocimientos técnicos con habilidades para resolver problemas.</div>
+      <ul class="nb-list">
         <li>Instalar y mantener el gestor de base de datos (SGBD)</li>
         <li>Diseñar estructuras de almacenamiento y organización</li>
         <li>Administrar usuarios, roles y permisos de acceso</li>
         <li>Implementar seguridad, respaldos y recuperación de datos</li>
         <li>Monitorear rendimiento, prevenir fallos y proponer mejoras</li>
       </ul>
-      <p><strong>Buenas prácticas:</strong></p>
-      <ul>
-        <li>Políticas periódicas de respaldo y recuperación</li>
-        <li>Control de acceso por roles (principio de mínimo privilegio)</li>
-        <li>Actualización constante de parches de seguridad</li>
-        <li>Monitoreo continuo: CPU, memoria, I/O, tiempos de respuesta</li>
-        <li>Documentar procesos y probar antes de cambios críticos</li>
-        <li>Aplicar estándares de normalización</li>
-      </ul>
-      <div class="highlight-box green">
-        <strong>Clave para examen:</strong> El DBA NO diseña campañas de marketing, NO crea aplicaciones para usuarios finales, NO edita imágenes. Su perfil es 100% técnico: diseño, configuración y optimización de bases de datos.
-      </div>
     </div>
   </div>
 
-  <!-- 1.2 ACID -->
-  <div class="topic-block">
-    <div class="topic-header" onclick="toggleTopic(this)">
-      <span class="topic-num">1.2</span>
-      <h2>Transacciones y Propiedades ACID</h2>
-      <span class="topic-toggle">▼</span>
+  <div class="notes-section">
+    <div class="notes-header" onclick="toggleSection(this)">
+      <span class="sec-icon">⚛️</span>
+      <div class="sec-wrap">
+        <div class="sec-tag">Tema 2</div>
+        <div class="sec-title">Transacciones y propiedades ACID</div>
+      </div>
+      <span class="toggle-icon">▼</span>
     </div>
-    <div class="topic-body">
-      <p>Una <strong>transacción</strong> es una secuencia de operaciones que se ejecuta como una unidad indivisible. Si algún paso falla, se revierten todas las operaciones (ROLLBACK) para evitar inconsistencias.</p>
-      <div class="highlight-box">
-        <strong>Ejemplo bancario:</strong> Transferir $500 implica (1) debitar cuenta origen y (2) acreditar cuenta destino. Si el paso 2 falla → ROLLBACK de ambos pasos. Todo o nada.
-      </div>
-      <div class="acid-grid">
-        <div class="acid-card">
-          <div class="acid-letter">A</div>
-          <div class="acid-name">Atomicidad</div>
-          <div class="acid-desc">Todo se ejecuta o nada se ejecuta. La transacción es una unidad indivisible. Si falla → ROLLBACK completo.</div>
-        </div>
-        <div class="acid-card">
-          <div class="acid-letter">C</div>
-          <div class="acid-name">Consistencia</div>
-          <div class="acid-desc">Se respetan todas las reglas y restricciones de la BD. No se pueden generar estados inválidos.</div>
-        </div>
-        <div class="acid-card">
-          <div class="acid-letter">I</div>
-          <div class="acid-name">Aislamiento</div>
-          <div class="acid-desc">Las transacciones concurrentes no se interfieren entre sí. Los cambios intermedios no son visibles para otras transacciones.</div>
-        </div>
-        <div class="acid-card">
-          <div class="acid-letter">D</div>
-          <div class="acid-name">Durabilidad</div>
-          <div class="acid-desc">Los cambios confirmados (COMMIT) persisten permanentemente, incluso ante fallos del sistema.</div>
-        </div>
-      </div>
-      <p><strong>Comandos SQL de transacción:</strong></p>
-      <pre><span class="kw">BEGIN TRANSACTION</span>;
-
-<span class="cm">-- Paso 1: Debitar cuenta origen</span>
-<span class="kw">UPDATE</span> cuentas <span class="kw">SET</span> saldo = saldo - 500 <span class="kw">WHERE</span> id = 1;
-
-<span class="cm">-- Paso 2: Acreditar cuenta destino</span>
-<span class="kw">UPDATE</span> cuentas <span class="kw">SET</span> saldo = saldo + 500 <span class="kw">WHERE</span> id = 2;
-
-<span class="kw">COMMIT</span>;  <span class="cm">-- Confirmar cambios</span>
-<span class="cm">-- Si ocurre error antes del COMMIT → ROLLBACK automático</span></pre>
-      <div class="highlight-box green">
-        <strong>Diferencia COMMIT vs ROLLBACK:</strong> COMMIT confirma y persiste los cambios (durabilidad). ROLLBACK cancela y deshace todos los cambios de la transacción actual.
-      </div>
+    <div class="notes-body">
+      <p class="nb-para">Una <strong>transacción</strong> es una secuencia de operaciones que se ejecuta como una unidad indivisible. Si algún paso falla, se revierten todas las operaciones (ROLLBACK) para evitar inconsistencias.</p>
+      <p class="nb-para"><strong>Propiedades ACID:</strong></p>
+      <ul class="nb-list">
+        <li><strong>Atomicidad (A):</strong> Todo se ejecuta o nada se ejecuta.</li>
+        <li><strong>Consistencia (C):</strong> Se respetan todas las reglas y restricciones.</li>
+        <li><strong>Aislamiento (I):</strong> Las transacciones concurrentes no se interfieren.</li>
+        <li><strong>Durabilidad (D):</strong> Los cambios confirmados persisten permanentemente.</li>
+      </ul>
+      <div class="hbox"><strong>Diferencia COMMIT vs ROLLBACK:</strong> COMMIT confirma y persiste los cambios. ROLLBACK cancela y deshace todos los cambios de la transacción actual.</div>
     </div>
   </div>
 
-  <!-- 1.3 Bloqueos -->
-  <div class="topic-block">
-    <div class="topic-header" onclick="toggleTopic(this)">
-      <span class="topic-num">1.3</span>
-      <h2>Control de Bloqueos y Niveles de Aislamiento</h2>
-      <span class="topic-toggle">▼</span>
+  <div class="notes-section">
+    <div class="notes-header" onclick="toggleSection(this)">
+      <span class="sec-icon">🔒</span>
+      <div class="sec-wrap">
+        <div class="sec-tag">Tema 3</div>
+        <div class="sec-title">Bloqueos y niveles de aislamiento</div>
+      </div>
+      <span class="toggle-icon">▼</span>
     </div>
-    <div class="topic-body">
-      <p>Un <strong>bloqueo</strong> es el mecanismo que usan los SGBD para coordinar el acceso concurrente y evitar inconsistencias como <em>actualizaciones perdidas</em> y <em>estados intermedios visibles</em>.</p>
-      <div class="highlight-box blue">
-        <strong>Tipos básicos:</strong><br>
-        🔵 <strong>Compartido (S):</strong> Permite lectura concurrente por múltiples transacciones.<br>
-        🔴 <strong>Exclusivo (X):</strong> Solo una transacción puede escribir; las demás esperan hasta el COMMIT/ROLLBACK.
-      </div>
-      <p><strong>Granularidad de bloqueo</strong> (de mayor a menor concurrencia):</p>
-      <ul>
-        <li><strong>Fila:</strong> Máxima concurrencia, menor impacto</li>
-        <li><strong>Página:</strong> Bloqueo intermedio</li>
-        <li><strong>Tabla:</strong> Menor concurrencia, mayor impacto</li>
+    <div class="notes-body">
+      <p class="nb-para">Un <strong>bloqueo</strong> es el mecanismo que usan los SGBD para coordinar el acceso concurrente y evitar inconsistencias.</p>
+      <ul class="nb-list">
+        <li><strong>Compartido (S):</strong> Permite lectura concurrente por múltiples transacciones.</li>
+        <li><strong>Exclusivo (X):</strong> Solo una transacción puede escribir; las demás esperan hasta COMMIT/ROLLBACK.</li>
       </ul>
-      <p style="margin-top: 1rem;"><strong>Niveles de Aislamiento SQL (de menor a mayor seguridad):</strong></p>
-      <table class="iso-table">
-        <tr>
-          <th>Nivel</th>
-          <th>Lectura sucia</th>
-          <th>No repetible</th>
-          <th>Fantasma</th>
-          <th>Uso</th>
-        </tr>
-        <tr>
-          <td>Read Uncommitted</td>
-          <td class="no">✗ posible</td>
-          <td class="no">✗ posible</td>
-          <td class="no">✗ posible</td>
-          <td>Reportes no críticos</td>
-        </tr>
-        <tr>
-          <td>Read Committed</td>
-          <td class="ok">✓ evita</td>
-          <td class="no">✗ posible</td>
-          <td class="no">✗ posible</td>
-          <td>Producción general</td>
-        </tr>
-        <tr>
-          <td>Repeatable Read</td>
-          <td class="ok">✓ evita</td>
-          <td class="ok">✓ evita</td>
-          <td class="no">✗ posible</td>
-          <td>Lecturas críticas</td>
-        </tr>
-        <tr>
-          <td>Serializable</td>
-          <td class="ok">✓ evita</td>
-          <td class="ok">✓ evita</td>
-          <td class="ok">✓ evita</td>
-          <td>Máxima seguridad</td>
-        </tr>
-      </table>
-      <div class="highlight-box">
-        <strong>Clave:</strong> Read Committed = mejor equilibrio rendimiento/seguridad (más usado en producción). Serializable = más estricto, equivale a ejecución secuencial.
-      </div>
+      <p class="nb-para"><strong>Niveles de aislamiento (de menor a mayor seguridad):</strong></p>
+      <ul class="nb-list">
+        <li><strong>Read Uncommitted:</strong> Permite leer datos no confirmados (riesgo: lecturas sucias).</li>
+        <li><strong>Read Committed:</strong> Evita lecturas sucias, mejor equilibrio rendimiento/seguridad.</li>
+        <li><strong>Repeatable Read:</strong> Mantiene consistencia en lecturas repetidas.</li>
+        <li><strong>Serializable:</strong> Nivel más estricto, equivalente a ejecución secuencial.</li>
+      </ul>
     </div>
   </div>
 
-  <!-- 1.4 Índices y SQL avanzado -->
-  <div class="topic-block">
-    <div class="topic-header" onclick="toggleTopic(this)">
-      <span class="topic-num">1.4</span>
-      <h2>Índices y Sentencias Avanzadas</h2>
-      <span class="topic-toggle">▼</span>
+  <div class="notes-section">
+    <div class="notes-header" onclick="toggleSection(this)">
+      <span class="sec-icon">⚡</span>
+      <div class="sec-wrap">
+        <div class="sec-tag">Tema 4</div>
+        <div class="sec-title">Índices y sentencias avanzadas</div>
+      </div>
+      <span class="toggle-icon">▼</span>
     </div>
-    <div class="topic-body">
-      <p>Un <strong>índice</strong> es una estructura auxiliar (generalmente un Árbol B / B-Tree) que mantiene claves ordenadas para acelerar búsquedas, JOIN, ORDER BY y GROUP BY.</p>
-      <div class="highlight-box">
-        <strong>Trade-off clave:</strong> Los índices mejoran la lectura (SELECT) pero añaden costo a escritura (INSERT/UPDATE/DELETE), porque cada cambio debe actualizar también los índices. Demasiados índices → rendimiento de escritura degradado.
-      </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:1rem;">
-        <div class="acid-card">
-          <div class="acid-name" style="color:var(--accent);">Clustered (Agrupado)</div>
-          <div class="acid-desc">Define el orden físico de almacenamiento de la tabla. Solo puede existir <strong>UNO por tabla</strong>. Ideal para rangos. Las PKs son clustered por defecto.</div>
-        </div>
-        <div class="acid-card">
-          <div class="acid-name" style="color:var(--accent3);">Non-Clustered (No agrupado)</div>
-          <div class="acid-desc">Estructura separada con claves ordenadas y punteros. Pueden existir <strong>varios por tabla</strong>. Ideal para búsquedas puntuales por columnas específicas.</div>
-        </div>
-      </div>
-      <pre><span class="cm">-- Índice agrupado (1 por tabla)</span>
-<span class="kw">CREATE CLUSTERED INDEX</span> IX_Pedidos_Id
-<span class="kw">ON</span> Pedidos (id_pedido);
-
-<span class="cm">-- Índice no agrupado (múltiples por tabla)</span>
-<span class="kw">CREATE NONCLUSTERED INDEX</span> IX_Pedidos_Cliente
-<span class="kw">ON</span> Pedidos (cliente_id);</pre>
-
-      <p style="margin-top:1rem;"><strong>Sentencias Avanzadas:</strong></p>
-      <ul>
-        <li><strong>JOIN:</strong> Combina tablas (INNER, LEFT, RIGHT, FULL)</li>
-        <li><strong>Subconsultas:</strong> Anidadas en WHERE/FROM/SELECT. No correlacionada (ejecuta 1 vez) vs correlacionada (ejecuta por fila)</li>
-        <li><strong>CTE (WITH):</strong> Tablas temporales nombradas para organizar consultas complejas</li>
-        <li><strong>Consultas recursivas:</strong> WITH RECURSIVE para jerarquías (organigramas, árboles)</li>
-        <li><strong>Funciones de ventana (OVER):</strong> Cálculos por grupo sin colapsar filas individuales</li>
+    <div class="notes-body">
+      <p class="nb-para">Un <strong>índice</strong> es una estructura auxiliar que mantiene claves ordenadas para acelerar búsquedas, JOIN, ORDER BY y GROUP BY.</p>
+      <ul class="nb-list">
+        <li><strong>Clustered:</strong> Define el orden físico. Solo uno por tabla.</li>
+        <li><strong>Non-Clustered:</strong> Estructura separada. Varios por tabla.</li>
       </ul>
-      <pre><span class="cm">-- CTE: Simplifica consultas complejas</span>
-<span class="kw">WITH</span> compras_cliente <span class="kw">AS</span> (
-    <span class="kw">SELECT</span> cliente_id, <span class="fn">SUM</span>(monto) <span class="kw">AS</span> total
-    <span class="kw">FROM</span> pedidos
-    <span class="kw">GROUP BY</span> cliente_id
+      <p class="nb-para"><strong>Sentencias avanzadas:</strong></p>
+      <ul class="nb-list">
+        <li><strong>JOIN:</strong> Combina tablas (INNER, LEFT, RIGHT, FULL).</li>
+        <li><strong>CTE (WITH):</strong> Tablas temporales para organizar consultas complejas.</li>
+        <li><strong>Funciones de ventana (OVER):</strong> Cálculos por grupo sin perder detalle.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="notes-section">
+    <div class="notes-header" onclick="toggleSection(this)">
+      <span class="sec-icon">🛠️</span>
+      <div class="sec-wrap">
+        <div class="sec-tag">PG1</div>
+        <div class="sec-title">Práctica 1: Transacciones y Bloqueos</div>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="notes-body">
+      <p class="nb-para"><strong>Bloque 1: Crear Base de Datos</strong></p>
+      <code class="nb-code">IF DB_ID('Vuelos') IS NULL
+    CREATE DATABASE Vuelos;
+GO
+USE Vuelos;
+GO
+CREATE TABLE Vuelos (
+    vuelo_id INT PRIMARY KEY,
+    destino VARCHAR(50),
+    asientos_disponibles INT,
+    precio DECIMAL(10,2)
+);
+INSERT INTO Vuelos VALUES (101, 'Galápagos', 2, 150.00), (102, 'Quito', 15, 60.00);</code>
+
+      <p class="nb-para"><strong>Bloque 2: Transacción con Control de Errores</strong></p>
+      <code class="nb-code">BEGIN TRANSACTION;
+BEGIN TRY   
+    INSERT INTO Reservas (vuelo_id, pasajero_nombre) 
+    VALUES (101, 'Lenin Lopez');
+    UPDATE Vuelos
+    SET asientos_disponibles = asientos_disponibles - 1
+    WHERE vuelo_id = 101;   
+    COMMIT;
+END TRY 
+BEGIN CATCH 
+    ROLLBACK;
+END CATCH;</code>
+    </div>
+  </div>
+
+  <div class="notes-section">
+    <div class="notes-header" onclick="toggleSection(this)">
+      <span class="sec-icon">📊</span>
+      <div class="sec-wrap">
+        <div class="sec-tag">PG2</div>
+        <div class="sec-title">Práctica 2: Índices y Consultas Avanzadas</div>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="notes-body">
+      <p class="nb-para"><strong>Índices y JOINs</strong></p>
+      <code class="nb-code">CREATE NONCLUSTERED INDEX IX_Vuelos_Destino
+ON Vuelos(destino);
+
+SELECT V.destino, R.pasajero_nombre
+FROM Vuelos V
+FULL JOIN Reservas R ON V.vuelo_id = R.vuelo_id;</code>
+
+      <p class="nb-para"><strong>CTE y Funciones de Ventana</strong></p>
+      <code class="nb-code">WITH PromedioPrecios AS (
+    SELECT AVG(precio) as precio_medio FROM Vuelos
 )
-<span class="kw">SELECT</span> c.nombre, cc.total
-<span class="kw">FROM</span> clientes c
-<span class="kw">JOIN</span> compras_cliente cc <span class="kw">ON</span> c.cliente_id = cc.cliente_id
-<span class="kw">WHERE</span> cc.total > 1000;
+SELECT V.destino, V.precio
+FROM Vuelos V, PromedioPrecios P
+WHERE V.precio > P.precio_medio;
 
-<span class="cm">-- Función de ventana: ranking sin perder detalle</span>
-<span class="kw">SELECT</span> cliente_id, <span class="fn">SUM</span>(monto) <span class="kw">AS</span> total,
-       <span class="fn">RANK</span>() <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> <span class="fn">SUM</span>(monto) <span class="kw">DESC</span>) <span class="kw">AS</span> posicion
-<span class="kw">FROM</span> pedidos
-<span class="kw">GROUP BY</span> cliente_id;</pre>
-      <div class="highlight-box blue">
-        <strong>Índices filtrados/parciales:</strong> Reducen tamaño y mejoran la selectividad al aplicarse solo a un subconjunto de datos (ej. solo pedidos activos).
-      </div>
+SELECT destino, precio,
+    RANK() OVER (ORDER BY precio DESC) as ranking
+FROM Vuelos;</code>
     </div>
   </div>
-
-</div><!-- /container -->
-</div><!-- /resumen -->
-
-
-<!-- ══════════════════════════════════════
-     SECCIÓN: BANCO DE PREGUNTAS
-═══════════════════════════════════════ -->
-<div id="banco" class="section">
-<div class="container">
-
-  <div class="progress-bar-container">
-    <div class="progress-label">
-      Preguntas respondidas: <span id="prog-count">0</span> / <span id="prog-total">30</span>
-    </div>
-    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
-  </div>
-
-  <div class="quiz-controls">
-    <button class="quiz-filter active" onclick="filterQ('all', this)">Todas (30)</button>
-    <button class="quiz-filter" onclick="filterQ('dba', this)">DBA</button>
-    <button class="quiz-filter" onclick="filterQ('acid', this)">ACID</button>
-    <button class="quiz-filter" onclick="filterQ('bloqueo', this)">Bloqueos</button>
-    <button class="quiz-filter" onclick="filterQ('indice', this)">Índices</button>
-    <button class="quiz-filter" onclick="filterQ('sql', this)">SQL Avanzado</button>
-    <div class="quiz-stats" id="quiz-stats">Mostradas: <span>30</span></div>
-  </div>
-
-  <div id="questions-container"></div>
-
 </div>
+
+<!-- ═══════════════════════════════════════════ NOTAS ═══════════════════════════════════════════ -->
+<div id="notesMode">
+  <div class="notes-section open">
+    <div class="notes-header" onclick="toggleSection(this)">
+      <span class="sec-icon">🎯</span>
+      <div class="sec-wrap">
+        <div class="sec-tag">Resumen</div>
+        <div class="sec-title">Conceptos clave para estudiar</div>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="notes-body">
+      <ol class="nb-list" style="list-style:decimal;margin-left:1.5rem;">
+        <li>Bloqueos y aislamiento protegen consistencia con concurrencia.</li>
+        <li>Serializable ofrece máxima seguridad con mayor costo.</li>
+        <li>Los índices aceleran consultas con criterio de diseño.</li>
+        <li>JOIN y subconsultas resuelven consultas multi-tabla.</li>
+        <li>CTE y funciones de ventana fortalecen análisis SQL avanzado.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="notes-section">
+    <div class="notes-header" onclick="toggleSection(this)">
+      <span class="sec-icon">❓</span>
+      <div class="sec-wrap">
+        <div class="sec-tag">Preguntas rápidas</div>
+        <div class="sec-title">Pruébate con estas preguntas</div>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="notes-body">
+      <ul class="nb-list">
+        <li>¿Qué diferencia hay entre bloqueo compartido y exclusivo?</li>
+        <li>¿Qué riesgo evita el nivel Read Committed?</li>
+        <li>¿Cuándo conviene usar un índice clustered?</li>
+        <li>¿Qué ventaja ofrece una CTE frente a subconsultas anidadas?</li>
+        <li>¿Para qué sirven las funciones de ventana en reportes?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ BANCO DE PREGUNTAS ═══════════════════════════════════════════ -->
+<div id="quizMode">
+  <div class="score-display">
+    <div class="score-box">
+      <span class="score-val" id="scoreNum">0</span>
+      <span class="score-lbl">Respuestas Correctas</span>
+    </div>
+    <div style="flex:1;">
+      <div class="progress-bar"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <div id="quizContainer"></div>
+  <div id="endScreen" class="end-screen">
+    <div class="end-emoji" id="endEmoji">🎉</div>
+    <div class="end-title">¡Quiz completado!</div>
+    <div class="end-big-score" id="endScore"></div>
+    <div class="end-score-label">RESPUESTAS CORRECTAS</div>
+    <button class="btn btn-primary" style="margin:20px auto 0;display:block;" onclick="restartQuiz()">🔄 Intentar de nuevo</button>
+  </div>
+</div>
+
 </div>
 
 <footer>
-  UNACH · Administración de Bases de Datos · U1 T1 · 2026-1S &nbsp;·&nbsp; Generado para estudio personal
+  UNACH · Administración de Bases de Datos · U1 T1 · 2026-1S &nbsp;·&nbsp; Estudio interactivo con banco de preguntas
 </footer>
 
 <script>
-// ─── PREGUNTAS ─────────────────────────────────────────────────────────────
-const questions = [
-  // APE1 - Intento 1
-  {
-    id:1, topic:'dba',
-    text:'¿Cuál de las siguientes tareas NO corresponde al DBA?',
-    options:[
-      {l:'a', t:'Controlar accesos y permisos de usuarios.', c:false},
-      {l:'b', t:'Diseñar campañas de publicidad digital.', c:true},
-      {l:'c', t:'Configurar gestores de bases de datos.', c:false},
-    ],
-    exp:'Diseñar campañas de publicidad pertenece a marketing, no al DBA. El DBA se enfoca en aspectos técnicos de gestión de datos.'
-  },
-  {
-    id:2, topic:'dba',
-    text:'El perfil del DBA requiere principalmente:',
-    options:[
-      {l:'a', t:'Habilidades de marketing y ventas.', c:false},
-      {l:'b', t:'Conocimiento en diseño, configuración y optimización de bases.', c:true},
-      {l:'c', t:'Conocimientos en edición de imágenes.', c:false},
-    ],
-    exp:'El núcleo del rol técnico del DBA es el diseño, configuración y optimización de bases de datos.'
-  },
-  {
-    id:3, topic:'acid',
-    text:'¿Qué comando en SQL revierte los cambios realizados en una transacción?',
-    options:[
-      {l:'a', t:'SAVEPOINT', c:false},
-      {l:'b', t:'ROLLBACK', c:true},
-      {l:'c', t:'DELETE', c:false},
-    ],
-    exp:'ROLLBACK deshace todos los cambios no confirmados de la transacción actual. SAVEPOINT define puntos intermedios pero no revierte por sí mismo. DELETE elimina filas, no gestiona transacciones.'
-  },
-  {
-    id:4, topic:'acid',
-    text:'En un sistema bancario, transferir dinero de una cuenta a otra es ejemplo de:',
-    options:[
-      {l:'a', t:'Una vista actualizable.', c:false},
-      {l:'b', t:'Una transacción con débito y crédito.', c:true},
-      {l:'c', t:'Una consulta de selección.', c:false},
-    ],
-    exp:'Intervienen dos cuentas en una operación atómica: se debita la cuenta origen y se acredita la cuenta destino como una sola unidad indivisible.'
-  },
-  {
-    id:5, topic:'acid',
-    text:'¿Cuál de las siguientes opciones describe mejor la atomicidad?',
-    options:[
-      {l:'a', t:'La transacción siempre incrementa el rendimiento del sistema.', c:false},
-      {l:'b', t:'La transacción solo puede ser de lectura.', c:false},
-      {l:'c', t:'La transacción se ejecuta como una unidad indivisible.', c:true},
-    ],
-    exp:'Atomicidad = todo o nada. La transacción completa se ejecuta o ninguna operación se realiza. No tiene relación con rendimiento ni con el tipo de operación.'
-  },
-  {
-    id:6, topic:'acid',
-    text:'En un sistema de pedidos, si se descuenta el stock pero no se registra el pago, ¿qué debe ocurrir?',
-    options:[
-      {l:'a', t:'El sistema reinicia todas las tablas.', c:false},
-      {l:'b', t:'La transacción completa se revierte con ROLLBACK.', c:true},
-      {l:'c', t:'El sistema confirma solo el descuento.', c:false},
-    ],
-    exp:'Para mantener la integridad (propiedad ACID), toda la transacción debe revertirse. Confirmar solo el descuento dejaría inconsistencia entre stock y pagos.'
-  },
-  {
-    id:7, topic:'dba',
-    text:'¿Cuál es una buena práctica en administración de bases de datos?',
-    options:[
-      {l:'a', t:'Evitar el uso de índices en tablas grandes.', c:false},
-      {l:'b', t:'Permitir que todos los usuarios tengan acceso total.', c:false},
-      {l:'c', t:'Documentar procesos y cambios realizados.', c:true},
-    ],
-    exp:'Documentar asegura trazabilidad y control de cambios. Los índices bien diseñados mejoran el rendimiento. El acceso total va contra el principio de mínimo privilegio.'
-  },
-  {
-    id:8, topic:'dba',
-    text:'¿Qué beneficio aportan las buenas prácticas de administración de bases de datos?',
-    options:[
-      {l:'a', t:'Evitan que los usuarios tengan que capacitarse.', c:false},
-      {l:'b', t:'Fortalecen la seguridad y disponibilidad de la información.', c:true},
-      {l:'c', t:'Reducen los costos de impresión de reportes.', c:false},
-    ],
-    exp:'Las buenas prácticas mejoran la confiabilidad y continuidad del sistema. La capacitación sigue siendo necesaria independientemente.'
-  },
-  {
-    id:9, topic:'dba',
-    text:'El DBA debe proponer mejoras en la base de datos con el objetivo de:',
-    options:[
-      {l:'a', t:'Crear nuevas marcas de productos.', c:false},
-      {l:'b', t:'Asegurar eficiencia y continuidad de operaciones.', c:true},
-      {l:'c', t:'Reducir costos de mercadeo.', c:false},
-    ],
-    exp:'Optimizar y garantizar continuidad operativa es parte esencial del rol del DBA.'
-  },
-  {
-    id:10, topic:'dba',
-    text:'¿Cuál es la función principal de la administración de bases de datos?',
-    options:[
-      {l:'a', t:'Diseñar páginas web para consultas.', c:false},
-      {l:'b', t:'Crear aplicaciones para usuarios finales.', c:false},
-      {l:'c', t:'Garantizar disponibilidad, integridad y seguridad de los datos.', c:true},
-    ],
-    exp:'El DBA asegura que los datos estén accesibles, íntegros y protegidos. Diseñar páginas web corresponde a desarrolladores, no al DBA.'
-  },
+const QUESTIONS_RAW = `
+1|dba|¿Cuál es la responsabilidad principal de un DBA?|Garantizar continuidad, seguridad y rendimiento del entorno de datos.|Diseñar campañas de marketing.|Crear únicamente interfaces gráficas.|0|El DBA administra la base de datos para que los datos estén disponibles, íntegros, seguros y accesibles.
+2|dba|¿Por qué es importante documentar procesos en administración de BD?|Para aumentar la cantidad de tablas.|Para facilitar mantenimiento, auditoría y recuperación ante fallos.|Para evitar el uso de transacciones.|1|La documentación ayuda a reproducir procedimientos, entender cambios y responder mejor ante incidentes.
+3|acid|¿Qué diferencia hay entre COMMIT y ROLLBACK?|COMMIT confirma los cambios y ROLLBACK los deshace.|Ambos eliminan los datos de la tabla.|ROLLBACK guarda los cambios y COMMIT los cancela.|0|COMMIT hace permanentes los cambios; ROLLBACK revierte la transacción en caso de error.
+4|acid|¿Qué garantiza la propiedad de aislamiento?|Que todas las transacciones se ejecuten al mismo tiempo.|Que las transacciones concurrentes no interfieran entre sí.|Que ninguna transacción pueda hacer lecturas.|1|El aislamiento protege la consistencia evitando que una transacción vea estados intermedios de otra.
+5|acid|¿Por qué ACID es crítico en sistemas multiusuario?|Porque reemplaza los respaldos.|Porque protege consistencia y confiabilidad al ejecutar varias transacciones a la vez.|Porque elimina la necesidad de claves primarias.|1|ACID asegura transacciones seguras, estables y confiables incluso cuando muchos usuarios trabajan al mismo tiempo.
+6|bloqueos|¿Qué diferencia hay entre bloqueo compartido y exclusivo?|El compartido permite lectura concurrente y el exclusivo solo escritura.|El compartido solo escribe y el exclusivo solo lee.|Ambos son iguales.|0|El bloqueo compartido permite lecturas simultáneas; el exclusivo reserva escritura para una sola transacción.
+7|bloqueos|¿Qué riesgo evita el nivel Read Committed?|Lecturas sucias.|Lecturas fantasma.|Inserciones automáticas.|0|Read Committed evita leer datos no confirmados.
+8|indices|¿Cuándo conviene usar un índice clustered?|Cuando quieres definir el orden físico de la tabla.|Cuando necesitas muchas copias de la tabla.|Cuando no hay claves primarias.|0|El clustered organiza físicamente los datos y solo puede haber uno por tabla.
+9|sql|¿Qué ventaja ofrece una CTE frente a una subconsulta anidada?|Hace la consulta más difícil de leer.|Mejora la legibilidad y reutilización de la lógica.|Elimina la necesidad de usar SELECT.|1|Una CTE permite organizar mejor consultas complejas y reutilizar resultados intermedios.
+10|sql|¿Para qué sirven las funciones de ventana en reportes?|Para borrar filas duplicadas.|Para calcular métricas sin perder el detalle fila a fila.|Para cambiar el tipo de dato.|1|Permiten analizar grupos sin colapsar el detalle de cada fila.
 
-  // APE1 - Intento 2
-  {
-    id:11, topic:'dba',
-    text:'¿Qué representan los roles y permisos en una base de datos?',
-    options:[
-      {l:'a', t:'La forma de organizar gráficos y reportes.', c:false},
-      {l:'b', t:'Los procedimientos para optimizar el hardware.', c:false},
-      {l:'c', t:'El control de accesos para garantizar seguridad.', c:true},
-    ],
-    exp:'Los roles y permisos regulan quién puede ver o modificar datos, garantizando seguridad y el principio de mínimo privilegio.'
-  },
-  {
-    id:12, topic:'dba',
-    text:'¿Qué logran los respaldos periódicos en bases de datos?',
-    options:[
-      {l:'a', t:'Aumentar la velocidad de conexión a internet.', c:false},
-      {l:'b', t:'Mejorar el diseño de las consultas SQL.', c:false},
-      {l:'c', t:'Asegurar la recuperación de información tras un fallo.', c:true},
-    ],
-    exp:'Los respaldos permiten restaurar el estado consistente de la base de datos ante fallos, ataques u otros incidentes.'
-  },
-  {
-    id:13, topic:'dba',
-    text:'¿Cuál es un riesgo de no actualizar parches de seguridad en la base de datos?',
-    options:[
-      {l:'a', t:'Que se generen vulnerabilidades ante ataques externos.', c:true},
-      {l:'b', t:'Que se reduzca el espacio de almacenamiento.', c:false},
-      {l:'c', t:'Que se pierdan los reportes estadísticos.', c:false},
-    ],
-    exp:'Sin parches de seguridad, quedan exposiciones abiertas que pueden ser explotadas por atacantes externos.'
-  },
-  {
-    id:14, topic:'dba',
-    text:'¿Qué busca el DBA al aplicar parches de seguridad en un SGBD?',
-    options:[
-      {l:'a', t:'Reducir el número de usuarios registrados.', c:false},
-      {l:'b', t:'Corregir vulnerabilidades y prevenir ataques.', c:true},
-      {l:'c', t:'Mejorar el diseño gráfico de los reportes.', c:false},
-    ],
-    exp:'Los parches cierran brechas de seguridad conocidas, protegiendo el sistema de ataques y accesos no autorizados.'
-  },
-  {
-    id:15, topic:'acid',
-    text:'La propiedad de durabilidad en una transacción significa:',
-    options:[
-      {l:'a', t:'Los cambios confirmados persisten incluso ante fallos.', c:true},
-      {l:'b', t:'La transacción nunca debe terminar.', c:false},
-      {l:'c', t:'Los usuarios pueden modificar cualquier registro.', c:false},
-    ],
-    exp:'Durabilidad garantiza que una vez ejecutado el COMMIT, los datos quedan grabados de forma permanente, incluso si el sistema falla inmediatamente después.'
-  },
-  {
-    id:16, topic:'dba',
-    text:'¿Qué significa monitorear el rendimiento de una base de datos?',
-    options:[
-      {l:'a', t:'Restringir el acceso a todos los usuarios.', c:false},
-      {l:'b', t:'Controlar la publicidad de la empresa.', c:false},
-      {l:'c', t:'Revisar el uso de recursos y anticipar fallos.', c:true},
-    ],
-    exp:'Monitorear implica medir CPU, memoria, I/O, tiempos de respuesta y otros indicadores para detectar problemas antes de que ocurran fallos.'
-  },
+11|dba|¿Cuál es una buena práctica en administración de bases de datos?|Permitir acceso total a todos los usuarios.|Documentar procesos y cambios realizados.|Evitar el uso de índices en tablas grandes.|1|Documentar facilita trazabilidad y control de cambios.
+12|dba|¿Qué representan los roles y permisos en una base de datos?|La forma de organizar gráficos y reportes.|El control de accesos para garantizar seguridad.|Los procedimientos para optimizar el hardware.|1|Regulan quién puede ver o modificar datos.
+13|dba|¿Qué logran los respaldos periódicos en bases de datos?|Aumentar la velocidad de conexión a internet.|Mejorar el diseño de las consultas SQL.|Asegurar la recuperación de información tras un fallo.|2|Permiten restaurar el estado consistente de la base.
+14|dba|¿Cuál es el riesgo de no actualizar parches de seguridad?|Se generen vulnerabilidades ante ataques externos.|Se reduzca el espacio de almacenamiento.|Se pierdan los reportes estadísticos.|0|Los parches cierran brechas de seguridad.
+15|dba|¿Qué busca el DBA al aplicar parches de seguridad?|Reducir el número de usuarios registrados.|Corregir vulnerabilidades y prevenir ataques.|Mejorar el diseño gráfico de los reportes.|1|Los parches corrigen fallos y previenen ataques.
+16|acid|¿Cuál opción describe mejor la atomicidad?|La transacción se ejecuta como una unidad indivisible.|La transacción siempre incrementa el rendimiento.|La transacción solo puede ser de lectura.|0|Atomicidad significa todo-o-nada.
+17|acid|Si se descuenta el stock pero no se registra el pago, ¿qué debe ocurrir?|El sistema confirma solo el descuento.|La transacción completa se revierte con ROLLBACK.|El sistema reinicia todas las tablas.|1|ROLLBACK mantiene la integridad de datos.
+18|dba|¿Qué significa monitorear el rendimiento de una base de datos?|Restringir el acceso a todos los usuarios.|Controlar la publicidad de la empresa.|Revisar el uso de recursos y anticipar fallos.|2|Monitorear implica medir CPU, memoria, IO y tiempos.
+19|acid|La propiedad de durabilidad significa:|Los cambios confirmados persisten incluso ante fallos.|La transacción nunca debe terminar.|Los usuarios pueden modificar cualquier registro.|0|Los datos confirmados quedan grabados de forma permanente.
+20|dba|El perfil del DBA requiere principalmente:|Conocimiento en diseño, configuración y optimización de bases.|Conocimientos en edición de imágenes.|Habilidades de marketing y ventas.|0|El núcleo del rol es técnico.
 
-  // APE2 - Intento 1
-  {
-    id:17, topic:'bloqueo',
-    text:'¿Qué es un bloqueo en bases de datos?',
-    options:[
-      {l:'a', t:'Un índice creado para optimizar consultas.', c:false},
-      {l:'b', t:'Un mecanismo para coordinar el acceso concurrente y evitar inconsistencias.', c:true},
-      {l:'c', t:'Un error en la ejecución de una consulta.', c:false},
-    ],
-    exp:'Los bloqueos regulan cómo múltiples transacciones acceden a los mismos datos simultáneamente, previniendo conflictos e inconsistencias.'
-  },
-  {
-    id:18, topic:'bloqueo',
-    text:'La granularidad de bloqueos se refiere a:',
-    options:[
-      {l:'a', t:'El número de usuarios conectados al sistema.', c:false},
-      {l:'b', t:'El nivel de detalle donde se aplica el bloqueo (fila, página o tabla).', c:true},
-      {l:'c', t:'La cantidad de memoria utilizada en la transacción.', c:false},
-    ],
-    exp:'La granularidad define la unidad mínima bloqueada. A menor granularidad (nivel fila), mayor concurrencia posible.'
-  },
-  {
-    id:19, topic:'bloqueo',
-    text:'¿Qué anomalía de concurrencia se evita al usar el nivel Serializable?',
-    options:[
-      {l:'a', t:'Lecturas sucias.', c:false},
-      {l:'b', t:'Lecturas fantasma.', c:true},
-      {l:'c', t:'Creación de triggers duplicados.', c:false},
-    ],
-    exp:'Serializable evita las lecturas fantasma (filas nuevas insertadas por otra transacción concurrente). Las lecturas sucias se evitan desde Read Committed.'
-  },
-  {
-    id:20, topic:'bloqueo',
-    text:'¿Cuál de los siguientes niveles de aislamiento ofrece mejor equilibrio entre rendimiento y seguridad de datos?',
-    options:[
-      {l:'a', t:'Read Uncommitted', c:false},
-      {l:'b', t:'Serializable', c:false},
-      {l:'c', t:'Read Committed', c:true},
-    ],
-    exp:'Read Committed es el nivel más usado en producción porque evita lecturas sucias manteniendo buen rendimiento. Read Uncommitted sacrifica consistencia; Serializable es muy costoso en rendimiento.'
-  },
-  {
-    id:21, topic:'sql',
-    text:'¿Cuál es la utilidad principal de una Common Table Expression (CTE)?',
-    options:[
-      {l:'a', t:'Organizar y simplificar consultas complejas.', c:true},
-      {l:'b', t:'Crear restricciones de integridad.', c:false},
-      {l:'c', t:'Eliminar índices innecesarios.', c:false},
-    ],
-    exp:'Las CTE (WITH) hacen el SQL más legible y permiten reutilizar resultados intermedios dentro de la misma consulta, evitando subconsultas anidadas difíciles de leer.'
-  },
-  {
-    id:22, topic:'indice',
-    text:'¿Cuál es la principal diferencia entre un índice agrupado y uno no agrupado?',
-    options:[
-      {l:'a', t:'El agrupado define el orden físico de la tabla, el no agrupado no.', c:true},
-      {l:'b', t:'El agrupado ocupa menos memoria.', c:false},
-      {l:'c', t:'El no agrupado solo funciona en tablas temporales.', c:false},
-    ],
-    exp:'El índice agrupado (clustered) determina el orden físico de almacenamiento de los datos. Solo puede existir uno por tabla. El no agrupado crea una estructura separada.'
-  },
-  {
-    id:23, topic:'bloqueo',
-    text:'El nivel Serializable garantiza:',
-    options:[
-      {l:'a', t:'La creación automática de vistas materializadas.', c:false},
-      {l:'b', t:'La eliminación inmediata de bloqueos al finalizar una consulta.', c:false},
-      {l:'c', t:'Que las transacciones se comporten como si se ejecutaran secuencialmente.', c:true},
-    ],
-    exp:'Serializable es el nivel más estricto: impide cualquier anomalía de concurrencia al forzar un comportamiento equivalente a ejecución en serie.'
-  },
-  {
-    id:24, topic:'bloqueo',
-    text:'El nivel de aislamiento Read Committed evita:',
-    options:[
-      {l:'a', t:'Lecturas no repetibles.', c:false},
-      {l:'b', t:'Lecturas de datos no confirmados.', c:true},
-      {l:'c', t:'Fantasmas en consultas.', c:false},
-    ],
-    exp:'Read Committed asegura que solo se lean datos ya confirmados por otras transacciones, evitando "lecturas sucias". Las lecturas no repetibles y fantasmas pueden seguir ocurriendo.'
-  },
-  {
-    id:25, topic:'indice',
-    text:'¿Cuál es un posible inconveniente de usar demasiados índices?',
-    options:[
-      {l:'a', t:'Impiden consultas con filtros.', c:false},
-      {l:'b', t:'Eliminan las claves primarias.', c:false},
-      {l:'c', t:'Ralentizan operaciones de inserción y actualización.', c:true},
-    ],
-    exp:'Cada INSERT, UPDATE o DELETE debe actualizar también todos los índices asociados. Con demasiados índices, el rendimiento de escritura se degrada significativamente.'
-  },
-  {
-    id:26, topic:'bloqueo',
-    text:'¿Cuál es el tipo de bloqueo que permite a varias transacciones leer simultáneamente un dato?',
-    options:[
-      {l:'a', t:'Compartido (S)', c:true},
-      {l:'b', t:'Temporal (T)', c:false},
-      {l:'c', t:'Exclusivo (X)', c:false},
-    ],
-    exp:'El bloqueo Compartido (S) permite que múltiples transacciones lean el mismo dato al mismo tiempo. El bloqueo Exclusivo (X) impide cualquier acceso simultáneo. No existe "Temporal (T)" en SQL estándar.'
-  },
+21|dba|¿Cuál es una función crítica del DBA?|Realizar respaldos y planes de recuperación de datos.|Organizar capacitaciones para usuarios.|Crear campañas de marketing digital.|0|Los respaldos garantizan continuidad del servicio.
+22|dba|¿Qué beneficio aportan las buenas prácticas de administración de BD?|Evitan que los usuarios tengan que capacitarse.|Fortalecen la seguridad y disponibilidad de la información.|Reducen los costos de impresión de reportes.|1|Mejoran confiabilidad y continuidad operativa.
+23|acid|¿Qué es una transacción en bases de datos?|Una consulta SQL de lectura.|Una secuencia de operaciones ejecutadas como unidad indivisible.|Un procedimiento almacenado que genera reportes.|1|Una transacción se completa toda o se revierte toda.
+24|dba|¿Cuál de las siguientes tareas corresponde al DBA?|Monitorear el rendimiento y prevenir fallos.|Definir la estrategia de marketing de la empresa.|Elaborar informes financieros.|0|Monitorear el rendimiento es parte de la administración operativa.
+25|acid|¿Qué representa una transacción con débito y crédito en banca?|Una vista actualizable.|Una transacción con débito y crédito.|Una consulta de selección.|1|La transferencia modifica dos cuentas de forma atómica.
+26|bloqueos|¿Qué es un bloqueo en bases de datos?|Un índice creado para optimizar consultas.|Un mecanismo para coordinar el acceso concurrente y evitar inconsistencias.|Un error en la ejecución de una consulta.|1|Los bloqueos regulan el acceso concurrente.
+27|bloqueos|La granularidad de bloqueos se refiere a:|El número de usuarios conectados al sistema.|El nivel de detalle donde se aplica el bloqueo.|La cantidad de memoria utilizada.|1|Puede aplicarse a fila, página o tabla.
+28|bloqueos|¿Qué anomalía de concurrencia se evita al usar Serializable?|Lecturas sucias.|Lecturas fantasma.|Creación de triggers duplicados.|1|Serializable evita lecturas fantasma.
+29|bloqueos|¿Cuál nivel ofrece mejor equilibrio entre rendimiento y seguridad?|Read Uncommitted.|Serializable.|Read Committed.|2|Read Committed es el más usado en producción.
+30|sql|¿Cuál es la utilidad principal de una CTE?|Organizar y simplificar consultas complejas.|Crear restricciones de integridad.|Eliminar índices innecesarios.|0|Una CTE mejora la legibilidad del SQL.
 
-  // APE2 - Intento 2
-  {
-    id:27, topic:'indice',
-    text:'¿Cuál es la estructura más común para implementar índices en bases de datos relacionales?',
-    options:[
-      {l:'a', t:'Árbol B (B-Tree).', c:true},
-      {l:'b', t:'Árbol binario simple.', c:false},
-      {l:'c', t:'Lista enlazada.', c:false},
-    ],
-    exp:'El Árbol B (B-Tree) es la estructura estándar para índices en SGBD relacionales. Permite búsquedas, inserciones y eliminaciones en O(log n).'
-  },
-  {
-    id:28, topic:'bloqueo',
-    text:'¿Qué ocurre cuando dos transacciones intentan modificar el mismo registro al mismo tiempo sin bloqueo?',
-    options:[
-      {l:'a', t:'Se acelera la ejecución de ambas transacciones.', c:false},
-      {l:'b', t:'La base de datos rechaza ambas transacciones.', c:false},
-      {l:'c', t:'Se producen inconsistencias o actualizaciones perdidas.', c:true},
-    ],
-    exp:'Sin mecanismos de bloqueo, se generan anomalías de concurrencia: una transacción puede sobrescribir los cambios de otra, causando "actualizaciones perdidas".'
-  },
-  {
-    id:29, topic:'indice',
-    text:'¿Por qué es importante analizar los planes de ejecución de consultas en SQL?',
-    options:[
-      {l:'a', t:'Para detectar cuellos de botella y optimizar el rendimiento.', c:true},
-      {l:'b', t:'Para modificar la estructura física de los índices automáticamente.', c:false},
-      {l:'c', t:'Para reducir el número de usuarios conectados.', c:false},
-    ],
-    exp:'Los planes de ejecución revelan cómo el motor de BD procesa una consulta, permitiendo identificar operaciones costosas y optimizarlas.'
-  },
-  {
-    id:30, topic:'indice',
-    text:'¿Cuál es el principal beneficio de usar índices filtrados o parciales?',
-    options:[
-      {l:'a', t:'Eliminar todas las transacciones incompletas.', c:false},
-      {l:'b', t:'Reducen tamaño y mejoran la selectividad al aplicarse a subconjuntos de datos.', c:true},
-      {l:'c', t:'Evitar la ejecución de JOIN.', c:false},
-    ],
-    exp:'Los índices filtrados se aplican solo a filas que cumplen una condición específica, optimizando espacio y mejorando el rendimiento en consultas sobre ese subconjunto.'
-  },
-];
+31|indices|¿Qué es un índice en bases de datos?|Una tabla que almacena transacciones temporales.|Una estructura que acelera búsquedas y consultas.|Una restricción que impide valores duplicados.|1|Permite acceder más rápido a los datos.
+32|bloqueos|¿Qué ocurre si dos transacciones modifican el mismo registro sin bloqueo?|Se acelera la ejecución de ambas transacciones.|La base de datos rechaza ambas transacciones.|Se producen inconsistencias o actualizaciones perdidas.|2|Sin bloqueo pueden aparecer anomalías.
+33|indices|¿Cuál es la estructura más común para implementar índices?|Árbol B (B-Tree).|Árbol binario simple.|Lista enlazada.|0|B-Tree es la estructura estándar.
+34|indices|Un índice clustered se caracteriza porque:|Puede haber varios por tabla.|Se crea automáticamente al generar un JOIN.|Ordena físicamente los datos en la tabla.|2|Define el orden físico de almacenamiento.
+35|sql|¿Por qué es importante analizar los planes de ejecución?|Para detectar cuellos de botella y optimizar el rendimiento.|Para modificar la estructura física automáticamente.|Para reducir el número de usuarios conectados.|0|Permite identificar problemas de rendimiento.
+36|bloqueos|¿Cuál es la ventaja de usar bloqueos a nivel de fila?|Permitir mayor concurrencia en las transacciones.|Aumentar el espacio en disco.|Evitar la creación de índices.|0|Se bloquea menos datos y más transacciones corren en paralelo.
+37|bloqueos|En el estándar SQL, ¿cuál es el nivel de aislamiento más bajo?|Read Uncommitted.|Serializable.|Read Committed.|0|Permite lecturas de datos no confirmados.
+38|sql|Una subconsulta correlacionada se caracteriza porque:|Se ejecuta solo una vez y reutiliza el resultado.|Solo funciona con vistas materializadas.|Se evalúa una vez por cada fila procesada por la consulta externa.|2|Depende de cada fila de la consulta externa.
+39|indices|¿Cuál es el principal beneficio de usar índices filtrados o parciales?|Eliminar todas las transacciones incompletas.|Reducen tamaño y mejoran la selectividad en subconjuntos de datos.|Evitar la ejecución de JOIN.|1|Optimizan espacio y consultas específicas.
+40|bloqueos|El bloqueo exclusivo (X) se utiliza para:|Organizar índices de una tabla.|Evitar que otras transacciones modifiquen o lean mientras se actualiza.|Permitir lecturas concurrentes.|1|Bloquea el acceso hasta finalizar la transacción.
 
-// ─── RENDER ────────────────────────────────────────────────────────────────
-const tagLabels = { dba:'DBA', acid:'ACID', bloqueo:'Bloqueo', indice:'Índice', sql:'SQL Avanz.' };
-const tagClass  = { dba:'q-tag-dba', acid:'q-tag-acid', bloqueo:'q-tag-bloqueo', indice:'q-tag-indice', sql:'q-tag-sql' };
+41|indices|¿Qué es una buena práctica al revisar índices?|Eliminar todos los índices sin analizar consultas.|Usar sp_helpindex para inspeccionarlos.|Crear índices en cualquier columna al azar.|1|sp_helpindex muestra los índices existentes.
+42|indices|¿Qué consulta ayuda a probar un índice por destino?|SELECT * FROM Vuelos WHERE precio > 100;|SELECT * FROM Vuelos WITH (INDEX(IX_Vuelos_Destino)) WHERE destino = 'Galápagos';|SELECT * FROM Vuelos ORDER BY vuelo_id;|1|Permite forzar el índice creado en destino.
+43|sql|¿Qué muestra un FULL JOIN?|Solo coincidencias exactas entre tablas.|Todos los registros de ambas tablas, incluso sin coincidencias.|Solo la tabla izquierda.|1|Devuelve todos los registros con NULL donde no hay coincidencia.
+44|sql|¿Qué hace una consulta con SUM() OVER()?|Agrupa y oculta el detalle de filas.|Calcula una suma global sin perder detalle fila a fila.|Crea una clave foránea.|1|Es una función de ventana.
+45|sql|¿Qué aporta GROUP BY en consultas agregadas?|Permite agrupar registros por columna.|Evita el uso de WHERE.|Elimina la necesidad de JOIN.|0|Agrupa filas para aplicar agregaciones.
+46|bloqueos|¿Qué representa Read Uncommitted?|Lecturas de datos no confirmados.|Bloqueo exclusivo permanente.|Índice agrupado por defecto.|0|Es el nivel más permisivo.
+47|bloqueos|¿Qué evita Read Committed?|Lecturas de datos no confirmados.|Registros fantasma en todos los casos.|La creación de índices no agrupados.|0|Solo se leen datos confirmados.
+48|sql|¿Qué permite una consulta con RANK() OVER()?|Generar un ranking por precio o valor.|Eliminar duplicados automáticamente.|Crear una tabla temporal permanente.|0|Permite rankear sin perder las filas.
+49|sql|¿Qué ventaja ofrece una CTE en consultas complejas?|Facilita legibilidad y reutilización.|Bloquea el acceso concurrente.|Acelera automáticamente cualquier índice.|0|Organiza mejor la consulta.
+50|indices|¿Cuál es un posible inconveniente de usar demasiados índices?|Eliminan las claves primarias.|Ralentizan inserciones y actualizaciones.|Impiden consultas con filtros.|1|Cada cambio obliga a mantener también los índices.
+51|bloqueos|¿Qué es un bloqueo compartido (S)?|Permite lectura concurrente.|Solo permite escritura.|Elimina registros duplicados.|0|Varios usuarios pueden leer a la vez.
+52|indices|¿Qué es un índice non-clustered?|Estructura separada con claves y punteros.|Orden físico de toda la tabla.|Bloqueo de escritura exclusivo.|0|Puede haber varios por tabla.
+53|sql|¿Qué ventaja tiene usar JOIN entre tablas?|Combina información relacionada.|Evita la necesidad de claves.|Borra registros huérfanos.|0|Permite cruzar información de tablas relacionadas.
+54|sql|¿Qué describe mejor una CTE?|Tabla temporal nombrada para organizar consultas.|Índice físico sobre una columna.|Bloqueo de acceso simultáneo.|0|Mejora la legibilidad y organización.
+55|bloqueos|¿Qué significa que Serializable sea el nivel más estricto?|Las transacciones se comportan como si fueran secuenciales.|Que nunca exista bloqueo.|Que siempre haga commit automático.|0|Evita anomalías de concurrencia.
+56|dba|¿Qué representa el control de accesos con roles y permisos?|Seguridad y autorización de usuarios.|Diseño de gráficos y reportes.|Optimización del hardware.|0|Regula quién puede ver o modificar datos.
+57|dba|¿Qué implica aplicar respaldos periódicos?|Recuperación ante fallos y continuidad.|Aumentar el tamaño de la base.|Reducir el número de tablas.|0|Permiten restaurar la información.
+58|acid|¿Qué describe mejor la consistencia?|Mantener reglas y restricciones del sistema.|Ejecutar todo en paralelo.|Evitar índices.|0|La BD nunca debe quedar en estado inválido.
+59|acid|¿Qué asegura la durabilidad?|Cambios confirmados persisten incluso ante fallos.|La transacción puede seguir abierta para siempre.|Los usuarios pueden modificar cualquier registro.|0|Lo confirmado queda grabado.
+60|acid|¿Qué describe mejor una transacción?|Secuencia de operaciones ejecutada como unidad.|Consulta de solo lectura.|Índice de la tabla.|0|Todo o nada.
+`;
 
-let revealed = new Set();
-
-function renderQuestions(filter = 'all') {
-  const container = document.getElementById('questions-container');
-  const filtered = filter === 'all' ? questions : questions.filter(q => q.topic === filter);
-  document.querySelector('#quiz-stats span').textContent = filtered.length;
-
-  container.innerHTML = filtered.map((q, idx) => `
-    <div class="q-card" data-topic="${q.topic}" data-id="${q.id}">
-      <div class="q-header" onclick="toggleAnswer(${q.id})">
-        <span class="q-num">Q${String(q.id).padStart(2,'0')}</span>
-        <span class="q-text">${q.text}</span>
-        <span class="q-tag ${tagClass[q.topic]}">${tagLabels[q.topic]}</span>
-        <button class="q-reveal-btn" onclick="event.stopPropagation(); toggleAnswer(${q.id})">
-          ${revealed.has(q.id) ? 'OCULTAR' : 'VER'}
-        </button>
-      </div>
-      <div class="q-body ${revealed.has(q.id) ? 'open' : ''}" id="qbody-${q.id}">
-        ${q.options.map(o => `
-          <div class="option ${revealed.has(q.id) ? (o.c ? 'correct' : 'wrong') : ''}">
-            <span class="opt-letter">${o.l})</span>
-            <span>${o.t}</span>
-            ${revealed.has(q.id) && o.c ? ' ✓' : ''}
-          </div>
-        `).join('')}
-        ${revealed.has(q.id) ? `
-          <div class="q-explanation">
-            <strong>💡 Explicación</strong>
-            ${q.exp}
-          </div>
-        ` : ''}
-      </div>
-    </div>
-  `).join('');
-
-  updateProgress();
+function parseQuestions(raw) {
+  return raw.trim().split('\n').map((line) => {
+    const [id, topic, q, opt1, opt2, opt3, correct, explanation] = line.split('|');
+    return {
+      id: Number(id),
+      topic,
+      q,
+      o: [opt1, opt2, opt3],
+      c: Number(correct),
+      e: explanation,
+    };
+  });
 }
 
-function toggleAnswer(id) {
-  if (revealed.has(id)) {
-    revealed.delete(id);
+const QUESTIONS = parseQuestions(QUESTIONS_RAW);
+
+let currentQ = 0;
+let score = 0;
+let answered = [];
+
+function switchTab(tab) {
+  document.getElementById('studyMode').classList.remove('show');
+  document.getElementById('notesMode').classList.remove('show');
+  document.getElementById('quizMode').classList.remove('show');
+  
+  document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
+  
+  if (tab === 'study') {
+    document.getElementById('studyMode').classList.add('show');
+    document.querySelectorAll('.main-tab')[0].classList.add('active');
+  } else if (tab === 'notes') {
+    document.getElementById('notesMode').classList.add('show');
+    document.querySelectorAll('.main-tab')[1].classList.add('active');
   } else {
-    revealed.add(id);
+    document.getElementById('quizMode').classList.add('show');
+    document.querySelectorAll('.main-tab')[2].classList.add('active');
+    if (currentQ === 0 && answered.length === 0) renderQuestion();
   }
-  const body = document.getElementById(`qbody-${id}`);
-  const card = body ? body.closest('.q-card') : null;
-  if (!card) return;
+}
 
-  // Re-render just this card's body
-  const q = questions.find(x => x.id === id);
-  if (!q) return;
-  const isOpen = revealed.has(id);
-  body.className = `q-body ${isOpen ? 'open' : ''}`;
-  body.innerHTML = q.options.map(o => `
-    <div class="option ${isOpen ? (o.c ? 'correct' : 'wrong') : ''}">
-      <span class="opt-letter">${o.l})</span>
-      <span>${o.t}</span>
-      ${isOpen && o.c ? ' ✓' : ''}
-    </div>
-  `).join('') + (isOpen ? `
-    <div class="q-explanation">
-      <strong>💡 Explicación</strong>
-      ${q.exp}
-    </div>
-  ` : '');
+function toggleSection(header) {
+  const section = header.parentElement;
+  section.classList.toggle('open');
+}
 
-  const btn = card.querySelector('.q-reveal-btn');
-  if (btn) btn.textContent = isOpen ? 'OCULTAR' : 'VER';
+function renderQuestion() {
+  if (currentQ >= QUESTIONS.length) {
+    showEndScreen();
+    return;
+  }
+  
+  const q = QUESTIONS[currentQ];
+  const html = `
+    <div class="question-card">
+      <div class="q-meta">
+        <span class="q-badge num">P${q.id}/${QUESTIONS.length}</span>
+        <span class="q-badge topic">${q.topic.toUpperCase()}</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">
+        ${q.o.map((opt, i) => `
+          <button class="option-btn" onclick="answerQ(${i})">
+            <span class="opt-letter">${String.fromCharCode(97 + i)}</span>
+            ${opt}
+          </button>
+        `).join('')}
+      </div>
+      <div class="feedback"></div>
+    </div>
+  `;
+  document.getElementById('quizContainer').innerHTML = html;
   updateProgress();
 }
 
-let currentFilter = 'all';
-
-function filterQ(topic, btn) {
-  currentFilter = topic;
-  document.querySelectorAll('.quiz-filter').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderQuestions(topic);
+function answerQ(idx) {
+  const q = QUESTIONS[currentQ];
+  const correct = idx === q.c;
+  const card = document.querySelector('.question-card');
+  const opts = card.querySelectorAll('.option-btn');
+  const fb = card.querySelector('.feedback');
+  
+  if (correct) {
+    score++;
+    opts[idx].classList.add('correct');
+    fb.classList.add('show', 'correct-fb');
+    fb.innerHTML = `<div class="feedback-title">✓ Correcto</div><div class="feedback-body">${q.e}</div>`;
+  } else {
+    opts[idx].classList.add('wrong');
+    opts[q.c].classList.add('correct');
+    fb.classList.add('show', 'wrong-fb');
+    fb.innerHTML = `<div class="feedback-title">✗ Incorrecto</div><div class="feedback-body">${q.e}</div>`;
+  }
+  
+  opts.forEach(o => o.disabled = true);
+  answered.push(idx);
+  document.getElementById('scoreNum').textContent = score;
+  
+  setTimeout(() => {
+    currentQ++;
+    updateProgress();
+    setTimeout(() => renderQuestion(), 500);
+  }, 2000);
 }
 
 function updateProgress() {
-  const total = questions.length;
-  const count = revealed.size;
-  document.getElementById('prog-count').textContent = count;
-  document.getElementById('prog-total').textContent = total;
-  document.getElementById('prog-fill').style.width = (count / total * 100) + '%';
+  const pct = (answered.length / QUESTIONS.length) * 100;
+  document.getElementById('progFill').style.width = pct + '%';
 }
 
-// ─── TABS ──────────────────────────────────────────────────────────────────
-function showTab(id, btn) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-}
-
-// ─── TOPIC TOGGLE ──────────────────────────────────────────────────────────
-function toggleTopic(header) {
-  const body = header.nextElementSibling;
-  const toggle = header.querySelector('.topic-toggle');
-  const isOpen = body.style.display !== 'none' && body.style.display !== '';
-  if (isOpen) {
-    body.style.display = 'none';
-    toggle.textContent = '▶';
-    toggle.style.transform = '';
+function showEndScreen() {
+  document.getElementById('quizContainer').style.display = 'none';
+  const screen = document.getElementById('endScreen');
+  screen.classList.add('show');
+  document.getElementById('endScore').textContent = score;
+  
+  if (score === QUESTIONS.length) {
+    document.getElementById('endEmoji').textContent = '🏆';
+  } else if (score >= QUESTIONS.length * 0.8) {
+    document.getElementById('endEmoji').textContent = '✅';
+  } else if (score >= QUESTIONS.length * 0.6) {
+    document.getElementById('endEmoji').textContent = '👍';
   } else {
-    body.style.display = 'block';
-    toggle.textContent = '▼';
+    document.getElementById('endEmoji').textContent = '📚';
   }
 }
 
-// ─── INIT ──────────────────────────────────────────────────────────────────
-renderQuestions('all');
+function restartQuiz() {
+  currentQ = 0;
+  score = 0;
+  answered = [];
+  document.getElementById('endScreen').classList.remove('show');
+  document.getElementById('quizContainer').style.display = 'block';
+  document.getElementById('scoreNum').textContent = '0';
+  renderQuestion();
+}
 </script>
 </body>
 </html>
