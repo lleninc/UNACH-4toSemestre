@@ -1,0 +1,18 @@
+TY  - JOUR
+AU  - Ashwini, A.
+AU  - Chirchi, Vanajaroselin
+AU  - Balasubramaniam, S.
+AU  - Shah, Mohd Asif
+PY  - 2025
+DA  - 2025/05/25
+TI  - Bio inspired optimization techniques for disease detection in deep learning systems
+JO  - Scientific Reports
+SP  - 18202
+VL  - 15
+IS  - 1
+AB  - Numerous contemporary computer-aided disease detection methodologies predominantly depend on feature engineering techniques; yet, they possess several drawbacks, including the presence of redundant features and excessive time consumption. Conventional feature engineering necessitates considerable manual effort, resulting in issues from superfluous features that diminish the model’s performance potential. In contrast to recent effective deep-learning models, these may address these issues while concurrently obtaining and capturing intricate structures inside extensive medical image datasets. Deep learning models autonomously develop feature extraction abilities but require substantial computational resources and extensive datasets to yield significant abstraction methods. The dimensionality problem is a key challenge in healthcare research. Despite the hopeful advancements in illness identification with deep learning architectures in recent years, attaining high performance remains notably tough, particularly in scenarios with limited data or intricate feature spaces. This research endeavors to elucidate the integration of bio-inspired optimization techniques that improve disease diagnostics through deep learning models. The targeted feature selection of bio-inspired methods enhances computational efficiency and operational efficacy by minimizing model redundancy and computational costs, particularly when data availability is constrained. These algorithms employ natural selection and social behavior models to efficiently explore feature spaces, enhancing the robustness and generalizability of deep learning systems. This paper seeks to elucidate the efficacy of deep learning models in medical diagnostics by employing concepts and strategies derived from biological system ontologies, such as genetic algorithms, particle swarm optimization, ant colony optimization, artificial immune systems, and swarm intelligence. Bio-inspired methodologies have exhibited significant potential in addressing critical challenges in illness detection across many data types. It seeks to tackle the problem by creating bio-inspired optimization methods to enhance efficient and equitable deep learning for illness diagnosis. This work assists researchers in selecting the most effective bio-inspired algorithm for disease categorization, prediction, and the analysis of high-dimensional biomedical data.
+SN  - 2045-2322
+UR  - https://doi.org/10.1038/s41598-025-02846-7
+DO  - 10.1038/s41598-025-02846-7
+ID  - Ashwini2025
+ER  - 
