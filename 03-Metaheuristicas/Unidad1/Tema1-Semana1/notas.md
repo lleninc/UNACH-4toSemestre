@@ -1,198 +1,198 @@
-# Semana 01 · Metaheurísticas
-**Fecha:** 01 Abril 2026
+# 03-Metaheuristicas - U1 T1 S1
 
 ## Objetivo de la semana
-Comprender qué son los algoritmos bioinspirados, por qué surgieron y en qué sistemas naturales se apoyan como base conceptual para resolver problemas complejos.
+Comprender qué son los algoritmos bioinspirados, por qué surgieron y cuáles son sus bases naturales para resolver problemas complejos.
 
 ---
 
 ## 1.1 ¿Qué son los algoritmos bioinspirados?
 
-Los algoritmos bioinspirados son técnicas de optimización que imitan procesos naturales para resolver problemas complejos. Su idea central es explorar muchas soluciones posibles, aprender del comportamiento del sistema y acercarse a una respuesta óptima sin depender por completo de métodos tradicionales.
+Los algoritmos bioinspirados son técnicas de optimización que imitan procesos naturales para encontrar soluciones de alta calidad en problemas difíciles. En lugar de seguir un procedimiento exacto rígido, exploran múltiples alternativas y ajustan su comportamiento de manera adaptativa.
 
-**Motivaciones científicas y tecnológicas:**
-- En lo científico, permiten modelar y comprender fenómenos naturales complejos.
-- En lo tecnológico, ayudan a resolver problemas de optimización, planificación de rutas, asignación de recursos, análisis de datos y diseño de sistemas inteligentes.
-- Son útiles cuando los métodos convencionales resultan lentos o insuficientes.
+**Motivaciones principales:**
+- Resolver problemas donde los métodos exactos son muy costosos.
+- Modelar estrategias eficientes observadas en la naturaleza.
+- Lograr soluciones aproximadas útiles en tiempos razonables.
 
-**Ejemplo clave:**
-El algoritmo PSO se inspira en el movimiento coordinado de aves para ajustar parámetros y buscar mejores posiciones en el espacio de soluciones.
+**Ejemplo representativo:**
+La optimización por enjambre de partículas (PSO) se inspira en el movimiento coordinado de aves para explorar el espacio de búsqueda.
 
 ---
 
 ## 1.2 Bases conceptuales inspiradas en sistemas naturales
 
-Los algoritmos bioinspirados no nacen de la matemática pura, sino de la observación de sistemas naturales exitosos. Sus bases conceptuales provienen principalmente de la biología, la física y la ecología.
+La base de estos algoritmos proviene de observar fenómenos naturales robustos y trasladar su lógica al cómputo.
 
-**Biología:**
-- La evolución natural es el pilar de muchos algoritmos.
-- Una población de soluciones puede evolucionar mediante selección, recombinación y mutación.
-- También se toma inspiración del comportamiento colectivo de hormigas, abejas, aves o peces.
+**Inspiración biológica:**
+- Evolución natural: selección, recombinación y mutación.
+- Comportamiento colectivo: hormigas, abejas, aves y peces.
 
-**Física:**
-- El Recocido Simulado se inspira en el templado de metales.
-- Permite aceptar temporalmente soluciones peores para escapar de óptimos locales.
+**Inspiración física:**
+- Recocido Simulado: proceso de enfriamiento controlado para escapar de óptimos locales.
 
-**Ecología:**
-- Se modelan interacciones entre especies, competencia por recursos y cooperación.
-- Estas ideas ayudan a mantener diversidad y evitar convergencia prematura.
+**Inspiración ecológica:**
+- Competencia, cooperación y equilibrio entre especies para mantener diversidad.
 
-**Idea central:**
-La naturaleza ofrece soluciones robustas, adaptativas y eficientes que pueden trasladarse al ámbito computacional.
-
----
+**Idea central del tema:**
+La naturaleza aporta mecanismos adaptativos y eficientes que pueden convertirse en estrategias de búsqueda computacional.
 
 ## Conceptos clave
-- Optimización por inspiración natural
+- Optimización bioinspirada
 - Población de soluciones
 - Selección, cruce y mutación
 - Comportamiento colectivo
 - Estigmergia
 - Recocido Simulado
-- Adaptación y autoorganización
+- Adaptación
 
 ## Resumen breve
-Los algoritmos bioinspirados buscan resolver problemas complejos observando cómo la naturaleza resuelve desafíos similares. Su valor está en que exploran varias soluciones, se adaptan al entorno y logran respuestas útiles en tiempo razonable.
+Los algoritmos bioinspirados aprovechan principios de biología, física y ecología para resolver problemas complejos con estrategias adaptativas. Su ventaja está en equilibrar exploración y explotación para encontrar soluciones útiles sin exigir modelos exactos del problema.
 
 ## Dudas para investigar
-- ¿Por qué PSO y GA son tan usados en optimización?
-- ¿Qué diferencia hay entre inspiración biológica y ecológica?
-- ¿Cómo se mide si una solución es robusta?
+- ¿Por qué GA y PSO son de los algoritmos más usados en optimización?
+- ¿Qué relación existe entre estigmergia y cooperación en ACO?
+- ¿Cómo evaluar robustez y estabilidad en una metaheurística?
 
 ## Ejercicios realizados
-- Identificación de ejemplos de inspiración natural en PSO y Recocido Simulado.
+- Identificación de fuentes de inspiración natural en GA, PSO, ACO y Recocido Simulado.
+- Clasificación de ejemplos por base biológica, física o ecológica.
 
 ## Quiz
 
-### Pregunta 1: Optimización de Colonias de Hormigas
+### Pregunta 1: Definición general
 
-**Pregunta:** ¿Qué comportamiento de los insectos inspira la Optimización de Colonias de Hormigas (ACO)?
-
-**Opciones:**
-- ✅ La búsqueda de alimento usando feromonas.
-- ❌ La metamorfosis.
-- ❌ El canto de los grillos.
-
-**Respuesta correcta:** La búsqueda de alimento usando feromonas.
-
-**Explicación breve:**
-ACO se basa en cómo las hormigas dejan y siguen rastros de feromonas para encontrar rutas eficientes hacia la comida.
-
-### Pregunta 2: Característica principal de los algoritmos bioinspirados
-
-**Pregunta:** ¿Cuál es la principal característica de los algoritmos bioinspirados?
+**Pregunta:** ¿Qué caracteriza a un algoritmo bioinspirado?
 
 **Opciones:**
-- ❌ Resuelven únicamente problemas matemáticos simples.
-- ❌ Se limitan a copiar algoritmos tradicionales.
-- ✅ Se inspiran en procesos naturales para resolver problemas complejos.
+- ❌ Que siempre entrega la solución exacta del problema.
+- ✅ Que toma ideas de procesos naturales para optimizar.
+- ❌ Que solo sirve para problemas biológicos.
 
-**Respuesta correcta:** Se inspiran en procesos naturales para resolver problemas complejos.
+**Respuesta correcta:** Que toma ideas de procesos naturales para optimizar.
 
 **Explicación breve:**
-Su rasgo distintivo es que toman ideas de la naturaleza para construir estrategias de búsqueda y optimización eficaces.
+Su esencia es traducir comportamientos naturales a mecanismos computacionales de búsqueda.
 
-### Pregunta 3: Beneficio principal frente a métodos tradicionales
+### Pregunta 2: ACO y naturaleza
 
-**Pregunta:** ¿Cuál es el beneficio principal de los algoritmos bioinspirados frente a los métodos tradicionales?
+**Pregunta:** ¿Qué comportamiento inspira el algoritmo ACO?
 
 **Opciones:**
-- ❌ Solo sirven en problemas biológicos específicos.
-- ✅ Pueden obtener soluciones aproximadas en problemas complejos y de gran dimensionalidad.
-- ❌ Siempre encuentran la solución exacta en poco tiempo.
+- ✅ La búsqueda de alimento mediante feromonas.
+- ❌ La metamorfosis de insectos.
+- ❌ El vuelo individual sin cooperación.
 
-**Respuesta correcta:** Pueden obtener soluciones aproximadas en problemas complejos y de gran dimensionalidad.
+**Respuesta correcta:** La búsqueda de alimento mediante feromonas.
 
 **Explicación breve:**
-Son útiles cuando el problema es demasiado grande o complejo para métodos exactos eficientes.
+ACO usa rastros de feromonas como memoria colectiva para construir rutas eficientes.
 
-### Pregunta 4: Optimización de Colonias de Hormigas
+### Pregunta 3: Beneficio práctico
 
-**Pregunta:** ¿Qué comportamiento de los insectos inspira la Optimización de Colonias de Hormigas (ACO)?
+**Pregunta:** ¿Cuál es un beneficio típico de los algoritmos bioinspirados?
 
 **Opciones:**
-- ❌ El canto de los grillos.
-- ✅ La búsqueda de alimento usando feromonas.
-- ❌ La metamorfosis.
+- ❌ Requieren modelos matemáticos exactos del problema.
+- ✅ Obtienen soluciones aproximadas buenas en problemas complejos.
+- ❌ Solo funcionan con datos pequeños.
 
-**Respuesta correcta:** La búsqueda de alimento usando feromonas.
+**Respuesta correcta:** Obtienen soluciones aproximadas buenas en problemas complejos.
 
 **Explicación breve:**
-ACO se basa en cómo las hormigas dejan y siguen rastros de feromonas para encontrar rutas eficientes hacia la comida.
+Son útiles cuando el espacio de soluciones es grande o no lineal.
 
-### Pregunta 5: Fuente de inspiración más prolífica
+### Pregunta 4: Inspiración de PSO
 
-**Pregunta:** ¿Qué fuente de inspiración es la más prolífica para los algoritmos bioinspirados?
+**Pregunta:** ¿En qué fenómeno se inspira PSO?
 
 **Opciones:**
-- ❌ La astronomía.
-- ✅ La biología.
-- ❌ La lingüística.
+- ❌ En la fermentación bacteriana.
+- ✅ En el movimiento colectivo de aves o peces.
+- ❌ En el templado de metales.
 
-**Respuesta correcta:** La biología.
-
-**Explicación breve:**
-La biología aporta muchos modelos exitosos, como evolución, cooperación y comportamiento colectivo, que sirven como base para estos algoritmos.
-
-### Pregunta 6: Verdadero o falso
-
-**Afirmación:** Los algoritmos bioinspirados imitan procesos naturales para resolver problemas complejos.
-
-**Respuesta correcta:** Verdadero.
+**Respuesta correcta:** En el movimiento colectivo de aves o peces.
 
 **Explicación breve:**
-Esa es precisamente la idea central de los algoritmos bioinspirados: tomar inspiración de la naturaleza para diseñar métodos de búsqueda y optimización.
+PSO modela cooperación social y aprendizaje individual para moverse hacia mejores posiciones.
 
-### Pregunta 7: Verdadero o falso
+### Pregunta 5: Fuente no única
 
-**Afirmación:** El principal beneficio de los algoritmos bioinspirados es que siempre encuentran la solución exacta y óptima.
+**Pregunta:** ¿La biología es la única fuente de inspiración bioinspirada?
 
-**Respuesta correcta:** Falso.
+**Opciones:**
+- ❌ Sí, exclusivamente.
+- ✅ No, también hay inspiración física y ecológica.
+- ❌ Solo existe inspiración ecológica.
 
-**Explicación breve:**
-Los algoritmos bioinspirados no garantizan siempre la solución exacta y óptima; normalmente buscan soluciones buenas o aproximadas en un tiempo razonable, especialmente en problemas complejos.
-
-### Pregunta 8: Verdadero o falso
-
-**Afirmación:** La optimización por enjambre de partículas (PSO) se inspira en el comportamiento de las aves al buscar alimento.
-
-**Respuesta correcta:** Verdadero.
+**Respuesta correcta:** No, también hay inspiración física y ecológica.
 
 **Explicación breve:**
-PSO toma como referencia la búsqueda colectiva y coordinada de alimento que realizan las aves para explorar el espacio de soluciones.
+Además de la biología, se usan modelos físicos y ecológicos para diseñar metaheurísticas.
 
-### Pregunta 9: Verdadero o falso
+## Completar
 
-**Afirmación:** Una característica clave de los algoritmos bioinspirados es que permiten generar soluciones aproximadas en problemas de gran complejidad.
+### Ejercicio 1: Naturaleza y cómputo
 
-**Respuesta correcta:** Verdadero.
+**Instrucción:** Completa la oración con la palabra correcta.
 
-**Explicación breve:**
-Este es uno de sus principales beneficios: obtener soluciones útiles y aproximadas en problemas donde los métodos exactos suelen ser costosos o inviables.
+Los algoritmos bioinspirados trasladan principios de la __________ al diseño de estrategias de optimización.
 
-### Pregunta 10: Verdadero o falso
-
-**Afirmación:** El algoritmo de Recocido Simulado se basa en principios de la ecología.
-
-**Respuesta correcta:** Falso.
+**Respuesta correcta:** naturaleza
 
 **Explicación breve:**
-El Recocido Simulado está inspirado en un proceso físico de enfriamiento controlado de materiales, no en principios ecológicos.
+La observación de sistemas naturales es el punto de partida de estas técnicas.
 
-### Pregunta 11: Verdadero o falso
+### Ejercicio 2: Estrategia evolutiva
 
-**Afirmación:** Las colonias de hormigas han inspirado algoritmos bioinspirados a través del concepto de estigmergia.
+**Instrucción:** Completa la oración con la palabra correcta.
 
-**Respuesta correcta:** Verdadero.
+En algoritmos evolutivos, una población mejora mediante selección, cruce y __________.
 
-**Explicación breve:**
-En ACO, la estigmergia describe la comunicación indirecta mediante feromonas en el entorno, mecanismo clave para construir rutas eficientes.
-
-### Pregunta 12: Verdadero o falso
-
-**Afirmación:** La biología es la única fuente de inspiración de los algoritmos bioinspirados.
-
-**Respuesta correcta:** Falso.
+**Respuesta correcta:** mutación
 
 **Explicación breve:**
-Aunque la biología es una fuente muy importante, también existen enfoques inspirados en la física y la ecología.
+La mutación introduce variabilidad para evitar convergencia prematura.
+
+### Ejercicio 3: ACO
+
+**Instrucción:** Completa la oración con la palabra correcta.
+
+ACO utiliza rastros de __________ para reforzar rutas prometedoras.
+
+**Respuesta correcta:** feromonas
+
+**Explicación breve:**
+Las feromonas permiten comunicación indirecta entre agentes.
+
+### Ejercicio 4: PSO
+
+**Instrucción:** Completa la oración con la palabra correcta.
+
+PSO se inspira en la dinámica de __________ que buscan alimento en grupo.
+
+**Respuesta correcta:** aves
+
+**Explicación breve:**
+El movimiento colectivo guía la búsqueda de soluciones mejores.
+
+### Ejercicio 5: Recocido Simulado
+
+**Instrucción:** Completa la oración con la palabra correcta.
+
+El Recocido Simulado toma su analogía principal de un proceso __________.
+
+**Respuesta correcta:** físico
+
+**Explicación breve:**
+Se basa en enfriamiento gradual para escapar de óptimos locales.
+
+### Ejercicio 6: Objetivo general
+
+**Instrucción:** Completa la oración con la palabra correcta.
+
+Las metaheurísticas bioinspiradas buscan soluciones de alta __________ en problemas complejos.
+
+**Respuesta correcta:** calidad
+
+**Explicación breve:**
+No siempre garantizan exactitud, pero sí resultados robustos y útiles.
