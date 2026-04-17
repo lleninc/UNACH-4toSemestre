@@ -1,0 +1,19 @@
+-- Agregar registros BD Vuelos
+INSERT INTO Vuelos (vuelo_id, destino, asientos_disponibles, precio)
+VALUES 
+(103, 'Cuenca', 20, 45.00),
+(104, 'Manta', 5, 85.00),
+(105, 'Guayaquil', 0, 55.00), -- Vuelo lleno para probar filtros
+(106, 'Coca', 10, 120.00);
+
+-- Agregamos varias reservas para diferentes vuelos
+-- Nota: Asegúrate de que los vuelo_id existan en la tabla Vuelos
+INSERT INTO Reservas (vuelo_id, pasajero_nombre)
+VALUES 
+(101, 'Ana García'),     -- Galápagos
+(101, 'Luis Pérez'),      -- Galápagos (aquí se acabarán los cupos)
+(102, 'María López'),     -- Quito
+(103, 'Carlos Ruiz'),     -- Cuenca
+(103, 'Diana Soler'),     -- Cuenca
+(104, 'Elena Vera'),      -- Manta
+(106, 'Roberto Gómez');   -- Coca

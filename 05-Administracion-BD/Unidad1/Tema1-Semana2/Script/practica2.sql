@@ -56,3 +56,6 @@ precio,
 RANK() OVER (ORDER BY precio DESC) as ranking_precio,
 SUM(precio) OVER () as total_ingresos_empresa --over() sin partición calcula el total de ingresos de la empresa
 FROM Vuelos;
+
+
+
