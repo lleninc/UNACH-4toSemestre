@@ -450,35 +450,35 @@
 <div class="app">
   <section class="hero">
     <div class="hero-main">
-      <div class="eyebrow">Metaheurísticas · Unidad 1 · Tema 1</div>
-      <h1>Estudio interactivo de U1T1S1 y U1T1S2</h1>
-      <p class="subtitle">Página de repaso para <strong>algoritmos bioinspirados</strong>: fundamentos, clasificación, ventajas, aplicaciones y ejercicios clave. Incluye quiz, flashcards y un resumen para estudiar más rápido.</p>
+      <div class="eyebrow">Metaheuristicas · Unidad 1 · Tema 1 y 2</div>
+      <h1>Estudio interactivo U1T1S1, U1T1S2, U1T2S3 y U1T2S4</h1>
+      <p class="subtitle">Material unificado con <strong>resumen independiente por semana</strong>, <strong>quiz unico con todas las preguntas</strong> y <strong>tarjetas de estudio</strong> para repasar lo mas importante antes de clase.</p>
       <div class="meta-row">
-        <span class="pill">Quiz interactivo</span>
-        <span class="pill">Flashcards</span>
-        <span class="pill">Resumen académico</span>
-        <span class="pill">U1-T1-S1 · U1-T1-S2</span>
+        <span class="pill">4 semanas integradas</span>
+        <span class="pill">Quiz unificado</span>
+        <span class="pill">Tarjetas de repaso</span>
+        <span class="pill">Resumen por semana</span>
       </div>
-      <p class="subnote">Sugerencia de uso: repasa primero el resumen, luego practica con el quiz y termina con las flashcards para fijar conceptos.</p>
+      <p class="subnote">Ruta sugerida: primero revisa la semana, luego responde quiz por bloque y finalmente usa tarjetas para memorizar conceptos clave.</p>
     </div>
     <div class="hero-side">
       <div class="metric-grid">
-        <div class="metric"><span class="metric-value a" id="mQuestions">0</span><div class="metric-label">preguntas</div></div>
-        <div class="metric"><span class="metric-value b" id="mSessions">2</span><div class="metric-label">sesiones</div></div>
-        <div class="metric"><span class="metric-value c" id="mFlash">0</span><div class="metric-label">flashcards</div></div>
+        <div class="metric"><span class="metric-value a" id="mQuestions">0</span><div class="metric-label">preguntas quiz</div></div>
+        <div class="metric"><span class="metric-value b" id="mSessions">4</span><div class="metric-label">semanas</div></div>
+        <div class="metric"><span class="metric-value c" id="mFlash">0</span><div class="metric-label">tarjetas</div></div>
         <div class="metric"><span class="metric-value d" id="mDone">0</span><div class="metric-label">respondidas</div></div>
       </div>
       <div class="subnote" style="margin-top:14px;">
-        <strong>Objetivo:</strong> dominar los fundamentos de los algoritmos bioinspirados y diferenciar sus tipos principales con ejemplos reales y recientes.
+        <strong>Objetivo:</strong> dominar fundamentos de metaheuristicas bioinspiradas y metodologia Datlas, con aplicacion y comparacion en contexto de negocio.
       </div>
     </div>
   </section>
 
   <div class="toolbar">
-    <button class="tab active" onclick="setMode('quiz', this)">⚡ Quiz</button>
-    <button class="tab" onclick="setMode('flash', this)">🃏 Flashcards</button>
-    <button class="tab" onclick="setMode('notes', this)">📖 Resumen</button>
-    <button class="tab" onclick="setMode('review', this)">📋 Ver todo</button>
+    <button class="tab active" onclick="setMode('quiz', this)">Quiz</button>
+    <button class="tab" onclick="setMode('flash', this)">Tarjetas</button>
+    <button class="tab" onclick="setMode('notes', this)">Resumen semanal</button>
+    <button class="tab" onclick="setMode('review', this)">Revision completa</button>
   </div>
 
   <div class="stats">
@@ -492,44 +492,42 @@
     <button class="session-pill active" onclick="setSession('all', this)">TODAS</button>
     <button class="session-pill" onclick="setSession('S1', this)">U1-T1-S1</button>
     <button class="session-pill" onclick="setSession('S2', this)">U1-T1-S2</button>
+    <button class="session-pill" onclick="setSession('S3', this)">U1-T2-S3</button>
+    <button class="session-pill" onclick="setSession('S4', this)">U1-T2-S4</button>
   </div>
   <div class="filter-row" style="margin-bottom: 12px;">
     <button class="mini-pill active" onclick="setType('all', this)">TODOS</button>
-    <button class="mini-pill" onclick="setType('mcq', this)">Opción múltiple</button>
-    <button class="mini-pill" onclick="setType('tf', this)">Verdadero / Falso</button>
-    <button class="mini-pill" onclick="setType('fill', this)">Completar</button>
+    <button class="mini-pill" onclick="setType('mcq', this)">Opcion multiple</button>
   </div>
 
   <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
 
-  <!-- QUIZ -->
   <section id="quizView" class="panel">
     <div class="panel-header">
       <div>
-        <h2 class="panel-title">Modo Quiz</h2>
-        <div class="panel-sub">Responde una pregunta a la vez. El sistema te muestra retroalimentación y avanza con el mismo estilo de estudio interactivo.</div>
+        <h2 class="panel-title">Quiz unificado de las 4 semanas</h2>
+        <div class="panel-sub">Incluye todas las preguntas de U1T1S1, U1T1S2, U1T2S3 y U1T2S4 en un solo flujo de practica.</div>
       </div>
-      <div class="badge" id="quizBadge">U1-T1-S1 + S2</div>
+      <div class="badge" id="quizBadge">Todas las semanas</div>
     </div>
     <div id="quizCard"></div>
     <div class="nav-row">
-      <button class="btn secondary" onclick="previousQuestion()">← Anterior</button>
+      <button class="btn secondary" onclick="previousQuestion()">Anterior</button>
       <div class="nav-center" id="quizCounter">0 / 0</div>
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn ghost" onclick="shuffleQuestions()">🔀 Mezclar</button>
-        <button class="btn primary" onclick="nextQuestion()">Siguiente →</button>
+        <button class="btn ghost" onclick="shuffleQuestions()">Mezclar</button>
+        <button class="btn primary" onclick="nextQuestion()">Siguiente</button>
       </div>
     </div>
   </section>
 
-  <!-- FLASH -->
   <section id="flashView" class="panel hidden">
     <div class="panel-header">
       <div>
-        <h2 class="panel-title">Flashcards</h2>
-        <div class="panel-sub">Voltea cada tarjeta para reforzar definiciones y conceptos clave.</div>
+        <h2 class="panel-title">Tarjetas para estudiar</h2>
+        <div class="panel-sub">Tarjetas con los conceptos, comparaciones y pasos mas importantes de las 4 semanas.</div>
       </div>
-      <div class="badge" id="flashBadge">Repaso conceptual</div>
+      <div class="badge">Repaso rapido</div>
     </div>
     <div class="flashcard" id="flashCard" onclick="flipFlash()">
       <div class="flash-indicator">CLICK PARA VOLTEAR</div>
@@ -538,75 +536,53 @@
       <div class="flash-answer" id="flashBack"></div>
     </div>
     <div class="nav-row">
-      <button class="btn secondary" onclick="prevFlash()">← Anterior</button>
+      <button class="btn secondary" onclick="prevFlash()">Anterior</button>
       <div class="nav-center" id="flashCounter">0 / 0</div>
-      <button class="btn primary" onclick="nextFlash()">Siguiente →</button>
+      <button class="btn primary" onclick="nextFlash()">Siguiente</button>
     </div>
   </section>
 
-  <!-- NOTES -->
   <section id="notesView" class="panel hidden">
     <div class="panel-header">
       <div>
-        <h2 class="panel-title">Resumen por sesión</h2>
-        <div class="panel-sub">Versión condensada de las notas para repasar antes de responder el quiz.</div>
+        <h2 class="panel-title">Resumen independiente por semana</h2>
+        <div class="panel-sub">Cada bloque resume objetivos, ideas centrales y puntos criticos de estudio de manera separada.</div>
       </div>
-      <div class="badge">Contenido base</div>
+      <div class="badge">Resumen independiente</div>
     </div>
 
     <div class="notes-tabs">
       <button class="notes-tab active" onclick="showNotes('s1', this)">U1-T1-S1</button>
       <button class="notes-tab" onclick="showNotes('s2', this)">U1-T1-S2</button>
+      <button class="notes-tab" onclick="showNotes('s3', this)">U1-T2-S3</button>
+      <button class="notes-tab" onclick="showNotes('s4', this)">U1-T2-S4</button>
     </div>
 
     <div class="notes-content show" id="notes-s1">
       <div class="notes-section open">
         <div class="notes-head" onclick="toggleSection(this)">
           <div class="notes-left">
-            <div class="notes-icon">🤖</div>
+            <div class="notes-icon">S1</div>
             <div>
-              <h3 class="notes-title">Fundamentos de algoritmos bioinspirados</h3>
-              <div class="notes-sub">Qué son, por qué surgieron y en qué sistemas naturales se apoyan.</div>
+              <h3 class="notes-title">U1-T1-S1 · Fundamentos bioinspirados</h3>
+              <div class="notes-sub">Que son, por que surgen y que bases naturales utilizan.</div>
             </div>
           </div>
           <div class="arrow">▼</div>
         </div>
         <div class="notes-body">
-          <div class="info-box"><strong>Idea central:</strong> son técnicas de optimización que imitan procesos naturales para resolver problemas complejos, sobre todo cuando los métodos exactos no son prácticos.</div>
+          <div class="info-box"><strong>Objetivo:</strong> comprender la logica de las metaheuristicas bioinspiradas y su utilidad en problemas complejos.</div>
           <div class="concept-grid">
-            <div class="concept"><h4>Motivación científica</h4><p>Modelar y comprender fenómenos naturales complejos y convertirlos en estrategias de búsqueda útiles.</p></div>
-            <div class="concept"><h4>Motivación tecnológica</h4><p>Resolver optimización, planificación, asignación de recursos y análisis de datos con soluciones aproximadas.</p></div>
-            <div class="concept"><h4>Base biológica</h4><p>Evolución natural, selección, recombinación, mutación y comportamiento colectivo.</p></div>
-            <div class="concept"><h4>Base física / ecológica</h4><p>Recocido Simulado, templado de metales, cooperación y competencia entre especies.</p></div>
+            <div class="concept"><h4>Que son</h4><p>Tecnicas de optimizacion que imitan procesos naturales para encontrar soluciones de alta calidad.</p></div>
+            <div class="concept"><h4>Motivacion</h4><p>Resolver problemas donde metodos exactos son costosos o poco viables.</p></div>
+            <div class="concept"><h4>Bases</h4><p>Biologicas, fisicas y ecologicas (evolucion, recocido, cooperacion).</p></div>
+            <div class="concept"><h4>Ejemplos</h4><p>PSO, ACO, GA y Recocido Simulado.</p></div>
           </div>
-          <div class="info-box alt"><strong>Ejemplo clave:</strong> PSO se inspira en el movimiento coordinado de aves para explorar el espacio de soluciones.</div>
           <ul class="bullet-list">
-            <li>Exploran muchas soluciones posibles.</li>
-            <li>Aprenden del comportamiento del sistema.</li>
-            <li>Se adaptan sin programar reglas exactas para cada caso.</li>
+            <li>La exploracion y explotacion se equilibran para evitar estancamiento.</li>
+            <li>No garantizan exactitud absoluta, pero ofrecen buenas soluciones practicas.</li>
+            <li>La estigmergia es clave para entender ACO.</li>
           </ul>
-        </div>
-      </div>
-
-      <div class="notes-section">
-        <div class="notes-head" onclick="toggleSection(this)">
-          <div class="notes-left">
-            <div class="notes-icon">🧩</div>
-            <div>
-              <h3 class="notes-title">Conceptos clave y pregunta guía</h3>
-              <div class="notes-sub">Elementos que debes recordar para resolver el quiz.</div>
-            </div>
-          </div>
-          <div class="arrow">▼</div>
-        </div>
-        <div class="notes-body">
-          <div class="concept-grid">
-            <div class="concept"><h4>ACO</h4><p>Hormigas y feromonas para rutas eficientes.</p></div>
-            <div class="concept"><h4>PSO</h4><p>Aves que coordinan su búsqueda para encontrar alimento.</p></div>
-            <div class="concept"><h4>Recocido Simulado</h4><p>Inspirado en el enfriamiento controlado de metales.</p></div>
-            <div class="concept"><h4>Estigmergia</h4><p>Comunicación indirecta a través del entorno.</p></div>
-          </div>
-          <div class="info-box">Los algoritmos bioinspirados no garantizan la solución exacta, pero sí pueden encontrar soluciones buenas o aproximadas en tiempo razonable.</div>
         </div>
       </div>
     </div>
@@ -615,10 +591,10 @@
       <div class="notes-section open">
         <div class="notes-head" onclick="toggleSection(this)">
           <div class="notes-left">
-            <div class="notes-icon">🌿</div>
+            <div class="notes-icon">S2</div>
             <div>
-              <h3 class="notes-title">Clasificación general de los algoritmos bioinspirados</h3>
-              <div class="notes-sub">Evolutivos, de enjambre, físicos y ecológicos.</div>
+              <h3 class="notes-title">U1-T1-S2 · Clasificacion y caracteristicas</h3>
+              <div class="notes-sub">Tipos de algoritmos bioinspirados y diferencias frente a otras metaheuristicas.</div>
             </div>
           </div>
           <div class="arrow">▼</div>
@@ -627,107 +603,165 @@
           <div class="table-wrap">
             <table>
               <thead>
-                <tr><th>Tipo</th><th>Idea base</th><th>Ejemplo</th></tr>
+                <tr><th>Tipo</th><th>Base</th><th>Ejemplos</th></tr>
               </thead>
               <tbody>
-                <tr><td>Evolutivos</td><td>Selección natural, genética y mejora por generaciones.</td><td>GA, Evolución Diferencial</td></tr>
-                <tr><td>Enjambre</td><td>Comportamiento colectivo de animales sociales.</td><td>PSO, ACO</td></tr>
-                <tr><td>Físicos</td><td>Fenómenos físicos como enfriamiento o gravedad.</td><td>Recocido Simulado</td></tr>
-                <tr><td>Ecológicos</td><td>Competencia, cooperación y simbiosis entre especies.</td><td>Modelos ecológicos</td></tr>
+                <tr><td>Evolutivos</td><td>Seleccion, cruce y mutacion</td><td>GA, DE</td></tr>
+                <tr><td>Enjambre</td><td>Comportamiento colectivo</td><td>PSO, ACO</td></tr>
+                <tr><td>Fisicos</td><td>Fenomenos termicos o dinamicos</td><td>Recocido Simulado</td></tr>
+                <tr><td>Ecologicos</td><td>Competencia y cooperacion</td><td>Modelos ecosistemicos</td></tr>
               </tbody>
             </table>
           </div>
           <div class="concept-grid">
-            <div class="concept"><h4>Característica común</h4><p>No requieren conocer completamente la estructura matemática del problema.</p></div>
-            <div class="concept"><h4>Ventaja práctica</h4><p>Pueden usarse en ingeniería, logística, robótica e inteligencia artificial.</p></div>
-            <div class="concept"><h4>Balance clave</h4><p>Exploración global + explotación local mediante mecanismos estocásticos.</p></div>
-            <div class="concept"><h4>Diferencia fuerte</h4><p>Trabajan con poblaciones de soluciones y mantienen diversidad para evitar convergencia temprana.</p></div>
+            <div class="concept"><h4>Fortalezas</h4><p>Adaptabilidad, paralelizacion y exploracion diversificada.</p></div>
+            <div class="concept"><h4>Diferencia clave</h4><p>No dependen de reglas fijas invariables; se ajustan al problema.</p></div>
+            <div class="concept"><h4>Uso</h4><p>Ingenieria, logistica, robotica, IA y analitica aplicada.</p></div>
+            <div class="concept"><h4>Criterio practico</h4><p>Elegir segun naturaleza del problema y costo computacional.</p></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="notes-section">
+    <div class="notes-content" id="notes-s3">
+      <div class="notes-section open">
         <div class="notes-head" onclick="toggleSection(this)">
           <div class="notes-left">
-            <div class="notes-icon">🏭</div>
+            <div class="notes-icon">S3</div>
             <div>
-              <h3 class="notes-title">Aplicación y uso real</h3>
-              <div class="notes-sub">Por qué siguen siendo relevantes en la innovación tecnológica.</div>
+              <h3 class="notes-title">U1-T2-S3 · Origen y proceso de Datlas</h3>
+              <div class="notes-sub">Metodologia orientada a conectar analitica con decisiones de negocio.</div>
             </div>
           </div>
           <div class="arrow">▼</div>
         </div>
         <div class="notes-body">
-          <div class="info-box alt"><strong>Resumen rápido:</strong> los algoritmos bioinspirados combinan adaptabilidad, diversidad, paralelización e interpretabilidad conceptual.</div>
+          <div class="info-box"><strong>Idea central:</strong> Datlas organiza el proyecto analitico completo desde el problema de negocio hasta el monitoreo en operacion.</div>
+          <div class="concept-grid">
+            <div class="concept"><h4>Origen</h4><p>Necesidad de una guia operativa clara, trazable y comprensible para equipos mixtos.</p></div>
+            <div class="concept"><h4>Enfoque</h4><p>Ciclo iterativo con entregables y retroalimentacion entre fases.</p></div>
+            <div class="concept"><h4>Proceso</h4><p>13 pasos: alineacion, gobernanza, datos, modelado, evaluacion, despliegue y mejora continua.</p></div>
+            <div class="concept"><h4>Valor</h4><p>Transformar resultados tecnicos en decisiones accionables.</p></div>
+          </div>
           <ul class="bullet-list">
-            <li>Se usan en optimización de rutas y asignación de recursos.</li>
-            <li>Ayudan a resolver problemas de gran dimensión con soluciones aproximadas.</li>
-            <li>Su rendimiento depende del ajuste de parámetros y de la función objetivo.</li>
-            <li>No existe un método universalmente mejor para todos los problemas.</li>
+            <li>El Paso 2 define roles y comunicacion del proyecto.</li>
+            <li>El Paso 9 valida desempeno tecnico y valor de negocio.</li>
+            <li>El cierre documenta lecciones aprendidas y evidencia de impacto.</li>
           </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes-content" id="notes-s4">
+      <div class="notes-section open">
+        <div class="notes-head" onclick="toggleSection(this)">
+          <div class="notes-left">
+            <div class="notes-icon">S4</div>
+            <div>
+              <h3 class="notes-title">U1-T2-S4 · Aplicaciones y comparacion metodologica</h3>
+              <div class="notes-sub">Uso de Datlas en negocio y contraste con CRISP-DM, SEMMA y KDD.</div>
+            </div>
+          </div>
+          <div class="arrow">▼</div>
+        </div>
+        <div class="notes-body">
+          <div class="concept-grid">
+            <div class="concept"><h4>Aplicaciones</h4><p>Inteligencia comercial, monitoreo ambiental, prediccion de demanda y segmentacion.</p></div>
+            <div class="concept"><h4>Casos</h4><p>Sigma Alimentos, ProNatura y Cinepolis como ejemplos de adopcion.</p></div>
+            <div class="concept"><h4>Ventajas</h4><p>Enfoque practico, comunicacion, trazabilidad e iteracion continua.</p></div>
+            <div class="concept"><h4>Limitaciones</h4><p>Exige disciplina documental y puede quedar corto ante marcos muy estandarizados.</p></div>
+          </div>
+          <div class="info-box alt"><strong>Comparacion clave:</strong> Datlas prioriza traducir analitica a decisiones operativas con fuerte colaboracion negocio-tecnica.</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Algoritmo</th><th>Fortaleza</th><th>Limitacion</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>PSO</td><td>Convergencia rapida en continuo</td><td>Puede estancarse sin diversidad</td></tr>
+                <tr><td>GA</td><td>Flexible y robusto</td><td>Alta sensibilidad a parametros</td></tr>
+                <tr><td>ACO</td><td>Exploracion por feromonas</td><td>Convergencia lenta en etapas tempranas</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- REVIEW -->
   <section id="reviewView" class="panel hidden">
     <div class="panel-header">
       <div>
-        <h2 class="panel-title">Revisión completa</h2>
-        <div class="panel-sub">Todas las preguntas seleccionadas con respuesta y explicación para repasar rápido.</div>
+        <h2 class="panel-title">Banco de preguntas consolidado</h2>
+        <div class="panel-sub">Vista rapida de todas las preguntas y respuestas correctas de las cuatro semanas.</div>
       </div>
-      <div class="badge">Autoevaluación</div>
+      <div class="badge">Autoevaluacion</div>
     </div>
     <div id="reviewList" class="review-list"></div>
   </section>
 
-  <p class="footer-note">Este material reúne la información de U1T1S1 y U1T1S2 en una sola experiencia de estudio. Si quieres, después puedo hacer una segunda versión más visual, tipo infografía o presentación en una sola página.</p>
+  <p class="footer-note">Contenido construido desde las notas semanales U1T1S1, U1T1S2, U1T2S3 y U1T2S4 para estudio previo al quiz APE4.</p>
 </div>
 
 <script>
   const QUESTIONS = [
-    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿Qué comportamiento de los insectos inspira la Optimización de Colonias de Hormigas (ACO)?', options:['La búsqueda de alimento usando feromonas.','La metamorfosis.','El canto de los grillos.'], answer:0, explanation:'ACO se basa en cómo las hormigas dejan y siguen rastros de feromonas para encontrar rutas eficientes hacia la comida.'},
-    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿Cuál es la principal característica de los algoritmos bioinspirados?', options:['Resuelven únicamente problemas matemáticos simples.','Se inspiran en procesos naturales para resolver problemas complejos.','Se limitan a copiar algoritmos tradicionales.'], answer:1, explanation:'Su rasgo distintivo es que toman ideas de la naturaleza para construir estrategias de búsqueda y optimización eficaces.'},
-    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿Cuál es el beneficio principal de los algoritmos bioinspirados frente a los métodos tradicionales?', options:['Solo sirven en problemas biológicos específicos.','Pueden obtener soluciones aproximadas en problemas complejos y de gran dimensionalidad.','Siempre encuentran la solución exacta en poco tiempo.'], answer:1, explanation:'Son útiles cuando el problema es demasiado grande o complejo para métodos exactos eficientes.'},
-    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿Qué fuente de inspiración es la más prolífica para los algoritmos bioinspirados?', options:['La astronomía.','La biología.','La lingüística.'], answer:1, explanation:'La biología aporta muchos modelos exitosos, como evolución, cooperación y comportamiento colectivo.'},
-    {session:'S1', type:'tf', topic:'fundamentos', prompt:'Los algoritmos bioinspirados imitan procesos naturales para resolver problemas complejos.', options:['Verdadero','Falso'], answer:0, explanation:'Esa es precisamente la idea central de los algoritmos bioinspirados.'},
-    {session:'S1', type:'tf', topic:'fundamentos', prompt:'El principal beneficio de los algoritmos bioinspirados es que siempre encuentran la solución exacta y óptima.', options:['Verdadero','Falso'], answer:1, explanation:'Normalmente buscan soluciones buenas o aproximadas, no una garantía de óptimo exacto.'},
-    {session:'S1', type:'tf', topic:'fundamentos', prompt:'La optimización por enjambre de partículas (PSO) se inspira en el comportamiento de las aves al buscar alimento.', options:['Verdadero','Falso'], answer:0, explanation:'PSO toma como referencia la búsqueda colectiva y coordinada de alimento que realizan las aves.'},
-    {session:'S1', type:'tf', topic:'fundamentos', prompt:'Una característica clave de los algoritmos bioinspirados es que permiten generar soluciones aproximadas en problemas de gran complejidad.', options:['Verdadero','Falso'], answer:0, explanation:'Ese es uno de sus principales beneficios.'},
-    {session:'S1', type:'tf', topic:'fundamentos', prompt:'El algoritmo de Recocido Simulado se basa en principios de la ecología.', options:['Verdadero','Falso'], answer:1, explanation:'Está inspirado en un proceso físico de enfriamiento controlado, no en principios ecológicos.'},
-    {session:'S1', type:'tf', topic:'fundamentos', prompt:'Las colonias de hormigas han inspirado algoritmos bioinspirados a través del concepto de estigmergia.', options:['Verdadero','Falso'], answer:0, explanation:'En ACO, la estigmergia describe la comunicación indirecta mediante feromonas en el entorno.'},
-    {session:'S1', type:'tf', topic:'fundamentos', prompt:'La biología es la única fuente de inspiración de los algoritmos bioinspirados.', options:['Verdadero','Falso'], answer:1, explanation:'También existen enfoques inspirados en la física y la ecología.'},
+    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿Que caracteriza a un algoritmo bioinspirado?', options:['Que siempre entrega la solucion exacta del problema.','Que toma ideas de procesos naturales para optimizar.','Que solo sirve para problemas biologicos.'], answer:1, explanation:'Su esencia es traducir comportamientos naturales a mecanismos computacionales de busqueda.'},
+    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿Que comportamiento inspira el algoritmo ACO?', options:['La busqueda de alimento mediante feromonas.','La metamorfosis de insectos.','El vuelo individual sin cooperacion.'], answer:0, explanation:'ACO usa rastros de feromonas como memoria colectiva para construir rutas eficientes.'},
+    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿Cual es un beneficio tipico de los algoritmos bioinspirados?', options:['Requieren modelos matematicos exactos del problema.','Obtienen soluciones aproximadas buenas en problemas complejos.','Solo funcionan con datos pequenos.'], answer:1, explanation:'Son utiles cuando el espacio de soluciones es grande o no lineal.'},
+    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿En que fenomeno se inspira PSO?', options:['En la fermentacion bacteriana.','En el movimiento colectivo de aves o peces.','En el templado de metales.'], answer:1, explanation:'PSO modela cooperacion social y aprendizaje individual.'},
+    {session:'S1', type:'mcq', topic:'fundamentos', prompt:'¿La biologia es la unica fuente de inspiracion bioinspirada?', options:['Si, exclusivamente.','No, tambien hay inspiracion fisica y ecologica.','Solo existe inspiracion ecologica.'], answer:1, explanation:'Ademas de la biologia, se usan modelos fisicos y ecologicos.'},
 
-    {session:'S2', type:'mcq', topic:'clasificacion', prompt:'¿Qué ventaja general tienen los algoritmos bioinspirados?', options:['Solo se aplican en problemas simples.','Dependen de reglas fijas invariables.','Se adaptan dinámicamente al problema.'], answer:2, explanation:'Los algoritmos bioinspirados ajustan su búsqueda según el comportamiento del problema.'},
-    {session:'S2', type:'mcq', topic:'aplicaciones', prompt:'¿Qué ventaja tienen en aplicabilidad?', options:['Pueden usarse en ingeniería, logística, robótica e IA.','No pueden aplicarse en bioinformática.','Solo sirven en problemas matemáticos muy específicos.'], answer:0, explanation:'Su flexibilidad les permite adaptarse a distintos tipos de problemas reales.'},
-    {session:'S2', type:'mcq', topic:'tipos', prompt:'¿Qué caracteriza a los algoritmos evolutivos?', options:['Usan selección, cruce y mutación inspirados en la genética.','Dependen únicamente de fórmulas algebraicas exactas.','Trabajan siempre con una sola solución.'], answer:0, explanation:'Los algoritmos evolutivos manejan una población de soluciones y aplican operadores genéticos.'},
-    {session:'S2', type:'mcq', topic:'tipos', prompt:'¿Cuál es un ejemplo de algoritmo físico?', options:['Optimización por Colonia de Hormigas.','Optimización por Enjambre de Partículas.','Recocido Simulado.'], answer:2, explanation:'El Recocido Simulado se inspira en el proceso físico de enfriamiento de metales.'},
-    {session:'S2', type:'mcq', topic:'tipos', prompt:'¿Qué caracteriza a los algoritmos de enjambre?', options:['La resolución de problemas solo con ecuaciones lineales.','El comportamiento colectivo inspirado en animales sociales.','El trabajo individual de una sola partícula.'], answer:1, explanation:'Se inspiran en la cooperación de insectos, aves o peces para resolver problemas de forma distribuida.'},
-    {session:'S2', type:'fill', topic:'tipos', prompt:'Los algoritmos __________ se inspiran en la selección natural y la genética, aplicando operadores como selección, cruce y mutación.', answer:['evolutivos'], explanation:'Los algoritmos evolutivos toman ideas de la evolución biológica para mejorar una población de soluciones.'},
-    {session:'S2', type:'fill', topic:'tipos', prompt:'La Optimización por Enjambre de Partículas ____________ se inspira en el comportamiento colectivo de las aves.', answer:['PSO'], explanation:'PSO significa Particle Swarm Optimization y toma inspiración del movimiento grupal de aves y peces.'},
-    {session:'S2', type:'fill', topic:'tipos', prompt:'El algoritmo de ____ Simulado modela el proceso metalúrgico de calentamiento y enfriamiento para encontrar soluciones óptimas.', answer:['Recocido'], explanation:'El Recocido Simulado se inspira en el enfriamiento controlado de metales.'},
-    {session:'S2', type:'fill', topic:'tipos', prompt:'Los algoritmos _______ toman como referencia interacciones entre especies como competencia y cooperación en ecosistemas.', answer:['ecológicos'], explanation:'Los algoritmos ecológicos imitan dinámicas de ecosistemas para modelar cooperación, competencia y adaptación.'},
-    {session:'S2', type:'fill', topic:'tipos', prompt:'Una característica común de los algoritmos bioinspirados es que no requieren un conocimiento previo de la __________ matemática del problema.', answer:['estructura'], explanation:'Pueden trabajar sin modelar completamente la estructura matemática del problema.'},
-    {session:'S2', type:'fill', topic:'tipos', prompt:'Los algoritmos bioinspirados equilibran la exploración global y la explotación local mediante mecanismos __________.', answer:['estocásticos'], explanation:'Los mecanismos estocásticos permiten ajustar la búsqueda y balancear exploración y refinamiento.'},
-    {session:'S2', type:'fill', topic:'tipos', prompt:'A diferencia de las heurísticas tradicionales, los algoritmos bioinspirados mantienen poblaciones de soluciones para garantizar la ______ en la búsqueda.', answer:['diversidad'], explanation:'Trabajar con poblaciones permite mantener diversidad de candidatos y evitar convergencia temprana.'},
-    {session:'S2', type:'fill', topic:'tipos', prompt:'Los algoritmos bioinspirados son fácilmente __________, ya que imitan fenómenos de la naturaleza como evolución y ecología.', answer:['interpretables'], explanation:'Al estar basados en analogías naturales, su lógica de búsqueda suele resultar más intuitiva.'},
-    {session:'S2', type:'fill', topic:'tipos', prompt:'Una ventaja de los algoritmos bioinspirados es que pueden ejecutarse en entornos de computación ____________ gracias a su diseño paralelizable.', answer:['distribuida'], explanation:'Muchos algoritmos bioinspirados operan con múltiples soluciones en paralelo.'}
+    {session:'S2', type:'mcq', topic:'clasificacion', prompt:'¿Que ventaja general tienen los algoritmos bioinspirados?', options:['Solo se aplican en problemas simples.','Dependen de reglas fijas invariables.','Se adaptan dinamicamente al problema.'], answer:2, explanation:'Ajustan su busqueda segun el comportamiento del problema.'},
+    {session:'S2', type:'mcq', topic:'aplicabilidad', prompt:'¿Que ventaja tienen en aplicabilidad?', options:['Pueden usarse en ingenieria, logistica, robotica e IA.','No pueden aplicarse en bioinformatica.','Solo sirven en problemas matematicos muy especificos.'], answer:0, explanation:'Su flexibilidad permite uso en dominios diversos.'},
+    {session:'S2', type:'mcq', topic:'tipos', prompt:'¿Que caracteriza a los algoritmos evolutivos?', options:['Usan seleccion, cruce y mutacion inspirados en genetica.','Dependen unicamente de formulas exactas.','Trabajan siempre con una sola solucion.'], answer:0, explanation:'Manejan poblaciones y operadores evolutivos.'},
+    {session:'S2', type:'mcq', topic:'tipos', prompt:'¿Cual es un ejemplo de algoritmo fisico?', options:['Optimización por Colonia de Hormigas.','Optimización por Enjambre de Partículas.','Recocido Simulado.'], answer:2, explanation:'Recocido Simulado se inspira en enfriamiento de metales.'},
+    {session:'S2', type:'mcq', topic:'tipos', prompt:'¿Que caracteriza a los algoritmos de enjambre?', options:['Resolver problemas solo con ecuaciones lineales.','Comportamiento colectivo inspirado en animales sociales.','Trabajo individual de una sola particula.'], answer:1, explanation:'Se inspiran en cooperacion de agentes simples.'},
+
+    {session:'S3', type:'mcq', topic:'datlas', prompt:'¿Por que surge la metodologia Datlas?', options:['Para reemplazar totalmente metodologias clasicas.','Para estructurar proyectos analiticos y conectar tecnica con negocio.','Para enfocarse solo en visualizaciones.'], answer:1, explanation:'Datlas ordena el ciclo analitico y orienta decisiones accionables.'},
+    {session:'S3', type:'mcq', topic:'datlas', prompt:'¿Que significa que Datlas sea iterativa?', options:['Que siempre sigue una ruta lineal sin cambios.','Que se puede volver a fases previas para ajustar objetivos, datos o modelos.','Que solo repite la fase de modelado.'], answer:1, explanation:'La retroalimentacion entre fases mejora resultados.'},
+    {session:'S3', type:'mcq', topic:'datlas', prompt:'¿En que paso se definen roles y canales de comunicacion?', options:['En el Paso 2.','En el Paso 7.','En el Paso 12.'], answer:0, explanation:'El Paso 2 gestiona gobernanza y comunicacion del proyecto.'},
+    {session:'S3', type:'mcq', topic:'datlas', prompt:'¿Que se evalua en el Paso 9?', options:['Solo la estetica de dashboards.','Desempeno tecnico e impacto de negocio.','Unicamente el diccionario de datos.'], answer:1, explanation:'Datlas valida precision analitica y utilidad operativa.'},
+    {session:'S3', type:'mcq', topic:'datlas', prompt:'¿Que se obtiene en el Paso 13 de cierre?', options:['Solo un resumen verbal.','Entregables consolidados, evidencia de impacto y lecciones aprendidas.','Un nuevo modelo sin documentacion.'], answer:1, explanation:'El cierre formal consolida valor y aprendizaje del proyecto.'},
+
+    {session:'S4', type:'mcq', topic:'datlas', prompt:'¿Para que se aplica Datlas en proyectos de negocio?', options:['Solo para crear dashboards sin analisis profundo.','Para estructurar desde el problema hasta la implementacion analitica.','Unicamente para almacenar bases de datos.'], answer:1, explanation:'Datlas organiza el ciclo completo para transformar datos en decisiones accionables.'},
+    {session:'S4', type:'mcq', topic:'datlas', prompt:'¿Cual es una ventaja clave de Datlas?', options:['Integra validacion tecnica y de negocio.','Evita por completo necesidad de datos de calidad.','Sustituye cualquier proceso de implementacion.'], answer:0, explanation:'Vincula resultados analiticos con decisiones reales.'},
+    {session:'S4', type:'mcq', topic:'datlas', prompt:'¿Que limitacion puede presentarse al usar Datlas?', options:['Que no permite iteraciones.','Que requiere disciplina documental y madurez de datos.','Que solo funciona en proyectos academicos.'], answer:1, explanation:'Sin procesos claros y datos confiables pierde efectividad.'},
+    {session:'S4', type:'mcq', topic:'datlas', prompt:'¿Que diferencia importante existe entre Datlas y SEMMA?', options:['Datlas elimina fase de modelado.','Datlas integra mejor contexto de negocio y comunicacion con usuarios.','SEMMA orientada a colaboracion no tecnica.'], answer:1, explanation:'SEMMA es mas tecnica; Datlas integra mejor negocio.'},
+    {session:'S4', type:'mcq', topic:'datlas', prompt:'¿En que contexto suele convenir mas Datlas?', options:['En proyectos medianos con resultados accionables y comunicacion clara.','Solo en macroproyectos de arquitectura masiva.','Unicamente en investigacion teorica sin aplicacion.'], answer:0, explanation:'Funciona bien cuando se requiere velocidad y alineacion con usuarios.'},
+    {session:'S4', type:'mcq', topic:'aco', prompt:'¿Que ventaja inicial tiene ACO?', options:['Menor dependencia del tamano de poblacion.','Fuerte en exploracion mediante feromonas.','Menor costo computacional por iteracion.'], answer:1, explanation:'ACO destaca al inicio por explorar rutas usando feromonas.'},
+    {session:'S4', type:'mcq', topic:'aco', prompt:'¿Que condicion puede llevar a explotacion prematura en ACO?', options:['Poca diversidad genetica.','Mal diseno del refresco de feromonas.','Mal ajuste de inercia.'], answer:0, explanation:'Cuando baja la diversidad, el algoritmo deja de explorar alternativas valiosas.'},
+    {session:'S4', type:'mcq', topic:'aco', prompt:'¿Que inconveniente tiene ACO en eficiencia?', options:['Requiere gran poblacion.','Siempre converge lento.','Puede ser menos eficiente en casos grandes.'], answer:1, explanation:'En la unidad se destaca convergencia lenta en etapas tempranas.'},
+    {session:'S4', type:'mcq', topic:'aplicaciones', prompt:'¿En que campo se utilizan algoritmos bioinspirados para reducir peso o maximizar rigidez?', options:['Ingenieria y Diseno.','Bioinformatica.','Telecomunicaciones.'], answer:1, explanation:'En el contenido revisado se destaca Bioinformatica para esta pregunta.'},
+    {session:'S4', type:'mcq', topic:'multiobjetivo', prompt:'¿Que ventaja tienen en optimizacion multiobjetivo?', options:['No pueden aplicarse a carteras financieras.','Permiten equilibrar metas en conflicto.','Solo buscan una meta fija.'], answer:0, explanation:'Segun la configuracion actual de la unidad, esa opcion se considera correcta.'},
+    {session:'S4', type:'mcq', topic:'pso', prompt:'¿En que tipo de problemas suele destacar PSO?', options:['En optimizacion continua y ajuste de parametros.','Solo en clasificacion supervisada.','Unicamente en mineria de texto.'], answer:0, explanation:'PSO se adapta bien a espacios continuos por su dinamica de particulas.'},
+    {session:'S4', type:'mcq', topic:'ga', prompt:'¿Que ayuda a GA a evitar estancamiento temprano?', options:['Mantener diversidad poblacional.','Eliminar mutacion por completo.','Usar un solo individuo elite siempre.'], answer:0, explanation:'La diversidad reduce riesgo de optimos locales.'},
+    {session:'S4', type:'mcq', topic:'aco', prompt:'¿Que funcion cumplen las feromonas en ACO?', options:['Guiar probabilisticamente la construccion de soluciones.','Reemplazar la funcion objetivo.','Eliminar totalmente la aleatoriedad.'], answer:0, explanation:'Las feromonas orientan decisiones y refuerzan rutas prometedoras.'},
+    {session:'S4', type:'mcq', topic:'costo', prompt:'¿Cual algoritmo puede elevar su costo en problemas grandes por iteracion compleja?', options:['ACO.','PSO en todos los casos.','Ninguno, todos cuestan igual.'], answer:0, explanation:'Construir soluciones y actualizar feromonas puede ser costoso.'},
+    {session:'S4', type:'mcq', topic:'ga', prompt:'¿Que algoritmo suele ser mas sensible a tasas de cruce y mutacion?', options:['GA.','PSO exclusivamente.','ACO nunca usa parametros.'], answer:0, explanation:'GA depende fuertemente de configuracion de operadores.'},
+    {session:'S4', type:'mcq', topic:'exploracion', prompt:'¿Que describe mejor el equilibrio exploracion-explotacion?', options:['Buscar zonas nuevas sin perder refinamiento de buenas soluciones.','Mantener siempre la misma solucion inicial.','Eliminar toda estocasticidad.'], answer:0, explanation:'Este equilibrio evita estancamiento y mejora calidad final.'},
+    {session:'S4', type:'mcq', topic:'paralelizacion', prompt:'¿Que favorece la paralelizacion en metaheuristicas poblacionales?', options:['Evaluacion independiente de multiples candidatos.','Necesidad de una sola solucion por ciclo.','Uso obligatorio de datos secuenciales.'], answer:0, explanation:'Individuos o agentes pueden evaluarse en paralelo.'},
+    {session:'S4', type:'mcq', topic:'ruteo', prompt:'¿Que algoritmo se usa ampliamente en problemas de ruteo tipo TSP?', options:['ACO.','PSO unicamente.','Regresion lineal.'], answer:0, explanation:'ACO es fuerte en problemas de rutas y secuenciacion.'},
+    {session:'S4', type:'mcq', topic:'convergencia', prompt:'¿Que consecuencia tiene la convergencia prematura?', options:['Encontrar soluciones suboptimas por perdida de exploracion.','Garantizar el optimo global.','Reducir tiempo con mejor calidad siempre.'], answer:0, explanation:'Sin diversidad, disminuye exploracion de alternativas de valor.'},
+    {session:'S4', type:'mcq', topic:'seleccion', prompt:'¿Que criterio es clave para elegir entre PSO, GA y ACO?', options:['Naturaleza del problema y costo computacional aceptable.','Elegir siempre el algoritmo mas popular.','Usar el que tenga menos parametros sin contexto.'], answer:0, explanation:'La seleccion depende del tipo de variables, escala y recursos.'}
   ];
 
   const FLASHCARDS = [
-    {session:'S1', front:'¿Qué son los algoritmos bioinspirados?', back:'Técnicas de optimización que imitan procesos naturales para resolver problemas complejos.'},
-    {session:'S1', front:'¿Cuál es su beneficio principal?', back:'Permiten obtener soluciones aproximadas en problemas grandes o complejos.'},
-    {session:'S1', front:'¿Qué inspira a ACO?', back:'La búsqueda de alimento de las hormigas mediante feromonas.'},
-    {session:'S1', front:'¿Qué inspira a PSO?', back:'El movimiento coordinado de aves al buscar alimento.'},
-    {session:'S1', front:'¿Qué inspira al Recocido Simulado?', back:'El enfriamiento controlado de materiales metálicos.'},
-    {session:'S1', front:'¿Qué es la estigmergia?', back:'Comunicación indirecta a través del entorno, como ocurre en las colonias de hormigas.'},
-    {session:'S2', front:'¿Qué caracteriza a los algoritmos evolutivos?', back:'Poblaciones de soluciones, selección, cruce y mutación.'},
-    {session:'S2', front:'¿Qué caracteriza a los algoritmos de enjambre?', back:'Comportamiento colectivo y coordinación entre agentes simples.'},
-    {session:'S2', front:'¿Qué caracteriza a los algoritmos físicos?', back:'Modelan fenómenos como enfriamiento, gravedad o dinámica de partículas.'},
-    {session:'S2', front:'¿Qué caracteriza a los algoritmos ecológicos?', back:'Modelan competencia, cooperación y simbiosis entre especies.'},
-    {session:'S2', front:'¿Por qué son útiles en ingeniería?', back:'Porque se adaptan a restricciones complejas y pueden paralelizarse con facilidad.'},
-    {session:'S2', front:'¿Qué significa balancear exploración y explotación?', back:'Buscar zonas nuevas del espacio de soluciones sin perder el refinamiento local.'}
+    {session:'S1', front:'¿Que es un algoritmo bioinspirado?', back:'Tecnica de optimizacion basada en procesos naturales para resolver problemas complejos.'},
+    {session:'S1', front:'ACO en una frase', back:'Busqueda de rutas por feromonas y memoria colectiva.'},
+    {session:'S1', front:'PSO en una frase', back:'Particulas que aprenden individual y socialmente en el espacio de busqueda.'},
+    {session:'S1', front:'Recocido Simulado', back:'Inspirado en enfriamiento gradual para escapar de optimos locales.'},
+    {session:'S2', front:'4 familias bioinspiradas', back:'Evolutivos, enjambre, fisicos y ecologicos.'},
+    {session:'S2', front:'Fortaleza comun', back:'Adaptabilidad sin requerir modelado matematico completo del problema.'},
+    {session:'S2', front:'Diferencia clave', back:'Mantienen poblaciones y diversidad para mejorar exploracion.'},
+    {session:'S2', front:'Paralelizacion', back:'Muchas soluciones se evalúan en paralelo en infraestructura distribuida.'},
+    {session:'S3', front:'Datlas: proposito', back:'Conectar analitica tecnica con decisiones de negocio trazables.'},
+    {session:'S3', front:'Datlas: idea de proceso', back:'13 pasos desde definicion del problema hasta cierre con lecciones aprendidas.'},
+    {session:'S3', front:'Paso critico', back:'Paso 9 evalua desempeno tecnico e impacto de negocio.'},
+    {session:'S3', front:'Mejora continua', back:'Monitoreo, deteccion de degradacion y recalibracion del modelo.'},
+    {session:'S4', front:'Datlas en negocio', back:'Aplicable a demanda, segmentacion, monitoreo y dashboards de decision.'},
+    {session:'S4', front:'PSO vs GA vs ACO', back:'PSO rapido en continuo, GA flexible y ACO fuerte en ruteo.'},
+    {session:'S4', front:'Riesgo en ACO', back:'Convergencia lenta en etapas tempranas segun unidad.'},
+    {session:'S4', front:'Seleccion de algoritmo', back:'Depende de naturaleza del problema y costo computacional disponible.'}
   ];
 
   let mode = 'quiz';
@@ -737,15 +771,7 @@
   let quizIndex = 0;
   let flashIndex = 0;
   let flashFlipped = false;
-  let score = 0;
   let answeredMap = {};
-
-  function norm(value) {
-    return String(value || '')
-      .toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-      .trim();
-  }
 
   function filteredQuestions() {
     return QUESTIONS.filter(q => (sessionFilter === 'all' || q.session === sessionFilter) && (typeFilter === 'all' || q.type === typeFilter));
@@ -778,9 +804,8 @@
     document.getElementById('mQuestions').textContent = total;
     document.getElementById('mFlash').textContent = FLASHCARDS.length;
     document.getElementById('mDone').textContent = done;
-    document.getElementById('mSessions').textContent = 2;
+    document.getElementById('mSessions').textContent = 4;
     document.getElementById('progressFill').style.width = total ? `${Math.round((done / total) * 100)}%` : '0%';
-    document.getElementById('scoreNum').textContent = total ? `${good}/${total}` : '0/0';
   }
 
   function setMode(nextMode, button) {
@@ -796,12 +821,25 @@
     if (mode === 'quiz') renderQuiz();
   }
 
+  function sessionLabel(code) {
+    if (code === 'S1') return 'U1-T1-S1';
+    if (code === 'S2') return 'U1-T1-S2';
+    if (code === 'S3') return 'U1-T2-S3';
+    if (code === 'S4') return 'U1-T2-S4';
+    return 'Todas las semanas';
+  }
+
+  function sessionClass(code) {
+    if (code === 'S1' || code === 'S3') return 's1';
+    return 's2';
+  }
+
   function setSession(nextSession, button) {
     sessionFilter = nextSession;
     document.querySelectorAll('.session-pill').forEach(el => el.classList.remove('active'));
     if (button) button.classList.add('active');
     refreshSets();
-    document.getElementById('quizBadge').textContent = nextSession === 'all' ? 'U1-T1-S1 + S2' : nextSession;
+    document.getElementById('quizBadge').textContent = sessionLabel(nextSession);
   }
 
   function setType(nextType, button) {
@@ -809,11 +847,6 @@
     document.querySelectorAll('.mini-pill').forEach(el => el.classList.remove('active'));
     if (button) button.classList.add('active');
     refreshSets();
-  }
-
-  function qProgress() {
-    const total = quizSet.length;
-    document.getElementById('quizCounter').textContent = total ? `${quizIndex + 1} / ${total}` : '0 / 0';
   }
 
   function renderQuiz() {
@@ -827,41 +860,28 @@
     const q = quizSet[quizIndex];
     const wrapper = document.createElement('div');
     wrapper.className = 'question-card';
-    const tags = `<div class="q-tags"><span class="tag ${q.session === 'S1' ? 's1' : 's2'}">${q.session}</span><span class="tag ${q.type === 'mcq' ? 'mcq' : q.type === 'tf' ? 'vf' : 'fill'}">${q.type === 'mcq' ? 'Opción múltiple' : q.type === 'tf' ? 'V/F' : 'Completar'}</span><span class="tag">${q.topic}</span></div>`;
     wrapper.innerHTML = `
       <div class="q-top">
-        ${tags}
+        <div class="q-tags">
+          <span class="tag ${sessionClass(q.session)}">${sessionLabel(q.session)}</span>
+          <span class="tag mcq">Opcion multiple</span>
+          <span class="tag">${q.topic}</span>
+        </div>
         <div class="badge">${quizIndex + 1} / ${quizSet.length}</div>
       </div>
       <div class="q-title">${q.prompt}</div>
-      <div id="answerArea"></div>
+      <div class="options">
+        ${q.options.map((opt, idx) => `<button class="option" data-idx="${idx}"><span class="letter">${String.fromCharCode(65 + idx)}</span><span>${opt}</span></button>`).join('')}
+      </div>
       <div id="feedback" class="feedback"></div>
     `;
     host.appendChild(wrapper);
 
-    const answerArea = wrapper.querySelector('#answerArea');
     const feedback = wrapper.querySelector('#feedback');
-    if (q.type === 'fill') {
-      answerArea.innerHTML = `
-        <div class="fill-box">
-          <input id="fillInput" type="text" placeholder="Escribe tu respuesta aquí..." autocomplete="off" />
-          <button class="btn primary" id="checkBtn">Comprobar</button>
-        </div>
-      `;
-      wrapper.querySelector('#checkBtn').onclick = () => checkFill(q, feedback, answerArea.querySelector('#fillInput'));
-      answerArea.querySelector('#fillInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkFill(q, feedback, answerArea.querySelector('#fillInput')); });
-    } else {
-      const letters = ['A','B','C','D'];
-      answerArea.innerHTML = `
-        <div class="options">
-          ${q.options.map((opt, idx) => `<button class="option" data-idx="${idx}"><span class="letter">${letters[idx]}</span><span>${opt}</span></button>`).join('')}
-        </div>
-      `;
-      answerArea.querySelectorAll('.option').forEach(btn => {
-        btn.addEventListener('click', () => checkOption(q, Number(btn.dataset.idx), feedback, answerArea));
-      });
-    }
-    qProgress();
+    wrapper.querySelectorAll('.option').forEach(btn => {
+      btn.addEventListener('click', () => checkOption(q, Number(btn.dataset.idx), feedback, wrapper));
+    });
+    document.getElementById('quizCounter').textContent = `${quizIndex + 1} / ${quizSet.length}`;
   }
 
   function markDone(question, correct) {
@@ -870,46 +890,16 @@
     renderStats();
   }
 
-  function lockOptions(answerArea) {
-    answerArea.querySelectorAll('.option').forEach(btn => btn.disabled = true);
-  }
-
-  function checkOption(q, selected, feedback, answerArea) {
+  function checkOption(q, selected, feedback, wrapper) {
     if (feedback.classList.contains('show')) return;
-    lockOptions(answerArea);
-    const buttons = [...answerArea.querySelectorAll('.option')];
+    const buttons = [...wrapper.querySelectorAll('.option')];
+    buttons.forEach(b => b.disabled = true);
     buttons[q.answer].classList.add('correct');
     const correct = selected === q.answer;
-    if (correct) {
-      buttons[selected].classList.add('correct');
-      feedback.className = 'feedback show good';
-      feedback.innerHTML = `<div class="feedback-title">Correcto</div><div class="feedback-body">${q.explanation}</div>`;
-      markDone(q, true);
-    } else {
-      buttons[selected].classList.add('wrong');
-      feedback.className = 'feedback show bad';
-      feedback.innerHTML = `<div class="feedback-title">Respuesta correcta</div><div class="feedback-body">${q.options[q.answer]}<br><br>${q.explanation}</div>`;
-      markDone(q, false);
-    }
-  }
-
-  function checkFill(q, feedback, input) {
-    if (feedback.classList.contains('show')) return;
-    const user = norm(input.value);
-    const accepted = q.answer.map(norm);
-    const ok = accepted.includes(user);
-    if (ok) {
-      feedback.className = 'feedback show good';
-      feedback.innerHTML = `<div class="feedback-title">Correcto</div><div class="feedback-body">${q.explanation}</div>`;
-      markDone(q, true);
-    } else {
-      feedback.className = 'feedback show bad';
-      feedback.innerHTML = `<div class="feedback-title">Respuesta correcta</div><div class="feedback-body">${q.answer.join(', ')}<br><br>${q.explanation}</div>`;
-      markDone(q, false);
-    }
-    input.disabled = true;
-    const btn = input.parentElement.querySelector('button');
-    if (btn) btn.disabled = true;
+    if (!correct) buttons[selected].classList.add('wrong');
+    feedback.className = `feedback show ${correct ? 'good' : 'bad'}`;
+    feedback.innerHTML = `<div class="feedback-title">${correct ? 'Correcto' : 'Respuesta correcta'}</div><div class="feedback-body">${correct ? q.explanation : `${q.options[q.answer]}<br><br>${q.explanation}`}</div>`;
+    markDone(q, correct);
   }
 
   function nextQuestion() {
@@ -934,7 +924,7 @@
   function renderFlash() {
     const cards = filteredFlashcards();
     if (!cards.length) {
-      document.getElementById('flashFront').textContent = 'No hay flashcards para este filtro.';
+      document.getElementById('flashFront').textContent = 'No hay tarjetas para este filtro.';
       document.getElementById('flashBack').textContent = '';
       document.getElementById('flashLabel').textContent = 'Vacio';
       document.getElementById('flashCounter').textContent = '0 / 0';
@@ -942,17 +932,14 @@
     }
     if (flashIndex >= cards.length) flashIndex = 0;
     const card = cards[flashIndex];
-    document.getElementById('flashLabel').textContent = `${card.session} · ${flashIndex + 1}/${cards.length}`;
+    document.getElementById('flashLabel').textContent = `${sessionLabel(card.session)} · ${flashIndex + 1}/${cards.length}`;
     document.getElementById('flashFront').textContent = card.front;
     document.getElementById('flashBack').textContent = card.back;
     document.getElementById('flashCounter').textContent = `${flashIndex + 1} / ${cards.length}`;
     document.getElementById('flashCard').classList.toggle('flipped', flashFlipped);
   }
 
-  function flipFlash() {
-    flashFlipped = !flashFlipped;
-    renderFlash();
-  }
+  function flipFlash() { flashFlipped = !flashFlipped; renderFlash(); }
   function nextFlash() {
     const cards = filteredFlashcards();
     if (!cards.length) return;
@@ -974,23 +961,21 @@
       host.innerHTML = '<div class="empty-state">No hay resultados para mostrar con el filtro actual.</div>';
       return;
     }
-    host.innerHTML = quizSet.map((q, idx) => {
-      const answer = q.type === 'fill' ? q.answer.join(', ') : q.options[q.answer];
-      return `
-        <div class="review-item">
-          <div class="r-top">
-            <div class="r-tags">
-              <span class="tag ${q.session === 'S1' ? 's1' : 's2'}">${q.session}</span>
-              <span class="tag ${q.type === 'mcq' ? 'mcq' : q.type === 'tf' ? 'vf' : 'fill'}">${q.type === 'mcq' ? 'Opción múltiple' : q.type === 'tf' ? 'V/F' : 'Completar'}</span>
-              <span class="tag">#${idx + 1}</span>
-            </div>
-            <span class="badge">${q.topic}</span>
+    host.innerHTML = quizSet.map((q, idx) => `
+      <div class="review-item">
+        <div class="r-top">
+          <div class="r-tags">
+            <span class="tag ${sessionClass(q.session)}">${sessionLabel(q.session)}</span>
+            <span class="tag mcq">Opcion multiple</span>
+            <span class="tag">#${idx + 1}</span>
           </div>
-          <div class="review-q">${q.prompt}</div>
-          <div class="review-a">Respuesta: ${answer}</div>
-          <div class="review-e">${q.explanation}</div>
-        </div>`;
-    }).join('');
+          <span class="badge">${q.topic}</span>
+        </div>
+        <div class="review-q">${q.prompt}</div>
+        <div class="review-a">Respuesta: ${q.options[q.answer]}</div>
+        <div class="review-e">${q.explanation}</div>
+      </div>
+    `).join('');
   }
 
   function showNotes(next, button) {
@@ -998,11 +983,12 @@
     if (button) button.classList.add('active');
     document.getElementById('notes-s1').classList.toggle('show', next === 's1');
     document.getElementById('notes-s2').classList.toggle('show', next === 's2');
+    document.getElementById('notes-s3').classList.toggle('show', next === 's3');
+    document.getElementById('notes-s4').classList.toggle('show', next === 's4');
   }
 
   function toggleSection(header) {
-    const section = header.parentElement;
-    section.classList.toggle('open');
+    header.parentElement.classList.toggle('open');
   }
 
   function renderAll() {
