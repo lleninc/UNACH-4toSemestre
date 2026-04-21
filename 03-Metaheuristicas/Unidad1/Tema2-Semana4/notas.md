@@ -3,7 +3,6 @@
 ## Objetivo de la semana
 Analizar aplicaciones de Datlas en proyectos de negocio e identificar sus ventajas y limitaciones frente a CRISP-DM, SEMMA y KDD.
 
----
 
 ## 2.3 Aplicaciones de Datlas en proyectos de negocio
 
@@ -27,7 +26,27 @@ Datlas se aplica en organizaciones que buscan convertir datos dispersos en decis
 - Facilita escalamiento de soluciones analíticas.
 - Incrementa el uso de evidencia en decisiones tácticas.
 
+
+## Tabla 1
+
+**Caracteristicas comparativas de PSO, GA y ACO en distintos aspectos de desempeno resumido**
+
+| Aspecto | PSO (Particle Swarm Optimization) | GA (Genetic Algorithm) | ACO (Ant Colony Optimization) |
+|---|---|---|---|
+| Velocidad de convergencia inicial | Alta en espacios continuos y problemas bien calibrados | Media; depende de seleccion, cruce y mutacion | Media-baja al inicio por fase de exploracion de feromonas |
+| Equilibrio exploracion/explotacion | Bueno con ajuste de inercia y coeficientes cognitivo/social | Flexible; controlado por operadores geneticos y elitismo | Fuerte exploracion inicial y explotacion progresiva por refuerzo de caminos |
+| Riesgo de optimo local | Medio; puede estancarse sin diversidad | Medio-alto si la poblacion pierde diversidad | Medio; mejora con evaporacion y ruido estocastico |
+| Sensibilidad a parametros | Media (inercia, c1, c2, topologia) | Alta (tamano poblacion, tasa de cruce, mutacion) | Alta (alfa, beta, evaporacion, numero de hormigas) |
+| Tipo de problemas donde destaca | Continuos, ajuste de parametros, optimizacion numerica | Combinatorios y continuos; diseno y seleccion | Ruteo, caminos minimos, TSP, asignacion y secuenciacion |
+| Costo computacional | Bajo-medio por iteracion | Medio-alto segun evaluacion y tamano poblacional | Medio-alto por construccion de soluciones y actualizacion de feromonas |
+| Paralelizacion | Buena; particulas evaluables en paralelo | Muy buena; individuos evaluables en paralelo | Buena; hormigas independientes en construccion de rutas |
+| Interpretabilidad del proceso | Media; dinamica de velocidades/posiciones | Media; evolucion de aptitud y operadores | Alta en problemas de rutas por trazas de feromonas |
+| Robustez ante ruido | Media; sensible a oscilaciones | Media-alta con poblaciones grandes | Media-alta por acumulacion colectiva de evidencia |
+| Facilidad de implementacion | Alta (estructura simple) | Media (mas componentes de diseno) | Media-baja (matriz de feromonas y reglas probabilisticas) |
+
+
 ---
+
 
 ## 2.4 Ventajas y limitaciones de Datlas frente a otros modelos
 
@@ -80,6 +99,8 @@ Datlas demuestra utilidad en casos reales de negocio cuando se busca velocidad, 
 - Análisis de un caso real para identificar valor de negocio generado por Datlas.
 
 ## Quiz
+
+### QUIZ 1 - U1-T2-S4 (APE4)
 
 ### Pregunta 1: Uso principal de Datlas en negocio
 
@@ -150,6 +171,218 @@ SEMMA se centra más en tareas técnicas; Datlas incorpora mayor conexión con n
 
 **Explicación breve:**
 Datlas funciona especialmente bien cuando se requiere velocidad, claridad y alineación con usuarios finales.
+
+### Pregunta 6: Ventaja inicial de ACO
+
+**Pregunta:** ¿Qué ventaja inicial tiene ACO?
+
+**Opciones:**
+- ❌ Menor dependencia del tamaño de población.
+- ✅ Fuerte en exploración mediante feromonas.
+- ❌ Menor costo computacional por iteración.
+
+**Respuesta correcta:** Fuerte en exploración mediante feromonas.
+
+**Explicación breve:**
+ACO destaca al inicio por su capacidad de explorar múltiples rutas y reforzar soluciones prometedoras mediante feromonas.
+
+### Pregunta 7: Explotación prematura en ACO
+
+**Pregunta:** ¿Qué condición puede llevar a explotación prematura en ACO?
+
+**Opciones:**
+- ✅ Poca diversidad genética.
+- ❌ Mal diseño del refresco de feromonas.
+- ❌ Mal ajuste de inercia.
+
+**Respuesta correcta:** Poca diversidad genética.
+
+**Explicación breve:**
+Cuando disminuye la diversidad de soluciones candidatas, el algoritmo tiende a explotar pocas rutas y puede converger de forma prematura.
+
+### Pregunta 8: Eficiencia de ACO
+
+**Pregunta:** ¿Qué inconveniente tiene ACO en eficiencia?
+
+**Opciones:**
+- ❌ Requiere gran población.
+- ✅ Siempre converge lento.
+- ❌ Puede ser menos eficiente en casos grandes.
+
+**Respuesta correcta:** Siempre converge lento.
+
+**Explicación breve:**
+En la unidad se destaca que ACO puede presentar convergencia lenta, especialmente en etapas tempranas de búsqueda.
+
+### Pregunta 9: Campo de aplicacion
+
+**Pregunta:** ¿En qué campo se utilizan los algoritmos bioinspirados para reducir peso o maximizar rigidez?
+
+**Opciones:**
+- ❌ Ingeniería y Diseño.
+- ✅ Bioinformática.
+- ❌ Telecomunicaciones.
+
+**Respuesta correcta:** Bioinformática.
+
+**Explicación breve:**
+En la unidad se presenta Bioinformática como campo de aplicación relevante de algoritmos bioinspirados para este tipo de optimización.
+
+### Pregunta 10: Multiobjetivo
+
+**Pregunta:** ¿Qué ventaja tienen en optimización multiobjetivo?
+
+**Opciones:**
+- ✅ No pueden aplicarse a carteras financieras.
+- ❌ Permiten equilibrar metas en conflicto.
+- ❌ Solo buscan una meta fija.
+
+**Respuesta correcta:** No pueden aplicarse a carteras financieras.
+
+**Explicación breve:**
+Según el contenido de la unidad, esta opción se presenta como una limitación en su aplicación al contexto de carteras financieras.
+
+### QUIZ 2 - U1-T2-S4 (APE4)
+
+### Pregunta 11: PSO en espacios continuos
+
+**Pregunta:** ¿En qué tipo de problemas suele destacar PSO?
+
+**Opciones:**
+- ✅ En optimización continua y ajuste de parámetros.
+- ❌ Solo en clasificación supervisada.
+- ❌ Únicamente en minería de texto.
+
+**Respuesta correcta:** En optimización continua y ajuste de parámetros.
+
+**Explicación breve:**
+PSO se adapta bien a espacios de búsqueda continuos por su dinámica de partículas.
+
+### Pregunta 12: Diversidad en GA
+
+**Pregunta:** ¿Qué ayuda a GA a evitar estancamiento temprano?
+
+**Opciones:**
+- ✅ Mantener diversidad poblacional.
+- ❌ Eliminar la mutación por completo.
+- ❌ Usar un solo individuo élite en todas las generaciones.
+
+**Respuesta correcta:** Mantener diversidad poblacional.
+
+**Explicación breve:**
+La diversidad permite explorar regiones nuevas y reducir el riesgo de óptimos locales.
+
+### Pregunta 13: Feromonas en ACO
+
+**Pregunta:** ¿Qué función cumplen las feromonas en ACO?
+
+**Opciones:**
+- ✅ Guiar probabilísticamente la construcción de soluciones.
+- ❌ Reemplazar la función objetivo.
+- ❌ Eliminar totalmente la aleatoriedad.
+
+**Respuesta correcta:** Guiar probabilísticamente la construcción de soluciones.
+
+**Explicación breve:**
+Las feromonas refuerzan rutas prometedoras y orientan decisiones futuras.
+
+### Pregunta 14: Costo computacional
+
+**Pregunta:** ¿Cuál de estos algoritmos puede elevar su costo en problemas grandes por iteración compleja?
+
+**Opciones:**
+- ✅ ACO.
+- ❌ PSO en todos los casos.
+- ❌ Ninguno, todos cuestan igual.
+
+**Respuesta correcta:** ACO.
+
+**Explicación breve:**
+La construcción de rutas y actualización de feromonas puede encarecer el proceso en gran escala.
+
+### Pregunta 15: Ajuste de parámetros
+
+**Pregunta:** ¿Qué algoritmo suele ser más sensible al diseño de tasas de cruce y mutación?
+
+**Opciones:**
+- ✅ GA.
+- ❌ PSO exclusivamente.
+- ❌ ACO nunca usa parámetros.
+
+**Respuesta correcta:** GA.
+
+**Explicación breve:**
+El desempeño de GA depende fuertemente de cómo se configuren sus operadores evolutivos.
+
+### Pregunta 16: Exploración vs explotación
+
+**Pregunta:** ¿Qué describe mejor el objetivo del equilibrio exploración-explotación?
+
+**Opciones:**
+- ✅ Buscar nuevas zonas sin perder refinamiento de buenas soluciones.
+- ❌ Mantener siempre la misma solución inicial.
+- ❌ Eliminar cualquier componente estocástico.
+
+**Respuesta correcta:** Buscar nuevas zonas sin perder refinamiento de buenas soluciones.
+
+**Explicación breve:**
+El equilibrio evita estancamiento y mejora la calidad final de la optimización.
+
+### Pregunta 17: Paralelización
+
+**Pregunta:** ¿Qué característica favorece la paralelización en metaheurísticas poblacionales?
+
+**Opciones:**
+- ✅ Evaluación independiente de múltiples candidatos.
+- ❌ Necesidad de una sola solución por ciclo.
+- ❌ Uso obligatorio de datos secuenciales.
+
+**Respuesta correcta:** Evaluación independiente de múltiples candidatos.
+
+**Explicación breve:**
+Individuos, partículas o hormigas pueden evaluarse en paralelo para reducir tiempos.
+
+### Pregunta 18: Aplicación en ruteo
+
+**Pregunta:** ¿Qué algoritmo es especialmente usado en problemas de ruteo tipo TSP?
+
+**Opciones:**
+- ✅ ACO.
+- ❌ PSO únicamente.
+- ❌ Regresión lineal.
+
+**Respuesta correcta:** ACO.
+
+**Explicación breve:**
+ACO modela bien la elección de caminos y refuerzo de rutas de alta calidad.
+
+### Pregunta 19: Convergencia prematura
+
+**Pregunta:** ¿Qué consecuencia tiene la convergencia prematura?
+
+**Opciones:**
+- ✅ Encontrar soluciones subóptimas por pérdida de exploración.
+- ❌ Garantizar el óptimo global.
+- ❌ Reducir siempre el tiempo con mejor calidad.
+
+**Respuesta correcta:** Encontrar soluciones subóptimas por pérdida de exploración.
+
+**Explicación breve:**
+Cuando se reduce demasiado la diversidad, el algoritmo deja de explorar alternativas valiosas.
+
+### Pregunta 20: Selección de metaheurística
+
+**Pregunta:** ¿Qué criterio es clave para elegir entre PSO, GA y ACO?
+
+**Opciones:**
+- ✅ La naturaleza del problema y el costo computacional aceptable.
+- ❌ Elegir siempre el algoritmo más popular.
+- ❌ Usar el que tenga menos parámetros sin analizar contexto.
+
+**Respuesta correcta:** La naturaleza del problema y el costo computacional aceptable.
+
+**Explicación breve:**
+La elección debe considerar tipo de variables, tamaño del problema y recursos disponibles.
 
 ## Completar
 
