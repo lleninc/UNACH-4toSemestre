@@ -220,3 +220,16 @@ El parámetro charset indica la codificación que usará la conexión para inter
 - [ ] Comparar una consulta con SELECT * frente a una consulta de columnas específicas.
 - [ ] Proponer un índice para una consulta frecuente y justificar su elección.
 
+## Ejercicio completado
+
+1. Un **trigger** es un programa almacenado que se ejecuta automáticamente cuando ocurre un evento como INSERT, UPDATE o DELETE en una tabla.
+2. Los triggers pueden clasificarse en BEFORE, AFTER o **INSTEAD OF** según el momento en que se ejecutan respecto a la operación.
+3. Un trigger que registra automáticamente quién, cuándo y qué valores se modificaron en una tabla se usa para **auditoría** de cambios.
+4. Para evitar que una transacción registre datos inválidos, se puede usar un trigger de validación de **reglas** de negocio.
+5. Un trigger puede actualizar o recalcular información en tablas relacionadas, lo que se conoce como mantenimiento **automático** de datos.
+6. La optimización de consultas busca ejecutar instrucciones SQL de la manera más **eficiente** posible, reduciendo el consumo de recursos.
+7. Para mejorar el rendimiento de las consultas, se recomienda crear **índices** en las columnas más usadas en búsquedas y filtros.
+8. En lugar de usar SELECT, se debe seleccionar únicamente las **columnas** necesarias para mejorar la eficiencia de una consulta.
+9. Las subconsultas innecesarias pueden reemplazarse por **JOIN** o CTE para optimizar la ejecución.
+10. Un análisis del **plan** de ejecución permite identificar cuellos de botella en el rendimiento de una consulta.
+

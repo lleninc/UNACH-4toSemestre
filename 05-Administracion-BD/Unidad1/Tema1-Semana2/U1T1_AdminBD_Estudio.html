@@ -65,9 +65,12 @@
   .q-badge.num{color:var(--accent);background:rgba(245,166,35,0.12);}
   .q-badge.topic{color:var(--accent2);background:rgba(124,109,235,0.1);}
   .q-text{font-size:18px;font-weight:700;line-height:1.45;margin-bottom:26px;}
+  .quiz-hint{font-size:12px;color:var(--muted);margin:-14px 0 16px;font-family:var(--mono);}
   .options{display:flex;flex-direction:column;gap:9px;}
   .option-btn{display:flex;align-items:flex-start;gap:13px;padding:15px 18px;border-radius:11px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:15px;cursor:pointer;text-align:left;transition:all 0.2s;line-height:1.4;}
   .option-btn:hover:not(:disabled){border-color:var(--accent2);background:rgba(124,109,235,0.08);transform:translateX(4px);}
+  .option-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .option-btn:disabled{cursor:not-allowed;opacity:0.95;}
   .option-btn .opt-letter{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--muted);min-width:18px;margin-top:2px;}
   .option-btn.correct{border-color:var(--green);background:rgba(46,204,113,0.1);}
   .option-btn.correct .opt-letter{color:var(--green);}
@@ -82,6 +85,8 @@
   .feedback.correct-fb .feedback-title{color:var(--green);}
   .feedback.wrong-fb .feedback-title{color:var(--red);}
   .feedback-body{font-size:13px;line-height:1.65;color:var(--text);font-family:var(--mono);}
+  .next-wrap{display:flex;justify-content:flex-end;margin-top:14px;}
+  .next-wrap.hidden{display:none;}
 
   .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:10px;flex-wrap:wrap;}
   .btn{padding:11px 26px;border-radius:10px;border:none;font-family:var(--sans);font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.4px;}
@@ -445,6 +450,7 @@ const QUESTIONS = parseQuestions(QUESTIONS_RAW);
 let currentQ = 0;
 let score = 0;
 let answered = [];
+let questionLocked = false;
 
 function switchTab(tab) {
   document.getElementById('studyMode').classList.remove('show');
@@ -485,6 +491,7 @@ function renderQuestion() {
         <span class="q-badge topic">${q.topic.toUpperCase()}</span>
       </div>
       <div class="q-text">${q.q}</div>
+      <div class="quiz-hint">Elige una opción con clic o teclas 1, 2, 3 (también A, B, C).</div>
       <div class="options">
         ${q.o.map((opt, i) => `
           <button class="option-btn" onclick="answerQ(${i})">
@@ -494,18 +501,25 @@ function renderQuestion() {
         `).join('')}
       </div>
       <div class="feedback"></div>
+      <div class="next-wrap hidden" id="nextWrap">
+        <button class="btn btn-primary" onclick="goNextQuestion()">Siguiente</button>
+      </div>
     </div>
   `;
   document.getElementById('quizContainer').innerHTML = html;
+  questionLocked = false;
   updateProgress();
 }
 
 function answerQ(idx) {
+  if (questionLocked) return;
   const q = QUESTIONS[currentQ];
   const correct = idx === q.c;
   const card = document.querySelector('.question-card');
   const opts = card.querySelectorAll('.option-btn');
   const fb = card.querySelector('.feedback');
+  const nextWrap = card.querySelector('#nextWrap');
+  questionLocked = true;
   
   if (correct) {
     score++;
@@ -522,12 +536,13 @@ function answerQ(idx) {
   opts.forEach(o => o.disabled = true);
   answered.push(idx);
   document.getElementById('scoreNum').textContent = score;
-  
-  setTimeout(() => {
-    currentQ++;
-    updateProgress();
-    setTimeout(() => renderQuestion(), 500);
-  }, 2000);
+  nextWrap.classList.remove('hidden');
+}
+
+function goNextQuestion() {
+  currentQ++;
+  updateProgress();
+  renderQuestion();
 }
 
 function updateProgress() {
@@ -556,11 +571,35 @@ function restartQuiz() {
   currentQ = 0;
   score = 0;
   answered = [];
+  questionLocked = false;
   document.getElementById('endScreen').classList.remove('show');
   document.getElementById('quizContainer').style.display = 'block';
   document.getElementById('scoreNum').textContent = '0';
   renderQuestion();
 }
+
+document.addEventListener('keydown', (event) => {
+  if (!document.getElementById('quizMode').classList.contains('show')) return;
+  const map = {
+    '1': 0,
+    '2': 1,
+    '3': 2,
+    'a': 0,
+    'b': 1,
+    'c': 2,
+  };
+  const key = event.key.toLowerCase();
+  if (map[key] === undefined) {
+    if (key === 'enter' && questionLocked) {
+      const nextWrap = document.getElementById('nextWrap');
+      if (nextWrap && !nextWrap.classList.contains('hidden')) {
+        goNextQuestion();
+      }
+    }
+    return;
+  }
+  answerQ(map[key]);
+});
 </script>
 </body>
 </html>
