@@ -1,0 +1,118 @@
+METAHEURÍSTICA
+Actividad Autónoma 2
+Nombre de la actividad: Implementación práctica y
+comparación de algoritmos PSO, GA y ACO.
+Unidad 1: Algoritmos bioinspirados
+Tema 2: Ejemplos Clásicos y Aplicaciones
+Nombres:
+Fecha:
+Carrera:
+Periodo académico:
+Semestre:
+1
+11
+
+Aplicar de manera práctica los algoritmos bioinspirados PSO, GA y ACO a
+problemas de optimización sencillos, analizar sus resultados y reflexionar sobre
+sus diferencias y aplicaciones reales.
+Recursos o temas que debe haber estudiado antes de hacer la actividad:
+• Conocimiento del lenguaje Python o R para la implementación de
+ejemplos de algoritmos.
+• Fundamentos teóricos de los algoritmos bioinspirados: PSO, GA y
+ACO (estructura y componentes básicos).
+• Ejemplos de funciones objetivo comunes: función esfera, función
+Rastrigin, problema del viajante (TSP).
+Formato de entrega:
+Informe en formato PDF con: portada, desarrollo de la actividad, resultados,
+tabla comparativa, reflexión crítica y bibliografía.
+Adjuntar archivo del código (extensión .py o .R.).
+Instrucciones:
+• Implemente versiones básicas de PSO, GA y ACO en lenguaje Python
+o R (puede usar librerías existentes o programar versiones simplificadas).
+• Aplique cada algoritmo a un problema sencillo de optimización
+(por ejemplo: minimizar f(x,y) = 3x² + 2y² o resolver un TSP con 5 ciudades).
+• Registre los resultados obtenidos: número de iteraciones, solución final y
+tiempo de ejecución.
+• Presente los resultados en una tabla comparativa con criterios:
+convergencia, calidad de la solución, tiempo de ejecución, ventajas y
+desventajas.
+• Redacte un ensayo (mínimo 300 palabras) sobre cuál algoritmo se
+adapta mejor al problema elegido.
+2
+22
+
+Bibliografía:
+Ahmed, Z., Haron, H., & Al-Tameem, A. (2024). Appropriate Combination of
+Crossover Operator and Mutation Operator in Genetic Algorithms for
+the Travelling Salesman Problem. Computers, Materials & Continua,
+79(2), 2399-2425. https://doi.org/10.32604/cmc.2024.049704
+adaptive differential evolution: A unified meta-heuristic framework for
+complex engineering optimisation and UAV path planning. Results in
+Engineering, 27, 106530. https://doi.org/10.1016/j.rineng.2025.106530
+Game, P., Vaze, V., & Emmanuel, M. (2020). Bio-inspired Optimization:
+metaheuristic algorithms for optimization. arXiv: Neural and
+Evolutionary Computing. http://arxiv.org/pdf/2003.11637.pdf
+Khalid, A. M., Hosny, K. M., & Mirjalili, S. (2022). COVIDOA: A novel
+evolutionary optimization algorithm based on coronavirus disease
+replication lifecycle. Neural Computing and Applications, 34(24),
+22465-22492. https://doi.org/10.1007/s00521-022-07639-x. Zeb.
+3
+33
+
+Rúbrica de evaluación
+Componente de aprendizaje: Autónomo X Contacto con el
+Docente
+Nombre de la Unidad:
+Unidad 1: Algoritmos bioinspirados
+Resultado(s) de aprendizaje: • Comprender los principios fundamentales de los algoritmos bioinspirados, reconociendo su origen natural y c
+según sus características generales.
+• Analizar y comparar los distintos tipos de algoritmos bioinspirados, identificando sus estructuras
+fundamentales aplicaciones más relevantes.
+Nombre de la Actividad: Implementación práctica y comparación de algoritmos PSO, GA y ACO.
+Escala de Valoración
+Excelente Bueno Satisfactorio Necesita mejorar No entrega Comentario
+Criterios de (10 - 9,1) (9 - 8,1) (8 - 7) (6,9 - 0,1) (0) Puntaje s
+Evaluación (SIGEA)
+1. Resumen Explica claramente Presenta Explica de forma Explicación No entrega
+conceptual fundamentos, fundamentos y parcial, omite incompleta, con
+motivaciones y bases en motivaciones con aspectos clave errores conceptuales
+biología, física y ecología algunos vacíos o o tiene errores o poco rigor
+con redacción redacción menores. académico.
+académica impecable. mejorable.
+2. Tabla Incluye al menos 5 Presenta 4 o 5 Presenta menos Comparación muy No entrega
+comparativa diferencias bien diferencias, pero de 4 diferencias incompleta o
+argumentadas entre algunas poco o con errores incorrecta.
+bioinspirados y otras desarrolladas. notables.
+metaheurísticas, con
+ejemplos claros.
+3. Aplicaciones Selecciona 2 algoritmos y Selecciona 2 Selecciona solo Aplicaciones vagas, No entrega
+recientes describe aplicaciones algoritmos con 1 algoritmo o sin evidencia o sin
+actuales (≤5 años) con aplicaciones, pero aplicaciones relación con el
+detalle y ventajas con explicaciones poco tema.
+identificadas. limitadas. actualizadas.
+4. Reflexión crítica Reflexión profunda, Reflexión Reflexión Reflexión superficial, No entrega
+(Ejes: Innovación / conecta teoría, práctica e adecuada, con general, poco sin análisis.
+Impacto social) impacto social y aportes prácticos, crítica.
+tecnológico. pero menos
+profundos.
+5. Bibliografía (Eje: Incluye ≥5 fuentes Incluye 4-5 Incluye 3 Incluye menos de 3 No entrega
+Ética y valores / académicas en APA 7, fuentes, con fuentes, con fuentes o sin
+Comunicación actualizadas y pequeños errores errores de formato APA.
+académica) correctamente citadas. de formato. citación.
+Puntaje total
+Los criterios 4 y 5 están alineados a los ejes de formación del Modelo Educativo UNACH “Introspección y Prospectiva” y responden principalmente
+a dos de los siguientes ejes:
+1. Ambiente;
+2. Autonomía y adaptabilidad;
+3. Comunicación;
+4. Desarrollo humano;
+5. Ética y valores;
+6. Emprendimiento;
+7. Inter y multidisciplinariedad;
+8. Innovación;
+9. Inclusión e interculturalidad;
+10. Investigación;
+11. Impacto social;
+12. Tecnologías.
+4
+44
