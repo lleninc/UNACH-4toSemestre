@@ -1,0 +1,25 @@
+BEGIN TRANSACTION
+update Usuario set nombre = 'Juan' where id_usuario = 1;
+
+commit;
+
+select * from Usuarios
+
+--CONTROL MULTIVERSION (MVCC)
+ALTER DATABASE [PELICULAS] SET READ_COMMITTED_SNAPSHOT ON;
+
+-- SINO EJECUTA EL ANTERIOR COMANDO, SE PUEDE EJECUTAR ESTE OTRO PARA FORZAR EL CAMBIO INMEDIATO
+ALTER DATABASE [PELICULAS] 
+SET READ_COMMITTED_SNAPSHOT ON WITH ROLLBACK IMMEDIATE;
+GO
+
+-- SI LA CONSULTA DA VALOR DE 1 EN LA COLUMNA is_read_committed_snapshot_on, 
+-- SIGNIFICA QUE EL CONTROL MULTIVERSION (MVCC) ESTÁ ACTIVADO
+
+SELECT name, is_read_committed_snapshot_on
+FROM sys.databases
+WHERE name = 'PELICULAS';
+
+select suscripcion from Usuarios where id_usuario = 6;
+
+
