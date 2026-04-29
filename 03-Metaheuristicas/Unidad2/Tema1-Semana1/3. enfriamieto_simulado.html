@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulación Interactiva: Simulated Annealing con Decisión del Estudiante</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f6fb;
+      color: #243447;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1f4e79, #163653);
+      color: white;
+      padding: 28px 18px;
+      text-align: center;
+    }
+
+    header h1 { margin: 0; }
+    header p { max-width: 900px; margin: 10px auto 0; }
+
+    main {
+      max-width: 1150px;
+      margin: 24px auto;
+      padding: 0 16px 40px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(31, 78, 121, 0.1);
+      border: 1px solid #dde7f2;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    h2, h3 { color: #1f4e79; margin-top: 0; }
+
+    .map {
+      position: relative;
+      height: 390px;
+      background: #eef4fb;
+      border: 1px dashed #9eb7d0;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .city {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #f28c28;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.22);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      background: #1f4e79;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    button:hover { opacity: .9; }
+    button.orange { background: #f28c28; }
+    button.green { background: #2e8b57; }
+    button.red { background: #b83b5e; }
+    button.gray { background: #6b7a90; }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+
+    label { font-weight: bold; }
+    input[type="range"] { width: 170px; }
+
+    .metric {
+      background: #f8fbff;
+      border-left: 5px solid #1f4e79;
+      padding: 14px;
+      border-radius: 12px;
+      min-height: 80px;
+    }
+
+    .metric strong { color: #1f4e79; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.92rem;
+    }
+
+    th, td {
+      border: 1px solid #dde7f2;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th { background: #e7eff8; }
+
+    .accepted { color: #2e8b57; font-weight: bold; }
+    .rejected { color: #b83b5e; font-weight: bold; }
+    .warning { color: #f28c28; font-weight: bold; }
+
+    .formula {
+      background: #fff7ec;
+      border: 1px solid #ffd7a3;
+      color: #8a4d00;
+      text-align: center;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .decision-box {
+      border: 2px dashed #9eb7d0;
+      background: #f8fbff;
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #e7eff8;
+      color: #1f4e79;
+      font-weight: bold;
+      margin: 3px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Simulación Interactiva: Simulated Annealing</h1>
+    <p>El estudiante decide si acepta o rechaza una ruta vecina. Luego la máquina explica qué habría decidido el algoritmo y por qué.</p>
+  </header>
+
+  <main>
+    <section class="grid">
+      <div class="card">
+        <h2>Idea del algoritmo</h2>
+        <p><strong>Simulated Annealing</strong> acepta siempre las soluciones mejores. Si una solución es peor, puede aceptarla con una probabilidad que depende de la temperatura.</p>
+        <div class="formula">P = e<sup>-ΔE / T</sup></div>
+        <p><span class="pill">P</span> probabilidad de aceptar una solución peor.</p>
+        <p><span class="pill">ΔE</span> diferencia entre la distancia de la ruta vecina y la distancia de la ruta actual.</p>
+        <p><span class="pill">T</span> temperatura actual del algoritmo.</p>
+        <div style="background:#f8fbff; border-left:5px solid #f28c28; padding:12px; border-radius:12px; margin-top:12px;">
+          <strong>¿Cómo se interpreta?</strong><br>
+          Si la ruta vecina es mejor, se acepta directamente. Si es peor, se calcula esta probabilidad.
+          Por ejemplo, si ΔE = 9 y T = 10, entonces:<br>
+          <strong>P = e<sup>-9/10</sup> = e<sup>-0.9</sup> ≈ 0.407</strong><br>
+          Esto significa que existe aproximadamente un <strong>40.7%</strong> de probabilidad de aceptar esa solución peor.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Parámetros</h2>
+        <div class="controls">
+          <label>Temperatura inicial:</label>
+          <input id="tempInitial" type="range" min="10" max="200" value="120" oninput="updateLabels()">
+          <span id="tempInitialLabel">120</span>
+        </div>
+        <div class="controls">
+          <label>Enfriamiento:</label>
+          <input id="cooling" type="range" min="80" max="99" value="93" oninput="updateLabels()">
+          <span id="coolingLabel">0.93</span>
+        </div>
+        <div class="controls">
+          <label>Temperatura mínima:</label>
+          <input id="tempMin" type="range" min="1" max="30" value="5" oninput="updateLabels()">
+          <span id="tempMinLabel">5</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Mapa de ciudades</h2>
+      <p>La línea azul representa la ruta actual. Cuando generes un vecino, aparecerá una ruta candidata en color naranja.</p>
+      <div class="map" id="map">
+        <svg id="svg"></svg>
+      </div>
+
+      <div class="controls">
+        <button onclick="resetSimulation()">Reiniciar</button>
+        <button class="orange" onclick="generateCandidate()" id="candidateBtn">Generar ruta vecina</button>
+      </div>
+    </section>
+
+    <section class="decision-box">
+      <h2>Datos antes de decidir</h2>
+      <p>Primero observa los valores calculados por el algoritmo. Luego decide si aceptarías o rechazarías la ruta vecina.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Ruta actual</th>
+            <th>Ruta vecina</th>
+            <th>Dist. actual</th>
+            <th>Dist. vecina</th>
+            <th>ΔE</th>
+            <th>Temperatura</th>
+            <th>Probabilidad P</th>
+            <th>Número aleatorio r</th>
+            <th>Comparación</th>
+          </tr>
+        </thead>
+        <tbody id="candidateTable">
+          <tr><td colspan="9">Genera una ruta vecina para ver los datos antes de decidir.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 style="margin-top:18px;">Decisión del estudiante</h2>
+      <p id="decisionPrompt">Primero genera una ruta vecina. Luego decide si la aceptarías o rechazarías.</p>
+      <div class="controls">
+        <button class="green" onclick="studentDecision(true)" id="acceptBtn" disabled>Aceptar ruta vecina</button>
+        <button class="red" onclick="studentDecision(false)" id="rejectBtn" disabled>Rechazar ruta vecina</button>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card metric" id="statusBox"></div>
+      <div class="card metric" id="bestBox"></div>
+      <div class="card metric" id="machineBox"></div>
+    </section>
+
+    <section class="card">
+      <h2>Historial de aprendizaje</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Iteración</th>
+            <th>Dist. actual</th>
+            <th>Dist. vecina</th>
+            <th>ΔE</th>
+            <th>Temperatura</th>
+            <th>Decisión estudiante</th>
+            <th>Decisión SA</th>
+            <th>Razón matemática</th>
+          </tr>
+        </thead>
+        <tbody id="history"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const cities = [
+      { name: 'A', x: 10, y: 20 },
+      { name: 'B', x: 30, y: 12 },
+      { name: 'C', x: 55, y: 18 },
+      { name: 'D', x: 83, y: 38 },
+      { name: 'E', x: 74, y: 72 },
+      { name: 'F', x: 44, y: 82 },
+      { name: 'G', x: 17, y: 68 }
+    ];
+
+    let currentRoute = [];
+    let bestRoute = [];
+    let candidateRoute = null;
+    let temperature = 120;
+    let iteration = 0;
+    const maxIterations = 10;
+    let currentCost = 0;
+    let candidateCost = 0;
+    let delta = 0;
+    let machineWouldAccept = false;
+    let probability = 0;
+    let randomValue = 0;
+
+    function updateLabels() {
+      document.getElementById('tempInitialLabel').textContent = document.getElementById('tempInitial').value;
+      document.getElementById('coolingLabel').textContent = (document.getElementById('cooling').value / 100).toFixed(2);
+      document.getElementById('tempMinLabel').textContent = document.getElementById('tempMin').value;
+    }
+
+    function distance(a, b) {
+      const dx = cities[a].x - cities[b].x;
+      const dy = cities[a].y - cities[b].y;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function totalDistance(route) {
+      let sum = 0;
+      for (let i = 0; i < route.length - 1; i++) {
+        sum += distance(route[i], route[i + 1]);
+      }
+      return sum;
+    }
+
+    function routeText(route) {
+      return route.map(i => cities[i].name).join(' → ');
+    }
+
+    function randomRoute() {
+      const base = cities.map((_, i) => i).sort(() => Math.random() - 0.5);
+      base.push(base[0]);
+      return base;
+    }
+
+    function makeNeighbor(route) {
+      const base = route.slice(0, -1);
+      let i = Math.floor(Math.random() * base.length);
+      let j = Math.floor(Math.random() * base.length);
+      while (i === j) j = Math.floor(Math.random() * base.length);
+      [base[i], base[j]] = [base[j], base[i]];
+      base.push(base[0]);
+      return base;
+    }
+
+    function draw(route, candidate = null) {
+      const map = document.getElementById('map');
+      const svg = document.getElementById('svg');
+      svg.innerHTML = '';
+      map.querySelectorAll('.city').forEach(c => c.remove());
+
+      drawLines(route, '#1f4e79', 4);
+      if (candidate) drawLines(candidate, '#f28c28', 3, true);
+
+      cities.forEach(city => {
+        const div = document.createElement('div');
+        div.className = 'city';
+        div.style.left = city.x + '%';
+        div.style.top = city.y + '%';
+        div.textContent = city.name;
+        map.appendChild(div);
+      });
+    }
+
+    function drawLines(route, color, width, dashed = false) {
+      const svg = document.getElementById('svg');
+      for (let i = 0; i < route.length - 1; i++) {
+        const c1 = cities[route[i]];
+        const c2 = cities[route[i + 1]];
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', c1.x + '%');
+        line.setAttribute('y1', c1.y + '%');
+        line.setAttribute('x2', c2.x + '%');
+        line.setAttribute('y2', c2.y + '%');
+        line.setAttribute('stroke', color);
+        line.setAttribute('stroke-width', width);
+        line.setAttribute('stroke-linecap', 'round');
+        if (dashed) line.setAttribute('stroke-dasharray', '8 6');
+        svg.appendChild(line);
+      }
+    }
+
+    function resetSimulation() {
+      updateLabels();
+      temperature = Number(document.getElementById('tempInitial').value);
+      iteration = 0;
+      currentRoute = randomRoute();
+      bestRoute = [...currentRoute];
+      candidateRoute = null;
+      document.getElementById('history').innerHTML = '';
+      document.getElementById('acceptBtn').disabled = true;
+      document.getElementById('rejectBtn').disabled = true;
+      document.getElementById('candidateBtn').disabled = false;
+      document.getElementById('decisionPrompt').textContent = 'Primero genera una ruta vecina. Luego decide si la aceptarías o rechazarías.';
+      document.getElementById('candidateTable').innerHTML = '<tr><td colspan="9">Genera una ruta vecina para ver los datos antes de decidir.</td></tr>';
+      draw(currentRoute);
+      updatePanels('Simulación reiniciada. Genera una ruta vecina para comenzar.', 'La máquina todavía no ha evaluado una decisión.');
+    }
+
+    function generateCandidate() {
+      const minTemp = Number(document.getElementById('tempMin').value);
+      if (iteration >= maxIterations) {
+        finishSimulation('Se alcanzó el máximo de 10 iteraciones.');
+        return;
+      }
+      if (temperature <= minTemp) {
+        updatePanels('El proceso terminó porque la temperatura llegó al mínimo.', 'Ya no se generan nuevas rutas vecinas.');
+        document.getElementById('candidateBtn').disabled = true;
+        return;
+      }
+
+      candidateRoute = makeNeighbor(currentRoute);
+      currentCost = totalDistance(currentRoute);
+      candidateCost = totalDistance(candidateRoute);
+      delta = candidateCost - currentCost;
+      probability = delta < 0 ? 1 : Math.exp(-delta / temperature);
+      randomValue = Math.random();
+      machineWouldAccept = delta < 0 || randomValue < probability;
+
+      draw(currentRoute, candidateRoute);
+
+      document.getElementById('acceptBtn').disabled = false;
+      document.getElementById('rejectBtn').disabled = false;
+      document.getElementById('candidateBtn').disabled = true;
+
+      const type = delta < 0 ? 'mejor' : 'peor';
+      document.getElementById('candidateTable').innerHTML = `
+        <tr>
+          <td>${routeText(currentRoute)}</td>
+          <td>${routeText(candidateRoute)}</td>
+          <td>${currentCost.toFixed(2)}</td>
+          <td>${candidateCost.toFixed(2)}</td>
+          <td class="${delta < 0 ? 'accepted' : 'warning'}">${delta.toFixed(2)}</td>
+          <td>${temperature.toFixed(2)}</td>
+          <td>${probability.toFixed(3)} = ${(probability * 100).toFixed(2)}%</td>
+          <td>${delta < 0 ? 'No se usa' : randomValue.toFixed(3)}</td>
+          <td>${delta < 0 ? 'Es mejor: se acepta directo' : 'Compara r con P'}</td>
+        </tr>
+      `;
+
+      document.getElementById('decisionPrompt').innerHTML = `
+        La ruta vecina es <strong>${type}</strong> que la actual. Revisa la tabla anterior antes de decidir. Si la ruta es peor, SA compara el número aleatorio r con la probabilidad P.
+      `;
+
+      updatePanels(
+        'Se generó una ruta vecina. Ahora el estudiante debe decidir si acepta o rechaza.',
+        'La máquina ya calculó internamente la decisión de SA, pero la mostrará después de tu respuesta.'
+      );
+    }
+
+    function studentDecision(studentAccepted) {
+      if (!candidateRoute) return;
+      iteration++;
+
+      let explanation = '';
+      let feedback = '';
+      const studentText = studentAccepted ? 'Aceptó' : 'Rechazó';
+      const machineText = machineWouldAccept ? 'Aceptaría' : 'Rechazaría';
+
+      if (delta < 0) {
+        explanation = 'La ruta vecina es mejor porque reduce la distancia total. En Simulated Annealing, toda solución mejor se acepta directamente.';
+        feedback = studentAccepted
+          ? 'Tu decisión fue adecuada: aceptaste una mejora.'
+          : 'Tu decisión no fue conveniente: rechazaste una ruta mejor que habría reducido la distancia.';
+      } else {
+        explanation = `La ruta vecina es peor, pero SA puede aceptarla para escapar de óptimos locales. La probabilidad fue P=${probability.toFixed(3)} y el número aleatorio fue ${randomValue.toFixed(3)}.`;
+        if (machineWouldAccept) {
+          explanation += ' Como el número aleatorio fue menor que la probabilidad, el algoritmo acepta la ruta peor.';
+          feedback = studentAccepted
+            ? 'Tu decisión coincide con SA: aceptaste una solución peor para explorar nuevas rutas.'
+            : 'Tu decisión fue conservadora. SA sí habría aceptado esta ruta peor para explorar y evitar estancarse.';
+        } else {
+          explanation += ' Como el número aleatorio fue mayor que la probabilidad, el algoritmo rechaza la ruta peor.';
+          feedback = studentAccepted
+            ? 'Tu decisión fue arriesgada. SA habría rechazado esta solución porque la probabilidad de aceptación era baja.'
+            : 'Tu decisión coincide con SA: rechazaste una solución peor con baja probabilidad de aceptación.';
+        }
+      }
+
+      if (machineWouldAccept) {
+        currentRoute = candidateRoute;
+        if (totalDistance(currentRoute) < totalDistance(bestRoute)) {
+          bestRoute = [...currentRoute];
+          feedback += ' Además, se actualizó la mejor solución encontrada.';
+        }
+      }
+
+      addHistory(studentText, machineText);
+
+      const cooling = Number(document.getElementById('cooling').value) / 100;
+      temperature *= cooling;
+      candidateRoute = null;
+
+      draw(currentRoute);
+      updatePanels(feedback, explanation);
+
+      document.getElementById('acceptBtn').disabled = true;
+      document.getElementById('rejectBtn').disabled = true;
+      if (iteration >= maxIterations || temperature <= Number(document.getElementById('tempMin').value)) {
+        finishSimulation(iteration >= maxIterations ? 'Se alcanzó el máximo de 10 iteraciones.' : 'La temperatura llegó al mínimo establecido.');
+        return;
+      }
+
+      document.getElementById('candidateBtn').disabled = false;
+      document.getElementById('decisionPrompt').textContent = 'Ahora puedes generar otra ruta vecina y volver a decidir.';
+      document.getElementById('candidateTable').innerHTML = '<tr><td colspan="9">Genera una nueva ruta vecina para ver los datos antes de decidir.</td></tr>';
+    }
+
+    function updatePanels(feedbackMessage, machineMessage) {
+      document.getElementById('statusBox').innerHTML = `
+        <h3>Estado actual</h3>
+        <p><strong>Iteración:</strong> ${iteration} / ${maxIterations}</p>
+        <p><strong>Temperatura:</strong> ${temperature.toFixed(2)}</p>
+        <p><strong>Ruta actual:</strong> ${routeText(currentRoute)}</p>
+        <p><strong>Distancia actual:</strong> ${totalDistance(currentRoute).toFixed(2)}</p>
+      `;
+
+      document.getElementById('bestBox').innerHTML = `
+        <h3>Mejor solución encontrada</h3>
+        <p><strong>Ruta:</strong> ${routeText(bestRoute)}</p>
+        <p><strong>Distancia:</strong> ${totalDistance(bestRoute).toFixed(2)}</p>
+        <p>${feedbackMessage}</p>
+      `;
+
+      document.getElementById('machineBox').innerHTML = `
+        <h3>Explicación de la máquina</h3>
+        <p>${machineMessage}</p>
+      `;
+    }
+
+    function finishSimulation(reason) {
+      document.getElementById('acceptBtn').disabled = true;
+      document.getElementById('rejectBtn').disabled = true;
+      document.getElementById('candidateBtn').disabled = true;
+      document.getElementById('decisionPrompt').innerHTML = `
+        <strong>Fin de la simulación.</strong> ${reason}<br>
+        Puedes reiniciar para probar otra ruta inicial.
+      `;
+      document.getElementById('candidateTable').innerHTML = `
+        <tr>
+          <td colspan="9">
+            <strong>Resumen final:</strong> Mejor ruta encontrada: ${routeText(bestRoute)} | Distancia mínima: ${totalDistance(bestRoute).toFixed(2)} | Iteraciones: ${iteration}
+          </td>
+        </tr>
+      `;
+      updatePanels(
+        'La simulación terminó. Observa la mejor ruta encontrada y analiza si aceptar soluciones peores ayudó a explorar.',
+        'En Simulated Annealing, el proceso termina cuando se alcanza una temperatura mínima o un límite de iteraciones. En esta versión didáctica se usa un máximo de 10 iteraciones para evitar que la actividad sea tediosa.'
+      );
+    }
+
+    function addHistory(studentText, machineText) {
+      const tbody = document.getElementById('history');
+      const tr = document.createElement('tr');
+      const studentClass = studentText === 'Aceptó' ? 'accepted' : 'rejected';
+      const machineClass = machineText === 'Aceptaría' ? 'accepted' : 'rejected';
+      tr.innerHTML = `
+        <td>${iteration}</td>
+        <td>${currentCost.toFixed(2)}</td>
+        <td>${candidateCost.toFixed(2)}</td>
+        <td>${delta.toFixed(2)}</td>
+        <td>${temperature.toFixed(2)}</td>
+        <td class="${studentClass}">${studentText}</td>
+        <td class="${machineClass}">${machineText}</td>
+        <td>${delta < 0 ? 'ΔE < 0: mejora directa' : 'Comparación r vs P realizada por el algoritmo'}</td>
+      `;
+      tbody.prepend(tr);
+    }
+
+    updateLabels();
+    resetSimulation();
+  </script>
+</body>
+</html>
+

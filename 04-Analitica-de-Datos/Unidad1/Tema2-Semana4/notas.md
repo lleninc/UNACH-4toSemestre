@@ -2,6 +2,44 @@
 
 ## Notas de clase
 
+### 2.3. Aplicaciones de Datlas en proyectos de negocio
+
+- Datlas, también llamada "Laboratorio de Datos", adapta principios académicos como CRISP-DM a necesidades empresariales reales.
+- Su valor está en transformar datos brutos en información útil mediante fases como extracción, integración, clasificación, visualización, entrenamiento de modelos y reporte de hallazgos.
+- En los casos revisados, la metodología se aplicó en sectores como retail, medio ambiente y entretenimiento.
+- Caso Sigma Alimentos:
+	- modernización de inteligencia de mercados,
+	- integración de múltiples fuentes de datos,
+	- migración de reportes en Excel a dashboards interactivos,
+	- reducción de tiempos de respuesta y ROI cercano a 2x.
+- Caso ProNatura:
+	- tablero de monitoreo ambiental,
+	- uso de mapas, alertas tempranas y seguimiento operativo,
+	- apoyo a decisiones en tiempo oportuno.
+- Caso Cinépolis:
+	- uso de datos de preventa, audiencias históricas, demografía y actividad online,
+	- apoyo a pronósticos y decisiones comerciales.
+- Conclusión de los casos: el hilo común es una definición clara del problema, integración rigurosa de datos y comunicación efectiva de resultados.
+
+### 2.4. Ventajas y limitaciones de Datlas frente a otros modelos
+
+- Datlas se compara con CRISP-DM, SEMMA y KDD.
+- Ventajas principales:
+	- integra desde el inicio la comprensión del problema con el usuario final,
+	- pone énfasis explícito en la comunicación de resultados,
+	- permite iteración y retroalimentación entre fases,
+	- se adapta bien a proyectos modernos de analítica y machine learning.
+- Frente a SEMMA, Datlas está menos centrada solo en tareas técnicas y más conectada con el negocio.
+- Frente a CRISP-DM y KDD, comparte la lógica iterativa pero destaca más la transferencia de conocimiento y la presentación de hallazgos.
+- Limitaciones principales:
+	- tiene menos documentación y menor nivel de detalle que CRISP-DM,
+	- su adopción es más limitada y menos universal,
+	- puede ser menos adecuada cuando se necesita una metodología muy general o con fuerte soporte para despliegue y mantenimiento en producción.
+- Cuándo conviene usarla:
+	- proyectos medianos o acotados,
+	- contextos donde importa mucho comunicar resultados rápido,
+	- consultorías, startups, educación o prototipos de analítica.
+
 ## Quiz
 
 ### Pregunta 1: Resultado reportado en Sigma
