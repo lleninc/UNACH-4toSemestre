@@ -1,0 +1,297 @@
+ 
+ 
+ 
+ 
+ 
+ADMINISTRACIÓN DE BASES DE DATOS 
+Actividad Autónoma 2 
+Nombre de la actividad:  Implementación de vistas, funciones, 
+procedimientos y triggers en un sistema de inventario y 
+proveedores 
+Unidad 1: Programación avanzada en SQL – transacciones 
+Tema 2: Programación en SQL 
+ 
+ 
+ 
+ 
+Nombres: 
+Fecha: 
+Carrera: 
+Periodo académico: 
+Semestre: 
+
+
+  
+ 
+ 
+1 
+ 
+Objetivo de la actividad: 
+Ampliar el sistema de inventario y proveedores mediante la creación de 
+vistas, funciones, procedimientos almacenados y triggers, aplicando 
+buenas prácticas de programación en SQL para mejorar la seguridad, la 
+eficiencia y la automatización en la gestión de bases de datos. 
+Recursos o temas que debe haber estudiado antes de hacer la actividad: 
+• Vistas y Funciones 
+• Procedimientos almacenados 
+• Triggers 
+• Optimización de consultas 
+ 
+Formato de entrega: PDF, archivo .SQL  
+Instrucciones:  
+1. Vistas 
+o Crear una vista llamada Vista_ProductosActivos que muestre 
+productos con stock mayor a 0 junto con el nombre del 
+proveedor. 
+o Crear una vista llamada Vista_Transacciones que muestre 
+todas las transacciones realizadas en el sistema (compra y 
+venta), incluyendo producto, proveedor, fecha, cantidad y 
+monto. 
+2. Funciones 
+o Crear una función escalar llamada CalcularIVA que reciba 
+el monto de una transacción y devuelva el valor del IVA 
+(12%). 
+o Crear una función de tabla  llamada 
+TransaccionesPorProveedor que reciba el proveedor_id y 
+devuelva todas las transacciones asociadas a ese 
+proveedor. 
+3. Procedimientos almacenados 
+o Crear un procedimiento llamado InsertarCompra que 
+registre una compra de un producto, actualice el stock y 
+guarde la transacción en la tabla correspondiente. 
+
+  
+ 
+ 
+2 
+ 
+o Crear un procedimiento llamado InsertarVenta que registre 
+una venta de un producto, reduzca el stock y guarde la 
+transacción en la tabla correspondiente. 
+4. Triggers 
+o Crear un trigger que audite las operaciones INSERT en la 
+tabla Transacciones, registrando el id_transaccion, el tipo 
+(COMPRA/VENTA) y la fecha en una tabla llamada 
+Auditoria_Transacciones. 
+o Crear un trigger que impida que el stock de un producto 
+quede en valores negativos al intentar registrar una venta. 
+Debe realizar el informe en formato PDF y Archivo .SQL de l código 
+utilizado 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+  
+ 
+ 
+3 
+ 
+Bibliografía:  
+Barthels, C., Müller, I., Taranov, K., Alonso, G., & Hoefler, T. (2019). Strong 
+consistency is not hard to get: Two-phase locking and two-phase 
+commit on thousands of cores. Proceedings of the VLDB 
+Endowment, 12(13), 2325-2338. 
+https://doi.org/10.14778/3358701.3358702 
+Beynon-Davies, P. (2021). Data and Database Administration. En P. 
+Beynon-Davies (Ed.), Database Systems (pp. 129-143). Macmillan 
+Education UK. https://doi.org/10.1007/978-1-349-13722-0_11 
+Bouajjani, A., Enea, C., & Román-Calvo, E. (2025). On the Complexity of 
+Checking Mixed Isolation Levels for SQL Transactions. En R. Piskac & 
+Z. Rakamarić (Eds.), Computer Aided Verification (Vol. 15934, pp. 
+315-337). Springer Nature Switzerland. https://doi.org/10.1007/978-
+3-031-98685-7_15 
+Connolly, T. M., & Begg, C. E. (2021). Database systems: A practical 
+approach to design, implementation, and management (4th ed). 
+Addison-Wesley. 
+Elmasri, R., & Navathe, S. (2021). Fundamentals of database systems 
+(Seventh edition). Pearson. 
+Foufoulas, Y., & Simitsis, A. (2023). Efficient Execution of User-Defined 
+Functions in SQL Queries. Proceedings of the VLDB Endowment, 
+16(12), 3874-3877. https://doi.org/10.14778/3611540.3611574 
+Gupta, S., & Ramachandra, K. (2021). Procedural extensions of SQL: 
+Understanding their usage in the wild. Proceedings of the VLDB 
+
+  
+ 
+ 
+4 
+ 
+Endowment, 14(8), 1378-1391. 
+https://doi.org/10.14778/3457390.3457402 
+Jorge Santiago Nolasco Valenzuela. (2018). Python Aplicaciones 
+prácticas. RA-MA Editorial. 
+Leis, V., Kundhikanjana, K., Kemper, A., & Neumann, T. (2020). Efficient 
+processing of window functions in analytical SQL queries. Proc. 
+VLDB Endow., 8(10), 1058-1069. 
+https://doi.org/10.14778/2794367.2794375 
+Özsu, M. T. (2022). Database Administrator (DBA). En Encyclopedia of 
+Database Systems (pp. 935-936). Springer, New York, NY. 
+https://doi.org/10.1007/978-1-4614-8265-9_80652 
+Rahman, M. M., Islam, S., Kamruzzaman, M., & Joy, Z. H. (2024). 
+Advanced query optimization in SQL databases for real-time big 
+data analytics. Academic Journal on Business Administration, 
+Innovation & Sustainability, 4(3), 1-14. 
+Rodríguez Guerrero, R., Vanegas, C. A., & Castang Montiel, G. (2020). 
+Python a su alcance. Editorial Universidad Distrital Francisco José 
+de Caldas. Editorial UD. 
+Roller, J. (2024, julio 8). Ensuring Data Integrity: The Role of ACID 
+Transactions in Modern Distributed Microservices Architecture. IEEE 
+Computer Society. https://www.computer.org/publications/tech-
+news/community-voices/acid-transactions-in-distributed-
+microservices-architecture/ 
+
+  
+ 
+ 
+5 
+ 
+Shin, Y., Ahn, J., & Im, D.-H. (2022). Join optimization for inverted index 
+technique on relational database management systems. Expert 
+Systems with Applications, 198, 116956. 
+https://doi.org/10.1016/j.eswa.2022.116956 
+Silberschatz, A., Korth, H. F., & Sudarshan, S. (2020). Database system 
+concepts (5th ed). McGraw-Hill Higher Education. 
+Silberschatz, A. (with Korth, H. F., Sudarshan, S., Sáenz Pérez, F., García 
+Cordero, A., Correas Fernández, J., & Grau Fernández, L.). (2021). 
+Fundamentos de bases de datos (5a ed). McGraw-Hill. 
+Stuparu, D., & Petrescu, M. (2025). Common Table Expression: Different 
+database systems approach. ResearchGate. 
+https://www.researchgate.net/publication/259441876_Common_T
+able_Expression_Different_database_systems_approach 
+Wanigsoriya, S. (2024). Database Administration Developments and 
+Research in Contemporary Digital Environments. ResearchGate. 
+https://doi.org/10.13140/RG.2.2.25897.81763 
+ 
+  
+
+  
+ 
+ 
+6 
+ 
+ 
+Rúbrica de evaluación  
+                
+Componente de aprendizaje:  Autónomo                     X Contacto con el 
+Docente    
+Nombre de la Unidad: UNIDAD 1: PROGRAMACIÓN AVANZADA EN SQL – TRANSACCIONES 
+Resultado(s) de aprendizaje: • Implementa transacciones SQL seguras considerando las propiedades ACID.  
+• Diseña consultas avanzadas, procedimientos almacenados, funciones y triggers para optimizar la gestión de bases de datos.  
+Nombre de la Actividad: Implementación de vistas, funciones, procedimientos y triggers en un sistema de inventario y proveedores  
+                
+  Escala de Valoración 
+Criterios  
+de Evaluación  
+Excelente 
+(10 - 9,1) 
+Bueno 
+(9 - 8,1) 
+Satisfactorio 
+(8 - 7) 
+Necesita 
+mejorar 
+(6,9 - 0,1) 
+No entrega 
+(0) Puntaje 
+ 
+Comentarios 
+(SIGEA) 
+1. Implementación de 
+vistas 
+Vistas correctas, bien 
+documentadas y útiles 
+para reportes 
+Vistas correctas 
+con detalles 
+menores 
+faltantes 
+Vistas básicas 
+con errores en 
+consultas 
+Vistas 
+incompletas o 
+incorrectas No entrega   
+2. Implementación de 
+funciones 
+Funciones escalares y 
+de tabla 
+implementadas 
+correctamente, con 
+ejemplos claros 
+Funciones 
+correctas con 
+mínimos errores 
+Funciones 
+implementad
+as 
+parcialmente, 
+con errores 
+conceptuales 
+Funciones 
+incompletas o 
+incorrectas No entrega   
+3. Implementación de 
+procedimientos y 
+triggers 
+Procedimientos y 
+triggers completos, 
+funcionales y bien 
+explicados 
+Procedimientos 
+y triggers 
+correctos con 
+detalles 
+menores 
+faltantes 
+Procedimiento
+s y triggers 
+implementad
+os 
+parcialmente 
+con errores 
+Implementación 
+deficiente o 
+incorrecta No entrega   
+4. Reflexión crítica (Eje: 
+Ética y valores / Impacto 
+social) 
+Reflexión profunda 
+que conecta teoría, 
+práctica e 
+implicaciones sociales 
+Reflexión 
+adecuada con 
+algunos aportes 
+prácticos 
+Reflexión 
+general poco 
+crítica 
+Reflexión 
+superficial o sin 
+sustento No entrega   
+5. Innovación en 
+soluciones (Eje: 
+Innovación / 
+Autonomía) 
+Propone mejoras 
+creativas y factibles 
+Propone 
+mejoras 
+razonables, 
+pero poco 
+innovadoras 
+Propone 
+mejoras 
+básicas y 
+genéricas 
+No propone 
+mejoras 
+No entrega   
+        
+          Puntaje total      
+ 
