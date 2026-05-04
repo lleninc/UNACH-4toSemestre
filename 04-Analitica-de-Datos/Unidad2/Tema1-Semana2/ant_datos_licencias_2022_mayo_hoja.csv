@@ -1,0 +1,506 @@
+﻿;;;;;;;;;;
+;A;A1;B;C;C1;D;E;F;G;Total general
+AZUAY; 99 ; -   ; 993 ; 460 ; -   ; 32 ; 315 ; 27 ; 30 ; 1.956 
+Enero; 20 ; -   ; 133 ; 86 ; -   ; 10 ; 25 ; 3 ; 13 ; 290 
+Duplicado o Reimpresión de Licencia; 6 ; -   ; 75 ; 22 ; -   ; 8 ; 21 ; 1 ; 1 ; 134 
+Emisión de Licencia por Primera Vez; 1 ; -   ; 41 ; 63 ; -   ; -   ; 1 ; -   ; 12 ; 118 
+Renovación de Licencia; 13 ; -   ; 17 ; 1 ; -   ; 2 ; 3 ; 2 ; -   ; 38 
+Febrero; 20 ; -   ; 202 ; 185 ; -   ; 4 ; 35 ; 5 ; 11 ; 462 
+Duplicado o Reimpresión de Licencia; 7 ; -   ; 83 ; 31 ; -   ; 3 ; 16 ; 3 ; 1 ; 144 
+Emisión de Licencia por Primera Vez; 2 ; -   ; 72 ; 149 ; -   ; -   ; 10 ; -   ; 10 ; 243 
+Renovación de Licencia; 11 ; -   ; 47 ; 5 ; -   ; 1 ; 9 ; 2 ; -   ; 75 
+Marzo; 25 ; -   ; 239 ; 56 ; -   ; 8 ; 55 ; 6 ; 1 ; 390 
+Duplicado o Reimpresión de Licencia; 5 ; -   ; 117 ; 34 ; -   ; 2 ; 34 ; -   ; -   ; 192 
+Emisión de Licencia por Primera Vez; 5 ; -   ; 60 ; 19 ; -   ; -   ; 4 ; 1 ; 1 ; 90 
+Renovación de Licencia; 15 ; -   ; 62 ; 3 ; -   ; 6 ; 17 ; 5 ; -   ; 108 
+Abril; 17 ; -   ; 237 ; 48 ; -   ; 4 ; 144 ; 8 ; 4 ; 462 
+Duplicado o Reimpresión de Licencia; 5 ; -   ; 153 ; 40 ; -   ; 2 ; 18 ; 2 ; -   ; 220 
+Emisión de Licencia por Primera Vez; 3 ; -   ; 40 ; 6 ; -   ; -   ; 117 ; -   ; 2 ; 168 
+Renovación de Licencia; 9 ; -   ; 44 ; 2 ; -   ; 2 ; 9 ; 6 ; 2 ; 74 
+Mayo; 17 ; -   ; 182 ; 85 ; -   ; 6 ; 56 ; 5 ; 1 ; 352 
+Duplicado o Reimpresión de Licencia; 6 ; -   ; 128 ; 39 ; -   ; 4 ; 36 ; 3 ; 1 ; 217 
+Emisión de Licencia por Primera Vez; 3 ; -   ; 27 ; 40 ; -   ; -   ; 15 ; 1 ; -   ; 86 
+Renovación de Licencia; 8 ; -   ; 27 ; 6 ; -   ; 2 ; 5 ; 1 ; -   ; 49 
+BOLIVAR; 173 ; -   ; 1.317 ; 666 ; -   ; 175 ; 669 ; 2 ; 43 ; 3.045 
+Enero; 15 ; -   ; 123 ; 76 ; -   ; 13 ; 51 ; -   ; 3 ; 281 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 10 ; 5 ; -   ; 2 ; 10 ; -   ; 1 ; 28 
+Emisión de Licencia por Primera Vez; 2 ; -   ; 17 ; 24 ; -   ; -   ; 1 ; -   ; -   ; 44 
+Renovación de Licencia; 13 ; -   ; 96 ; 47 ; -   ; 11 ; 40 ; -   ; 2 ; 209 
+Febrero; 31 ; -   ; 205 ; 108 ; -   ; 37 ; 115 ; 1 ; 5 ; 502 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 14 ; 11 ; -   ; 1 ; 12 ; -   ; 1 ; 39 
+Emisión de Licencia por Primera Vez; 12 ; -   ; 17 ; 20 ; -   ; -   ; 29 ; -   ; -   ; 78 
+Renovación de Licencia; 19 ; -   ; 174 ; 77 ; -   ; 36 ; 74 ; 1 ; 4 ; 385 
+Marzo; 67 ; -   ; 351 ; 192 ; -   ; 51 ; 187 ; -   ; 7 ; 855 
+Duplicado o Reimpresión de Licencia; 2 ; -   ; 16 ; 18 ; -   ; 3 ; 7 ; -   ; -   ; 46 
+Emisión de Licencia por Primera Vez; 33 ; -   ; 66 ; 55 ; -   ; -   ; 55 ; -   ; -   ; 209 
+Renovación de Licencia; 32 ; -   ; 269 ; 119 ; -   ; 48 ; 125 ; -   ; 7 ; 600 
+Abril; 20 ; -   ; 356 ; 161 ; -   ; 34 ; 162 ; 1 ; 7 ; 741 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 19 ; 11 ; -   ; 1 ; 14 ; -   ; -   ; 45 
+Emisión de Licencia por Primera Vez; 3 ; -   ; 83 ; 31 ; -   ; -   ; 39 ; -   ; -   ; 156 
+Renovación de Licencia; 17 ; -   ; 254 ; 119 ; -   ; 33 ; 109 ; 1 ; 7 ; 540 
+Mayo; 40 ; -   ; 282 ; 129 ; -   ; 40 ; 154 ; -   ; 21 ; 666 
+Duplicado o Reimpresión de Licencia; 2 ; -   ; 15 ; 8 ; -   ; 1 ; 14 ; -   ; -   ; 40 
+Emisión de Licencia por Primera Vez; 10 ; -   ; 98 ; 12 ; -   ; -   ; 32 ; -   ; 19 ; 171 
+Renovación de Licencia; 28 ; -   ; 169 ; 109 ; -   ; 39 ; 108 ; -   ; 2 ; 455 
+CAÑAR; 137 ; 2 ; 1.756 ; 340 ; -   ; 115 ; 468 ; 6 ; 14 ; 2.838 
+Enero; 13 ; -   ; 195 ; 42 ; -   ; 13 ; 67 ; -   ; 1 ; 331 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 20 ; 11 ; -   ; 3 ; 9 ; -   ; -   ; 44 
+Emisión de Licencia por Primera Vez; 5 ; -   ; 46 ; 3 ; -   ; 2 ; 4 ; -   ; -   ; 60 
+Renovación de Licencia; 7 ; -   ; 129 ; 28 ; -   ; 8 ; 54 ; -   ; 1 ; 227 
+Febrero; 24 ; -   ; 301 ; 51 ; -   ; 14 ; 80 ; 2 ; 5 ; 477 
+Duplicado o Reimpresión de Licencia; 3 ; -   ; 25 ; 7 ; -   ; -   ; 8 ; 1 ; 1 ; 45 
+Emisión de Licencia por Primera Vez; 5 ; -   ; 69 ; 2 ; -   ; 2 ; 7 ; -   ; -   ; 85 
+Renovación de Licencia; 16 ; -   ; 207 ; 42 ; -   ; 12 ; 65 ; 1 ; 4 ; 347 
+Marzo; 34 ; -   ; 514 ; 78 ; -   ; 37 ; 136 ; 2 ; 2 ; 803 
+Duplicado o Reimpresión de Licencia; 4 ; -   ; 34 ; 6 ; -   ; 2 ; 17 ; -   ; -   ; 63 
+Emisión de Licencia por Primera Vez; 9 ; -   ; 128 ; 9 ; -   ; -   ; 5 ; -   ; -   ; 151 
+Renovación de Licencia; 21 ; -   ; 352 ; 63 ; -   ; 35 ; 114 ; 2 ; 2 ; 589 
+Abril; 41 ; -   ; 415 ; 83 ; -   ; 32 ; 87 ; 2 ; 2 ; 662 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 27 ; 4 ; -   ; 1 ; 12 ; -   ; -   ; 44 
+Emisión de Licencia por Primera Vez; 8 ; -   ; 56 ; 3 ; -   ; 1 ; 2 ; -   ; -   ; 70 
+Renovación de Licencia; 33 ; -   ; 332 ; 76 ; -   ; 30 ; 73 ; 2 ; 2 ; 548 
+Mayo; 25 ; 2 ; 331 ; 86 ; -   ; 19 ; 98 ; -   ; 4 ; 565 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 26 ; 11 ; -   ; 1 ; 8 ; -   ; 1 ; 48 
+Emisión de Licencia por Primera Vez; 3 ; -   ; 86 ; 3 ; -   ; -   ; 2 ; -   ; -   ; 94 
+Renovación de Licencia; 21 ; 2 ; 219 ; 72 ; -   ; 18 ; 88 ; -   ; 3 ; 423 
+CARCHI; 25 ; -   ; 332 ; 129 ; -   ; 48 ; 196 ; -   ; 2 ; 732 
+Enero; 4 ; -   ; 36 ; 14 ; -   ; 9 ; 17 ; -   ; -   ; 80 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 9 ; 7 ; -   ; 5 ; 9 ; -   ; -   ; 31 
+Emisión de Licencia por Primera Vez; -   ; -   ; 11 ; 5 ; -   ; 1 ; 1 ; -   ; -   ; 18 
+Renovación de Licencia; 3 ; -   ; 16 ; 2 ; -   ; 3 ; 7 ; -   ; -   ; 31 
+Febrero; 6 ; -   ; 81 ; 44 ; -   ; 11 ; 50 ; -   ; 1 ; 193 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 13 ; 7 ; -   ; 4 ; 17 ; -   ; -   ; 42 
+Emisión de Licencia por Primera Vez; -   ; -   ; 24 ; 23 ; -   ; -   ; 5 ; -   ; -   ; 52 
+Renovación de Licencia; 5 ; -   ; 44 ; 14 ; -   ; 7 ; 28 ; -   ; 1 ; 99 
+Marzo; 3 ; -   ; 72 ; 19 ; -   ; 8 ; 41 ; -   ; 1 ; 144 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 23 ; 14 ; -   ; 4 ; 15 ; -   ; 1 ; 57 
+Emisión de Licencia por Primera Vez; -   ; -   ; 24 ; -   ; -   ; -   ; 5 ; -   ; -   ; 29 
+Renovación de Licencia; 3 ; -   ; 25 ; 5 ; -   ; 4 ; 21 ; -   ; -   ; 58 
+Abril; 7 ; -   ; 88 ; 30 ; -   ; 15 ; 65 ; -   ; -   ; 205 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 24 ; 6 ; -   ; 2 ; 10 ; -   ; -   ; 43 
+Emisión de Licencia por Primera Vez; 2 ; -   ; 13 ; 2 ; -   ; -   ; 16 ; -   ; -   ; 33 
+Renovación de Licencia; 4 ; -   ; 51 ; 22 ; -   ; 13 ; 39 ; -   ; -   ; 129 
+Mayo; 5 ; -   ; 55 ; 22 ; -   ; 5 ; 23 ; -   ; -   ; 110 
+Duplicado o Reimpresión de Licencia; 3 ; -   ; 21 ; 12 ; -   ; 4 ; 16 ; -   ; -   ; 56 
+Emisión de Licencia por Primera Vez; -   ; -   ; 9 ; 1 ; -   ; 1 ; -   ; -   ; -   ; 11 
+Renovación de Licencia; 2 ; -   ; 25 ; 9 ; -   ; -   ; 7 ; -   ; -   ; 43 
+CHIMBORAZO; 60 ; -   ; 976 ; 439 ; 3 ; 121 ; 362 ; 8 ; 16 ; 1.985 
+Enero; 3 ; -   ; 100 ; 66 ; -   ; 26 ; 37 ; 1 ; 5 ; 238 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 43 ; 42 ; -   ; 12 ; 17 ; 1 ; 1 ; 117 
+Emisión de Licencia por Primera Vez; -   ; -   ; 23 ; 16 ; -   ; 2 ; 4 ; -   ; -   ; 45 
+Renovación de Licencia; 2 ; -   ; 34 ; 8 ; -   ; 12 ; 16 ; -   ; 4 ; 76 
+Febrero; 19 ; -   ; 217 ; 96 ; -   ; 24 ; 70 ; 2 ; 5 ; 433 
+Duplicado o Reimpresión de Licencia; 7 ; -   ; 62 ; 38 ; -   ; 7 ; 23 ; 1 ; 1 ; 139 
+Emisión de Licencia por Primera Vez; 5 ; -   ; 66 ; 23 ; -   ; 4 ; 6 ; 1 ; -   ; 105 
+Renovación de Licencia; 7 ; -   ; 89 ; 35 ; -   ; 13 ; 41 ; -   ; 4 ; 189 
+Marzo; 13 ; -   ; 221 ; 93 ; 2 ; 29 ; 95 ; 3 ; 1 ; 457 
+Duplicado o Reimpresión de Licencia; 2 ; -   ; 63 ; 40 ; -   ; 13 ; 43 ; 1 ; 1 ; 163 
+Emisión de Licencia por Primera Vez; 7 ; -   ; 81 ; 17 ; -   ; 4 ; 18 ; 1 ; -   ; 128 
+Renovación de Licencia; 4 ; -   ; 77 ; 36 ; 2 ; 12 ; 34 ; 1 ; -   ; 166 
+Abril; 16 ; -   ; 278 ; 104 ; 1 ; 25 ; 90 ; 2 ; 3 ; 519 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 59 ; 39 ; -   ; 8 ; 44 ; 1 ; 2 ; 153 
+Emisión de Licencia por Primera Vez; 7 ; -   ; 73 ; 22 ; -   ; 1 ; 10 ; 1 ; -   ; 114 
+Renovación de Licencia; 9 ; -   ; 146 ; 43 ; 1 ; 16 ; 36 ; -   ; 1 ; 252 
+Mayo; 9 ; -   ; 160 ; 80 ; -   ; 17 ; 70 ; -   ; 2 ; 338 
+Duplicado o Reimpresión de Licencia; 3 ; -   ; 73 ; 32 ; -   ; 5 ; 25 ; -   ; 1 ; 139 
+Emisión de Licencia por Primera Vez; 2 ; -   ; 29 ; 13 ; -   ; 1 ; 12 ; -   ; 1 ; 58 
+Renovación de Licencia; 4 ; -   ; 58 ; 35 ; -   ; 11 ; 33 ; -   ; -   ; 141 
+COTOPAXI; 99 ; 1 ; 428 ; 206 ; 1 ; 39 ; 205 ; 5 ; 14 ; 998 
+Enero; 20 ; 1 ; 73 ; 42 ; -   ; 6 ; 35 ; 2 ; 2 ; 181 
+Duplicado o Reimpresión de Licencia; 3 ; 1 ; 55 ; 37 ; -   ; 2 ; 27 ; 1 ; -   ; 126 
+Emisión de Licencia por Primera Vez; -   ; -   ; 2 ; 1 ; -   ; -   ; 1 ; -   ; -   ; 4 
+Renovación de Licencia; 17 ; -   ; 16 ; 4 ; -   ; 4 ; 7 ; 1 ; 2 ; 51 
+Febrero; 28 ; -   ; 71 ; 35 ; -   ; 7 ; 47 ; 2 ; 3 ; 193 
+Duplicado o Reimpresión de Licencia; 6 ; -   ; 51 ; 28 ; -   ; 4 ; 29 ; 1 ; 3 ; 122 
+Emisión de Licencia por Primera Vez; 4 ; -   ; 9 ; 3 ; -   ; -   ; 1 ; -   ; -   ; 17 
+Renovación de Licencia; 18 ; -   ; 11 ; 4 ; -   ; 3 ; 17 ; 1 ; -   ; 54 
+Marzo; 20 ; -   ; 110 ; 44 ; 1 ; 9 ; 50 ; 1 ; 4 ; 239 
+Duplicado o Reimpresión de Licencia; 3 ; -   ; 83 ; 38 ; -   ; 6 ; 36 ; -   ; 4 ; 170 
+Emisión de Licencia por Primera Vez; -   ; -   ; 4 ; 2 ; 1 ; -   ; 2 ; -   ; -   ; 9 
+Renovación de Licencia; 17 ; -   ; 23 ; 4 ; -   ; 3 ; 12 ; 1 ; -   ; 60 
+Abril; 17 ; -   ; 95 ; 43 ; -   ; 7 ; 33 ; -   ; 1 ; 196 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 71 ; 34 ; -   ; 7 ; 30 ; -   ; 1 ; 144 
+Emisión de Licencia por Primera Vez; 3 ; -   ; 10 ; 5 ; -   ; -   ; 2 ; -   ; -   ; 20 
+Renovación de Licencia; 13 ; -   ; 14 ; 4 ; -   ; -   ; 1 ; -   ; -   ; 32 
+Mayo; 14 ; -   ; 79 ; 42 ; -   ; 10 ; 40 ; -   ; 4 ; 189 
+Duplicado o Reimpresión de Licencia; 7 ; -   ; 63 ; 37 ; -   ; 9 ; 38 ; -   ; 3 ; 157 
+Emisión de Licencia por Primera Vez; 2 ; -   ; 5 ; 3 ; -   ; -   ; -   ; -   ; -   ; 10 
+Renovación de Licencia; 5 ; -   ; 11 ; 2 ; -   ; 1 ; 2 ; -   ; 1 ; 22 
+EL ORO; 493 ; -   ; 1.869 ; 606 ; 1 ; 120 ; 478 ; 13 ; 26 ; 3.606 
+Enero; 82 ; -   ; 307 ; 87 ; 1 ; 22 ; 63 ; 1 ; -   ; 563 
+Duplicado o Reimpresión de Licencia; 23 ; -   ; 79 ; 37 ; 1 ; 5 ; 39 ; -   ; -   ; 184 
+Emisión de Licencia por Primera Vez; 27 ; -   ; 124 ; 7 ; -   ; -   ; 5 ; 1 ; -   ; 164 
+Renovación de Licencia; 32 ; -   ; 104 ; 43 ; -   ; 17 ; 19 ; -   ; -   ; 215 
+Febrero; 73 ; -   ; 268 ; 94 ; -   ; 22 ; 74 ; 2 ; 4 ; 537 
+Duplicado o Reimpresión de Licencia; 23 ; -   ; 79 ; 36 ; -   ; 9 ; 29 ; -   ; 2 ; 178 
+Emisión de Licencia por Primera Vez; 15 ; -   ; 100 ; 21 ; -   ; -   ; 11 ; 2 ; 2 ; 151 
+Renovación de Licencia; 35 ; -   ; 89 ; 37 ; -   ; 13 ; 34 ; -   ; -   ; 208 
+Marzo; 134 ; -   ; 458 ; 160 ; -   ; 28 ; 146 ; 4 ; 6 ; 936 
+Duplicado o Reimpresión de Licencia; 41 ; -   ; 108 ; 59 ; -   ; 7 ; 39 ; 2 ; -   ; 256 
+Emisión de Licencia por Primera Vez; 49 ; -   ; 175 ; 43 ; -   ; -   ; 26 ; 2 ; 6 ; 301 
+Renovación de Licencia; 44 ; -   ; 175 ; 58 ; -   ; 21 ; 81 ; -   ; -   ; 379 
+Abril; 106 ; -   ; 454 ; 128 ; -   ; 24 ; 105 ; 5 ; 12 ; 834 
+Duplicado o Reimpresión de Licencia; 29 ; -   ; 103 ; 43 ; -   ; 5 ; 38 ; 1 ; -   ; 219 
+Emisión de Licencia por Primera Vez; 40 ; -   ; 216 ; 44 ; -   ; -   ; 11 ; 1 ; 9 ; 321 
+Renovación de Licencia; 37 ; -   ; 135 ; 41 ; -   ; 19 ; 56 ; 3 ; 3 ; 294 
+Mayo; 98 ; -   ; 382 ; 137 ; -   ; 24 ; 90 ; 1 ; 4 ; 736 
+Duplicado o Reimpresión de Licencia; 30 ; -   ; 103 ; 41 ; -   ; 9 ; 41 ; -   ; 1 ; 225 
+Emisión de Licencia por Primera Vez; 37 ; -   ; 180 ; 53 ; -   ; 1 ; 6 ; 1 ; 2 ; 280 
+Renovación de Licencia; 31 ; -   ; 99 ; 43 ; -   ; 14 ; 43 ; -   ; 1 ; 231 
+ESMERALDAS; 1.078 ; 20 ; 3.601 ; 819 ; 1 ; 362 ; 1.563 ; 32 ; 70 ; 7.546 
+Enero; 160 ; 5 ; 510 ; 98 ; 1 ; 44 ; 178 ; 3 ; 7 ; 1.006 
+Duplicado o Reimpresión de Licencia; 8 ; -   ; 39 ; 8 ; -   ; 3 ; 20 ; -   ; 1 ; 79 
+Emisión de Licencia por Primera Vez; 66 ; 5 ; 141 ; 11 ; -   ; -   ; 6 ; 1 ; 1 ; 231 
+Renovación de Licencia; 86 ; -   ; 330 ; 79 ; 1 ; 41 ; 152 ; 2 ; 5 ; 696 
+Febrero; 184 ; 3 ; 598 ; 151 ; -   ; 76 ; 290 ; 8 ; 16 ; 1.326 
+Duplicado o Reimpresión de Licencia; 11 ; -   ; 53 ; 13 ; -   ; 3 ; 17 ; 1 ; 2 ; 100 
+Emisión de Licencia por Primera Vez; 57 ; 3 ; 158 ; 17 ; -   ; -   ; 34 ; 4 ; 5 ; 278 
+Renovación de Licencia; 116 ; -   ; 387 ; 121 ; -   ; 73 ; 239 ; 3 ; 9 ; 948 
+Marzo; 258 ; 6 ; 840 ; 179 ; -   ; 90 ; 384 ; 6 ; 17 ; 1.780 
+Duplicado o Reimpresión de Licencia; 20 ; -   ; 79 ; 20 ; -   ; 5 ; 28 ; -   ; 1 ; 153 
+Emisión de Licencia por Primera Vez; 91 ; 6 ; 237 ; 21 ; -   ; 1 ; 29 ; 1 ; 4 ; 390 
+Renovación de Licencia; 147 ; -   ; 524 ; 138 ; -   ; 84 ; 327 ; 5 ; 12 ; 1.237 
+Abril; 241 ; 5 ; 876 ; 222 ; -   ; 88 ; 382 ; 9 ; 16 ; 1.839 
+Duplicado o Reimpresión de Licencia; 18 ; -   ; 67 ; 20 ; -   ; 9 ; 25 ; 1 ; 2 ; 142 
+Emisión de Licencia por Primera Vez; 86 ; 5 ; 262 ; 18 ; -   ; 1 ; 20 ; 3 ; 6 ; 401 
+Renovación de Licencia; 137 ; -   ; 547 ; 184 ; -   ; 78 ; 337 ; 5 ; 8 ; 1.296 
+Mayo; 235 ; 1 ; 777 ; 169 ; -   ; 64 ; 329 ; 6 ; 14 ; 1.595 
+Duplicado o Reimpresión de Licencia; 12 ; -   ; 51 ; 15 ; -   ; 4 ; 24 ; -   ; -   ; 106 
+Emisión de Licencia por Primera Vez; 96 ; 1 ; 208 ; 15 ; -   ; 2 ; 26 ; -   ; 6 ; 354 
+Renovación de Licencia; 127 ; -   ; 518 ; 139 ; -   ; 58 ; 279 ; 6 ; 8 ; 1.135 
+GALÁPAGOS; 127 ; -   ; 168 ; 67 ; -   ; 12 ; 54 ; -   ; 2 ; 430 
+Enero; 27 ; -   ; 29 ; 7 ; -   ; 1 ; 16 ; -   ; 1 ; 81 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 1 ; 2 ; -   ; -   ; 1 ; -   ; -   ; 5 
+Emisión de Licencia por Primera Vez; 6 ; -   ; 7 ; -   ; -   ; -   ; -   ; -   ; -   ; 13 
+Renovación de Licencia; 20 ; -   ; 21 ; 5 ; -   ; 1 ; 15 ; -   ; 1 ; 63 
+Febrero; 38 ; -   ; 35 ; 15 ; -   ; 5 ; 11 ; -   ; -   ; 104 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 4 ; 4 ; -   ; -   ; 1 ; -   ; -   ; 10 
+Emisión de Licencia por Primera Vez; 11 ; -   ; 8 ; -   ; -   ; -   ; -   ; -   ; -   ; 19 
+Renovación de Licencia; 26 ; -   ; 23 ; 11 ; -   ; 5 ; 10 ; -   ; -   ; 75 
+Marzo; 40 ; -   ; 57 ; 31 ; -   ; 2 ; 13 ; -   ; -   ; 143 
+Duplicado o Reimpresión de Licencia; 2 ; -   ; 4 ; 7 ; -   ; -   ; 1 ; -   ; -   ; 14 
+Emisión de Licencia por Primera Vez; 24 ; -   ; 22 ; 17 ; -   ; -   ; -   ; -   ; -   ; 63 
+Renovación de Licencia; 14 ; -   ; 31 ; 7 ; -   ; 2 ; 12 ; -   ; -   ; 66 
+Abril; 12 ; -   ; 28 ; 9 ; -   ; 2 ; 7 ; -   ; 1 ; 59 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 5 ; 2 ; -   ; -   ; 2 ; -   ; -   ; 9 
+Emisión de Licencia por Primera Vez; 3 ; -   ; 4 ; 3 ; -   ; -   ; -   ; -   ; -   ; 10 
+Renovación de Licencia; 9 ; -   ; 19 ; 4 ; -   ; 2 ; 5 ; -   ; 1 ; 40 
+Mayo; 10 ; -   ; 19 ; 5 ; -   ; 2 ; 7 ; -   ; -   ; 43 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 1 ; -   ; -   ; -   ; -   ; -   ; -   ; 1 
+Emisión de Licencia por Primera Vez; 4 ; -   ; 7 ; 1 ; -   ; -   ; -   ; -   ; -   ; 12 
+Renovación de Licencia; 6 ; -   ; 11 ; 4 ; -   ; 2 ; 7 ; -   ; -   ; 30 
+GUAYAS; 1.265 ; 13 ; 18.756 ; 1.496 ; 31 ; 636 ; 4.041 ; 75 ; 318 ; 26.631 
+Enero; 275 ; 4 ; 3.359 ; 335 ; 8 ; 122 ; 805 ; 11 ; 36 ; 4.955 
+Duplicado o Reimpresión de Licencia; 6 ; -   ; 94 ; 6 ; -   ; -   ; 23 ; 1 ; -   ; 130 
+Emisión de Licencia por Primera Vez; 85 ; 2 ; 1.512 ; 134 ; 4 ; 4 ; 129 ; 4 ; 7 ; 1.881 
+Renovación de Licencia; 184 ; 2 ; 1.753 ; 195 ; 4 ; 118 ; 653 ; 6 ; 29 ; 2.944 
+Febrero; 278 ; 1 ; 4.587 ; 354 ; 10 ; 155 ; 955 ; 20 ; 101 ; 6.461 
+Duplicado o Reimpresión de Licencia; 7 ; -   ; 102 ; 8 ; 1 ; 2 ; 20 ; 2 ; -   ; 142 
+Emisión de Licencia por Primera Vez; 72 ; 1 ; 2.393 ; 98 ; 4 ; 3 ; 157 ; 11 ; 68 ; 2.807 
+Renovación de Licencia; 199 ; -   ; 2.092 ; 248 ; 5 ; 150 ; 778 ; 7 ; 33 ; 3.512 
+Marzo; 289 ; 4 ; 4.113 ; 313 ; 5 ; 172 ; 909 ; 23 ; 66 ; 5.894 
+Duplicado o Reimpresión de Licencia; 6 ; -   ; 109 ; 7 ; -   ; 1 ; 22 ; -   ; -   ; 145 
+Emisión de Licencia por Primera Vez; 73 ; 4 ; 1.875 ; 96 ; 2 ; 13 ; 173 ; 10 ; 36 ; 2.282 
+Renovación de Licencia; 210 ; -   ; 2.129 ; 210 ; 3 ; 158 ; 714 ; 13 ; 30 ; 3.467 
+Abril; 247 ; 2 ; 3.667 ; 310 ; 2 ; 120 ; 765 ; 10 ; 75 ; 5.198 
+Duplicado o Reimpresión de Licencia; 2 ; -   ; 57 ; 2 ; -   ; 1 ; 10 ; -   ; -   ; 72 
+Emisión de Licencia por Primera Vez; 53 ; -   ; 1.757 ; 121 ; -   ; 6 ; 199 ; 3 ; 42 ; 2.181 
+Renovación de Licencia; 192 ; 2 ; 1.853 ; 187 ; 2 ; 113 ; 556 ; 7 ; 33 ; 2.945 
+Mayo; 176 ; 2 ; 3.030 ; 184 ; 6 ; 67 ; 607 ; 11 ; 40 ; 4.123 
+Duplicado o Reimpresión de Licencia; -   ; 1 ; 39 ; 2 ; -   ; 1 ; 1 ; -   ; -   ; 44 
+Emisión de Licencia por Primera Vez; 52 ; 1 ; 2.033 ; 68 ; 3 ; 6 ; 283 ; 6 ; 21 ; 2.473 
+Renovación de Licencia; 124 ; -   ; 958 ; 114 ; 3 ; 60 ; 323 ; 5 ; 19 ; 1.606 
+IMBABURA; 66 ; -   ; 586 ; 180 ; -   ; 38 ; 154 ; 13 ; 2 ; 1.039 
+Enero; 12 ; -   ; 72 ; 23 ; -   ; 9 ; 21 ; -   ; -   ; 137 
+Duplicado o Reimpresión de Licencia; 4 ; -   ; 43 ; 17 ; -   ; 8 ; 11 ; -   ; -   ; 83 
+Emisión de Licencia por Primera Vez; 4 ; -   ; 15 ; 1 ; -   ; -   ; -   ; -   ; -   ; 20 
+Renovación de Licencia; 4 ; -   ; 14 ; 5 ; -   ; 1 ; 10 ; -   ; -   ; 34 
+Febrero; 20 ; -   ; 146 ; 44 ; -   ; 9 ; 28 ; 5 ; -   ; 252 
+Duplicado o Reimpresión de Licencia; 12 ; -   ; 89 ; 34 ; -   ; 4 ; 15 ; -   ; -   ; 154 
+Emisión de Licencia por Primera Vez; 4 ; -   ; 21 ; 5 ; -   ; -   ; 1 ; 2 ; -   ; 33 
+Renovación de Licencia; 4 ; -   ; 36 ; 5 ; -   ; 5 ; 12 ; 3 ; -   ; 65 
+Marzo; 15 ; -   ; 131 ; 52 ; -   ; 12 ; 49 ; 5 ; 1 ; 265 
+Duplicado o Reimpresión de Licencia; 9 ; -   ; 65 ; 39 ; -   ; 7 ; 22 ; 1 ; -   ; 143 
+Emisión de Licencia por Primera Vez; 3 ; -   ; 24 ; 8 ; -   ; -   ; -   ; 1 ; -   ; 36 
+Renovación de Licencia; 3 ; -   ; 42 ; 5 ; -   ; 5 ; 27 ; 3 ; 1 ; 86 
+Abril; 8 ; -   ; 140 ; 28 ; -   ; 6 ; 28 ; 3 ; -   ; 213 
+Duplicado o Reimpresión de Licencia; 5 ; -   ; 89 ; 22 ; -   ; 4 ; 17 ; 1 ; -   ; 138 
+Emisión de Licencia por Primera Vez; 3 ; -   ; 25 ; 4 ; -   ; -   ; 1 ; 1 ; -   ; 34 
+Renovación de Licencia; -   ; -   ; 26 ; 2 ; -   ; 2 ; 10 ; 1 ; -   ; 41 
+Mayo; 11 ; -   ; 97 ; 33 ; -   ; 2 ; 28 ; -   ; 1 ; 172 
+Duplicado o Reimpresión de Licencia; 9 ; -   ; 75 ; 25 ; -   ; 2 ; 24 ; -   ; 1 ; 136 
+Emisión de Licencia por Primera Vez; 1 ; -   ; 12 ; 5 ; -   ; -   ; 1 ; -   ; -   ; 19 
+Renovación de Licencia; 1 ; -   ; 10 ; 3 ; -   ; -   ; 3 ; -   ; -   ; 17 
+LOJA; 52 ; -   ; 458 ; 182 ; -   ; 42 ; 213 ; 6 ; 33 ; 986 
+Enero; 5 ; -   ; 77 ; 31 ; -   ; 7 ; 27 ; 2 ; 4 ; 153 
+Duplicado o Reimpresión de Licencia; 3 ; -   ; 38 ; 23 ; -   ; 6 ; 15 ; 2 ; -   ; 87 
+Emisión de Licencia por Primera Vez; 2 ; -   ; 20 ; 6 ; -   ; -   ; 1 ; -   ; -   ; 29 
+Renovación de Licencia; -   ; -   ; 19 ; 2 ; -   ; 1 ; 11 ; -   ; 4 ; 37 
+Febrero; 9 ; -   ; 90 ; 33 ; -   ; 6 ; 32 ; -   ; 3 ; 173 
+Duplicado o Reimpresión de Licencia; 4 ; -   ; 53 ; 18 ; -   ; 4 ; 13 ; -   ; 1 ; 93 
+Emisión de Licencia por Primera Vez; 3 ; -   ; 17 ; 6 ; -   ; -   ; 1 ; -   ; -   ; 27 
+Renovación de Licencia; 2 ; -   ; 20 ; 9 ; -   ; 2 ; 18 ; -   ; 2 ; 53 
+Marzo; 14 ; -   ; 96 ; 39 ; -   ; 11 ; 53 ; 2 ; 10 ; 225 
+Duplicado o Reimpresión de Licencia; 8 ; -   ; 37 ; 29 ; -   ; 2 ; 22 ; 1 ; -   ; 99 
+Emisión de Licencia por Primera Vez; 2 ; -   ; 28 ; 4 ; -   ; 1 ; 4 ; -   ; 3 ; 42 
+Renovación de Licencia; 4 ; -   ; 31 ; 6 ; -   ; 8 ; 27 ; 1 ; 7 ; 84 
+Abril; 16 ; -   ; 86 ; 43 ; -   ; 6 ; 59 ; 2 ; 14 ; 226 
+Duplicado o Reimpresión de Licencia; 5 ; -   ; 40 ; 22 ; -   ; 2 ; 14 ; 1 ; 5 ; 89 
+Emisión de Licencia por Primera Vez; 5 ; -   ; 14 ; 10 ; -   ; -   ; 3 ; 1 ; 5 ; 38 
+Renovación de Licencia; 6 ; -   ; 32 ; 11 ; -   ; 4 ; 42 ; -   ; 4 ; 99 
+Mayo; 8 ; -   ; 109 ; 36 ; -   ; 12 ; 42 ; -   ; 2 ; 209 
+Duplicado o Reimpresión de Licencia; 3 ; -   ; 45 ; 26 ; -   ; 2 ; 20 ; -   ; -   ; 96 
+Emisión de Licencia por Primera Vez; 2 ; -   ; 31 ; 5 ; -   ; 3 ; 3 ; -   ; -   ; 44 
+Renovación de Licencia; 3 ; -   ; 33 ; 5 ; -   ; 7 ; 19 ; -   ; 2 ; 69 
+LOS RÍOS; 1.146 ; 14 ; 5.958 ; 922 ; 3 ; 427 ; 1.942 ; 44 ; 69 ; 10.525 
+Enero; 152 ; -   ; 742 ; 120 ; 1 ; 53 ; 243 ; 6 ; 10 ; 1.327 
+Duplicado o Reimpresión de Licencia; 12 ; -   ; 70 ; 16 ; -   ; 3 ; 31 ; -   ; -   ; 132 
+Emisión de Licencia por Primera Vez; 10 ; -   ; 230 ; 21 ; -   ; 1 ; 20 ; -   ; 3 ; 285 
+Renovación de Licencia; 130 ; -   ; 442 ; 83 ; 1 ; 49 ; 192 ; 6 ; 7 ; 910 
+Febrero; 171 ; 3 ; 934 ; 139 ; -   ; 70 ; 304 ; 10 ; 19 ; 1.650 
+Duplicado o Reimpresión de Licencia; 19 ; -   ; 87 ; 26 ; -   ; 9 ; 27 ; -   ; 2 ; 170 
+Emisión de Licencia por Primera Vez; 21 ; -   ; 248 ; 17 ; -   ; -   ; 19 ; 1 ; 4 ; 310 
+Renovación de Licencia; 131 ; 3 ; 599 ; 96 ; -   ; 61 ; 258 ; 9 ; 13 ; 1.170 
+Marzo; 254 ; 1 ; 1.417 ; 204 ; 1 ; 92 ; 456 ; 10 ; 11 ; 2.446 
+Duplicado o Reimpresión de Licencia; 11 ; -   ; 131 ; 28 ; -   ; 8 ; 48 ; 1 ; 1 ; 228 
+Emisión de Licencia por Primera Vez; 20 ; -   ; 283 ; 26 ; -   ; -   ; 18 ; 3 ; 2 ; 352 
+Renovación de Licencia; 223 ; 1 ; 1.003 ; 150 ; 1 ; 84 ; 390 ; 6 ; 8 ; 1.866 
+Abril; 363 ; 9 ; 1.737 ; 248 ; 1 ; 123 ; 511 ; 13 ; 14 ; 3.019 
+Duplicado o Reimpresión de Licencia; 30 ; -   ; 144 ; 36 ; -   ; 7 ; 41 ; 1 ; 1 ; 260 
+Emisión de Licencia por Primera Vez; 32 ; -   ; 233 ; 39 ; -   ; -   ; 13 ; 2 ; 4 ; 323 
+Renovación de Licencia; 301 ; 9 ; 1.360 ; 173 ; 1 ; 116 ; 457 ; 10 ; 9 ; 2.436 
+Mayo; 206 ; 1 ; 1.128 ; 211 ; -   ; 89 ; 428 ; 5 ; 15 ; 2.083 
+Duplicado o Reimpresión de Licencia; 14 ; -   ; 112 ; 30 ; -   ; 12 ; 39 ; -   ; -   ; 207 
+Emisión de Licencia por Primera Vez; 20 ; -   ; 216 ; 52 ; -   ; -   ; 38 ; -   ; 2 ; 328 
+Renovación de Licencia; 172 ; 1 ; 800 ; 129 ; -   ; 77 ; 351 ; 5 ; 13 ; 1.548 
+MANABÍ; 3.607 ; 171 ; 14.749 ; 2.202 ; 15 ; 1.046 ; 4.487 ; 89 ; 180 ; 26.546 
+Enero; 452 ; 53 ; 1.769 ; 294 ; -   ; 125 ; 631 ; 3 ; 18 ; 3.345 
+Duplicado o Reimpresión de Licencia; 16 ; 2 ; 107 ; 17 ; -   ; 4 ; 19 ; -   ; -   ; 165 
+Emisión de Licencia por Primera Vez; 136 ; 50 ; 679 ; 113 ; -   ; 1 ; 72 ; 2 ; 2 ; 1.055 
+Renovación de Licencia; 300 ; 1 ; 983 ; 164 ; -   ; 120 ; 540 ; 1 ; 16 ; 2.125 
+Febrero; 551 ; 30 ; 2.139 ; 308 ; 1 ; 168 ; 710 ; 12 ; 29 ; 3.948 
+Duplicado o Reimpresión de Licencia; 19 ; 1 ; 129 ; 33 ; -   ; 6 ; 39 ; -   ; -   ; 227 
+Emisión de Licencia por Primera Vez; 189 ; 29 ; 718 ; 76 ; -   ; 5 ; 72 ; 5 ; 8 ; 1.102 
+Renovación de Licencia; 343 ; -   ; 1.292 ; 199 ; 1 ; 157 ; 599 ; 7 ; 21 ; 2.619 
+Marzo; 872 ; 31 ; 3.532 ; 482 ; 4 ; 260 ; 1.134 ; 27 ; 37 ; 6.379 
+Duplicado o Reimpresión de Licencia; 25 ; 5 ; 168 ; 44 ; -   ; 14 ; 39 ; 3 ; -   ; 298 
+Emisión de Licencia por Primera Vez; 254 ; 24 ; 1.233 ; 81 ; -   ; 7 ; 104 ; 7 ; 4 ; 1.714 
+Renovación de Licencia; 593 ; 2 ; 2.131 ; 357 ; 4 ; 239 ; 991 ; 17 ; 33 ; 4.367 
+Abril; 889 ; 18 ; 3.792 ; 516 ; 6 ; 236 ; 1.003 ; 28 ; 36 ; 6.524 
+Duplicado o Reimpresión de Licencia; 26 ; -   ; 192 ; 24 ; -   ; 12 ; 59 ; -   ; -   ; 313 
+Emisión de Licencia por Primera Vez; 247 ; 17 ; 1.165 ; 74 ; -   ; 11 ; 55 ; 9 ; 8 ; 1.586 
+Renovación de Licencia; 616 ; 1 ; 2.435 ; 418 ; 6 ; 213 ; 889 ; 19 ; 28 ; 4.625 
+Mayo; 843 ; 39 ; 3.517 ; 602 ; 4 ; 257 ; 1.009 ; 19 ; 60 ; 6.350 
+Duplicado o Reimpresión de Licencia; 24 ; -   ; 167 ; 28 ; -   ; 6 ; 51 ; -   ; 2 ; 278 
+Emisión de Licencia por Primera Vez; 269 ; 38 ; 1.154 ; 77 ; 1 ; 15 ; 61 ; 6 ; 23 ; 1.644 
+Renovación de Licencia; 550 ; 1 ; 2.196 ; 497 ; 3 ; 236 ; 897 ; 13 ; 35 ; 4.428 
+MORONA SANTIAGO; 168 ; -   ; 857 ; 431 ; -   ; 131 ; 433 ; 4 ; 29 ; 2.053 
+Enero; 26 ; -   ; 129 ; 49 ; -   ; 16 ; 84 ; -   ; 3 ; 307 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 14 ; 11 ; -   ; 2 ; 5 ; -   ; -   ; 33 
+Emisión de Licencia por Primera Vez; 10 ; -   ; 31 ; 17 ; -   ; 2 ; 9 ; -   ; -   ; 69 
+Renovación de Licencia; 15 ; -   ; 84 ; 21 ; -   ; 12 ; 70 ; -   ; 3 ; 205 
+Febrero; 48 ; -   ; 150 ; 79 ; -   ; 27 ; 90 ; 2 ; 4 ; 400 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 15 ; 5 ; -   ; 1 ; 7 ; -   ; -   ; 28 
+Emisión de Licencia por Primera Vez; 20 ; -   ; 59 ; 24 ; -   ; 3 ; 10 ; 1 ; -   ; 117 
+Renovación de Licencia; 28 ; -   ; 76 ; 50 ; -   ; 23 ; 73 ; 1 ; 4 ; 255 
+Marzo; 35 ; -   ; 220 ; 88 ; -   ; 36 ; 99 ; -   ; 8 ; 486 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 16 ; 6 ; -   ; 4 ; 7 ; -   ; -   ; 33 
+Emisión de Licencia por Primera Vez; 14 ; -   ; 51 ; 10 ; -   ; 1 ; 6 ; -   ; 1 ; 83 
+Renovación de Licencia; 21 ; -   ; 153 ; 72 ; -   ; 31 ; 86 ; -   ; 7 ; 370 
+Abril; 33 ; -   ; 207 ; 122 ; -   ; 29 ; 94 ; 2 ; 8 ; 495 
+Duplicado o Reimpresión de Licencia; 4 ; -   ; 14 ; 8 ; -   ; 4 ; 8 ; -   ; -   ; 38 
+Emisión de Licencia por Primera Vez; 14 ; -   ; 61 ; 52 ; -   ; 10 ; 3 ; -   ; -   ; 140 
+Renovación de Licencia; 15 ; -   ; 132 ; 62 ; -   ; 15 ; 83 ; 2 ; 8 ; 317 
+Mayo; 26 ; -   ; 151 ; 93 ; -   ; 23 ; 66 ; -   ; 6 ; 365 
+Duplicado o Reimpresión de Licencia; 2 ; -   ; 8 ; 3 ; -   ; 2 ; 4 ; -   ; -   ; 19 
+Emisión de Licencia por Primera Vez; 11 ; -   ; 38 ; 20 ; -   ; 2 ; 3 ; -   ; -   ; 74 
+Renovación de Licencia; 13 ; -   ; 105 ; 70 ; -   ; 19 ; 59 ; -   ; 6 ; 272 
+NAPO; 437 ; -   ; 1.149 ; 539 ; 1 ; 157 ; 490 ; -   ; 78 ; 2.851 
+Enero; 84 ; -   ; 202 ; 72 ; -   ; 33 ; 72 ; -   ; 12 ; 475 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 11 ; 8 ; -   ; 4 ; 2 ; -   ; 1 ; 27 
+Emisión de Licencia por Primera Vez; 48 ; -   ; 88 ; 7 ; -   ; 3 ; 10 ; -   ; 4 ; 160 
+Renovación de Licencia; 35 ; -   ; 103 ; 57 ; -   ; 26 ; 60 ; -   ; 7 ; 288 
+Febrero; 72 ; -   ; 194 ; 83 ; 1 ; 18 ; 73 ; -   ; 22 ; 463 
+Duplicado o Reimpresión de Licencia; 3 ; -   ; 10 ; 8 ; -   ; 1 ; 4 ; -   ; 2 ; 28 
+Emisión de Licencia por Primera Vez; 33 ; -   ; 50 ; 22 ; -   ; -   ; 12 ; -   ; 7 ; 124 
+Renovación de Licencia; 36 ; -   ; 134 ; 53 ; 1 ; 17 ; 57 ; -   ; 13 ; 311 
+Marzo; 90 ; -   ; 255 ; 88 ; -   ; 47 ; 124 ; -   ; 20 ; 624 
+Duplicado o Reimpresión de Licencia; 2 ; -   ; 13 ; 7 ; -   ; 4 ; 9 ; -   ; -   ; 35 
+Emisión de Licencia por Primera Vez; 52 ; -   ; 66 ; 7 ; -   ; -   ; 15 ; -   ; 6 ; 146 
+Renovación de Licencia; 36 ; -   ; 176 ; 74 ; -   ; 43 ; 100 ; -   ; 14 ; 443 
+Abril; 85 ; -   ; 275 ; 173 ; -   ; 26 ; 127 ; -   ; 13 ; 699 
+Duplicado o Reimpresión de Licencia; 5 ; -   ; 10 ; 5 ; -   ; 1 ; 9 ; -   ; 1 ; 31 
+Emisión de Licencia por Primera Vez; 39 ; -   ; 71 ; 66 ; -   ; 2 ; 5 ; -   ; 5 ; 188 
+Renovación de Licencia; 41 ; -   ; 194 ; 102 ; -   ; 23 ; 113 ; -   ; 7 ; 480 
+Mayo; 106 ; -   ; 223 ; 123 ; -   ; 33 ; 94 ; -   ; 11 ; 590 
+Duplicado o Reimpresión de Licencia; 5 ; -   ; 9 ; 10 ; -   ; -   ; 10 ; -   ; 2 ; 36 
+Emisión de Licencia por Primera Vez; 67 ; -   ; 92 ; 25 ; -   ; 1 ; 5 ; -   ; 2 ; 192 
+Renovación de Licencia; 34 ; -   ; 122 ; 88 ; -   ; 32 ; 79 ; -   ; 7 ; 362 
+ORELLANA; 925 ; -   ; 1.433 ; 838 ; 2 ; 260 ; 1.280 ; 11 ; 151 ; 4.900 
+Enero; 69 ; -   ; 105 ; 81 ; -   ; 22 ; 143 ; 2 ; 19 ; 441 
+Duplicado o Reimpresión de Licencia; 8 ; -   ; 13 ; 10 ; -   ; 3 ; 8 ; -   ; -   ; 42 
+Emisión de Licencia por Primera Vez; 8 ; -   ; 16 ; 8 ; -   ; -   ; 2 ; 1 ; 3 ; 38 
+Renovación de Licencia; 53 ; -   ; 76 ; 63 ; -   ; 19 ; 133 ; 1 ; 16 ; 361 
+Febrero; 111 ; -   ; 166 ; 119 ; -   ; 37 ; 210 ; 2 ; 24 ; 669 
+Duplicado o Reimpresión de Licencia; 4 ; -   ; 14 ; 10 ; -   ; 1 ; 14 ; -   ; 2 ; 45 
+Emisión de Licencia por Primera Vez; 22 ; -   ; 25 ; 16 ; -   ; -   ; 16 ; -   ; 10 ; 89 
+Renovación de Licencia; 85 ; -   ; 127 ; 93 ; -   ; 36 ; 180 ; 2 ; 12 ; 535 
+Marzo; 245 ; -   ; 359 ; 176 ; -   ; 67 ; 291 ; 2 ; 34 ; 1.174 
+Duplicado o Reimpresión de Licencia; 6 ; -   ; 16 ; 10 ; -   ; 3 ; 13 ; -   ; -   ; 48 
+Emisión de Licencia por Primera Vez; 58 ; -   ; 75 ; 35 ; -   ; -   ; 24 ; 1 ; 10 ; 203 
+Renovación de Licencia; 181 ; -   ; 268 ; 131 ; -   ; 64 ; 254 ; 1 ; 24 ; 923 
+Abril; 248 ; -   ; 350 ; 220 ; -   ; 64 ; 289 ; 1 ; 39 ; 1.211 
+Duplicado o Reimpresión de Licencia; 9 ; -   ; 25 ; 13 ; -   ; 3 ; 17 ; -   ; 3 ; 70 
+Emisión de Licencia por Primera Vez; 33 ; -   ; 38 ; 38 ; -   ; -   ; 17 ; -   ; 10 ; 136 
+Renovación de Licencia; 206 ; -   ; 287 ; 169 ; -   ; 61 ; 255 ; 1 ; 26 ; 1.005 
+Mayo; 252 ; -   ; 453 ; 242 ; 2 ; 70 ; 347 ; 4 ; 35 ; 1.405 
+Duplicado o Reimpresión de Licencia; 7 ; -   ; 25 ; 16 ; -   ; 1 ; 19 ; -   ; 2 ; 70 
+Emisión de Licencia por Primera Vez; 46 ; -   ; 70 ; 26 ; -   ; -   ; 9 ; 1 ; 9 ; 161 
+Renovación de Licencia; 199 ; -   ; 358 ; 200 ; 2 ; 69 ; 319 ; 3 ; 24 ; 1.174 
+PASTAZA; 189 ; -   ; 1.437 ; 614 ; -   ; 172 ; 511 ; 7 ; 58 ; 2.988 
+Enero; 27 ; -   ; 185 ; 62 ; -   ; 21 ; 52 ; -   ; 5 ; 352 
+Duplicado o Reimpresión de Licencia; 2 ; -   ; 12 ; 9 ; -   ; 3 ; 12 ; -   ; -   ; 38 
+Emisión de Licencia por Primera Vez; 18 ; -   ; 60 ; 5 ; -   ; -   ; -   ; -   ; -   ; 83 
+Renovación de Licencia; 7 ; -   ; 113 ; 48 ; -   ; 18 ; 40 ; -   ; 5 ; 231 
+Febrero; 24 ; -   ; 244 ; 73 ; -   ; 24 ; 87 ; 1 ; 8 ; 461 
+Duplicado o Reimpresión de Licencia; 2 ; -   ; 14 ; 14 ; -   ; 1 ; 6 ; -   ; 2 ; 39 
+Emisión de Licencia por Primera Vez; 15 ; -   ; 60 ; 6 ; -   ; -   ; -   ; -   ; -   ; 81 
+Renovación de Licencia; 7 ; -   ; 170 ; 53 ; -   ; 23 ; 81 ; 1 ; 6 ; 341 
+Marzo; 37 ; -   ; 270 ; 103 ; -   ; 29 ; 113 ; 3 ; 22 ; 577 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 22 ; 17 ; -   ; 2 ; 6 ; -   ; 1 ; 48 
+Emisión de Licencia por Primera Vez; 19 ; -   ; 49 ; 6 ; -   ; -   ; 4 ; 1 ; 11 ; 90 
+Renovación de Licencia; 18 ; -   ; 199 ; 80 ; -   ; 27 ; 103 ; 2 ; 10 ; 439 
+Abril; 49 ; -   ; 348 ; 170 ; -   ; 53 ; 145 ; 3 ; 8 ; 776 
+Duplicado o Reimpresión de Licencia; 3 ; -   ; 29 ; 9 ; -   ; 2 ; 13 ; -   ; -   ; 56 
+Emisión de Licencia por Primera Vez; 15 ; -   ; 77 ; 38 ; -   ; -   ; 4 ; 2 ; 4 ; 140 
+Renovación de Licencia; 31 ; -   ; 242 ; 123 ; -   ; 51 ; 128 ; 1 ; 4 ; 580 
+Mayo; 52 ; -   ; 390 ; 206 ; -   ; 45 ; 114 ; -   ; 15 ; 822 
+Duplicado o Reimpresión de Licencia; 3 ; -   ; 17 ; 13 ; -   ; 4 ; 7 ; -   ; -   ; 44 
+Emisión de Licencia por Primera Vez; 29 ; -   ; 112 ; 54 ; -   ; -   ; 1 ; -   ; 4 ; 200 
+Renovación de Licencia; 20 ; -   ; 261 ; 139 ; -   ; 41 ; 106 ; -   ; 11 ; 578 
+PICHINCHA; 467 ; -   ; 5.199 ; 686 ; 21 ; 253 ; 1.396 ; 100 ; 17 ; 8.139 
+Enero; 76 ; -   ; 868 ; 108 ; 2 ; 46 ; 250 ; 14 ; 3 ; 1.367 
+Duplicado o Reimpresión de Licencia; 27 ; -   ; 357 ; 72 ; 1 ; 13 ; 89 ; 5 ; 1 ; 565 
+Emisión de Licencia por Primera Vez; 25 ; -   ; 220 ; 15 ; -   ; 1 ; 29 ; 3 ; 1 ; 294 
+Renovación de Licencia; 24 ; -   ; 291 ; 21 ; 1 ; 32 ; 132 ; 6 ; 1 ; 508 
+Febrero; 99 ; -   ; 1.021 ; 125 ; 6 ; 51 ; 259 ; 16 ; 4 ; 1.581 
+Duplicado o Reimpresión de Licencia; 32 ; -   ; 427 ; 79 ; 1 ; 25 ; 103 ; 3 ; 3 ; 673 
+Emisión de Licencia por Primera Vez; 50 ; -   ; 306 ; 12 ; 5 ; 2 ; 23 ; 4 ; 1 ; 403 
+Renovación de Licencia; 17 ; -   ; 288 ; 34 ; -   ; 24 ; 133 ; 9 ; -   ; 505 
+Marzo; 117 ; -   ; 1.308 ; 191 ; 4 ; 56 ; 368 ; 19 ; 3 ; 2.066 
+Duplicado o Reimpresión de Licencia; 43 ; -   ; 625 ; 121 ; -   ; 21 ; 151 ; 3 ; 1 ; 965 
+Emisión de Licencia por Primera Vez; 36 ; -   ; 267 ; 40 ; 3 ; 6 ; 30 ; 3 ; 1 ; 386 
+Renovación de Licencia; 38 ; -   ; 416 ; 30 ; 1 ; 29 ; 187 ; 13 ; 1 ; 715 
+Abril; 96 ; -   ; 1.126 ; 139 ; 1 ; 51 ; 288 ; 33 ; 4 ; 1.738 
+Duplicado o Reimpresión de Licencia; 47 ; -   ; 578 ; 105 ; 1 ; 29 ; 129 ; 7 ; 1 ; 897 
+Emisión de Licencia por Primera Vez; 30 ; -   ; 226 ; 18 ; -   ; 4 ; 35 ; 3 ; 1 ; 317 
+Renovación de Licencia; 19 ; -   ; 322 ; 16 ; -   ; 18 ; 124 ; 23 ; 2 ; 524 
+Mayo; 79 ; -   ; 876 ; 123 ; 8 ; 49 ; 231 ; 18 ; 3 ; 1.387 
+Duplicado o Reimpresión de Licencia; 45 ; -   ; 534 ; 92 ; 1 ; 27 ; 120 ; 4 ; 3 ; 826 
+Emisión de Licencia por Primera Vez; 19 ; -   ; 170 ; 8 ; 7 ; 10 ; 20 ; 6 ; -   ; 240 
+Renovación de Licencia; 15 ; -   ; 172 ; 23 ; -   ; 12 ; 91 ; 8 ; -   ; 321 
+SANTA ELENA; 271 ; -   ; 1.871 ; 277 ; 3 ; 105 ; 457 ; 11 ; 17 ; 3.012 
+Enero; 30 ; -   ; 194 ; 32 ; 1 ; 15 ; 47 ; 1 ; 3 ; 323 
+Duplicado o Reimpresión de Licencia; 5 ; -   ; 25 ; 6 ; -   ; 1 ; 6 ; -   ; -   ; 43 
+Emisión de Licencia por Primera Vez; 10 ; -   ; 48 ; 5 ; -   ; -   ; 1 ; -   ; -   ; 64 
+Renovación de Licencia; 15 ; -   ; 121 ; 21 ; 1 ; 14 ; 40 ; 1 ; 3 ; 216 
+Febrero; 49 ; -   ; 265 ; 26 ; 1 ; 10 ; 64 ; 1 ; -   ; 416 
+Duplicado o Reimpresión de Licencia; 8 ; -   ; 54 ; 10 ; -   ; 1 ; 6 ; -   ; -   ; 79 
+Emisión de Licencia por Primera Vez; 22 ; -   ; 55 ; 3 ; -   ; -   ; 3 ; -   ; -   ; 83 
+Renovación de Licencia; 19 ; -   ; 156 ; 13 ; 1 ; 9 ; 55 ; 1 ; -   ; 254 
+Marzo; 73 ; -   ; 406 ; 67 ; -   ; 20 ; 105 ; 2 ; 4 ; 677 
+Duplicado o Reimpresión de Licencia; 11 ; -   ; 51 ; 19 ; -   ; 2 ; 9 ; -   ; 1 ; 93 
+Emisión de Licencia por Primera Vez; 23 ; -   ; 106 ; 8 ; -   ; -   ; 2 ; -   ; -   ; 139 
+Renovación de Licencia; 39 ; -   ; 249 ; 40 ; -   ; 18 ; 94 ; 2 ; 3 ; 445 
+Abril; 52 ; -   ; 495 ; 71 ; -   ; 22 ; 97 ; 2 ; 2 ; 741 
+Duplicado o Reimpresión de Licencia; 3 ; -   ; 77 ; 10 ; -   ; 5 ; 10 ; -   ; -   ; 105 
+Emisión de Licencia por Primera Vez; 12 ; -   ; 64 ; 16 ; -   ; -   ; 2 ; -   ; -   ; 94 
+Renovación de Licencia; 37 ; -   ; 354 ; 45 ; -   ; 17 ; 85 ; 2 ; 2 ; 542 
+Mayo; 67 ; -   ; 511 ; 81 ; 1 ; 38 ; 144 ; 5 ; 8 ; 855 
+Duplicado o Reimpresión de Licencia; 9 ; -   ; 64 ; 7 ; -   ; 3 ; 15 ; -   ; -   ; 98 
+Emisión de Licencia por Primera Vez; 11 ; -   ; 44 ; 7 ; -   ; -   ; 1 ; 1 ; -   ; 64 
+Renovación de Licencia; 47 ; -   ; 403 ; 67 ; 1 ; 35 ; 128 ; 4 ; 8 ; 693 
+SANTO DOMINGO DE LOS TSÁCHILAS; 342 ; -   ; 1.530 ; 450 ; 2 ; 258 ; 1.239 ; 5 ; 41 ; 3.867 
+Enero; 57 ; -   ; 237 ; 104 ; 1 ; 30 ; 149 ; 1 ; 3 ; 582 
+Duplicado o Reimpresión de Licencia; 9 ; -   ; 38 ; 21 ; -   ; 2 ; 17 ; -   ; -   ; 87 
+Emisión de Licencia por Primera Vez; 17 ; -   ; 84 ; 54 ; -   ; -   ; 25 ; 1 ; -   ; 181 
+Renovación de Licencia; 31 ; -   ; 115 ; 29 ; 1 ; 28 ; 107 ; -   ; 3 ; 314 
+Febrero; 69 ; -   ; 292 ; 74 ; -   ; 80 ; 222 ; -   ; 8 ; 745 
+Duplicado o Reimpresión de Licencia; 6 ; -   ; 35 ; 12 ; -   ; 8 ; 21 ; -   ; 3 ; 85 
+Emisión de Licencia por Primera Vez; 13 ; -   ; 96 ; 24 ; -   ; 10 ; 26 ; -   ; -   ; 169 
+Renovación de Licencia; 50 ; -   ; 161 ; 38 ; -   ; 62 ; 175 ; -   ; 5 ; 491 
+Marzo; 70 ; -   ; 260 ; 84 ; -   ; 47 ; 292 ; -   ; 8 ; 761 
+Duplicado o Reimpresión de Licencia; 7 ; -   ; 46 ; 20 ; -   ; 7 ; 18 ; -   ; 1 ; 99 
+Emisión de Licencia por Primera Vez; 27 ; -   ; 96 ; 25 ; -   ; 5 ; 78 ; -   ; 1 ; 232 
+Renovación de Licencia; 36 ; -   ; 118 ; 39 ; -   ; 35 ; 196 ; -   ; 6 ; 430 
+Abril; 85 ; -   ; 450 ; 110 ; -   ; 57 ; 371 ; 4 ; 14 ; 1.091 
+Duplicado o Reimpresión de Licencia; 10 ; -   ; 53 ; 8 ; -   ; 2 ; 38 ; 1 ; -   ; 112 
+Emisión de Licencia por Primera Vez; 22 ; -   ; 177 ; 24 ; -   ; 5 ; 114 ; -   ; -   ; 342 
+Renovación de Licencia; 53 ; -   ; 220 ; 78 ; -   ; 50 ; 219 ; 3 ; 14 ; 637 
+Mayo; 61 ; -   ; 291 ; 78 ; 1 ; 44 ; 205 ; -   ; 8 ; 688 
+Duplicado o Reimpresión de Licencia; 6 ; -   ; 28 ; 13 ; 1 ; 1 ; 18 ; -   ; 1 ; 68 
+Emisión de Licencia por Primera Vez; 20 ; -   ; 102 ; 18 ; -   ; 5 ; 37 ; -   ; -   ; 182 
+Renovación de Licencia; 35 ; -   ; 161 ; 47 ; -   ; 38 ; 150 ; -   ; 7 ; 438 
+SUCUMBÍOS; 89 ; -   ; 132 ; 104 ; -   ; 17 ; 102 ; 7 ; 5 ; 456 
+Enero; 9 ; -   ; 20 ; 21 ; -   ; 3 ; 14 ; 2 ; -   ; 69 
+Duplicado o Reimpresión de Licencia; 9 ; -   ; 14 ; 16 ; -   ; 2 ; 8 ; 1 ; -   ; 50 
+Emisión de Licencia por Primera Vez; -   ; -   ; 2 ; 2 ; -   ; -   ; 2 ; -   ; -   ; 6 
+Renovación de Licencia; -   ; -   ; 4 ; 3 ; -   ; 1 ; 4 ; 1 ; -   ; 13 
+Febrero; 18 ; -   ; 24 ; 17 ; -   ; 3 ; 20 ; -   ; -   ; 82 
+Duplicado o Reimpresión de Licencia; 12 ; -   ; 9 ; 9 ; -   ; 1 ; 13 ; -   ; -   ; 44 
+Emisión de Licencia por Primera Vez; 4 ; -   ; 10 ; 7 ; -   ; -   ; 2 ; -   ; -   ; 23 
+Renovación de Licencia; 2 ; -   ; 5 ; 1 ; -   ; 2 ; 5 ; -   ; -   ; 15 
+Marzo; 16 ; -   ; 33 ; 27 ; -   ; 5 ; 23 ; 2 ; 3 ; 109 
+Duplicado o Reimpresión de Licencia; 8 ; -   ; 19 ; 15 ; -   ; 3 ; 9 ; -   ; -   ; 54 
+Emisión de Licencia por Primera Vez; 5 ; -   ; 5 ; 9 ; -   ; -   ; 3 ; 1 ; -   ; 23 
+Renovación de Licencia; 3 ; -   ; 9 ; 3 ; -   ; 2 ; 11 ; 1 ; 3 ; 32 
+Abril; 23 ; -   ; 24 ; 19 ; -   ; 4 ; 29 ; 3 ; 1 ; 103 
+Duplicado o Reimpresión de Licencia; 17 ; -   ; 9 ; 10 ; -   ; 3 ; 18 ; 1 ; 1 ; 59 
+Emisión de Licencia por Primera Vez; 4 ; -   ; 11 ; 4 ; -   ; -   ; 2 ; -   ; -   ; 21 
+Renovación de Licencia; 2 ; -   ; 4 ; 5 ; -   ; 1 ; 9 ; 2 ; -   ; 23 
+Mayo; 23 ; -   ; 31 ; 20 ; -   ; 2 ; 16 ; -   ; 1 ; 93 
+Duplicado o Reimpresión de Licencia; 17 ; -   ; 13 ; 13 ; -   ; 1 ; 9 ; -   ; 1 ; 54 
+Emisión de Licencia por Primera Vez; 4 ; -   ; 12 ; 6 ; -   ; -   ; 1 ; -   ; -   ; 23 
+Renovación de Licencia; 2 ; -   ; 6 ; 1 ; -   ; 1 ; 6 ; -   ; -   ; 16 
+TUNGURAHUA; 22 ; -   ; 287 ; 81 ; 2 ; 23 ; 80 ; 20 ; 2 ; 517 
+Enero; 1 ; -   ; 62 ; 18 ; -   ; 2 ; 12 ; 6 ; 1 ; 102 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 30 ; 15 ; -   ; 2 ; 9 ; -   ; 1 ; 57 
+Emisión de Licencia por Primera Vez; 1 ; -   ; 27 ; 2 ; -   ; -   ; 1 ; -   ; -   ; 31 
+Renovación de Licencia; -   ; -   ; 5 ; 1 ; -   ; -   ; 2 ; 6 ; -   ; 14 
+Febrero; 9 ; -   ; 56 ; 25 ; 1 ; 8 ; 17 ; 5 ; -   ; 121 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 24 ; 15 ; -   ; 4 ; 10 ; -   ; -   ; 54 
+Emisión de Licencia por Primera Vez; 5 ; -   ; 20 ; 5 ; 1 ; 2 ; 3 ; 1 ; -   ; 37 
+Renovación de Licencia; 3 ; -   ; 12 ; 5 ; -   ; 2 ; 4 ; 4 ; -   ; 30 
+Marzo; 4 ; -   ; 82 ; 18 ; 1 ; 6 ; 19 ; 4 ; -   ; 134 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 54 ; 15 ; -   ; 6 ; 17 ; -   ; -   ; 93 
+Emisión de Licencia por Primera Vez; 1 ; -   ; 7 ; 1 ; 1 ; -   ; -   ; -   ; -   ; 10 
+Renovación de Licencia; 2 ; -   ; 21 ; 2 ; -   ; -   ; 2 ; 4 ; -   ; 31 
+Abril; 3 ; -   ; 52 ; 12 ; -   ; 1 ; 19 ; 4 ; -   ; 91 
+Duplicado o Reimpresión de Licencia; 2 ; -   ; 30 ; 8 ; -   ; 1 ; 14 ; -   ; -   ; 55 
+Emisión de Licencia por Primera Vez; -   ; -   ; 12 ; 3 ; -   ; -   ; 4 ; -   ; -   ; 19 
+Renovación de Licencia; 1 ; -   ; 10 ; 1 ; -   ; -   ; 1 ; 4 ; -   ; 17 
+Mayo; 5 ; -   ; 35 ; 8 ; -   ; 6 ; 13 ; 1 ; 1 ; 69 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 19 ; 6 ; -   ; 3 ; 12 ; -   ; 1 ; 41 
+Emisión de Licencia por Primera Vez; 2 ; -   ; 9 ; 2 ; -   ; 2 ; 1 ; -   ; -   ; 16 
+Renovación de Licencia; 3 ; -   ; 7 ; -   ; -   ; 1 ; -   ; 1 ; -   ; 12 
+ZAMORA CHINCHIPE; 11 ; -   ; 116 ; 99 ; -   ; 27 ; 81 ; 2 ; 18 ; 354 
+Enero; -   ; -   ; 2 ; 12 ; -   ; 1 ; 6 ; -   ; -   ; 21 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 2 ; 11 ; -   ; 1 ; 3 ; -   ; -   ; 17 
+Renovación de Licencia; -   ; -   ; -   ; 1 ; -   ; -   ; 3 ; -   ; -   ; 4 
+Febrero; 1 ; -   ; 20 ; 20 ; -   ; 5 ; 9 ; -   ; 5 ; 60 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 11 ; 10 ; -   ; 1 ; 5 ; -   ; 3 ; 30 
+Emisión de Licencia por Primera Vez; -   ; -   ; 1 ; 3 ; -   ; -   ; -   ; -   ; 2 ; 6 
+Renovación de Licencia; 1 ; -   ; 8 ; 7 ; -   ; 4 ; 4 ; -   ; -   ; 24 
+Marzo; 2 ; -   ; 33 ; 25 ; -   ; 6 ; 21 ; 1 ; 4 ; 92 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 9 ; 7 ; -   ; -   ; 7 ; -   ; -   ; 23 
+Emisión de Licencia por Primera Vez; 1 ; -   ; 8 ; 4 ; -   ; -   ; 4 ; -   ; 4 ; 21 
+Renovación de Licencia; 1 ; -   ; 16 ; 14 ; -   ; 6 ; 10 ; 1 ; -   ; 48 
+Abril; 4 ; -   ; 37 ; 29 ; -   ; 9 ; 19 ; -   ; 6 ; 104 
+Duplicado o Reimpresión de Licencia; -   ; -   ; 15 ; 15 ; -   ; 3 ; 5 ; -   ; 2 ; 40 
+Emisión de Licencia por Primera Vez; -   ; -   ; 6 ; 9 ; -   ; -   ; 4 ; -   ; -   ; 19 
+Renovación de Licencia; 4 ; -   ; 16 ; 5 ; -   ; 6 ; 10 ; -   ; 4 ; 45 
+Mayo; 4 ; -   ; 24 ; 13 ; -   ; 6 ; 26 ; 1 ; 3 ; 77 
+Duplicado o Reimpresión de Licencia; 1 ; -   ; 5 ; 5 ; -   ; 4 ; 3 ; 1 ; 1 ; 20 
+Emisión de Licencia por Primera Vez; -   ; -   ; 7 ; 3 ; -   ; -   ; 10 ; -   ; 2 ; 22 
+Renovación de Licencia; 3 ; -   ; 12 ; 5 ; -   ; 2 ; 13 ; -   ; -   ; 35 
+Total general; 11.348 ; 221 ; 65.958 ; 12.833 ; 86 ; 4.616 ; 21.216 ; 487 ; 1.235 ; 118.000 

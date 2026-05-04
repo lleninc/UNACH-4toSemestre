@@ -1,0 +1,38 @@
+{
+  "PSO": {
+    "best_solution": [
+      1,
+      4,
+      2,
+      3,
+      0
+    ],
+    "best_distance": 61.227615602450626,
+    "iterations": 100,
+    "execution_time": 0.2600719928741455
+  },
+  "GA": {
+    "best_solution": [
+      0,
+      1,
+      4,
+      2,
+      3
+    ],
+    "best_distance": 61.227615602450626,
+    "iterations": 100,
+    "execution_time": 0.46640992164611816
+  },
+  "ACO": {
+    "best_solution": [
+      3,
+      2,
+      4,
+      1,
+      0
+    ],
+    "best_distance": 61.227615602450626,
+    "iterations": 100,
+    "execution_time": 0.7913947105407715
+  }
+}

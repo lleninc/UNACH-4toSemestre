@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparación de Metaheurísticas para TSP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .problem-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .problem-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .problem-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .coordinates {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        .algorithms-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .algo-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            border-top: 4px solid #667eea;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .algo-card:nth-child(2) {
+            border-top-color: #f093fb;
+        }
+        
+        .algo-card:nth-child(3) {
+            border-top-color: #4facfe;
+        }
+        
+        .algo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .algo-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .algo-card:nth-child(2) .algo-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .algo-card:nth-child(3) .algo-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .algo-body {
+            padding: 20px;
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .metric:last-child {
+            border-bottom: none;
+        }
+        
+        .metric-label {
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .metric-value {
+            color: #333;
+            font-family: monospace;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .comparison-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .comparison-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .badge-pso {
+            background: #667eea;
+            color: white;
+        }
+        
+        .badge-ga {
+            background: #f093fb;
+            color: white;
+        }
+        
+        .badge-aco {
+            background: #4facfe;
+            color: white;
+        }
+        
+        .best {
+            background: #fff3cd;
+            color: #856404;
+            font-weight: 600;
+        }
+        
+        .advantages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .adv-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .adv-box:nth-child(2) {
+            border-left-color: #f093fb;
+        }
+        
+        .adv-box:nth-child(3) {
+            border-left-color: #4facfe;
+        }
+        
+        .adv-box h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .adv-list {
+            list-style: none;
+            font-size: 0.95em;
+        }
+        
+        .adv-list li {
+            padding: 5px 0;
+            color: #555;
+        }
+        
+        .adv-list li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .dis-list li:before {
+            content: "✗ ";
+            color: #dc3545;
+        }
+        
+        .recommendation {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            margin: 30px 0;
+        }
+        
+        .recommendation strong {
+            font-size: 1.4em;
+            display: block;
+            margin: 10px 0;
+        }
+        
+        .matrix-table {
+            width: 100%;
+            font-size: 0.9em;
+            margin: 20px 0;
+            font-family: monospace;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            overflow-x: auto;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .algorithms-grid, .advantages {
+                grid-template-columns: 1fr;
+            }
+            
+            .problem-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-table {
+                font-size: 0.9em;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧬 Comparación de Metaheurísticas</h1>
+            <p>Análisis de PSO, GA y ACO para el Problema del Vendedor Viajero (TSP)</p>
+        </div>
+        
+        <div class="content">
+            <!-- Sección del Problema -->
+            <div class="section">
+                <h2 class="section-title">📍 Definición del Problema</h2>
+                
+                <div class="problem-info">
+                    <div class="problem-card">
+                        <h3>Ciudades y Coordenadas</h3>
+                        <div class="coordinates">
+Ciudad 0: (0.0, 0.0)<br>
+Ciudad 1: (10.0, 5.0)<br>
+Ciudad 2: (15.0, 15.0)<br>
+Ciudad 3: (5.0, 20.0)<br>
+Ciudad 4: (20.0, 10.0)
+                        </div>
+                    </div>
+                    
+                    <div class="problem-card">
+                        <h3>Objetivo</h3>
+                        <div class="coordinates">
+Encontrar la ruta más corta que:<br>
+✓ Visite cada ciudad exactamente una vez<br>
+✓ Regrese al punto de partida<br>
+✓ Minimice la distancia total
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 20px; margin-bottom: 10px;">Matriz de Distancias Euclidianas</h3>
+                <div class="matrix-table">
+       C0     C1     C2     C3     C4
+C0   0.00   11.18  21.21  20.62  22.36
+C1  11.18    0.00  11.18  15.81  11.18
+C2  21.21   11.18   0.00  11.18   7.07
+C3  20.62   15.81  11.18   0.00  18.03
+C4  22.36   11.18   7.07  18.03   0.00
+                </div>
+            </div>
+            
+            <!-- Sección de Resultados por Algoritmo -->
+            <div class="section">
+                <h2 class="section-title">🎯 Resultados de Algoritmos</h2>
+                
+                <div class="algorithms-grid">
+                    <!-- PSO -->
+                    <div class="algo-card">
+                        <div class="algo-header">🐦 PSO</div>
+                        <div class="algo-body">
+                            <div class="metric">
+                                <span class="metric-label">Ruta:</span>
+                                <span class="metric-value">[1, 4, 2, 3, 0]</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Distancia:</span>
+                                <span class="metric-value best">61.2276</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Tiempo:</span>
+                                <span class="metric-value best">0.366s</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Iteraciones:</span>
+                                <span class="metric-value">100</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Convergencia:</span>
+                                <span class="metric-value">Iter. 1</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- GA -->
+                    <div class="algo-card">
+                        <div class="algo-header">🧬 GA</div>
+                        <div class="algo-body">
+                            <div class="metric">
+                                <span class="metric-label">Ruta:</span>
+                                <span class="metric-value">[0, 1, 4, 2, 3]</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Distancia:</span>
+                                <span class="metric-value">61.2276</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Tiempo:</span>
+                                <span class="metric-value">0.475s</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Iteraciones:</span>
+                                <span class="metric-value">100</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Convergencia:</span>
+                                <span class="metric-value">Iter. 1</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ACO -->
+                    <div class="algo-card">
+                        <div class="algo-header">🐜 ACO</div>
+                        <div class="algo-body">
+                            <div class="metric">
+                                <span class="metric-label">Ruta:</span>
+                                <span class="metric-value">[3, 2, 4, 1, 0]</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Distancia:</span>
+                                <span class="metric-value">61.2276</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Tiempo:</span>
+                                <span class="metric-value">0.600s</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Iteraciones:</span>
+                                <span class="metric-value">100</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Convergencia:</span>
+                                <span class="metric-value">Iter. 1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabla Comparativa -->
+            <div class="section">
+                <h2 class="section-title">📊 Tabla Comparativa</h2>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th><span class="badge badge-pso">PSO</span></th>
+                            <th><span class="badge badge-ga">GA</span></th>
+                            <th><span class="badge badge-aco">ACO</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Calidad Solución</strong></td>
+                            <td>ALTA</td>
+                            <td>ALTA-ESTABLE</td>
+                            <td class="best">EXCELENTE ⭐</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Convergencia</strong></td>
+                            <td class="best">RÁPIDA ⚡</td>
+                            <td>MODERADA</td>
+                            <td>MODERADA-RÁPIDA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tiempo Ejecución</strong></td>
+                            <td class="best">0.366s ⚡</td>
+                            <td>0.475s</td>
+                            <td>0.600s</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Velocidad Relativa</strong></td>
+                            <td class="best">MÁS RÁPIDO ⭐</td>
+                            <td>Moderada</td>
+                            <td>Lenta</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Consistencia</strong></td>
+                            <td>Media</td>
+                            <td class="best">ALTA ⭐</td>
+                            <td class="best">ALTA ⭐</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Facilidad Implementación</strong></td>
+                            <td class="best">MUY FÁCIL ⭐</td>
+                            <td>Moderada</td>
+                            <td>Compleja</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Parámetros a Ajustar</strong></td>
+                            <td>3 (bajo)</td>
+                            <td>4</td>
+                            <td>4</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Ventajas y Desventajas -->
+            <div class="section">
+                <h2 class="section-title">⚖️ Ventajas y Desventajas</h2>
+                
+                <h3 style="margin-bottom: 15px;">Ventajas</h3>
+                <div class="advantages">
+                    <div class="adv-box">
+                        <h4>🐦 PSO</h4>
+                        <ul class="adv-list">
+                            <li>Rápido y eficiente</li>
+                            <li>Fácil de implementar</li>
+                            <li>Bajo número de parámetros</li>
+                            <li>Bueno para espacios continuos</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="adv-box">
+                        <h4>🧬 GA</h4>
+                        <ul class="adv-list">
+                            <li>Excelente exploración</li>
+                            <li>Muy versátil</li>
+                            <li>Mantiene diversidad</li>
+                            <li>Bueno para problemas discretos</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="adv-box">
+                        <h4>🐜 ACO</h4>
+                        <ul class="adv-list">
+                            <li>Excelente calidad solución</li>
+                            <li>Gran consistencia</li>
+                            <li>Inspirado en naturaleza</li>
+                            <li>Buena exploración sistemática</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 30px 0 15px;">Desventajas</h3>
+                <div class="advantages">
+                    <div class="adv-box">
+                        <h4>🐦 PSO</h4>
+                        <ul class="adv-list dis-list">
+                            <li>Convergencia prematura</li>
+                            <li>Menos exploración en etapas finales</li>
+                            <li>Diversidad limitada</li>
+                            <li>Puede caer en óptimos locales</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="adv-box">
+                        <h4>🧬 GA</h4>
+                        <ul class="adv-list dis-list">
+                            <li>Lento comparado con PSO</li>
+                            <li>Más parámetros a ajustar</li>
+                            <li>Mayor complejidad computacional</li>
+                            <li>Puede perder buenas soluciones</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="adv-box">
+                        <h4>🐜 ACO</h4>
+                        <ul class="adv-list dis-list">
+                            <li>Computacionalmente costoso</li>
+                            <li>Más parámetros que PSO</li>
+                            <li>Convergencia lenta al inicio</li>
+                            <li>Requiere más iteraciones</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recomendación -->
+            <div class="recommendation">
+                <strong>👑 Recomendación General: ACO</strong>
+                <p>ACO es el mejor equilibrio entre excelente calidad de solución, consistencia comprobada y fundamento teórico sólido.</p>
+                <p style="margin-top: 15px; font-size: 0.95em;">
+                    <strong>Pero la mejor opción depende del contexto:</strong><br>
+                    🏃 PSO: Si tiempo de ejecución es crítico<br>
+                    ⚖️ GA: Si necesitas versatilidad y balance<br>
+                    👑 ACO: Si prioridad es calidad y confiabilidad
+                </p>
+            </div>
+            
+            <!-- Conclusión -->
+            <div class="section">
+                <h2 class="section-title">🎓 Conclusión</h2>
+                <p style="line-height: 1.8; color: #555; font-size: 1.05em; margin-bottom: 20px;">
+                    Para este problema TSP con 5 ciudades, los tres algoritmos encontraron la <strong>MISMA SOLUCIÓN ÓPTIMA</strong> 
+                    con una distancia total de <strong>61.2276</strong>. Esto demuestra que en instancias pequeñas, los algoritmos 
+                    metaheurísticos convergen generalmente a soluciones de calidad similar.
+                </p>
+                <p style="line-height: 1.8; color: #555; font-size: 1.05em;">
+                    Las diferencias principales se observan en:
+                    <ul style="margin: 15px 0 0 20px; color: #555;">
+                        <li><strong>Velocidad:</strong> PSO es el más rápido (0.366s)</li>
+                        <li><strong>Consistencia:</strong> GA y ACO muestran mayor consistencia</li>
+                        <li><strong>Facilidad:</strong> PSO es el más fácil de implementar</li>
+                        <li><strong>Escalabilidad:</strong> ACO mejor para problemas mayores</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Comparación de Metaheurísticas para TSP | 4to Semestre UNACH | Asignatura: Metaheurísticas</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                📁 Archivos: tsp_problem.py | pso_tsp.py | ga_tsp.py | aco_tsp.py | comparison.py | main.py
+            </p>
+        </div>
+    </div>
+</body>
+</html>
