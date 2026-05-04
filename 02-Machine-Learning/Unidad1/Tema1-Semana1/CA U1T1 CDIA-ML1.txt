@@ -1,0 +1,288 @@
+
+
+===== PAGE 1 =====
+TEMA 1:
+Introducción y
+fundamentos.
+Descripción:
+La asignatura Machine Learning 1 ofrece
+al estudiante una primera aproximación
+al fascinante mundo del aprendizaje
+automático, integrando teoría y
+práctica para resolver problemas reales
+con datos.
+A lo largo del curso, se explorarán los
+UNIDAD 1 fundamentos matemáticos y
+computacionales que sustentan los
+algoritmos modernos, junto con ejemplos
+aplicados en ciencia e ingeniería.
+Fundamentos de
+El estudiante aprenderá a diseñar,
+entrenar y evaluar modelos,
+Machine Learning.
+comprendiendo tanto sus alcances
+como sus limitaciones.
+Esta experiencia no solo fortalece
+competencias técnicas, sino también el
+pensamiento crítico, preparando a los
+futuros profesionales para enfrentar los
+desafíos de la era digital con creatividad
+e innovación.
+Machine Learning 1
+P ERIODO ACADÉMICO 2026-1S
+
+
+===== PAGE 2 =====
+UNIDAD 1: Fundamentos de Machine Learning.
+Concepto Aplicaciones Fundamentos Herramientas
+TABLA DE CONTENIDO
+Tema 1. Introducción y fundamentos............................................................ 2
+1.1. Concepto y tipos de aprendizaje automático. .................................... 2
+1.2. Aplicaciones y desafíos en ciencia e ingeniería. .................................. 4
+1.3. Fundamentos matemáticos: álgebra lineal, probabilidad y
+estadística. ........................................................................................................ 6
+1.4. Herramientas computacionales. ............................................................. 8
+Bibliografía ........................................................................................................ 9
+1
+
+
+===== PAGE 3 =====
+UNIDAD 1: Fundamentos de Machine Learning.
+Concepto Aplicaciones Fundamentos Herramientas
+Tema 1. Introducción y fundamentos.
+El aprendizaje automático (Machine Learning, ML) se ha consolidado
+como un campo fundamental dentro de la inteligencia artificial (IA) y la
+ciencia de datos. Su relevancia radica en la capacidad de los algoritmos
+para identificar patrones en grandes volúmenes de datos y realizar
+predicciones sin necesidad de instrucciones explícitas. En las últimas dos
+décadas, este paradigma ha revolucionado la investigación científica, la
+ingeniería y los sectores productivos, al punto de convertirse en una
+herramienta transversal a múltiples disciplinas.
+El propósito de este tema es ofrecer una visión estructurada de los
+principios esenciales del ML. En primer lugar, se revisan los conceptos y
+tipos de aprendizaje automático, diferenciando sus enfoques y
+aplicaciones. Posteriormente, se destacan ejemplos recientes de
+aplicación en ciencia e ingeniería, así como los desafíos actuales en
+términos de calidad de datos, interpretabilidad y eficiencia
+computacional. Luego, se abordan los fundamentos matemáticos que
+constituyen la base teórica de los algoritmos, incluyendo álgebra lineal,
+probabilidad y estadística. Finalmente, se analizan las herramientas
+computacionales que permiten la implementación práctica de los
+modelos, con énfasis en el ecosistema Python.
+1.1. Concepto y tipos de aprendizaje automático.
+El aprendizaje automático se define como la disciplina que desarrolla
+algoritmos capaces de mejorar su desempeño en tareas específicas a
+partir de datos, sin ser programados explícitamente para cada caso (ISO,
+2023).
+Desde un punto de vista práctico, el ML implica generalizar a partir de
+ejemplos, es decir, aprender patrones y regularidades para predecir
+resultados en situaciones inéditas. La clasificación más aceptada de los
+tipos de ML incluye cinco enfoques principales que se describen en la
+Figura 1 y se detallan a continuación:
+2
+
+
+===== PAGE 4 =====
+UNIDAD 1: Fundamentos de Machine Learning.
+Concepto Aplicaciones Fundamentos Herramientas
+1. Aprendizaje supervisado: utiliza conjuntos de datos con etiquetas
+conocidas. Es el más utilizado en la industria y se aplica en
+clasificación de imágenes, predicción de valores numéricos y
+diagnóstico médico (IBM, 2023).
+2. Aprendizaje no supervisado: trabaja con datos sin etiquetas,
+identificando estructuras ocultas como agrupamientos o
+componentes principales. Ejemplos recientes incluyen
+segmentación de clientes y análisis de redes sociales (Yazici et al.,
+2023).
+3. Aprendizaje semi-supervisado: combina un pequeño conjunto de
+datos etiquetados con un gran volumen de datos no etiquetados,
+útil en contextos donde el etiquetado manual resulta costoso,
+como en la genómica (Symeonidis et al., 2022).
+4. Aprendizaje por refuerzo: entrena agentes mediante la interacción
+con un entorno, recibiendo recompensas o penalizaciones. Ha
+alcanzado notoriedad por su éxito en robótica y videojuegos
+complejos (Hao et al., 2022).
+5. Aprendizaje auto-supervisado: emergente en la última década,
+crea etiquetas artificiales a partir de los propios datos. Es
+fundamental en los grandes modelos de lenguaje y visión (IBM,
+2023).
+Figura 1. Tipos de Aprendizaje Automático
+Fuente: Elaboración propia
+3
+
+
+===== PAGE 5 =====
+UNIDAD 1: Fundamentos de Machine Learning.
+Concepto Aplicaciones Fundamentos Herramientas
+La coexistencia de estos enfoques ha derivado en sistemas híbridos que
+combinan lo mejor de cada paradigma, dando origen a arquitecturas
+más robustas y versátiles.
+1.2. Aplicaciones y desafíos en ciencia e ingeniería.
+El ML se encuentra presente en una amplia gama de aplicaciones
+científicas y tecnológicas (ver Figura 2):
+• Salud y biomedicina: diagnóstico asistido por imágenes médicas,
+predicción de riesgos cardiovasculares y descubrimiento de
+fármacos mediante simulaciones moleculares.
+• Ingeniería civil y ambiental: detección de fallas estructurales,
+predicción de deslizamientos de tierra y modelado de
+inundaciones a partir de datos satelitales.
+• Telecomunicaciones: detección de fraudes, predicción de
+congestión de red y optimización de asignación de recursos.
+• Educación personalizada: sistemas que adaptan contenidos en
+función del desempeño de los estudiantes, promoviendo
+itinerarios de aprendizaje flexibles (Yazici et al., 2023).
+4
+
+
+===== PAGE 6 =====
+UNIDAD 1: Fundamentos de Machine Learning.
+Concepto Aplicaciones Fundamentos Herramientas
+Figura 2. Espectro de aplicaciones de Inteligencia Artificial desde la
+asistencia humana hasta la automatización completa.
+Fuente: Elaboración propia
+Sin embargo, estas aplicaciones enfrentan desafíos que condicionan su
+impacto y se visualizan en la Figura 3 y son los siguientes:
+1. Sesgos y equidad: los algoritmos tienden a reproducir sesgos de los
+datos, lo que plantea retos éticos y sociales (Mersha et al., 2024).
+2. Complejidad computacional: los modelos profundos requieren
+arquitecturas de hardware especializadas (GPU y TPU) y un consumo
+energético significativo (Hao et al., 2022).
+3. Calidad de los datos: la presencia de ruido, valores faltantes o
+distribuciones no representativas compromete la validez de los modelos
+(Dritsas et al., 2025).
+4. Interpretabilidad: se ha enfatizado la necesidad de modelos
+explicables, especialmente en áreas críticas como la medicina o las
+finanzas (Mersha et al., 2024).
+5
+
+
+===== PAGE 7 =====
+UNIDAD 1: Fundamentos de Machine Learning.
+Concepto Aplicaciones Fundamentos Herramientas
+Estos retos han impulsado el desarrollo de subcampos como la IA
+explicable (Explainable AI, XAI) y el aprendizaje automático informado
+por principios físicos (Physics-Informed Machine Learning), que buscan un
+balance entre precisión, transparencia y confiabilidad.
+Figura 3. Desafíos de la Inteligencia Artificial que van más allá de la
+superficie.
+Fuente: Elaboración propia
+1.3. Fundamentos matemáticos: álgebra lineal, probabilidad y
+estadística.
+El éxito de ML se sustenta en un sólido andamiaje matemático.
+6
+
+
+===== PAGE 8 =====
+UNIDAD 1: Fundamentos de Machine Learning.
+Concepto Aplicaciones Fundamentos Herramientas
+Tres disciplinas resultan especialmente relevantes, las cuales se ilustran en
+la Figura 4 y se detallan a continuación:
+• Álgebra lineal: proporciona las herramientas para representar
+datos en vectores y matrices, manipular transformaciones lineales
+y aplicar descomposiciones como la SVD. Recientes avances en
+álgebra lineal aleatorizada permiten escalar estas operaciones a
+conjuntos de datos masivos (Dritsas et al., 2025).
+• Probabilidad: sustenta la modelación de la incertidumbre
+mediante distribuciones y procesos estocásticos. Conceptos como
+los modelos de Markov resultan esenciales en aprendizaje por
+refuerzo.
+• Estadística: aporta métodos de inferencia, validación y pruebas de
+hipótesis, necesarios para asegurar que los modelos aprendidos
+sean generalizables y no reflejen patrones espurios (Symeonidis et
+al., 2022).
+La integración de estas disciplinas permite el diseño de algoritmos
+robustos, capaces de equilibrar precisión, eficiencia y capacidad de
+generalización.
+Figura 4. Fundamentos Matemáticos de la Inteligencia Artificial
+Fuente: Elaboración propia
+7
+
+
+===== PAGE 9 =====
+UNIDAD 1: Fundamentos de Machine Learning.
+Concepto Aplicaciones Fundamentos Herramientas
+1.4. Herramientas computacionales.
+El desarrollo práctico de proyectos de ML se apoya en un ecosistema
+tecnológico que facilita la implementación, evaluación y despliegue de
+modelos.
+Un resumen gráfico se aprecia en la Figura 5.
+• Lenguajes de programación: Python domina el campo gracias a su
+simplicidad y extensas bibliotecas.
+• Bibliotecas científicas: NumPy y pandas para manipulación de
+datos, matplotlib y seaborn para visualización, y scikit-learn para
+modelos clásicos.
+• Frameworks de deep learning: TensorFlow y PyTorch son líderes en
+la construcción y entrenamiento de redes neuronales profundas.
+• Entornos interactivos: Jupyter Notebooks y Google Colab permiten
+documentar procesos de forma reproducible.
+• Prácticas de MLOps: han emergido como un campo clave que
+integra ingeniería de software y ciencia de datos para garantizar
+la reproducibilidad y la escalabilidad de los modelos en entornos
+de producción (Symeonidis et al., 2022).
+Figura 5. Principales Herramientas de Ciencia de Datos
+Fuente: Elaboración propia
+8
+
+
+===== PAGE 10 =====
+UNIDAD 1: Fundamentos de Machine Learning.
+Concepto Aplicaciones Fundamentos Herramientas
+Bibliografía
+Barthels, C., Müller, I., Taranov, K., Alonso, G., & Hoefler, T. (2019). Strong
+Dritsas, E., Stamelos, I., Tsakalidis, A., & Sotiropoulos, D. N. (2025). Exploring
+the intersection of machine learning and big data. Journal of Open
+Innovation: Technology, Market, and Complexity, 7(1), 13. MDPI.
+https://doi.org/10.3390/make7010013
+Hao, Z., Liu, S., Zhang, Y., Ying, C., Feng, Y., Su, H., & Zhu, J. (2022). Physics-
+informed machine learning: A survey on problems, methods and
+applications. arXiv preprint. https://arxiv.org/abs/2211.08064
+Hodson, T. O. (2022). Root-mean-square error (RMSE) or mean absolute
+error (MAE): When to use them or not. Geoscientific Model Development,
+15, 5481–5487. https://doi.org/10.5194/gmd-15-5481-2022
+IBM. (2023). Five machine learning types to know. IBM Think.
+https://www.ibm.com/think/topics/machine-learning-types
+ISO. (2023). Artificial intelligence — Machine learning — Framework for
+machine learning. International Organization for Standardization.
+https://www.iso.org/artificial-intelligence/machine-learning
+ISO/IEC. (2022). ISO/IEC 23053:2022 — Framework for Artificial Intelligence
+(AI) Systems Using Machine Learning (ML). ISO. ScienceDirect
+Kapoor, S., & Narayanan, A. (2023). Leakage and the reproducibility crisis
+in ML-based science. Patterns, 4(10), 100779.
+https://doi.org/10.1016/j.patter.2023.100804
+McLatchie, Y., et al. (2024). Efficient estimation and correction of
+selection-induced bias. Statistics and Computing, 34, 132.
+https://doi.org/10.1007/s11222-024-10442-4
+Mersha, M., Lam, K., Wood, J., Alshami, A. K., & Kalita, J. (2024). Explainable
+artificial intelligence: A survey of needs, techniques, applications, and
+future direction. Neurocomputing, 599, 128111.
+https://doi.org/10.1016/j.neucom.2024.128111
+9
+
+
+===== PAGE 11 =====
+UNIDAD 1: Fundamentos de Machine Learning.
+Concepto Aplicaciones Fundamentos Herramientas
+Mienye, I. D., & Sun, Y. (2022). A Survey of Ensemble Learning: Concepts,
+Algorithms, Applications, and Prospects. IEEE Access, 10, 99129–99159.
+https://doi.org/10.1109/ACCESS.2022.3207287
+AI, N. (2023). Artificial intelligence risk management framework (AI RMF
+1.0). URL: https://nvlpubs. nist. gov/nistpubs/ai/nist. ai, 100-1
+Owusu-Adjei, M., Ben Hayfron-Acquah, J., Frimpong, T., & Abdul-Salaam,
+G. (2023). Imbalanced class distribution and performance evaluation
+metrics. PLOS Digital Health, 2(11), e0000290.
+https://doi.org/10.1371/journal.pdig.0000290
+scikit-learn developers. (n. d.). 3.1 Cross-validation: evaluating estimator
+performance. Scikit-learn 1.7.2 documentation. scikit-learn.org
+scikit-learn developers. (n. d.). Nested versus non-nested cross-validation
+(example). Scikit-learn 1.7.2 documentation. scikit-learn.org
+scikit-learn developers. (n. d.). Calibration tools (brier_score_loss,
+calibration_curve). Scikit-learn 1.7.2 documentation. scikit-learn.org
+Symeonidis, G., Nerantzis, E., Kazakis, A., & Papakostas, G. A. (2022,
+January). Mlops-definitions, tools and challenges. In 2022 IEEE 12th Annual
+Computing and Communication Workshop and Conference
+(CCWC) (pp. 0453-0460). IEEE.
+https://doi.org/10.1109/CCWC54503.2022.9720902
+Yazici, İ., Yıldız, O. T., & Karakaya, M. (2023). A survey of applications of
+artificial intelligence and machine learning. ICT Express, 9(3), 221–233.
+https://doi.org/10.1016/j.jestch.2023.101455
+10

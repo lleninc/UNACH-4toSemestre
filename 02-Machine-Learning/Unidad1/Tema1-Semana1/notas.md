@@ -3,159 +3,165 @@
 ## 🎯 Objetivo de la Unidad
 Primera aproximación al fascinante mundo del aprendizaje automático, integrando teoría y práctica para resolver problemas reales con datos. Aprenderás a diseñar, entrenar y evaluar modelos, comprendiendo alcances y limitaciones.
 
----
+## 📝 Quiz - U1 T1 S1
 
-## 📚 Tema 1: Introducción y Fundamentos
+### QUIZ 1 - APE1 (10 preguntas)
 
-### 1.1 Concepto y Tipos de Aprendizaje Automático
+1. **¿Qué significa la calidad de datos en ML?**
+   - a. Que ruido y valores faltantes afectan la validez del modelo. ✓
+   - b. Que los modelos pueden aprender incluso sin datos.
+   - c. Que basta con tener grandes volúmenes sin importar su fiabilidad.
 
-**Definición clave:**
-El aprendizaje automático (ML) es la disciplina que desarrolla algoritmos capaces de mejorar su desempeño en tareas específicas a partir de datos, **sin ser programados explícitamente para cada caso** (ISO, 2023).
+2. **¿Qué implica la complejidad computacional?**
+   - a. Que los modelos no requieren energía.
+   - b. Que solo funcionan en computadores personales antiguos.
+   - c. Que los modelos profundos necesitan hardware especializado y alto consumo. ✓
 
-**Los 5 Tipos principales de ML:**
+3. **¿Qué tipo de ML se usa para entrenar un robot a caminar?**
+   - a. Auto-supervisado.
+   - b. Por refuerzo. ✓
+   - c. Semi-supervisado.
 
-| Tipo | Descripción | Aplicaciones |
-|------|-------------|--------------|
-| **1. Supervisado** | Usa datos con etiquetas conocidas | Clasificación de imágenes, predicción de valores, diagnóstico médico |
-| **2. No supervisado** | Datos sin etiquetas, identifica estructuras ocultas | Segmentación de clientes, análisis de redes sociales |
-| **3. Semi-supervisado** | Combina pocos datos etiquetados + muchos sin etiquetar | Genómica, contextos donde etiquetado manual es costoso |
-| **4. Por refuerzo** | Entrena agentes mediante interacción con entorno (recompensas/penalizaciones) | Robótica, videojuegos complejos |
-| **5. Auto-supervisado** | Crea etiquetas artificiales a partir de los propios datos | Modelos de lenguaje grandes (LLMs), visión por computadora |
+4. **¿Cuál es la esencia del aprendizaje automático?**
+   - a. Memorizar todos los ejemplos de entrenamiento.
+   - b. Requerir supervisión humana en cada decisión.
+   - c. Generalizar a partir de ejemplos para predecir nuevos casos. ✓
 
-**Punto importante:** Existen sistemas **híbridos** que combinan lo mejor de cada paradigma para arquitecturas más robustas.
+5. **El aprendizaje por refuerzo se basa en:**
+   - a. Copiar siempre las decisiones humanas.
+   - b. Recompensas y penalizaciones obtenidas de la interacción con el entorno. ✓
+   - c. La ausencia de retroalimentación.
 
----
+6. **¿Cuál es una aplicación en salud?**
+   - a. Diagnóstico asistido por imágenes médicas. ✓
+   - b. Monitoreo de redes sociales.
+   - c. Predicción de ventas minoristas.
 
-### 1.2 Aplicaciones y Desafíos en Ciencia e Ingeniería
+7. **¿Cuál fue un hito en IA en los 2010s?**
+   - a. El uso de reglas lógicas en todo sistema.
+   - b. El éxito de redes profundas en visión y lenguaje. ✓
+   - c. La exclusión de datos no estructurados.
 
-**Aplicaciones Reales (Espectro de uso):**
+8. **¿En qué consiste el aprendizaje no supervisado?**
+   - a. Identifica estructuras ocultas en datos sin etiquetas. ✓
+   - b. No requiere procesamiento computacional.
+   - c. Depende de etiquetas predefinidas.
 
-🏥 **Salud y Biomedicina**
-- Diagnóstico asistido por imágenes médicas
-- Predicción de riesgos cardiovasculares
-- Descubrimiento de fármacos mediante simulaciones moleculares
+9. **¿Cuál es una limitación ética central?**
+   - a. La reproducción de discriminaciones sociales. ✓
+   - b. La precisión excesiva.
+   - c. El consumo eléctrico de GPUs.
 
-🏗️ **Ingeniería Civil y Ambiental**
-- Detección de fallas estructurales
-- Predicción de deslizamientos de tierra
-- Modelado de inundaciones desde datos satelitales
+10. **¿Qué distingue al aprendizaje supervisado?**
+	- a. Utiliza conjuntos de datos con etiquetas conocidas. ✓
+	- b. Siempre requiere que los datos no tengan etiquetas.
+	- c. Se centra únicamente en simular redes neuronales.
 
-📡 **Telecomunicaciones**
-- Detección de fraudes
-- Predicción de congestión de red
-- Optimización de asignación de recursos
+### QUIZ 2 - APE1 (10 preguntas)
 
-📖 **Educación Personalizada**
-- Sistemas que adaptan contenidos según desempeño del estudiante
-- Itinerarios de aprendizaje flexibles
+11. **¿Por qué es importante la interpretabilidad?**
+	- a. Porque mejora la velocidad de cómputo.
+	- b. Porque sustituye la necesidad de pruebas estadísticas.
+	- c. Porque en áreas críticas se requiere explicar decisiones. ✓
 
-**Desafíos Críticos (Bajo la superficie):**
+12. **¿Cuál fue un hito en IA en los 2010s?**
+	- a. El éxito de redes profundas en visión y lenguaje. ✓
+	- b. El uso de reglas lógicas en todo sistema.
+	- c. La exclusión de datos no estructurados.
 
-| Desafío | Descripción | Impacto |
-|---------|-------------|--------|
-| **Sesgos y equidad** | Algoritmos reproducen sesgos de los datos | Retos éticos y sociales (Mersha et al., 2024) |
-| **Complejidad computacional** | Modelos profundos requieren GPU/TPU | Alto consumo energético (Hao et al., 2022) |
-| **Calidad de datos** | Ruido, valores faltantes, distribuciones no representativas | Compromete validez de modelos (Dritsas et al., 2025) |
-| **Interpretabilidad** | Necesidad de modelos explicables | Crítico en medicina y finanzas (Mersha et al., 2024) |
+13. **¿Qué problema busca resolver el aprendizaje auto-supervisado en NLP?**
+	- a. Mejorar hardware de GPUs.
+	- b. Reducir costos en satélites.
+	- c. Crear representaciones de lenguaje sin etiquetas manuales. ✓
 
-**Soluciones emergentes:**
-- IA Explicable (XAI - Explainable AI)
-- Machine Learning informado por principios físicos (Physics-Informed ML)
+14. **¿En qué década surgió el término "inteligencia artificial"?**
+	- a. 1940.
+	- b. 1980.
+	- c. 1950. ✓
 
----
+15. **¿Qué permitió el resurgimiento de la IA en los 2000?**
+	- a. Mayor poder computacional y big data. ✓
+	- b. La desaparición de la estadística.
+	- c. La caída de internet.
 
-### 1.3 Fundamentos Matemáticos: Álgebra Lineal, Probabilidad y Estadística
+16. **¿Por qué es clave la transparencia en medicina?**
+	- a. Para aumentar la velocidad de consultas.
+	- b. Para reducir el costo de tratamientos.
+	- c. Para que médicos y pacientes comprendan las decisiones del modelo. ✓
 
-**El éxito de ML se sustenta en estos 3 pilares:**
+17. **¿Qué distingue al aprendizaje supervisado?**
+	- a. Siempre requiere que los datos no tengan etiquetas.
+	- b. Se centra únicamente en simular redes neuronales.
+	- c. Utiliza conjuntos de datos con etiquetas conocidas. ✓
 
-**📐 Álgebra Lineal**
-- Herramientas para representar datos en **vectores y matrices**
-- Manipulación de transformaciones lineales
-- Descomposiciones (SVD, PCA)
-- Avances recientes: Álgebra lineal aleatorizada para datos masivos
+18. **¿Qué hace único al aprendizaje auto-supervisado?**
+	- a. Genera etiquetas artificiales a partir de los propios datos. ✓
+	- b. Depende exclusivamente de hardware especializado.
+	- c. No utiliza datos.
 
-**📊 Probabilidad**
-- Modelación de la **incertidumbre** mediante distribuciones
-- Procesos estocásticos
-- Modelos de Markov (esenciales en aprendizaje por refuerzo)
-- Teorema de Bayes y razonamiento probabilístico
+19. **Un sistema híbrido de ML se caracteriza por:**
+	- a. Combinar enfoques para mayor robustez. ✓
+	- b. Limitarse a un único paradigma.
+	- c. No necesitar datos.
 
-**📈 Estadística**
-- Métodos de **inferencia** y validación
-- Pruebas de hipótesis
-- Asegurar que modelos sean **generalizables**
-- Evitar patrones espurios
+20. **¿En qué consiste el aprendizaje no supervisado?**
+	- a. Depende de etiquetas predefinidas.
+	- b. No requiere procesamiento computacional.
+	- c. Identifica estructuras ocultas en datos sin etiquetas. ✓
 
-**Integración:** Estas disciplinas permiten diseñar algoritmos robustos que equilibren **precisión, eficiencia y capacidad de generalización**.
+### QUIZ 3 - APE1 (10 preguntas)
 
----
+21. **El aprendizaje por refuerzo se basa en:**
+	- a. Copiar siempre las decisiones humanas.
+	- b. La ausencia de retroalimentación.
+	- c. Recompensas y penalizaciones obtenidas de la interacción con el entorno. ✓
 
-### 1.4 Herramientas Computacionales
+22. **¿Qué tipo de ML se usa para entrenar un robot a caminar?**
+	- a. Semi-supervisado.
+	- b. Auto-supervisado.
+	- c. Por refuerzo. ✓
 
-**Ecosistema tecnológico para desarrollo práctico:**
+23. **¿Qué significa la calidad de datos en ML?**
+	- a. Que ruido y valores faltantes afectan la validez del modelo. ✓
+	- b. Que basta con tener grandes volúmenes sin importar su fiabilidad.
+	- c. Que los modelos pueden aprender incluso sin datos.
 
-**🐍 Lenguajes de Programación**
-- **Python** domina el campo (simplicidad + extensa librería)
+24. **¿Cuál es un desafío clave en la implementación de ML en educación?**
+	- a. Que los modelos siempre generan mejores profesores.
+	- b. Que no requieren datos de estudiantes.
+	- c. Evitar sesgos en recomendaciones personalizadas. ✓
 
-**📦 Bibliotecas Científicas**
-- **NumPy:** Manipulación de datos numéricos
-- **Pandas:** Análisis y manipulación de datos
-- **Matplotlib & Seaborn:** Visualización
-- **Scikit-learn:** Modelos clásicos de ML
+25. **En ingeniería civil y ambiental, el ML puede usarse para:**
+	- a. Crear contenido multimedia.
+	- b. Traducción automática de textos.
+	- c. Predicción de deslizamientos e inundaciones. ✓
 
-**🧠 Frameworks de Deep Learning**
-- **TensorFlow:** Construcción y entrenamiento de redes neuronales profundas
-- **PyTorch:** Framework flexible para modelos complejos
+26. **¿Qué implica la complejidad computacional?**
+	- a. Que los modelos no requieren energía.
+	- b. Que los modelos profundos necesitan hardware especializado y alto consumo. ✓
+	- c. Que solo funcionan en computadores personales antiguos.
 
-**💻 Entornos Interactivos**
-- **Jupyter Notebooks:** Documentación reproducible
-- **Google Colab:** Ejecución en la nube
+27. **¿Qué representa la figura del espectro de aplicaciones de IA?**
+	- a. Que cubre desde asistencia humana hasta automatización completa. ✓
+	- b. Que se restringe a educación y salud.
+	- c. Que solo sirve en entornos militares.
 
-**⚙️ Prácticas de MLOps**
-- Integración de ingeniería de software + ciencia de datos
-- Reproducibilidad y escalabilidad en producción
+28. **¿Cuál es la característica del aprendizaje semi-supervisado?**
+	- a. Solo funciona con datos completamente etiquetados.
+	- b. Combina datos etiquetados y no etiquetados. ✓
+	- c. Se limita a tareas de predicción de precios.
 
----
+29. **En educación, ¿qué rol cumple el ML?**
+	- a. Sustituir al profesor.
+	- b. Estandarizar exámenes sin personalización.
+	- c. Adaptar contenidos al desempeño del estudiante. ✓
 
-## 🔑 Conceptos Clave para Recordar
+30. **¿Qué busca la IA explicable (XAI)?**
+	- a. Reducir el costo del hardware.
+	- b. Aumentar la velocidad de procesamiento.
+	- c. Transparencia en las decisiones de los modelos. ✓
 
-1. **ML aprende patrones sin código explícito**
-2. **Cada tipo de ML tiene un propósito diferente:** elige según tu problema
-3. **Los datos son lo más importante** → calidad > cantidad
-4. **Sesgos y ética son fundamentales** en cualquier solución
-5. **Las matemáticas son la base** de todo algoritmo
-6. **Python + librerías específicas** son la herramienta estándar
-
----
-
-## 💡 Estrategia de Estudio para la Clase del Lunes (18:00-20:00)
-
-### Antes de la clase:
-- [ ] Lee completo esta sección 1.1 (Concepto y tipos)
-- [ ] Memoriza los 5 tipos de ML con un ejemplo cada uno
-- [ ] Revisa las aplicaciones reales (van a preguntar)
-
-### Durante la clase:
-- Toma notas de ejemplos específicos que mencione el profesor
-- Pregunta casos de uso en Ecuador o Latinoamérica
-- Identifica qué tipo de ML se usa en problemas locales
-
-### Después de la clase:
-- [ ] Resume en tus palabras cada desafío (sección 1.2)
-- [ ] Investiga: ¿cuál es la barrera más grande para IA en Ecuador?
-- [ ] Instala Python + librerías (si no lo has hecho)
-
----
-
-## 📖 Bibliografía Principal
-
-- IBM. (2023). Five machine learning types to know
-- ISO. (2023). Artificial intelligence — Machine learning — Framework
-- Mersha, M., et al. (2024). Explainable artificial intelligence: A survey
-- Hao, Z., et al. (2022). Physics-informed machine learning: A survey
-- Dritsas, E., et al. (2025). Exploring the intersection of machine learning and big data
-- Symeonidis, G., et al. (2022). MLOps-definitions, tools and challenges
-
+## Actividades
 ---
 
 ## Notas de clase

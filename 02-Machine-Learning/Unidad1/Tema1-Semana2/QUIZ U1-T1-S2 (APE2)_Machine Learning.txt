@@ -1,0 +1,118 @@
+
+
+===== PAGE 1 =====
+9/4/26, 17:17 QUIZ U1-T1-S2 (APE2): Revisión del intento | Educación en Línea
+1
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué papel cumple el álgebra lineal en el aprendizaje automático?
+'a. Define reglas de lógica simbólica.
+'b. Facilita la edición de imágenes en alta resolución.
+;c. Permite representar datos en vectores y matrices y aplicar transformaciones lineales. Correcta
+La respuesta correcta es: Permite representar datos en vectores y matrices y aplicar transformaciones
+lineales.
+2
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué ventaja principal ofrecen los Jupyter Notebooks?
+'a. Reemplazan los sistemas operativos tradicionales.
+Califica 👌
+'b. Permiten crear animaciones 3D automáticamente.
+;c. Integran código, texto y visualizaciones en un solo documento. Correcta
+La respuesta correcta es: Integran código, texto y visualizaciones en un solo documento.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=332182&cmid=98452 1/4
+
+
+===== PAGE 2 =====
+9/4/26, 17:17 QUIZ U1-T1-S2 (APE2): Revisión del intento | Educación en Línea
+3
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cómo se representan normalmente los datos en álgebra lineal dentro del aprendizaje automático?
+'a. Como tablas periódicas.
+'b. Como ecuaciones diferenciales.
+;c. Como vectores y matrices. Correcta
+La respuesta correcta es: Como vectores y matrices.
+4
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué caracteriza al aprendizaje supervisado?
+;a. Se entrena con pares entrada-salida. Correcta
+'b. No requiere etiquetas.
+'c. Solo se usa en clustering.
+La respuesta correcta es: Se entrena con pares entrada-salida.
+5
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué biblioteca es clave en Python para manipulación de arreglos numéricos?
+;a. NumPy. Correcta
+'b. BeautifulSoup.
+'c. Seaborn.
+Califica 👌
+La respuesta correcta es: NumPy.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=332182&cmid=98452 2/4
+
+
+===== PAGE 3 =====
+9/4/26, 17:17 QUIZ U1-T1-S2 (APE2): Revisión del intento | Educación en Línea
+6
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué caracteriza al aprendizaje no supervisado?
+;a. El modelo encuentra patrones sin etiquetas previas. Correcta
+'b. Solo se usa en imágenes médicas.
+'c. Los datos incluyen etiquetas definidas.
+La respuesta correcta es: El modelo encuentra patrones sin etiquetas previas.
+7
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué lenguaje domina el ecosistema de ML?
+;a. Python. Correcta
+'b. C puro.
+'c. Java.
+La respuesta correcta es: Python.
+8
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué ventaja tiene usar Google Colab sobre otros entornos?
+'a. No permite compartir proyectos.
+'b. Carece de acceso a bibliotecas de Python.
+;c. Ofrece recursos gratuitos en la nube para ejecutar modelos. Correcta
+Califica 👌
+La respuesta correcta es: Ofrece recursos gratuitos en la nube para ejecutar modelos.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=332182&cmid=98452 3/4
+
+
+===== PAGE 4 =====
+9/4/26, 17:17 QUIZ U1-T1-S2 (APE2): Revisión del intento | Educación en Línea
+9
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué aportan las estadísticas al aprendizaje automático?
+;a. Ofrecen métodos de inferencia y validación para asegurar la generalización. Correcta
+'b. Permiten únicamente calcular promedios.
+'c. Ayudan a diseñar arquitecturas neuronales profundas.
+La respuesta correcta es: Ofrecen métodos de inferencia y validación para asegurar la generalización.
+10
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué caracteriza al aprendizaje no supervisado?
+;a. Descubre estructuras ocultas sin etiquetas. Correcta
+'b. Depende exclusivamente de pruebas de hipótesis.
+'c. Utiliza regresión lineal.
+La respuesta correcta es: Descubre estructuras ocultas sin etiquetas.
+Ir a...
+t Actividad anterior
+Actividad siguiente #
+Califica 👌
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=332182&cmid=98452 4/4
