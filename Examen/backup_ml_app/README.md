@@ -267,7 +267,7 @@ Este proyecto está desarrollado como parte del programa académico de Ingenier�
 ## 👥 Autor
 
 **Lenin Lopez**
-- Carrera: Ingeniería en Sistemas y Computación
+- Carrera: Ciencia de Datos e IA
 - Universidad: Universidad Nacional de Chimborazo
 - Año: 2026
 
