@@ -266,10 +266,10 @@ Este proyecto está desarrollado como parte del programa académico de Ingenier�
 
 ## 👥 Autor
 
-**[Tu Nombre]**
+**Lenin Lopez**
 - Carrera: Ingeniería en Sistemas y Computación
 - Universidad: Universidad Nacional de Chimborazo
-- Año: 2025
+- Año: 2026
 
 ## 📞 Soporte
 
