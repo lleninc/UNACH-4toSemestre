@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación - Sistema de Backup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .nav {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .nav a:hover {
+            background-color: #0056b3;
+        }
+        .doc-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .code-block {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        .status-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .status-table th,
+        .status-table td {
+            border: 1px solid #dee2e6;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .status-table th {
+            background-color: #e9ecef;
+        }
+        .success-status {
+            background-color: #d4edda;
+        }
+        .error-status {
+            background-color: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Documentación del Sistema</h1>
+            <p>Guía completa del Sistema de Análisis de Jobs de Backup</p>
+        </div>
+
+        <div class="nav">
+            <a href="/">🏠 Inicio</a>
+            <a href="/analysis">📊 Análisis</a>
+            <a href="/predict">🔮 Predicciones</a>
+            <a href="/documentation">📚 Documentación</a>
+        </div>
+
+        <div class="doc-section">
+            <h2>🎯 Objetivo del Sistema</h2>
+            <p>Este sistema analiza jobs de backup del dataset <strong>backup1.csv</strong> para:</p>
+            <ul>
+                <li>Identificar patrones de éxito y falla en jobs de backup</li>
+                <li>Reducir el número de jobs con error mediante análisis predictivo</li>
+                <li>Proporcionar insights accionables para optimizar el sistema</li>
+                <li>Monitorear el rendimiento general del sistema de backup</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2>🔢 Interpretación de Códigos de Status</h2>
+            <p>El dataset backup1.csv utiliza códigos numéricos para representar el estado de los jobs:</p>
+            
+            <table class="status-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Significado</th>
+                        <th>Descripción</th>
+                        <th>Acción Requerida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="success-status">
+                        <td><strong>0</strong></td>
+                        <td>✅ Éxito</td>
+                        <td>Job completado satisfactoriamente</td>
+                        <td>Ninguna - Mantener configuración</td>
+                    </tr>
+                    <tr class="error-status">
+                        <td><strong>&gt; 0</strong></td>
+                        <td>❌ Error</td>
+                        <td>Job falló con código específico</td>
+                        <td>Investigar causa del error</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Ejemplos de códigos de error comunes:</strong></p>
+            <ul>
+                <li><strong>Código 1:</strong> Error general de job</li>
+                <li><strong>Código 2:</strong> Error de conexión</li>
+                <li><strong>Código 3:</strong> Error de permisos</li>
+                <li><strong>Código 4:</strong> Error de recursos</li>
+                <li><em>Nota: Los códigos específicos varían según la implementación del sistema</em></li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2>📊 Estructura del Dataset</h2>
+            <p>El archivo <code>backup1.csv</code> contiene las siguientes columnas principales:</p>
+            
+            <table class="status-table">
+                <thead>
+                    <tr>
+                        <th>Columna</th>
+                        <th>Descripción</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Job Id</strong></td>
+                        <td>Identificador único del job</td>
+                        <td>556702</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Type</strong></td>
+                        <td>Tipo de job de backup</td>
+                        <td>Backup, Replication, Snapshot</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Status</strong></td>
+                        <td>Código numérico de resultado</td>
+                        <td>0, 1, 2, 3, ...</td>
+                    </tr>
+                    <tr>
+                        <td><strong>State</strong></td>
+                        <td>Estado del job durante ejecución</td>
+                        <td>Queued, Active, Done</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Media Server</strong></td>
+                        <td>Servidor que ejecuta el job</td>
+                        <td>ecbplxnbp10, precanf008</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Job Schedule</strong></td>
+                        <td>Programación del job</td>
+                        <td>Diferencial_Diario, Incremental_Diario</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="doc-section">
+            <h2>🚀 Cómo Usar el Sistema</h2>
+            
+            <h3>1. Dashboard Principal</h3>
+            <p>La página principal muestra un resumen con:</p>
+            <ul>
+                <li>Total de jobs analizados</li>
+                <li>Número de jobs exitosos y con error</li>
+                <li>Tasas de éxito y error</li>
+                <li>Recomendaciones basadas en el análisis</li>
+            </ul>
+
+            <h3>2. Análisis Detallado</h3>
+            <p>La sección de análisis proporciona:</p>
+            <ul>
+                <li>Gráficos de distribución de códigos de status</li>
+                <li>Análisis de códigos de error específicos</li>
+                <li>Distribución por tipos de jobs</li>
+                <li>Tablas detalladas con estadísticas</li>
+            </ul>
+
+            <h3>3. Sistema de Predicciones</h3>
+            <p>Permite evaluar la probabilidad de éxito de un job mediante:</p>
+            <ul>
+                <li>Selección del tipo de job</li>
+                <li>Especificación del media server</li>
+                <li>Configuración de la programación</li>
+                <li>Obtención de predicción con nivel de confianza</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2>🔧 APIs Disponibles</h2>
+            <p>El sistema proporciona APIs REST para integración programática:</p>
+            
+            <h3>GET /api/stats</h3>
+            <div class="code-block">
+                Obtiene estadísticas generales del dataset
+                Respuesta: JSON con total_jobs, success_jobs, error_jobs, etc.
+            </div>
+
+            <h3>POST /api/predict</h3>
+            <div class="code-block">
+                Realiza predicción para un job específico
+                Body: {"job_type": "Backup", "media_server": "ecbplxnbp10", "job_schedule": "Diferencial_Diario"}
+                Respuesta: {"prediction": "Éxito", "confidence": 95.2, "reason": "..."}
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <h2>📈 Interpretación de Resultados</h2>
+            
+            <h3>Tasas de Error</h3>
+            <ul>
+                <li><strong>&lt; 1%:</strong> ✅ Excelente - Sistema funcionando óptimamente</li>
+                <li><strong>1-5%:</strong> ⚠️ Aceptable - Monitoreo recomendado</li>
+                <li><strong>&gt; 5%:</strong> 🚨 Crítico - Revisión urgente necesaria</li>
+            </ul>
+
+            <h3>Niveles de Confianza en Predicciones</h3>
+            <ul>
+                <li><strong>&gt; 80%:</strong> Alta confianza - Predicción muy confiable</li>
+                <li><strong>50-80%:</strong> Confianza media - Predicción moderadamente confiable</li>
+                <li><strong>&lt; 50%:</strong> Baja confianza - Requiere análisis adicional</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2>🎓 Información Académica</h2>
+            <p><strong>Universidad:</strong> Universidad Nacional de Chimborazo</p>
+            <p><strong>Facultad:</strong> Ingeniería en Sistemas y Computación</p>
+            <p><strong>Asignatura:</strong> Programación - Semestre 2</p>
+            <p><strong>Tecnologías:</strong> Python, Flask, Análisis de Datos, Machine Learning</p>
+            <p><strong>Objetivo:</strong> Desarrollar sistema para reducir errores en jobs de backup usando ML</p>
+        </div>
+
+        <div class="doc-section">
+            <h2>🛠️ Información Técnica</h2>
+            <p><strong>Versión:</strong> Sistema Simplificado (Compatible)</p>
+            <p><strong>Dependencias:</strong> Solo bibliotecas estándar de Python</p>
+            <p><strong>Puerto:</strong> 5001 (para evitar conflictos)</p>
+            <p><strong>Desarrollado con:</strong> GitHub Copilot</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-07-24T00:18:55.605446",
+  "dataset": "backup1.csv",
+  "total_records": 82871,
+  "total_columns": 30,
+  "status_column": "Status",
+  "analysis_summary": {
+    "total_jobs": 82871,
+    "numeric_status_jobs": 82583,
+    "success_jobs": 82060,
+    "error_jobs": 523,
+    "error_rate_percent": 0.6333022534904278
+  }
+}

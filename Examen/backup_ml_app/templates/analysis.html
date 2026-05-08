@@ -1,0 +1,325 @@
+{% extends "base.html" %}
+
+{% block title %}Análisis Exploratorio - Sistema de Análisis de Jobs de Backup{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="mb-3">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Análisis Exploratorio de Datos
+                </h2>
+                <p class="lead">
+                    Exploración detallada de los datos de jobs de backup para identificar patrones, 
+                    tendencias y oportunidades de mejora.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estadísticas Generales -->
+{% if stats %}
+<div class="row mb-4">
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Total Jobs</h5>
+                        <h2 class="mb-0">{{ "{:,}".format(stats.total_jobs) }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-tasks fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Jobs con Error</h5>
+                        <h2 class="mb-0">{{ "{:,}".format(stats.total_errors) }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-exclamation-triangle fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Tasa de Error</h5>
+                        <h2 class="mb-0">{{ stats.error_rate }}%</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-percentage fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">Columnas</h5>
+                        <h2 class="mb-0">{{ stats.data_columns }}</h2>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-columns fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Visualizaciones -->
+{% if figures %}
+    <!-- Distribución de Estados -->
+    {% if figures.state_distribution %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-pie-chart me-2"></i>
+                        Distribución de Estados de Jobs
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="state-distribution">
+                        {{ figures.state_distribution|safe }}
+                    </div>
+                    <div class="mt-3">
+                        <p class="text-muted">
+                            <strong>Análisis:</strong> Esta gráfica muestra la distribución de estados de todos los jobs de backup.
+                            Los estados más comunes nos ayudan a entender el comportamiento del sistema.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Distribución por Tipo -->
+    {% if figures.type_distribution %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-bar-chart me-2"></i>
+                        Distribución por Tipo de Job
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="type-distribution">
+                        {{ figures.type_distribution|safe }}
+                    </div>
+                    <div class="mt-3">
+                        <p class="text-muted">
+                            <strong>Análisis:</strong> Identificación de los tipos de jobs más frecuentes.
+                            Los tipos "Backup", "Replication" y "Snapshot" representan la mayoría de operaciones.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Análisis Temporal -->
+    {% if figures.hourly_distribution %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-clock me-2"></i>
+                        Distribución Temporal (por Hora)
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="hourly-distribution">
+                        {{ figures.hourly_distribution|safe }}
+                    </div>
+                    <div class="mt-3">
+                        <p class="text-muted">
+                            <strong>Análisis:</strong> Patrón temporal de ejecución de jobs.
+                            La mayoría de jobs se ejecutan en horarios nocturnos (22:00-23:00) para minimizar impacto en producción.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Velocidad de Backup -->
+    {% if figures.speed_distribution %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-tachometer-alt me-2"></i>
+                        Distribución de Velocidad de Backup (KB/Sec)
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="speed-distribution">
+                        {{ figures.speed_distribution|safe }}
+                    </div>
+                    <div class="mt-3">
+                        <p class="text-muted">
+                            <strong>Análisis:</strong> Análisis de rendimiento de los jobs de backup.
+                            La velocidad puede ser un indicador importante para predecir fallos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Media Servers -->
+    {% if figures.server_distribution %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-server me-2"></i>
+                        Top 10 Media Servers por Número de Jobs
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div id="server-distribution">
+                        {{ figures.server_distribution|safe }}
+                    </div>
+                    <div class="mt-3">
+                        <p class="text-muted">
+                            <strong>Análisis:</strong> Identificación de servidores con mayor carga de trabajo.
+                            Útil para balanceo de carga y identificación de recursos críticos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% else %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-chart-bar fa-3x text-muted mb-3"></i>
+                <h5>No hay visualizaciones disponibles</h5>
+                <p class="text-muted">
+                    Hubo un problema al generar las visualizaciones. 
+                    Verifique que los datos estén cargados correctamente.
+                </p>
+                <button class="btn btn-primary" onclick="window.location.reload()">
+                    <i class="fas fa-refresh me-2"></i>Recargar Página
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Insights y Recomendaciones -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Insights Principales
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-arrow-right text-primary me-2"></i>
+                        La mayoría de jobs se ejecutan en horario nocturno
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-arrow-right text-primary me-2"></i>
+                        Los jobs de tipo "Backup" son los más frecuentes
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-arrow-right text-primary me-2"></i>
+                        Existe variabilidad en las velocidades de backup
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-arrow-right text-primary me-2"></i>
+                        Algunos servidores manejan más carga que otros
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-recommendations me-2"></i>
+                    Recomendaciones
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Balancear la carga entre servidores
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Monitorear jobs con baja velocidad
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Optimizar ventanas de backup
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Implementar alertas predictivas
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    // Configurar tooltips para mejor UX
+    $('[data-bs-toggle="tooltip"]').tooltip();
+    
+    // Log para debugging
+    console.log('Página de análisis cargada');
+});
+</script>
+{% endblock %}

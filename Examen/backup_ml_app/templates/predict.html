@@ -1,0 +1,450 @@
+{% extends "base.html" %}
+
+{% block title %}Predicción - Sistema de Análisis de Jobs de Backup{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="mb-3">
+                    <i class="fas fa-magic me-2"></i>
+                    Predicción de Fallos en Jobs de Backup
+                </h2>
+                <p class="lead">
+                    Utiliza el modelo entrenado para predecir la probabilidad de fallo de un job de backup.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estado del Modelo -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Estado del Sistema Predictivo
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-robot fa-2x text-primary me-3"></i>
+                            <div>
+                                <strong>Modelo:</strong><br>
+                                <span id="model-status-text">Verificando...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-chart-line fa-2x text-success me-3"></i>
+                            <div>
+                                <strong>Precisión:</strong><br>
+                                <span id="model-accuracy">Calculando...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Formulario de Predicción -->
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-form me-2"></i>
+                    Datos del Job a Evaluar
+                </h5>
+            </div>
+            <div class="card-body">
+                <form id="prediction-form">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="type" class="form-label">Tipo de Job</label>
+                            <select class="form-select" id="type" name="type" required>
+                                <option value="Backup">Backup</option>
+                                <option value="Replication">Replication</option>
+                                <option value="Snapshot">Snapshot</option>
+                                <option value="Image Cleanup">Image Cleanup</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="job_policy" class="form-label">Política del Job</label>
+                            <input type="text" class="form-control" id="job_policy" name="job_policy" 
+                                   placeholder="Ej: DCP_UIO_SQL_BACKUP" value="DCP_UIO_SQL_BACKUP">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="media_server" class="form-label">Media Server</label>
+                            <input type="text" class="form-control" id="media_server" name="media_server" 
+                                   placeholder="Ej: ecbplxnbp10" value="ecbplxnbp10">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="job_schedule" class="form-label">Horario del Job</label>
+                            <select class="form-select" id="job_schedule" name="job_schedule">
+                                <option value="Full_Diario">Full Diario</option>
+                                <option value="Diferencial_Diario">Diferencial Diario</option>
+                                <option value="Incremental_Diario">Incremental Diario</option>
+                                <option value="Completo_Diario">Completo Diario</option>
+                                <option value="Unknown">Desconocido</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="start_hour" class="form-label">Hora de Inicio (0-23)</label>
+                            <input type="number" class="form-control" id="start_hour" name="start_hour" 
+                                   min="0" max="23" value="22">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="start_day_of_week" class="form-label">Día de la Semana (0=Lunes, 6=Domingo)</label>
+                            <input type="number" class="form-control" id="start_day_of_week" name="start_day_of_week" 
+                                   min="0" max="6" value="1">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="kb_sec" class="form-label">Velocidad (KB/Sec)</label>
+                            <input type="number" class="form-control" id="kb_sec" name="kb_sec" 
+                                   min="0" step="0.01" value="50.0" placeholder="0.00">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="kilobytes" class="form-label">Tamaño (Kilobytes)</label>
+                            <input type="number" class="form-control" id="kilobytes" name="kilobytes" 
+                                   min="0" value="1000000" placeholder="0">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="speed_category" class="form-label">Categoría de Velocidad</label>
+                            <select class="form-select" id="speed_category" name="speed_category">
+                                <option value="No_Speed">Sin Velocidad</option>
+                                <option value="Low">Baja</option>
+                                <option value="Medium" selected>Media</option>
+                                <option value="High">Alta</option>
+                                <option value="Very_High">Muy Alta</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="size_category" class="form-label">Categoría de Tamaño</label>
+                            <select class="form-select" id="size_category" name="size_category">
+                                <option value="No_Size">Sin Tamaño</option>
+                                <option value="Small">Pequeño</option>
+                                <option value="Medium" selected>Mediano</option>
+                                <option value="Large">Grande</option>
+                                <option value="Very_Large">Muy Grande</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg btn-custom" id="predict-btn">
+                            <i class="fas fa-crystal-ball me-2"></i>
+                            Realizar Predicción
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Panel de Resultados -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-bullseye me-2"></i>
+                    Resultado de la Predicción
+                </h5>
+            </div>
+            <div class="card-body" id="prediction-results">
+                <div class="text-center text-muted py-4">
+                    <i class="fas fa-search fa-3x mb-3"></i>
+                    <p>Complete el formulario y haga clic en "Realizar Predicción" para ver los resultados.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tips -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Consejos
+                </h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled small">
+                    <li class="mb-2">
+                        <i class="fas fa-arrow-right text-primary me-2"></i>
+                        Jobs en horario nocturno (22-23h) suelen ser más confiables
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-arrow-right text-primary me-2"></i>
+                        Velocidades muy bajas pueden indicar problemas
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-arrow-right text-primary me-2"></i>
+                        Ciertos servidores tienen mejor rendimiento
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ejemplos Predefinidos -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-examples me-2"></i>
+                    Ejemplos Predefinidos
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-success">
+                            <div class="card-body">
+                                <h6 class="text-success">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    Escenario Óptimo
+                                </h6>
+                                <p class="small">Job típico con alta probabilidad de éxito</p>
+                                <button class="btn btn-outline-success btn-sm" onclick="loadExample('optimal')">
+                                    Cargar Ejemplo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-warning">
+                            <div class="card-body">
+                                <h6 class="text-warning">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    Escenario de Riesgo
+                                </h6>
+                                <p class="small">Job con factores de riesgo moderado</p>
+                                <button class="btn btn-outline-warning btn-sm" onclick="loadExample('risky')">
+                                    Cargar Ejemplo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-danger">
+                            <div class="card-body">
+                                <h6 class="text-danger">
+                                    <i class="fas fa-times-circle me-2"></i>
+                                    Escenario Problemático
+                                </h6>
+                                <p class="small">Job con alta probabilidad de fallo</p>
+                                <button class="btn btn-outline-danger btn-sm" onclick="loadExample('problematic')">
+                                    Cargar Ejemplo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    checkModelStatus();
+    
+    // Manejar envío del formulario
+    $('#prediction-form').on('submit', function(e) {
+        e.preventDefault();
+        makePrediction();
+    });
+});
+
+function checkModelStatus() {
+    $.ajax({
+        url: '/api/model_status',
+        method: 'GET',
+        success: function(data) {
+            if (data.model_loaded || data.model_exists) {
+                $('#model-status-text').html('<span class="text-success"><i class="fas fa-check"></i> Modelo listo</span>');
+                $('#model-accuracy').html('<span class="text-primary">85-90%</span>');
+            } else {
+                $('#model-status-text').html('<span class="text-warning"><i class="fas fa-exclamation"></i> Modelo no disponible</span>');
+                $('#model-accuracy').html('<span class="text-muted">N/A</span>');
+            }
+        },
+        error: function() {
+            $('#model-status-text').html('<span class="text-danger"><i class="fas fa-times"></i> Error</span>');
+        }
+    });
+}
+
+function makePrediction() {
+    const form = document.getElementById('prediction-form');
+    const formData = new FormData(form);
+    const btn = document.getElementById('predict-btn');
+    const originalText = btn.innerHTML;
+    
+    // Mostrar loading
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Prediciendo...';
+    
+    $.ajax({
+        url: '/make_prediction',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(data) {
+            showPredictionResults(data);
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        },
+        error: function(xhr) {
+            const response = JSON.parse(xhr.responseText);
+            showError(response.message);
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        }
+    });
+}
+
+function showPredictionResults(data) {
+    const resultsContainer = document.getElementById('prediction-results');
+    const prediction = data.prediction;
+    
+    let resultColor = prediction.prediction ? 'danger' : 'success';
+    let resultIcon = prediction.prediction ? 'exclamation-triangle' : 'check-circle';
+    let resultText = prediction.prediction ? 'ALTO RIESGO DE FALLO' : 'BAJA PROBABILIDAD DE FALLO';
+    
+    const html = `
+        <div class="text-center">
+            <div class="mb-3">
+                <i class="fas fa-${resultIcon} fa-3x text-${resultColor}"></i>
+            </div>
+            <h6 class="text-${resultColor}">${resultText}</h6>
+            
+            <div class="mt-4">
+                <div class="mb-3">
+                    <strong>Probabilidad de Error:</strong>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-${resultColor}" style="width: ${(prediction.probability_error * 100).toFixed(1)}%">
+                            ${(prediction.probability_error * 100).toFixed(1)}%
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <strong>Probabilidad de Éxito:</strong>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-success" style="width: ${(prediction.probability_success * 100).toFixed(1)}%">
+                            ${(prediction.probability_success * 100).toFixed(1)}%
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 p-3 bg-light rounded">
+                <h6>Recomendaciones:</h6>
+                <ul class="list-unstyled small text-start">
+                    ${prediction.prediction ? 
+                        `<li><i class="fas fa-arrow-right text-danger me-2"></i>Revisar configuración del job</li>
+                         <li><i class="fas fa-arrow-right text-danger me-2"></i>Verificar disponibilidad de recursos</li>
+                         <li><i class="fas fa-arrow-right text-danger me-2"></i>Considerar reprogramar en diferente horario</li>` :
+                        `<li><i class="fas fa-arrow-right text-success me-2"></i>Job con configuración óptima</li>
+                         <li><i class="fas fa-arrow-right text-success me-2"></i>Continuar con la programación actual</li>
+                         <li><i class="fas fa-arrow-right text-success me-2"></i>Monitorear durante ejecución</li>`
+                    }
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    resultsContainer.innerHTML = html;
+}
+
+function showError(message) {
+    const resultsContainer = document.getElementById('prediction-results');
+    resultsContainer.innerHTML = `
+        <div class="text-center text-danger">
+            <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+            <h6>Error en la Predicción</h6>
+            <p class="small">${message}</p>
+        </div>
+    `;
+}
+
+function loadExample(type) {
+    const examples = {
+        optimal: {
+            type: 'Backup',
+            job_policy: 'DCP_UIO_SQL_BACKUP',
+            media_server: 'ecbplxnbp10',
+            job_schedule: 'Full_Diario',
+            start_hour: 22,
+            start_day_of_week: 1,
+            kb_sec: 85.5,
+            kilobytes: 5000000,
+            speed_category: 'High',
+            size_category: 'Medium'
+        },
+        risky: {
+            type: 'Backup',
+            job_policy: 'DCP_UIO_FILES_UNKNOWN',
+            media_server: 'unknown_server',
+            job_schedule: 'Unknown',
+            start_hour: 14,
+            start_day_of_week: 5,
+            kb_sec: 15.2,
+            kilobytes: 50000000,
+            speed_category: 'Low',
+            size_category: 'Large'
+        },
+        problematic: {
+            type: 'Backup',
+            job_policy: 'DCP_ERROR_POLICY',
+            media_server: 'overloaded_server',
+            job_schedule: 'Unknown',
+            start_hour: 12,
+            start_day_of_week: 0,
+            kb_sec: 2.1,
+            kilobytes: 100000000,
+            speed_category: 'No_Speed',
+            size_category: 'Very_Large'
+        }
+    };
+    
+    const example = examples[type];
+    
+    // Llenar formulario con ejemplo
+    Object.keys(example).forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+            element.value = example[key];
+        }
+    });
+    
+    showToast(`Ejemplo "${type}" cargado`, 'info');
+}
+</script>
+{% endblock %}

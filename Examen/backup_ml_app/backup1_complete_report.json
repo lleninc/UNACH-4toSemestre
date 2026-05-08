@@ -1,0 +1,103 @@
+{
+  "timestamp": "2025-07-24T00:29:16.167746",
+  "dataset": "backup1.csv",
+  "analysis_type": "Códigos numéricos de status",
+  "status_analysis": {
+    "total_jobs": 82583,
+    "success_jobs": 82060,
+    "error_jobs": 523,
+    "error_rate": 0.6333022534904278,
+    "status_distribution": {
+      "0": 82060,
+      "1": 339,
+      "2": 6,
+      "6": 17,
+      "13": 23,
+      "42": 3,
+      "58": 2,
+      "59": 1,
+      "84": 4,
+      "150": 90,
+      "156": 11,
+      "191": 20,
+      "4201": 5,
+      "4239": 2
+    },
+    "top_error_codes": [
+      [
+        1,
+        339
+      ],
+      [
+        150,
+        90
+      ],
+      [
+        13,
+        23
+      ],
+      [
+        191,
+        20
+      ],
+      [
+        6,
+        17
+      ],
+      [
+        156,
+        11
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        4201,
+        5
+      ],
+      [
+        84,
+        4
+      ],
+      [
+        42,
+        3
+      ]
+    ]
+  },
+  "job_types": {
+    "Backup": 80428,
+    "Replication": 601,
+    "Snapshot": 710,
+    "Image Cleanup": 1102,
+    "Catalog Backu": 24,
+    "Restore": 6
+  },
+  "servers": {
+    "Standard": 79436,
+    "ecbplxnbp10": 17005,
+    "ecbplxnbp11": 13213,
+    "precanf008.uio.bpichincha.com": 12615,
+    "precanf005.uio.bpichincha.com": 10956,
+    "precanf003": 9446,
+    "precanf001": 7989,
+    "ecbpprcl39.uio.bpichincha.com": 7742,
+    "ecbplxnbp12": 7011,
+    "ecbpprcl20.uio.bpichincha.com": 6120,
+    "ecbpprcl49.uio.bpichincha.com": 4532,
+    "precanb006": 3680,
+    "precwdb022.uio.bpichincha.com": 3174,
+    "ecuio012q47.uio.bpichincha.com": 3070,
+    "ecbpprq116.uio.bpichincha.com": 2581,
+    "precwdb015.uio.bpichincha.com": 2152,
+    "ecbpprnbm13": 2005,
+    "ecbpprcl45.uio.bpichincha.com": 1956,
+    "ecbpprcl44.uio.bpichincha.com": 1908,
+    "Instant Recovery Disk": 1720
+  },
+  "summary": {
+    "error_rate": 0.6333022534904278,
+    "recommendation": "Implementar monitoreo ML"
+  }
+}

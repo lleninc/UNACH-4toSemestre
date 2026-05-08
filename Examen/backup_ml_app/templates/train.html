@@ -1,0 +1,455 @@
+{% extends "base.html" %}
+
+{% block title %}Entrenamiento ML - Sistema de Análisis de Jobs de Backup{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="mb-3">
+                    <i class="fas fa-brain me-2"></i>
+                    Entrenamiento de Modelos de Machine Learning
+                </h2>
+                <p class="lead">
+                    Entrenamiento y evaluación de modelos para predicción de fallos en jobs de backup.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Control Panel -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-cogs me-2"></i>
+                    Panel de Control
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Estado del Sistema</h6>
+                        <div class="mb-3">
+                            <span class="badge bg-info me-2">Datos:</span>
+                            <span id="data-status">Verificando...</span>
+                        </div>
+                        <div class="mb-3">
+                            <span class="badge bg-warning me-2">Modelo:</span>
+                            <span id="model-status">Verificando...</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <button id="train-btn" class="btn btn-primary btn-lg btn-custom" onclick="startTraining()">
+                            <i class="fas fa-play me-2"></i>
+                            Iniciar Entrenamiento
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Proceso de Entrenamiento -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-list-ol me-2"></i>
+                    Proceso de Entrenamiento
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="step-indicator" id="step-1">
+                            <div class="step-number mb-2">
+                                <i class="fas fa-download fa-2x"></i>
+                            </div>
+                            <h6>Carga de Datos</h6>
+                            <p class="small text-muted">Preparación del dataset</p>
+                            <div class="step-status" id="status-1">
+                                <i class="fas fa-clock text-warning"></i> Pendiente
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="step-indicator" id="step-2">
+                            <div class="step-number mb-2">
+                                <i class="fas fa-tools fa-2x"></i>
+                            </div>
+                            <h6>Preprocesamiento</h6>
+                            <p class="small text-muted">Limpieza y transformación</p>
+                            <div class="step-status" id="status-2">
+                                <i class="fas fa-clock text-warning"></i> Pendiente
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="step-indicator" id="step-3">
+                            <div class="step-number mb-2">
+                                <i class="fas fa-robot fa-2x"></i>
+                            </div>
+                            <h6>Entrenamiento</h6>
+                            <p class="small text-muted">Múltiples algoritmos</p>
+                            <div class="step-status" id="status-3">
+                                <i class="fas fa-clock text-warning"></i> Pendiente
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="step-indicator" id="step-4">
+                            <div class="step-number mb-2">
+                                <i class="fas fa-check-circle fa-2x"></i>
+                            </div>
+                            <h6>Evaluación</h6>
+                            <p class="small text-muted">Métricas y validación</p>
+                            <div class="step-status" id="status-4">
+                                <i class="fas fa-clock text-warning"></i> Pendiente
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="mt-4">
+                    <div class="progress" style="height: 10px;">
+                        <div id="training-progress" class="progress-bar bg-success" role="progressbar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Resultados del Entrenamiento -->
+<div class="row mb-4" id="results-section" style="display: none;">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-line me-2"></i>
+                    Resultados del Entrenamiento
+                </h5>
+            </div>
+            <div class="card-body">
+                <div id="results-content">
+                    <!-- Aquí se mostrarán los resultados -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Configuración de Modelos -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-sliders-h me-2"></i>
+                    Modelos a Entrenar
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-primary">
+                            <div class="card-body text-center">
+                                <i class="fas fa-tree fa-2x text-primary mb-2"></i>
+                                <h6>Random Forest</h6>
+                                <p class="small text-muted">
+                                    Conjunto de árboles de decisión. 
+                                    Excelente para patrones complejos.
+                                </p>
+                                <span class="badge bg-primary">Ensemble</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-success">
+                            <div class="card-body text-center">
+                                <i class="fas fa-rocket fa-2x text-success mb-2"></i>
+                                <h6>Gradient Boosting</h6>
+                                <p class="small text-muted">
+                                    Mejora iterativa de modelos débiles.
+                                    Alta precisión predictiva.
+                                </p>
+                                <span class="badge bg-success">Boosting</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-warning">
+                            <div class="card-body text-center">
+                                <i class="fas fa-chart-line fa-2x text-warning mb-2"></i>
+                                <h6>Logistic Regression</h6>
+                                <p class="small text-muted">
+                                    Modelo lineal interpretable.
+                                    Baseline y comparación.
+                                </p>
+                                <span class="badge bg-warning">Linear</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Métricas de Evaluación -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-calculator me-2"></i>
+                    Métricas de Evaluación
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <strong>Accuracy:</strong> Porcentaje de predicciones correctas
+                    </li>
+                    <li class="mb-2">
+                        <strong>Precision:</strong> Verdaderos positivos / (VP + Falsos positivos)
+                    </li>
+                    <li class="mb-2">
+                        <strong>Recall:</strong> Verdaderos positivos / (VP + Falsos negativos)
+                    </li>
+                    <li class="mb-2">
+                        <strong>F1-Score:</strong> Media armónica de precision y recall
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Notas Técnicas
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        División 80/20 entrenamiento/prueba
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Validación cruzada estratificada
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Normalización de features numéricas
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Codificación de variables categóricas
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    checkSystemStatus();
+});
+
+function checkSystemStatus() {
+    // Verificar estado de datos
+    $.ajax({
+        url: '/api/data_summary',
+        method: 'GET',
+        success: function(data) {
+            $('#data-status').html('<i class="fas fa-check text-success"></i> Datos cargados (' + data.total_records + ' registros)');
+        },
+        error: function() {
+            $('#data-status').html('<i class="fas fa-times text-danger"></i> Error cargando datos');
+        }
+    });
+    
+    // Verificar estado del modelo
+    $.ajax({
+        url: '/api/model_status',
+        method: 'GET',
+        success: function(data) {
+            if (data.model_exists) {
+                $('#model-status').html('<i class="fas fa-check text-success"></i> Modelo disponible');
+            } else {
+                $('#model-status').html('<i class="fas fa-exclamation text-warning"></i> Modelo no entrenado');
+            }
+        },
+        error: function() {
+            $('#model-status').html('<i class="fas fa-times text-danger"></i> Error verificando modelo');
+        }
+    });
+}
+
+function startTraining() {
+    const btn = document.getElementById('train-btn');
+    const originalText = btn.innerHTML;
+    
+    // Mostrar loading
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Entrenando...';
+    
+    // Resetear steps
+    resetSteps();
+    
+    // Simular proceso paso a paso
+    updateStep(1, 'in-progress');
+    setTimeout(() => {
+        updateStep(1, 'completed');
+        updateStep(2, 'in-progress');
+        updateProgress(25);
+        
+        setTimeout(() => {
+            updateStep(2, 'completed');
+            updateStep(3, 'in-progress');
+            updateProgress(50);
+            
+            // Hacer llamada real al servidor
+            $.ajax({
+                url: '/train_models',
+                method: 'POST',
+                success: function(data) {
+                    updateStep(3, 'completed');
+                    updateStep(4, 'in-progress');
+                    updateProgress(75);
+                    
+                    setTimeout(() => {
+                        updateStep(4, 'completed');
+                        updateProgress(100);
+                        showResults(data.results);
+                        
+                        // Restaurar botón
+                        btn.disabled = false;
+                        btn.innerHTML = originalText;
+                        
+                        showToast('Modelos entrenados exitosamente', 'success');
+                    }, 1000);
+                },
+                error: function(xhr) {
+                    const response = JSON.parse(xhr.responseText);
+                    updateStep(3, 'error');
+                    
+                    // Restaurar botón
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                    
+                    showToast('Error en entrenamiento: ' + response.message, 'danger');
+                }
+            });
+        }, 1500);
+    }, 1000);
+}
+
+function resetSteps() {
+    for (let i = 1; i <= 4; i++) {
+        updateStep(i, 'pending');
+    }
+    updateProgress(0);
+}
+
+function updateStep(stepNumber, status) {
+    const statusElement = document.getElementById('status-' + stepNumber);
+    
+    switch(status) {
+        case 'pending':
+            statusElement.innerHTML = '<i class="fas fa-clock text-warning"></i> Pendiente';
+            break;
+        case 'in-progress':
+            statusElement.innerHTML = '<i class="fas fa-spinner fa-spin text-primary"></i> En progreso';
+            break;
+        case 'completed':
+            statusElement.innerHTML = '<i class="fas fa-check text-success"></i> Completado';
+            break;
+        case 'error':
+            statusElement.innerHTML = '<i class="fas fa-times text-danger"></i> Error';
+            break;
+    }
+}
+
+function updateProgress(percentage) {
+    const progressBar = document.getElementById('training-progress');
+    progressBar.style.width = percentage + '%';
+}
+
+function showResults(results) {
+    const resultsSection = document.getElementById('results-section');
+    const resultsContent = document.getElementById('results-content');
+    
+    let html = '<div class="row">';
+    
+    for (const [modelName, metrics] of Object.entries(results)) {
+        html += `
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0">${modelName}</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Accuracy:</strong><br>
+                                <span class="badge bg-primary">${(metrics.accuracy * 100).toFixed(2)}%</span>
+                            </div>
+                            <div class="col-6">
+                                <strong>Precision:</strong><br>
+                                <span class="badge bg-success">${(metrics.precision * 100).toFixed(2)}%</span>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <strong>Recall:</strong><br>
+                                <span class="badge bg-warning">${(metrics.recall * 100).toFixed(2)}%</span>
+                            </div>
+                            <div class="col-6">
+                                <strong>F1-Score:</strong><br>
+                                <span class="badge bg-info">${(metrics.f1_score * 100).toFixed(2)}%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    html += '</div>';
+    
+    // Agregar recomendación del mejor modelo
+    const bestModel = Object.keys(results).reduce((a, b) => 
+        results[a].f1_score > results[b].f1_score ? a : b
+    );
+    
+    html += `
+        <div class="alert alert-success mt-3">
+            <h6><i class="fas fa-trophy me-2"></i>Mejor Modelo Seleccionado</h6>
+            <p class="mb-0">
+                <strong>${bestModel}</strong> con F1-Score de ${(results[bestModel].f1_score * 100).toFixed(2)}%
+            </p>
+        </div>
+    `;
+    
+    resultsContent.innerHTML = html;
+    resultsSection.style.display = 'block';
+}
+</script>
+{% endblock %}

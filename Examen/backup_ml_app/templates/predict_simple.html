@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicciones - Sistema de Backup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .nav {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .nav a:hover {
+            background-color: #0056b3;
+        }
+        .form-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .prediction-result {
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .prediction-success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .prediction-error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        .confidence-bar {
+            background-color: #e9ecef;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .confidence-fill {
+            height: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔮 Sistema de Predicciones</h1>
+            <p>Predice el resultado de jobs de backup</p>
+        </div>
+
+        <div class="nav">
+            <a href="/">🏠 Inicio</a>
+            <a href="/analysis">📊 Análisis</a>
+            <a href="/predict">🔮 Predicciones</a>
+            <a href="/documentation">📚 Documentación</a>
+        </div>
+
+        <div class="form-section">
+            <h2>📝 Datos del Job a Evaluar</h2>
+            <p>Ingrese los datos del job de backup para obtener una predicción:</p>
+            
+            <form method="POST">
+                <div class="form-group">
+                    <label for="job_type">Tipo de Job:</label>
+                    <select name="job_type" id="job_type">
+                        <option value="">-- Seleccionar --</option>
+                        <option value="Backup">Backup</option>
+                        <option value="Replication">Replication</option>
+                        <option value="Snapshot">Snapshot</option>
+                        <option value="Image Cleanup">Image Cleanup</option>
+                        <option value="Restore">Restore</option>
+                        <option value="Catalog Backup">Catalog Backup</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="media_server">Media Server:</label>
+                    <input type="text" name="media_server" id="media_server" 
+                           placeholder="ej: ecbplxnbp10, precanf008, etc.">
+                </div>
+
+                <div class="form-group">
+                    <label for="job_schedule">Programación del Job:</label>
+                    <select name="job_schedule" id="job_schedule">
+                        <option value="">-- Seleccionar --</option>
+                        <option value="Diferencial_Diario">Diferencial Diario</option>
+                        <option value="Incremental_Diario">Incremental Diario</option>
+                        <option value="Full_Semanal">Full Semanal</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Weekly">Weekly</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn">🚀 Predecir Resultado</button>
+            </form>
+        </div>
+
+        {% if show_result and prediction %}
+        <div class="prediction-result {% if prediction.prediction == 'Éxito' %}prediction-success{% else %}prediction-error{% endif %}">
+            <h2>🎯 Resultado de la Predicción</h2>
+            
+            <div style="font-size: 24px; font-weight: bold; margin: 15px 0;">
+                {% if prediction.prediction == 'Éxito' %}
+                    ✅ PREDICCIÓN: JOB EXITOSO
+                {% else %}
+                    ❌ PREDICCIÓN: POSIBLE ERROR
+                {% endif %}
+            </div>
+
+            <div>
+                <strong>Confianza:</strong> {{ prediction.confidence }}%
+                <div class="confidence-bar">
+                    <div class="confidence-fill" 
+                         style="width: {{ prediction.confidence }}%; 
+                                background-color: {% if prediction.confidence > 70 %}#28a745{% elif prediction.confidence > 50 %}#ffc107{% else %}#dc3545{% endif %};">
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <strong>Explicación:</strong> {{ prediction.reason }}
+            </div>
+
+            {% if prediction.stats %}
+            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #ccc;">
+                <h4>📊 Estadísticas de Referencia:</h4>
+                <ul>
+                    <li>Jobs exitosos en dataset: {{ "{:,}".format(prediction.stats.success_jobs) }} ({{ "%.1f"|format(prediction.stats.success_rate) }}%)</li>
+                    <li>Jobs con error en dataset: {{ "{:,}".format(prediction.stats.error_jobs) }} ({{ "%.1f"|format(prediction.stats.error_rate) }}%)</li>
+                    <li>Total de jobs analizados: {{ "{:,}".format(prediction.stats.total_jobs) }}</li>
+                </ul>
+            </div>
+            {% endif %}
+
+            <div style="margin-top: 15px; padding: 10px; background-color: rgba(0,0,0,0.1); border-radius: 5px;">
+                <small>
+                    <strong>Nota:</strong> Esta predicción se basa en análisis estadístico del dataset backup1.csv 
+                    y debe usarse como una guía orientativa. Los resultados reales pueden variar según 
+                    factores específicos del entorno.
+                </small>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="form-section">
+            <h3>ℹ️ Información sobre las Predicciones</h3>
+            <p><strong>¿Cómo funciona?</strong> El sistema analiza patrones en el dataset backup1.csv para predecir 
+            la probabilidad de éxito de un job basándose en:</p>
+            <ul>
+                <li>Tasa de éxito general del sistema ({{ "99.37" }}%)</li>
+                <li>Tipo de job (algunos tipos son más confiables)</li>
+                <li>Servidor utilizado (servidores conocidos tienen mejor rendimiento)</li>
+                <li>Programación del job</li>
+            </ul>
+            
+            <p><strong>Interpretación de la confianza:</strong></p>
+            <ul>
+                <li><strong>Alta (>80%):</strong> Predicción muy confiable</li>
+                <li><strong>Media (50-80%):</strong> Predicción moderadamente confiable</li>
+                <li><strong>Baja (<50%):</strong> Predicción incierta, requiere análisis adicional</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

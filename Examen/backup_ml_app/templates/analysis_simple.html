@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Detallado - Sistema de Backup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .nav {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .nav a:hover {
+            background-color: #0056b3;
+        }
+        .analysis-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+        }
+        .simple-chart {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+        .bar-chart {
+            display: flex;
+            align-items: end;
+            height: 200px;
+            margin: 20px 0;
+        }
+        .bar {
+            margin: 0 5px;
+            min-width: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bar-fill {
+            border-radius: 4px 4px 0 0;
+            color: white;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            padding: 5px;
+            font-weight: bold;
+        }
+        .bar-label {
+            margin-top: 5px;
+            font-size: 12px;
+            text-align: center;
+        }
+        .distribution-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .distribution-table th,
+        .distribution-table td {
+            border: 1px solid #dee2e6;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .distribution-table th {
+            background-color: #e9ecef;
+        }
+        .success-row {
+            background-color: #d4edda;
+        }
+        .error-row {
+            background-color: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Análisis Detallado - BACKUP1.CSV</h1>
+            <p>Universidad Nacional de Chimborazo</p>
+        </div>
+
+        <div class="nav">
+            <a href="/">🏠 Inicio</a>
+            <a href="/analysis">📊 Análisis</a>
+            <a href="/predict">🔮 Predicciones</a>
+            <a href="/documentation">📚 Documentación</a>
+        </div>
+
+        {% if stats %}
+        <div class="analysis-section">
+            <h2>📈 Distribución de Códigos de Status</h2>
+            
+            {% if charts and charts.status_chart %}
+            <div class="chart-container">
+                <h3>Éxito vs Error</h3>
+                <div class="bar-chart">
+                    {% for i in range(charts.status_chart.labels|length) %}
+                    <div class="bar">
+                        <div class="bar-fill" 
+                             style="height: {{ (charts.status_chart.values[i] / charts.status_chart.values|max * 150)|int }}px; 
+                                    background-color: {{ charts.status_chart.colors[i] }};">
+                            {{ "{:,}".format(charts.status_chart.values[i]) }}
+                        </div>
+                        <div class="bar-label">{{ charts.status_chart.labels[i] }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <table class="distribution-table">
+                <thead>
+                    <tr>
+                        <th>Código de Status</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Porcentaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="success-row">
+                        <td><strong>0</strong></td>
+                        <td>✅ Job Exitoso</td>
+                        <td>{{ "{:,}".format(stats.success_jobs) }}</td>
+                        <td>{{ "%.2f"|format(stats.success_rate) }}%</td>
+                    </tr>
+                    <tr class="error-row">
+                        <td><strong>&gt; 0</strong></td>
+                        <td>❌ Jobs con Error</td>
+                        <td>{{ "{:,}".format(stats.error_jobs) }}</td>
+                        <td>{{ "%.2f"|format(stats.error_rate) }}%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        {% if stats.top_error_codes %}
+        <div class="analysis-section">
+            <h2>🚨 Códigos de Error Específicos</h2>
+            
+            {% if charts and charts.error_chart and charts.error_chart.values %}
+            <div class="chart-container">
+                <h3>Top Códigos de Error</h3>
+                <div class="bar-chart">
+                    {% for i in range(charts.error_chart.labels|length) %}
+                    <div class="bar">
+                        <div class="bar-fill" 
+                             style="height: {{ (charts.error_chart.values[i] / charts.error_chart.values|max * 150)|int }}px; 
+                                    background-color: {{ charts.error_chart.colors[i] }};">
+                            {{ charts.error_chart.values[i] }}
+                        </div>
+                        <div class="bar-label">{{ charts.error_chart.labels[i] }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <table class="distribution-table">
+                <thead>
+                    <tr>
+                        <th>Código de Error</th>
+                        <th>Cantidad</th>
+                        <th>% del Total</th>
+                        <th>% de Errores</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for code, count in stats.top_error_codes %}
+                    <tr>
+                        <td><strong>Error {{ code }}</strong></td>
+                        <td>{{ "{:,}".format(count) }}</td>
+                        <td>{{ "%.3f"|format((count / stats.total_jobs) * 100) }}%</td>
+                        <td>{{ "%.1f"|format((count / stats.error_jobs) * 100) }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        {% if job_types %}
+        <div class="analysis-section">
+            <h2>📋 Distribución por Tipos de Jobs</h2>
+            <table class="distribution-table">
+                <thead>
+                    <tr>
+                        <th>Tipo de Job</th>
+                        <th>Cantidad</th>
+                        <th>Porcentaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job_type, count, percentage in job_types.distribution %}
+                    <tr>
+                        <td>{{ job_type }}</td>
+                        <td>{{ "{:,}".format(count) }}</td>
+                        <td>{{ "%.1f"|format(percentage) }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        <div class="analysis-section">
+            <h2>💡 Insights Principales</h2>
+            <ul>
+                <li><strong>Rendimiento General:</strong> {{ "%.2f"|format(stats.success_rate) }}% de éxito</li>
+                <li><strong>Tasa de Error:</strong> {{ "%.2f"|format(stats.error_rate) }}% 
+                    {% if stats.error_rate < 1 %}
+                        (Excelente)
+                    {% elif stats.error_rate < 5 %}
+                        (Aceptable)
+                    {% else %}
+                        (Requiere atención)
+                    {% endif %}
+                </li>
+                <li><strong>Total de Jobs Analizados:</strong> {{ "{:,}".format(stats.total_jobs) }}</li>
+                {% if stats.top_error_codes %}
+                <li><strong>Error más Frecuente:</strong> Código {{ stats.top_error_codes[0][0] }} con {{ "{:,}".format(stats.top_error_codes[0][1]) }} ocurrencias</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        {% else %}
+        <div class="analysis-section">
+            <h3>❌ Error al cargar datos</h3>
+            <p>No se pudo realizar el análisis. Verifique que el archivo backup1.csv existe.</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

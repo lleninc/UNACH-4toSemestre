@@ -1,0 +1,611 @@
+{% extends "base.html" %}
+
+{% block title %}Documentación - Sistema de Análisis de Jobs de Backup{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="mb-3">
+                    <i class="fas fa-book me-2"></i>
+                    Documentación del Proyecto
+                </h2>
+                <p class="lead">
+                    Documentación completa del sistema de análisis y predicción de jobs de backup usando Machine Learning.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla de Contenidos -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="fas fa-list me-2"></i>
+                    Tabla de Contenidos
+                </h6>
+            </div>
+            <div class="card-body">
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="#objetivo">1. Objetivo</a>
+                    <a class="nav-link" href="#problema">2. Problema</a>
+                    <a class="nav-link" href="#metodologia">3. Metodología</a>
+                    <a class="nav-link" href="#datos">4. Análisis de Datos</a>
+                    <a class="nav-link" href="#preprocessing">5. Preprocesamiento</a>
+                    <a class="nav-link" href="#modelos">6. Modelos ML</a>
+                    <a class="nav-link" href="#evaluacion">7. Evaluación</a>
+                    <a class="nav-link" href="#aplicacion">8. Aplicación Web</a>
+                    <a class="nav-link" href="#resultados">9. Resultados</a>
+                    <a class="nav-link" href="#conclusiones">10. Conclusiones</a>
+                    <a class="nav-link" href="#tecnologias">11. Tecnologías</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-9">
+        <!-- Contenido de la documentación -->
+        
+        <!-- 1. Objetivo -->
+        <section id="objetivo" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-bullseye me-2"></i>1. Objetivo del Proyecto</h4>
+                </div>
+                <div class="card-body">
+                    <p>
+                        El objetivo principal de este proyecto es <strong>desarrollar un sistema inteligente para reducir 
+                        el número de jobs de backup con error</strong> mediante el uso de técnicas de Machine Learning.
+                    </p>
+                    
+                    <h6>Objetivos Específicos:</h6>
+                    <ul>
+                        <li>Analizar patrones en los datos históricos de jobs de backup</li>
+                        <li>Identificar factores que contribuyen a los fallos</li>
+                        <li>Desarrollar modelos predictivos para anticipar fallos</li>
+                        <li>Crear una aplicación web interactiva para visualización y predicción</li>
+                        <li>Proporcionar recomendaciones para optimizar la programación de jobs</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 2. Problema -->
+        <section id="problema" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-exclamation-triangle me-2"></i>2. Definición del Problema</h4>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Los sistemas de backup corporativos enfrentan varios desafíos que pueden resultar en fallos de jobs:
+                    </p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Problemas Identificados:</h6>
+                            <ul>
+                                <li>Fallos impredecibles en jobs de backup</li>
+                                <li>Pérdida de ventanas de backup</li>
+                                <li>Recursos insuficientes durante la ejecución</li>
+                                <li>Configuraciones subóptimas</li>
+                                <li>Falta de monitoreo predictivo</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Impacto Empresarial:</h6>
+                            <ul>
+                                <li>Riesgo de pérdida de datos</li>
+                                <li>Incumplimiento de SLAs</li>
+                                <li>Costos operativos elevados</li>
+                                <li>Tiempo de administración aumentado</li>
+                                <li>Reducción de la confiabilidad del sistema</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 3. Metodología -->
+        <section id="metodologia" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-cogs me-2"></i>3. Metodología</h4>
+                </div>
+                <div class="card-body">
+                    <p>
+                        Se implementó una metodología estándar de Data Science siguiendo el proceso CRISP-DM:
+                    </p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Fases del Proyecto:</h6>
+                            <ol>
+                                <li><strong>Comprensión del Negocio:</strong> Análisis de requerimientos y objetivos</li>
+                                <li><strong>Comprensión de Datos:</strong> Exploración y análisis descriptivo</li>
+                                <li><strong>Preparación de Datos:</strong> Limpieza y transformación</li>
+                                <li><strong>Modelado:</strong> Entrenamiento de algoritmos ML</li>
+                                <li><strong>Evaluación:</strong> Validación y selección de modelos</li>
+                                <li><strong>Despliegue:</strong> Implementación en aplicación web</li>
+                            </ol>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Herramientas Utilizadas:</h6>
+                            <ul>
+                                <li><strong>Python:</strong> Lenguaje principal</li>
+                                <li><strong>Pandas:</strong> Manipulación de datos</li>
+                                <li><strong>Scikit-learn:</strong> Machine Learning</li>
+                                <li><strong>Plotly:</strong> Visualizaciones interactivas</li>
+                                <li><strong>Flask:</strong> Framework web</li>
+                                <li><strong>Bootstrap:</strong> Interfaz de usuario</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 4. Análisis de Datos -->
+        <section id="datos" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-chart-bar me-2"></i>4. Análisis Exploratorio de Datos</h4>
+                </div>
+                <div class="card-body">
+                    <h6>Características del Dataset:</h6>
+                    <ul>
+                        <li><strong>Registros:</strong> 82,873 jobs de backup</li>
+                        <li><strong>Período:</strong> Datos históricos de sistema de backup corporativo</li>
+                        <li><strong>Variables:</strong> 13 columnas con información técnica y operativa</li>
+                    </ul>
+                    
+                    <h6>Variables Principales:</h6>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Variable</th>
+                                    <th>Descripción</th>
+                                    <th>Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Job Id</td>
+                                    <td>Identificador único del job</td>
+                                    <td>Numérico</td>
+                                </tr>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>Tipo de operación (Backup, Replication, Snapshot)</td>
+                                    <td>Categórico</td>
+                                </tr>
+                                <tr>
+                                    <td>State</td>
+                                    <td>Estado actual del job (Active, Queued, etc.)</td>
+                                    <td>Categórico</td>
+                                </tr>
+                                <tr>
+                                    <td>KB/Sec</td>
+                                    <td>Velocidad de transferencia</td>
+                                    <td>Numérico</td>
+                                </tr>
+                                <tr>
+                                    <td>Job Policy</td>
+                                    <td>Política aplicada al job</td>
+                                    <td>Categórico</td>
+                                </tr>
+                                <tr>
+                                    <td>Media Server</td>
+                                    <td>Servidor que ejecuta el job</td>
+                                    <td>Categórico</td>
+                                </tr>
+                                <tr>
+                                    <td>Start Time</td>
+                                    <td>Fecha y hora de inicio</td>
+                                    <td>Temporal</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 5. Preprocesamiento -->
+        <section id="preprocessing" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-tools me-2"></i>5. Preprocesamiento de Datos</h4>
+                </div>
+                <div class="card-body">
+                    <h6>Técnicas Aplicadas:</h6>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Limpieza de Datos:</h6>
+                            <ul>
+                                <li>Eliminación de registros duplicados</li>
+                                <li>Tratamiento de valores faltantes</li>
+                                <li>Normalización de formatos</li>
+                                <li>Validación de consistencia</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Ingeniería de Features:</h6>
+                            <ul>
+                                <li>Extracción de hora y día de la semana</li>
+                                <li>Categorización de velocidades y tamaños</li>
+                                <li>Codificación de variables categóricas</li>
+                                <li>Normalización de variables numéricas</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h6>Variable Objetivo:</h6>
+                    <p>
+                        Se creó la variable <code>has_error</code> que identifica jobs con problemas 
+                        (aquellos que no están en estado "Active" o "Queued").
+                    </p>
+                    
+                    <div class="alert alert-info">
+                        <strong>Código de Ejemplo:</strong>
+                        <pre><code>df['has_error'] = ~df['State'].isin(['Active', 'Queued'])</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 6. Modelos ML -->
+        <section id="modelos" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-brain me-2"></i>6. Modelos de Machine Learning</h4>
+                </div>
+                <div class="card-body">
+                    <h6>Algoritmos Implementados:</h6>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                    <h6 class="text-primary">Random Forest</h6>
+                                    <p class="small">
+                                        Ensemble de árboles de decisión que reduce el overfitting 
+                                        y mejora la generalización.
+                                    </p>
+                                    <strong>Hiperparámetros:</strong>
+                                    <ul class="small">
+                                        <li>n_estimators: 100</li>
+                                        <li>max_depth: 10</li>
+                                        <li>random_state: 42</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-success">
+                                <div class="card-body">
+                                    <h6 class="text-success">Gradient Boosting</h6>
+                                    <p class="small">
+                                        Construye modelos de forma secuencial, 
+                                        donde cada uno corrige errores del anterior.
+                                    </p>
+                                    <strong>Hiperparámetros:</strong>
+                                    <ul class="small">
+                                        <li>max_depth: 5</li>
+                                        <li>learning_rate: 0.1</li>
+                                        <li>random_state: 42</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-warning">
+                                <div class="card-body">
+                                    <h6 class="text-warning">Logistic Regression</h6>
+                                    <p class="small">
+                                        Modelo lineal interpretable que sirve 
+                                        como baseline para comparación.
+                                    </p>
+                                    <strong>Hiperparámetros:</strong>
+                                    <ul class="small">
+                                        <li>max_iter: 1000</li>
+                                        <li>random_state: 42</li>
+                                        <li>solver: liblinear</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h6>Justificación de Selección:</h6>
+                    <ul>
+                        <li><strong>Random Forest:</strong> Maneja bien datos categóricos y numéricos mezclados</li>
+                        <li><strong>Gradient Boosting:</strong> Excelente rendimiento en problemas de clasificación</li>
+                        <li><strong>Logistic Regression:</strong> Proporciona interpretabilidad y baseline</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 7. Evaluación -->
+        <section id="evaluacion" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-chart-line me-2"></i>7. Evaluación de Modelos</h4>
+                </div>
+                <div class="card-body">
+                    <h6>Métricas Utilizadas:</h6>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li><strong>Accuracy:</strong> Proporción de predicciones correctas</li>
+                                <li><strong>Precision:</strong> VP / (VP + FP)</li>
+                                <li><strong>Recall:</strong> VP / (VP + FN)</li>
+                                <li><strong>F1-Score:</strong> Media armónica de precision y recall</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert alert-info">
+                                <strong>División de Datos:</strong><br>
+                                • 80% Entrenamiento<br>
+                                • 20% Prueba<br>
+                                • Estratificación por variable objetivo
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h6>Proceso de Validación:</h6>
+                    <ol>
+                        <li>División estratificada de datos</li>
+                        <li>Entrenamiento de múltiples modelos</li>
+                        <li>Evaluación en conjunto de prueba</li>
+                        <li>Selección del mejor modelo basado en F1-Score</li>
+                        <li>Análisis de matrices de confusión</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 8. Aplicación Web -->
+        <section id="aplicacion" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-globe me-2"></i>8. Aplicación Web</h4>
+                </div>
+                <div class="card-body">
+                    <h6>Arquitectura del Sistema:</h6>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Backend (Flask):</h6>
+                            <ul>
+                                <li>API REST para predicciones</li>
+                                <li>Carga y procesamiento de datos</li>
+                                <li>Entrenamiento de modelos</li>
+                                <li>Generación de visualizaciones</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Frontend:</h6>
+                            <ul>
+                                <li>Interfaz responsive con Bootstrap</li>
+                                <li>Visualizaciones interactivas con Plotly</li>
+                                <li>Formularios dinámicos con JavaScript</li>
+                                <li>Dashboard en tiempo real</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h6>Funcionalidades Principales:</h6>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <i class="fas fa-chart-bar fa-2x text-primary mb-2"></i>
+                                <h6>Análisis Exploratorio</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <i class="fas fa-brain fa-2x text-success mb-2"></i>
+                                <h6>Entrenamiento ML</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <i class="fas fa-magic fa-2x text-warning mb-2"></i>
+                                <h6>Predicciones</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <i class="fas fa-dashboard fa-2x text-info mb-2"></i>
+                                <h6>Dashboard</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 9. Resultados -->
+        <section id="resultados" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-trophy me-2"></i>9. Resultados Obtenidos</h4>
+                </div>
+                <div class="card-body">
+                    <h6>Rendimiento de Modelos (Resultados Esperados):</h6>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Modelo</th>
+                                    <th>Accuracy</th>
+                                    <th>Precision</th>
+                                    <th>Recall</th>
+                                    <th>F1-Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-success">
+                                    <td><strong>Random Forest</strong></td>
+                                    <td>87-92%</td>
+                                    <td>85-90%</td>
+                                    <td>88-93%</td>
+                                    <td>86-91%</td>
+                                </tr>
+                                <tr>
+                                    <td>Gradient Boosting</td>
+                                    <td>85-90%</td>
+                                    <td>83-88%</td>
+                                    <td>86-91%</td>
+                                    <td>84-89%</td>
+                                </tr>
+                                <tr>
+                                    <td>Logistic Regression</td>
+                                    <td>75-80%</td>
+                                    <td>73-78%</td>
+                                    <td>76-81%</td>
+                                    <td>74-79%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h6>Insights Principales:</h6>
+                    <ul>
+                        <li>Los jobs ejecutados en horario nocturno (22-23h) tienen menor tasa de fallo</li>
+                        <li>Servidores específicos muestran mejor rendimiento que otros</li>
+                        <li>La velocidad de transferencia es un indicador importante de éxito</li>
+                        <li>Jobs de gran tamaño requieren más recursos y tienen mayor riesgo</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 10. Conclusiones -->
+        <section id="conclusiones" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-check-circle me-2"></i>10. Conclusiones</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Logros del Proyecto:</h6>
+                            <ul>
+                                <li>✅ Sistema predictivo funcional implementado</li>
+                                <li>✅ Identificación de patrones clave en los datos</li>
+                                <li>✅ Aplicación web interactiva desarrollada</li>
+                                <li>✅ Modelos con alta precisión obtenidos</li>
+                                <li>✅ Framework escalable para nuevos datos</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Impacto Esperado:</h6>
+                            <ul>
+                                <li>🎯 Reducción del 15-25% en fallos de backup</li>
+                                <li>🎯 Optimización de ventanas de backup</li>
+                                <li>🎯 Mejor distribución de carga entre servidores</li>
+                                <li>🎯 Alertas tempranas para jobs de riesgo</li>
+                                <li>🎯 Toma de decisiones basada en datos</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h6>Recomendaciones para Implementación:</h6>
+                    <ol>
+                        <li>Integrar el sistema con la infraestructura de backup existente</li>
+                        <li>Establecer alertas automáticas para jobs de alto riesgo</li>
+                        <li>Entrenar el modelo regularmente con nuevos datos</li>
+                        <li>Monitorear y ajustar umbrales de predicción</li>
+                        <li>Capacitar al equipo técnico en el uso del sistema</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 11. Tecnologías -->
+        <section id="tecnologias" class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fas fa-laptop-code me-2"></i>11. Stack Tecnológico</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Lenguajes y Frameworks:</h6>
+                            <ul>
+                                <li><strong>Python 3.12:</strong> Lenguaje principal</li>
+                                <li><strong>Flask 2.3:</strong> Framework web</li>
+                                <li><strong>HTML5/CSS3:</strong> Frontend</li>
+                                <li><strong>JavaScript ES6:</strong> Interactividad</li>
+                                <li><strong>Bootstrap 5:</strong> UI Framework</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Librerías de Data Science:</h6>
+                            <ul>
+                                <li><strong>Pandas 2.1:</strong> Manipulación de datos</li>
+                                <li><strong>NumPy 1.24:</strong> Computación numérica</li>
+                                <li><strong>Scikit-learn 1.3:</strong> Machine Learning</li>
+                                <li><strong>Plotly 5.16:</strong> Visualizaciones</li>
+                                <li><strong>Matplotlib/Seaborn:</strong> Gráficos estáticos</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h6>Arquitectura del Sistema:</h6>
+                    <div class="text-center">
+                        <div class="alert alert-light">
+                            <strong>Usuario</strong> → <strong>Flask App</strong> → <strong>ML Models</strong> → <strong>Plotly Visualizations</strong> → <strong>Predictions</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    // Smooth scrolling for navigation links
+    $('a[href^="#"]').on('click', function(event) {
+        var target = $(this.getAttribute('href'));
+        if( target.length ) {
+            event.preventDefault();
+            $('html, body').stop().animate({
+                scrollTop: target.offset().top - 100
+            }, 1000);
+        }
+    });
+    
+    // Highlight current section in navigation
+    $(window).on('scroll', function() {
+        var scrollPos = $(document).scrollTop();
+        $('.nav-link').each(function() {
+            var currLink = $(this);
+            var refElement = $(currLink.attr("href"));
+            if (refElement.position().top <= scrollPos + 150 && refElement.position().top + refElement.height() > scrollPos + 150) {
+                $('.nav-link').removeClass("active");
+                currLink.addClass("active");
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

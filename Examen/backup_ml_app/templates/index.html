@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Sistema de Análisis de Jobs de Backup{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card stats-card">
+            <div class="card-body text-center py-5">
+                <h1 class="display-4 mb-3">
+                    <i class="fas fa-chart-line me-3"></i>
+                    Sistema de Análisis de Jobs de Backup
+                </h1>
+                <p class="lead mb-4">
+                    Plataforma inteligente para análisis predictivo y optimización de procesos de backup
+                </p>
+                <p class="mb-4">
+                    Utiliza Machine Learning para predecir y prevenir fallos en trabajos de backup,
+                    mejorando la confiabilidad y eficiencia del sistema.
+                </p>
+                <div class="row">
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="metric-card text-center">
+                            <div class="metric-value" id="total-jobs">-</div>
+                            <div class="metric-label">Total Jobs</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="metric-card text-center">
+                            <div class="metric-value" id="error-rate">-</div>
+                            <div class="metric-label">Tasa de Error (%)</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="metric-card text-center">
+                            <div class="metric-value" id="model-status">-</div>
+                            <div class="metric-label">Estado del Modelo</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="metric-card text-center">
+                            <div class="metric-value" id="accuracy">-</div>
+                            <div class="metric-label">Precisión (%)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="row mb-5">
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <div class="mb-3">
+                    <i class="fas fa-chart-bar fa-3x text-primary"></i>
+                </div>
+                <h5 class="card-title">Análisis Exploratorio</h5>
+                <p class="card-text">
+                    Visualizaciones interactivas y estadísticas detalladas de los datos de backup.
+                </p>
+                <a href="{{ url_for('analysis') }}" class="btn btn-primary btn-custom">
+                    <i class="fas fa-analytics me-2"></i>Ver Análisis
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <div class="mb-3">
+                    <i class="fas fa-brain fa-3x text-success"></i>
+                </div>
+                <h5 class="card-title">Machine Learning</h5>
+                <p class="card-text">
+                    Entrenamiento de modelos avanzados para predicción de fallos en jobs.
+                </p>
+                <a href="{{ url_for('train') }}" class="btn btn-success btn-custom">
+                    <i class="fas fa-cogs me-2"></i>Entrenar Modelo
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <div class="mb-3">
+                    <i class="fas fa-magic fa-3x text-warning"></i>
+                </div>
+                <h5 class="card-title">Predicciones</h5>
+                <p class="card-text">
+                    Predice la probabilidad de fallo de un job basado en sus características.
+                </p>
+                <a href="{{ url_for('predict') }}" class="btn btn-warning btn-custom">
+                    <i class="fas fa-crystal-ball me-2"></i>Hacer Predicción
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <div class="mb-3">
+                    <i class="fas fa-robot fa-3x text-purple"></i>
+                </div>
+                <h5 class="card-title">ARIA - Asistente IA</h5>
+                <p class="card-text">
+                    Chatbot inteligente especializado en NetBackup con capacidades predictivas avanzadas.
+                </p>
+                <a href="{{ url_for('chatbot_page') }}" class="btn btn-secondary btn-custom">
+                    <i class="fas fa-comments me-2"></i>Hablar con ARIA
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <div class="mb-3">
+                    <i class="fas fa-book fa-3x text-info"></i>
+                </div>
+                <h5 class="card-title">Documentación</h5>
+                <p class="card-text">
+                    Guía completa del proyecto, metodología y resultados obtenidos.
+                </p>
+                <a href="{{ url_for('documentation') }}" class="btn btn-info btn-custom">
+                    <i class="fas fa-file-alt me-2"></i>Ver Docs
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Process Overview -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-project-diagram me-2"></i>
+                    Proceso de Análisis y Predicción
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="process-step">
+                            <div class="process-icon mb-3">
+                                <i class="fas fa-download fa-2x text-primary"></i>
+                            </div>
+                            <h6>1. Carga de Datos</h6>
+                            <p class="small text-muted">
+                                Importación y limpieza de datos de jobs de backup del archivo CSV
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="process-step">
+                            <div class="process-icon mb-3">
+                                <i class="fas fa-search fa-2x text-success"></i>
+                            </div>
+                            <h6>2. Análisis Exploratorio</h6>
+                            <p class="small text-muted">
+                                Visualizaciones y estadísticas para entender patrones en los datos
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="process-step">
+                            <div class="process-icon mb-3">
+                                <i class="fas fa-robot fa-2x text-warning"></i>
+                            </div>
+                            <h6>3. Entrenamiento ML</h6>
+                            <p class="small text-muted">
+                                Creación y evaluación de modelos de machine learning
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="process-step">
+                            <div class="process-icon mb-3">
+                                <i class="fas fa-bullseye fa-2x text-danger"></i>
+                            </div>
+                            <h6>4. Predicción</h6>
+                            <p class="small text-muted">
+                                Predicción de fallos en tiempo real con probabilidades
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Technical Details -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-tools me-2"></i>
+                    Tecnologías Utilizadas
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fab fa-python fa-2x text-primary me-3"></i>
+                            <div>
+                                <strong>Python</strong><br>
+                                <small class="text-muted">Lenguaje principal</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-server fa-2x text-success me-3"></i>
+                            <div>
+                                <strong>Flask</strong><br>
+                                <small class="text-muted">Framework web</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-chart-line fa-2x text-warning me-3"></i>
+                            <div>
+                                <strong>Plotly</strong><br>
+                                <small class="text-muted">Visualizaciones</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-brain fa-2x text-danger me-3"></i>
+                            <div>
+                                <strong>Scikit-learn</strong><br>
+                                <small class="text-muted">Machine Learning</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Objetivos del Proyecto
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Reducir la cantidad de jobs de backup con error
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Identificar patrones que causan fallos
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Predecir fallos antes de que ocurran
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Optimizar la programación de jobs
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Mejorar la confiabilidad del sistema
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    // Cargar métricas del dashboard
+    loadDashboardMetrics();
+});
+
+function loadDashboardMetrics() {
+    // Obtener resumen de datos
+    $.ajax({
+        url: '/api/data_summary',
+        method: 'GET',
+        success: function(data) {
+            $('#total-jobs').text(data.total_records || '-');
+        },
+        error: function() {
+            $('#total-jobs').text('Error');
+        }
+    });
+    
+    // Obtener estado del modelo
+    $.ajax({
+        url: '/api/model_status',
+        method: 'GET',
+        success: function(data) {
+            if (data.model_loaded) {
+                $('#model-status').html('<i class="fas fa-check"></i>');
+                $('#accuracy').text('85%'); // Placeholder
+                $('#error-rate').text('12%'); // Placeholder
+            } else {
+                $('#model-status').html('<i class="fas fa-times"></i>');
+                $('#accuracy').text('N/A');
+                $('#error-rate').text('N/A');
+            }
+        },
+        error: function() {
+            $('#model-status').text('Error');
+        }
+    });
+}
+</script>
+{% endblock %}

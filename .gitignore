@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+*.egg-info/
+
+# Distribution
+deploy_backup_ml_app/
+
+# VSCode
+.vscode/

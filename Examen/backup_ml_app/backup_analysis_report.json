@@ -1,0 +1,25 @@
+{
+  "total_jobs": 82871,
+  "analysis_date": "2025-07-23T23:45:40.106929",
+  "job_states": {
+    "Queued": 14,
+    "Active": 250,
+    "Done": 82607
+  },
+  "job_types": {
+    "Backup": 80428,
+    "Replication": 601,
+    "Snapshot": 710,
+    "Image Cleanup": 1102,
+    "Catalog Backu": 24,
+    "Restore": 6
+  },
+  "problem_rate": 99.6814325879982,
+  "top_servers": {
+    "ecbplxnbp10": 16973,
+    "ecbplxnbp11": 13181,
+    "precanf008.uio.bpichincha.com": 12615,
+    "precanf005.uio.bpichincha.com": 10956,
+    "precanf003": 9414
+  }
+}
