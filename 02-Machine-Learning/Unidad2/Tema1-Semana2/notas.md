@@ -220,6 +220,113 @@ En aplicaciones sensibles (diagnóstico médico), la confiabilidad de las predic
     - b. Con datasets pequeños/medianos y cuando interpretabilidad es importante ✓
     - c. SVM es siempre mejor
 
+### QUIZ U2-T1-S2 (APE6) — Extraído de PDFs
+
+Fuentes: 
+- QUIZ U2-T1-S2 (APE6)_Machine Learning.pdf
+- QUIZ U2-T1-S2 (APE6)_MachineLearning_LL.pdf
+- QUIZ U2-T1-S2 (APE6)_MachineLearning_LL1.pdf
+
+1. **¿Qué algoritmo de optimización es alternativa al SGD clásico?**
+   - a. Newton-Raphson
+   - b. Backtracking
+   - c. Adam ✓
+
+2. **¿Qué kernel se relaciona conceptualmente con las neuronas artificiales?**
+   - a. Polinomial
+   - b. RBF
+   - c. Sigmoide ✓
+
+3. **En problemas de texto, ¿qué representación se usa frecuentemente con SVM?**
+   - a. Cadenas de Markov
+   - b. Redes convolucionales
+   - c. Bolsa de palabras (bag of words) ✓
+
+4. **¿Qué función de pérdida es común en clasificación con redes neuronales?**
+   - a. MSE
+   - b. Entropía cruzada ✓
+   - c. Log-loss
+
+5. **¿Qué mide la función f(x)=w?x+b en SVM?**
+   - a. La distancia al hiperplano ✓
+   - b. El número de vectores de soporte
+   - c. La probabilidad de clase
+
+6. **¿Qué kernel es más adecuado cuando los datos son linealmente separables?**
+   - a. Kernel RBF
+   - b. Kernel polinomial
+   - c. Kernel lineal ✓
+
+7. **¿Qué ocurre si se seleccionan hiperparámetros usando el conjunto de prueba?**
+   - a. Mejora generalización
+   - b. No tiene consecuencias
+   - c. Se produce fuga de información y evaluación optimista ✓
+
+8. **¿Qué salida produce una capa Softmax en redes neuronales?**
+   - a. Probabilidades normalizadas multiclase ✓
+   - b. Valores entre -1 y 1
+   - c. Distancias al hiperplano
+
+9. **¿Qué función de activación es estándar en redes modernas por su eficiencia?**
+   - a. Sigmoide
+   - b. Tanh
+   - c. ReLU ✓
+
+10. **¿Cuál es el rol de los vectores de soporte en SVM?**
+   - a. Son los puntos más cercanos al hiperplano que definen la frontera ✓
+   - b. Son los puntos más alejados del hiperplano
+   - c. Son todos los puntos de entrenamiento
+
+11. **¿Qué busca maximizar una SVM lineal al separar clases?**
+   - a. El margen entre las clases ✓
+   - b. El número de parámetros del modelo
+   - c. El número de vectores de soporte
+
+12. **¿Qué función de activación se usa típicamente en clasificación binaria por probabilidades?**
+   - a. ReLU
+   - b. Tanh
+   - c. Sigmoide ✓
+
+13. **¿Qué técnica ayuda a detener el entrenamiento antes del sobreajuste?**
+   - a. Expansión de dataset
+   - b. Early stopping ✓
+   - c. Regularización L1
+
+14. **¿Cuál es una diferencia práctica entre SVM y redes neuronales?**
+   - a. SVM requiere más datos
+   - b. SVM es más eficiente en datasets pequeños ✓
+   - c. RNA es más interpretable
+
+15. **¿Qué combina una neurona artificial antes de aplicar la función de activación?**
+   - a. Un producto cruzado entre entradas
+   - b. Una resta entre entradas
+   - c. Una suma ponderada más un sesgo ✓
+
+16. **¿Qué representa el hiperparámetro C en una SVM?**
+   - a. El número de vectores de soporte
+   - b. El grado de penalización por errores de entrenamiento ✓
+   - c. La tasa de aprendizaje del modelo
+
+17. **¿Qué efecto tiene un gamma (γ) alto en un kernel RBF?**
+   - a. Fronteras suaves y generalización amplia
+   - b. Fronteras muy onduladas y riesgo de sobreajuste ✓
+   - c. Disminución de la dimensionalidad
+
+18. **¿Qué rol tiene el sesgo (b) en una neurona?**
+   - a. Aumenta el número de neuronas
+   - b. Desplaza la función de activación ✓
+   - c. Evita la regularización
+
+19. **¿Qué problema clásico no puede resolver un perceptrón simple?**
+   - a. Problema XOR ✓
+   - b. Regresión lineal
+   - c. Clasificación lineal
+
+20. **¿Qué técnica evita sobreajuste en redes neuronales?**
+   - a. Usar siempre sigmoide
+   - b. Dropout ✓
+   - c. Aumentar neuronas sin límite
+
 ---
 
 ## Actividades
