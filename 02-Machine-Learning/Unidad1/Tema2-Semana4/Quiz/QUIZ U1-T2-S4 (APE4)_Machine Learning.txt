@@ -1,0 +1,95 @@
+Pregunta 1
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 2
+Correcta
+Se puntúa 1,00 sobre 1,00
+Un modelo lineal aplicado a un problema no lineal suele presentar:
+'a.Sobreajuste
+'b.Alta varianza
+;c.SubajusteCorrecta
+La respuesta correcta es: Subajuste
+¿Qué métrica NO es adecuada en un dataset desbalanceado?
+;a.AccuracyCorrecta
+'b.F1-score
+'c.Recall
+La respuesta correcta es: Accuracy
+23/4/26, 22:31 QUIZ U1-T2-S4 (APE4): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=341517&cmid=98469#question-348202-8 1/4
+
+Pregunta 3
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 4
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 5
+Correcta
+Se puntúa 1,00 sobre 1,00
+Un modelo obtiene error de entrenamiento 10 % y error de validación 9 %. ¿Cuál es la interpretación?
+'a.Subajuste
+'b.Sobreajuste
+;c.Modelo generaliza adecuadamenteCorrecta
+La respuesta correcta es: Modelo generaliza adecuadamente
+Si accuracy = 95 % pero recall = 40 %, ¿qué problema refleja?
+'a.Subajuste
+;b.Desbalance y sobreajuste a la clase mayoritariaCorrecta
+'c.Validación cruzada
+La respuesta correcta es: Desbalance y sobreajuste a la clase mayoritaria
+¿Cuál de los siguientes síntomas refleja sobreajuste?
+'a.Ambos errores altos
+;b.Error bajo en entrenamiento pero alto en validaciónCorrecta
+'c.Error alto en entrenamiento y validación
+La respuesta correcta es: Error bajo en entrenamiento pero alto en validación
+23/4/26, 22:31 QUIZ U1-T2-S4 (APE4): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=341517&cmid=98469#question-348202-8 2/4
+
+Pregunta 6
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 7
+Incorrecta
+Se puntúa 0,00 sobre 1,00
+Pregunta 8
+Correcta
+Se puntúa 1,00 sobre 1,00
+Un dataset tiene 2000 registros. Con división 80/20 (entrenamiento/prueba), ¿cuántos van a prueba?
+'a.200
+'b.1600
+;c.400Correcta
+La respuesta correcta es: 400
+Un dataset tiene 1000 instancias con 20 % positivos. Si se divide en 70 % entrenamiento, 15 % validación y 15
+% prueba de forma estratificada, ¿cuántos positivos quedan en validación?
+;a.30Incorrecta
+'b.30
+'c.150
+La respuesta correcta es: 30
+¿Qué caracteriza a la validación cruzada K-fold?
+'a.Usa siempre el mismo corte de datos
+;b.Divide en K pliegues y rota validaciónCorrecta
+'c.Entrena con todo y valida con todo
+La respuesta correcta es: Divide en K pliegues y rota validación
+23/4/26, 22:31 QUIZ U1-T2-S4 (APE4): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=341517&cmid=98469#question-348202-8 3/4
+
+Pregunta 9
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 10
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué refleja el término "fuga de información"?
+'a.Pérdida de datos durante el entrenamiento
+;b.Uso indebido de datos de validación o futuro en entrenamientoCorrecta
+'c.Baja precisión por desbalance
+La respuesta correcta es: Uso indebido de datos de validación o futuro en entrenamiento
+¿Qué sucede cuando se aplica dropout en una red neuronal?
+;a.Se desactivan aleatoriamente durante entrenamientoCorrecta
+'b.Se eliminan definitivamente neuronas
+'c.Se reducen los datos de entrada
+La respuesta correcta es: Se desactivan aleatoriamente durante entrenamiento
+Ir a...
+tActividad anterior
+Actividad siguiente #
+23/4/26, 22:31 QUIZ U1-T2-S4 (APE4): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=341517&cmid=98469#question-348202-8 4/4

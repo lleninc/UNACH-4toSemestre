@@ -1,0 +1,1 @@
+{'report': {'rows': 504, 'cols': 11, 'missing_pct': {'unidad': 0.0, 'a': 0.0, 'a1': 0.0, 'b': 0.0, 'c': 0.0, 'c1': 0.0, 'd': 0.0, 'e': 0.0, 'f': 0.0, 'g': 0.0, 'total_general': 0.0}, 'inconsistent_totals': 0}, 'model_results': {'accuracy_mean': 0.75, 'precision_mean': 0.0, 'recall_mean': 0.0, 'f1_mean': 0.0}}

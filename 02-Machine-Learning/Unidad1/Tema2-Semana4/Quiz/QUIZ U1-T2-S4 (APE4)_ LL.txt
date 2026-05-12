@@ -1,0 +1,99 @@
+Pregunta 1
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 2
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cuál es el propósito principal de dividir los datos en entrenamiento, validación y prueba?
+'a.Para acelerar el entrenamiento de los modelos
+;b.Para evaluar generalización de manera confiableCorrecta
+'c.Para evitar el uso de algoritmos complejos
+La respuesta correcta es: Para evaluar generalización de manera confiable
+En problemas de salud, ¿qué métrica suele priorizarse para minimizar falsos negativos?
+'a.RMSE
+'b.Precisión (precision)
+;c.Recall (sensibilidad)Correcta
+La respuesta correcta es: Recall (sensibilidad)
+C a l i fi c a  👌
+17/4/26, 22:41 QUIZ U1-T2-S4 (APE4): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=337703&cmid=98469 1/4
+
+Pregunta 3
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 4
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 5
+Correcta
+Se puntúa 1,00 sobre 1,00
+En validación cruzada K=5 con 1000 ejemplos, ¿cuántos se usan como validación en cada pliegue?
+'a.100
+;b.200Correcta
+'c.500
+La respuesta correcta es: 200
+Un dataset tiene 2000 registros. Con división 80/20 (entrenamiento/prueba), ¿cuántos van a prueba?
+'a.1600
+;b.400Correcta
+'c.200
+La respuesta correcta es: 400
+¿Qué es validación cruzada anidada?
+'a.Una variante de K-fold con menos pliegues
+;b.Un bucle interno para hiperparámetros y externo para evaluaciónCorrecta
+'c.Entrenar con menos datos para ahorrar tiempo
+La respuesta correcta es: Un bucle interno para hiperparámetros y externo para evaluación
+C a l i fi c a  👌
+17/4/26, 22:41 QUIZ U1-T2-S4 (APE4): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=337703&cmid=98469 2/4
+
+Pregunta 6
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 7
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 8
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué refleja el término "fuga de información"?
+'a.Baja precisión por desbalance
+;b.Uso indebido de datos de validación o futuro en entrenamientoCorrecta
+'c.Pérdida de datos durante el entrenamiento
+La respuesta correcta es: Uso indebido de datos de validación o futuro en entrenamiento
+¿Qué sucede si el error de entrenamiento es muy bajo pero validación sigue alto?
+'a.Subajuste
+;b.SobreajusteCorrecta
+'c.Modelo balanceado
+La respuesta correcta es: Sobreajuste
+¿Qué parámetro se ajustó en el video para evitar que el árbol se sobreajuste?
+'a.Learning rate
+;b.Máxima profundidad del árbolCorrecta
+'c.Número de pliegues
+La respuesta correcta es: Máxima profundidad del árbol
+C a l i fi c a  👌
+17/4/26, 22:41 QUIZ U1-T2-S4 (APE4): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=337703&cmid=98469 3/4
+
+Pregunta 9
+Incorrecta
+Se puntúa 0,00 sobre 1,00
+Pregunta 10
+Incorrecta
+Se puntúa 0,00 sobre 1,00
+En validación cruzada con K=10 y dataset de 500 ejemplos, ¿cuántos se usan para entrenamiento en cada
+ronda?
+'a.100
+;b.50Incorrecta
+'c.450
+La respuesta correcta es: 450
+Un modelo obtiene RMSE en entrenamiento = 5 y en prueba = 5.2. ¿Qué diagnóstico es más probable?
+'a.Subajuste
+;b.SobreajusteIncorrecta
+'c.Buen ajuste y generalización
+La respuesta correcta es: Buen ajuste y generalización
+Ir a...
+tActividad anterior
+Actividad siguiente #
+C a l i fi c a  👌
+17/4/26, 22:41 QUIZ U1-T2-S4 (APE4): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=337703&cmid=98469 4/4

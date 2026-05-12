@@ -206,6 +206,103 @@ Donde:
 
 **Por qué:** RMSE mide error en variables numéricas continuas.
 
+### Preguntas extraídas de los quizzes de la carpeta Quiz (con respuestas)
+
+1. **Un ejemplo de métrica primaria en clasificación desbalanceada es:**
+   - a. MAE
+   - b. F1-score ✓
+   - c. Accuracy
+
+2. **¿Qué significa un modelo con accuracy = 0.95 en dataset muy desbalanceado (95% negativos)?**
+   - a. Puede estar ignorando casi todos los positivos ✓
+   - b. Clasifica bien ambas clases
+   - c. Tiene recall perfecto
+
+3. **En regresión, ¿qué mide el MAE?**
+   - a. Error cuadrático medio
+   - b. Promedio de errores absolutos ✓
+   - c. Proporción de varianza explicada
+
+4. **Si un modelo tiene recall = 1.0, significa que:**
+   - a. Detecta todos los positivos reales ✓
+   - b. No tiene falsos negativos
+   - c. No tiene falsos positivos
+
+5. **Un modelo con recall = 0.9 y precision = 0.3 indica que:**
+   - a. Captura pocos positivos y muchos negativos
+   - b. Detecta la mayoría de positivos, pero se equivoca mucho en los falsos positivos ✓
+   - c. Tiene alta accuracy
+
+6. **En curva ROC, el eje Y representa:**
+   - a. Falsos positivos
+   - b. Especificidad
+   - c. Verdaderos positivos (recall/sensibilidad) ✓
+
+7. **¿Qué métrica es más adecuada cuando los falsos positivos son muy costosos?**
+   - a. R²
+   - b. Precision ✓
+   - c. Recall
+
+8. **¿Cuál es el propósito principal de la trazabilidad en el ciclo de vida de un modelo de ML?**
+   - a. Aumentar la velocidad de entrenamiento
+   - b. Documentar y verificar decisiones y riesgos ✓
+   - c. Reducir el tamaño del dataset
+
+9. **En triage hospitalario, si la prioridad es no perder urgentes, se debe maximizar:**
+   - a. MAE
+   - b. Recall ✓
+   - c. Precision
+
+10. **Un AUC cercano a 0.5 indica:**
+	- a. Modelo perfecto
+	- b. Modelo aleatorio ✓
+	- c. Modelo excelente
+
+11. **En una matriz de confusión, los falsos negativos son:**
+	- a. Negativos detectados como positivos
+	- b. Casos positivos que el modelo clasificó como negativos ✓
+	- c. Positivos detectados correctamente
+
+12. **¿Qué función se relaciona con mapear riesgos y supuestos en el diseño?**
+	- a. MANAGE
+	- b. MEASURE
+	- c. MAP ✓
+
+13. **En regresión, ¿qué describe mejor el error absoluto medio (MAE)?**
+	- a. Promedio de desviaciones absolutas respecto a la realidad ✓
+	- b. Penaliza cuadráticamente errores
+	- c. Proporción explicada de la varianza
+
+14. **¿Qué ocurre con el recall si aumentan los falsos negativos?**
+	- a. Se mantiene igual
+	- b. Aumenta
+	- c. Disminuye ✓
+
+15. **La validación cruzada estratificada se recomienda cuando:**
+	- a. Se trata de regresión
+	- b. Las clases están desbalanceadas ✓
+	- c. El dataset es grande
+
+16. **¿Qué combinación refleja un modelo con alta precisión pero bajo recall?**
+	- a. Muchos FN y pocos FP ✓
+	- b. Muchos FP y pocos FN
+	- c. Pocos FN y muchos FP
+
+17. **Una ROC por encima de la diagonal indica:**
+	- a. Rendimiento peor que el azar
+	- b. Rendimiento mejor que el azar ✓
+	- c. Un modelo siempre perfecto
+
+18. **El recall es clave en un hospital cuando:**
+	- a. No se puede perder ningún caso urgente ✓
+	- b. Sobran recursos médicos
+	- c. Los falsos positivos son muy costosos
+
+19. **La fórmula del F1-score es:**
+	- a. (Precision+Recall)/2
+	- b. (VP+VN)/Total
+	- c. 2(Precision x Recall)/(Precision+Recall) ✓
+
 ## Actividades
 
 - [ ] Memorizar la secuencia completa del flujo de un proyecto de ML.

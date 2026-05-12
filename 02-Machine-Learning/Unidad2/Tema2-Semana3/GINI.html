@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Árbol de Decisión Interactivo - Créditos</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1000px; width: 100%; }
+        h1 { color: #0369a1; text-align: center; }
+        .controls { background: #e0f2fe; padding: 15px; border-radius: 10px; margin-bottom: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        
+        /* Estilos del Árbol Visual */
+        .tree-viz { display: flex; flex-direction: column; align-items: center; gap: 20px; min-height: 500px; padding-top: 20px; }
+        .node { border: 2px solid #0369a1; padding: 10px; border-radius: 8px; background: white; text-align: center; font-size: 0.8em; min-width: 140px; transition: all 0.5s; opacity: 0; transform: translateY(-20px); }
+        .node.visible { opacity: 1; transform: translateY(0); }
+        .leaf { border-color: #16a34a; background: #f0fdf4; font-weight: bold; }
+        .leaf-yes { border-color: #e11d48; background: #fff1f2; }
+        
+        .connector { height: 20px; width: 2px; background: #94a3b8; margin: 0 auto; }
+        .row { display: flex; gap: 20px; justify-content: center; width: 100%; align-items: flex-start; }
+        .branch-label { font-size: 0.7em; font-weight: bold; color: #64748b; margin-bottom: 5px; text-transform: uppercase; }
+        
+        button { background: #0369a1; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0ea5e9; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Constructor de Árbol: Caso Defaulted Borrower</h1>
+    
+    <div class="controls">
+        <button onclick="showStep('root')">1. Ver Nodo Raíz</button>
+        <button id="btn-step2" class="hidden" onclick="showStep('step2')">2. Dividir por Marital Status</button>
+        <button id="btn-step3" class="hidden" onclick="showStep('step3')">3. Evaluar Dueños de Casa</button>
+        <button id="btn-step4" class="hidden" onclick="showStep('step4')">4. Definir por Ingresos</button>
+    </div>
+
+    <div class="tree-viz" id="tree-area">
+        <div id="node-root" class="node">
+            <strong>ROOT</strong><br>10 Registros<br>7 No / 3 Yes<br>Gini = 0.42
+        </div>
+
+        <div id="row-step2" class="row hidden">
+            <div style="display:flex; flex-direction:column; align-items:center;">
+                <div class="connector"></div><div class="branch-label">Single</div>
+                <div class="node visible">[Recs: 1,3,8,10]<br>2 No / 2 Yes<br>Gini = 0.5</div>
+                <div id="sub-single" class="hidden">
+                    <div class="connector"></div><div class="branch-label">Home Owner?</div>
+                    <div class="row">
+                        <div><div class="connector"></div><div class="branch-label">Yes</div><div class="node visible leaf">Rec 1: NO</div></div>
+                        <div>
+                            <div class="connector"></div><div class="branch-label">No</div>
+                            <div class="node visible">[3,8,10]<br>1 No / 2 Yes<br>Gini=0.44</div>
+                            <div id="sub-income" class="hidden">
+                                <div class="connector"></div><div class="branch-label">Income ≤ 77.5K</div>
+                                <div class="row">
+                                    <div><div class="connector"></div><div class="branch-label">Yes</div><div class="node visible leaf">Rec 3: NO</div></div>
+                                    <div><div class="connector"></div><div class="branch-label">No</div><div class="node visible leaf leaf-yes">Rec 8,10: YES</div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; align-items:center;">
+                <div class="connector"></div><div class="branch-label">Married</div>
+                <div class="node visible leaf">[2,4,6,9]<br>4 No / 0 Yes<br>Gini = 0.0<br>PREDICT: NO</div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; align-items:center;">
+                <div class="connector"></div><div class="branch-label">Divorced</div>
+                <div class="node visible">[5, 7]<br>1 No / 1 Yes<br>Gini = 0.5</div>
+                <div id="sub-divorced" class="hidden">
+                    <div class="connector"></div><div class="branch-label">Home Owner?</div>
+                    <div class="row">
+                        <div><div class="connector"></div><div class="branch-label">Yes</div><div class="node visible leaf">Rec 7: NO</div></div>
+                        <div><div class="connector"></div><div class="branch-label">No</div><div class="node visible leaf leaf-yes">Rec 5: YES</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showStep(step) {
+        if(step === 'root') {
+            document.getElementById('node-root').classList.add('visible');
+            document.getElementById('btn-step2').classList.remove('hidden');
+        }
+        if(step === 'step2') {
+            document.getElementById('row-step2').classList.remove('hidden');
+            document.getElementById('btn-step3').classList.remove('hidden');
+        }
+        if(step === 'step3') {
+            document.getElementById('sub-single').classList.remove('hidden');
+            document.getElementById('sub-divorced').classList.remove('hidden');
+            document.getElementById('btn-step4').classList.remove('hidden');
+        }
+        if(step === 'step4') {
+            document.getElementById('sub-income').classList.remove('hidden');
+        }
+    }
+</script>
+
+</body>
+</html>

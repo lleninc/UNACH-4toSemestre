@@ -1,0 +1,117 @@
+
+
+===== PAGE 1 =====
+3/4/26, 13:52 QUIZ U1-T1-S1 (APE1): Revisión del intento | Educación en Línea
+1
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+El aprendizaje por refuerzo se basa en:
+'a. Copiar siempre las decisiones humanas.
+'b. La ausencia de retroalimentación.
+;c. Recompensas y penalizaciones obtenidas de la interacción con el entorno. Correcta
+La respuesta correcta es: Recompensas y penalizaciones obtenidas de la interacción con el entorno.
+2
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué tipo de ML se usa para entrenar un robot a caminar?
+'a. Semi-supervisado.
+'b. Auto-supervisado.
+Califica 👌
+;c. Por refuerzo. Correcta
+La respuesta correcta es: Por refuerzo.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=328368&cmid=98446 1/4
+
+
+===== PAGE 2 =====
+3/4/26, 13:52 QUIZ U1-T1-S1 (APE1): Revisión del intento | Educación en Línea
+3
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué significa la calidad de datos en ML?
+;a. Que ruido y valores faltantes afectan la validez del modelo. Correcta
+'b. Que basta con tener grandes volúmenes sin importar su fiabilidad.
+'c. Que los modelos pueden aprender incluso sin datos.
+La respuesta correcta es: Que ruido y valores faltantes afectan la validez del modelo.
+4
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cuál es un desafío clave en la implementación de ML en educación?
+'a. Que los modelos siempre generan mejores profesores.
+'b. Que no requieren datos de estudiantes.
+;c. Evitar sesgos en recomendaciones personalizadas. Correcta
+La respuesta correcta es: Evitar sesgos en recomendaciones personalizadas.
+5
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+En ingeniería civil y ambiental, el ML puede usarse para:
+'a. Crear contenido multimedia.
+'b. Traducción automática de textos.
+;c. Predicción de deslizamientos e inundaciones. Correcta
+Califica 👌
+La respuesta correcta es: Predicción de deslizamientos e inundaciones.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=328368&cmid=98446 2/4
+
+
+===== PAGE 3 =====
+3/4/26, 13:52 QUIZ U1-T1-S1 (APE1): Revisión del intento | Educación en Línea
+6
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué implica la complejidad computacional?
+'a. Que los modelos no requieren energía.
+;b. Que los modelos profundos necesitan hardware especializado y alto consumo. Correcta
+'c. Que solo funcionan en computadores personales antiguos.
+La respuesta correcta es: Que los modelos profundos necesitan hardware especializado y alto consumo.
+7
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué representa la figura del espectro de aplicaciones de IA?
+;a. Que cubre desde asistencia humana hasta automatización completa. Correcta
+'b. Que se restringe a educación y salud.
+'c. Que solo sirve en entornos militares.
+La respuesta correcta es: Que cubre desde asistencia humana hasta automatización completa.
+8
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cuál es la característica del aprendizaje semi-supervisado?
+'a. Solo funciona con datos completamente etiquetados.
+;b. Combina datos etiquetados y no etiquetados. Correcta
+'c. Se limita a tareas de predicción de precios.
+Califica 👌
+La respuesta correcta es: Combina datos etiquetados y no etiquetados.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=328368&cmid=98446 3/4
+
+
+===== PAGE 4 =====
+3/4/26, 13:52 QUIZ U1-T1-S1 (APE1): Revisión del intento | Educación en Línea
+9
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+En educación, ¿qué rol cumple el ML?
+'a. Sustituir al profesor.
+'b. Estandarizar exámenes sin personalización.
+;c. Adaptar contenidos al desempeño del estudiante. Correcta
+La respuesta correcta es: Adaptar contenidos al desempeño del estudiante.
+10
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué busca la IA explicable (XAI)?
+'a. Reducir el costo del hardware.
+'b. Aumentar la velocidad de procesamiento.
+;c. Transparencia en las decisiones de los modelos. Correcta
+La respuesta correcta es: Transparencia en las decisiones de los modelos.
+Ir a...
+t Actividad anterior
+Actividad siguiente #
+Califica 👌
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=328368&cmid=98446 4/4

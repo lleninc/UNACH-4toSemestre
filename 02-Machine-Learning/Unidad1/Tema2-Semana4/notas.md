@@ -200,6 +200,98 @@ El objetivo es encontrar un equilibrio entre ambos.
 
 **Por qué:** el subajuste aparece cuando el modelo es demasiado rígido o simple.
 
+### Preguntas extraídas de los quizzes de la carpeta Quiz (con respuestas)
+
+1. **¿Cuál es el propósito principal de dividir los datos en entrenamiento, validación y prueba?**
+   - a. Para acelerar el entrenamiento de los modelos
+   - b. Para evaluar generalización de manera confiable ✓
+   - c. Para evitar el uso de algoritmos complejos
+
+2. **En problemas de salud, ¿qué métrica suele priorizarse para minimizar falsos negativos?**
+   - a. RMSE
+   - b. Precisión (precision)
+   - c. Recall (sensibilidad) ✓
+
+3. **En validación cruzada K=5 con 1000 ejemplos, ¿cuántos se usan como validación en cada pliegue?**
+   - a. 100
+   - b. 200 ✓
+   - c. 500
+
+4. **Un dataset tiene 2000 registros. Con división 80/20 (entrenamiento/prueba), ¿cuántos van a prueba?**
+   - a. 1600
+   - b. 400 ✓
+   - c. 200
+
+5. **¿Qué es validación cruzada anidada?**
+   - a. Una variante de K-fold con menos pliegues
+   - b. Un bucle interno para hiperparámetros y externo para evaluación ✓
+   - c. Entrenar con menos datos para ahorrar tiempo
+
+6. **¿Qué refleja el término "fuga de información"?**
+   - a. Baja precisión por desbalance
+   - b. Uso indebido de datos de validación o futuro en entrenamiento ✓
+   - c. Pérdida de datos durante el entrenamiento
+
+7. **¿Qué sucede si el error de entrenamiento es muy bajo pero validación sigue alto?**
+   - a. Subajuste
+   - b. Sobreajuste ✓
+   - c. Modelo balanceado
+
+8. **¿Qué parámetro se ajustó en el video para evitar que el árbol se sobreajuste?**
+   - a. Learning rate
+   - b. Máxima profundidad del árbol ✓
+   - c. Número de pliegues
+
+9. **En validación cruzada con K=10 y dataset de 500 ejemplos, ¿cuántos se usan para entrenamiento en cada ronda?**
+   - a. 100
+   - b. 50
+   - c. 450 ✓
+
+10. **Un modelo obtiene RMSE en entrenamiento = 5 y en prueba = 5.2. ¿Qué diagnóstico es más probable?**
+	- a. Subajuste
+	- b. Sobreajuste
+	- c. Buen ajuste y generalización ✓
+
+11. **Un modelo lineal aplicado a un problema no lineal suele presentar:**
+	- a. Sobreajuste
+	- b. Alta varianza
+	- c. Subajuste ✓
+
+12. **¿Qué métrica NO es adecuada en un dataset desbalanceado?**
+	- a. Accuracy ✓
+	- b. F1-score
+	- c. Recall
+
+13. **Un modelo obtiene error de entrenamiento 10 % y error de validación 9 %. ¿Cuál es la interpretación?**
+	- a. Subajuste
+	- b. Sobreajuste
+	- c. Modelo generaliza adecuadamente ✓
+
+14. **Si accuracy = 95 % pero recall = 40 %, ¿qué problema refleja?**
+	- a. Subajuste
+	- b. Desbalance y sobreajuste a la clase mayoritaria ✓
+	- c. Validación cruzada
+
+15. **¿Cuál de los siguientes síntomas refleja sobreajuste?**
+	- a. Ambos errores altos
+	- b. Error bajo en entrenamiento pero alto en validación ✓
+	- c. Error alto en entrenamiento y validación
+
+16. **Un dataset tiene 1000 instancias con 20 % positivos. Si se divide en 70 % entrenamiento, 15 % validación y 15 % prueba de forma estratificada, ¿cuántos positivos quedan en validación?**
+	- a. 30
+	- b. 30 ✓
+	- c. 150
+
+17. **¿Qué caracteriza a la validación cruzada K-fold?**
+	- a. Usa siempre el mismo corte de datos
+	- b. Divide en K pliegues y rota validación ✓
+	- c. Entrena con todo y valida con todo
+
+18. **¿Qué sucede cuando se aplica dropout en una red neuronal?**
+	- a. Se desactivan aleatoriamente durante entrenamiento ✓
+	- b. Se eliminan definitivamente neuronas
+	- c. Se reducen los datos de entrada
+
 ## Actividades
 
 - [ ] Practicar una división 70/15/15 y explicar para qué sirve cada parte.
