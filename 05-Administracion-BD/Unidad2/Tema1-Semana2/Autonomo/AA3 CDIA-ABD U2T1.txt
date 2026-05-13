@@ -1,0 +1,261 @@
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ADMINISTRACIÓN DE BASES DE DATOS 
+Actividad Autónoma 3 
+Nombre de la actividad: Implementación de estrategias de 
+consistencia, control de concurrencia y respaldos básicos en 
+un sistema de gestión de base de datos 
+Unidad 2: Recuperación avanzada de bases de datos 
+Tema 1: Fundamentos de recuperación 
+ 
+ 
+Nombres: 
+Fecha: 
+Carrera: 
+Periodo académico: 
+Semestre: 
+
+
+  
+ 
+ 
+1 
+ 
+Objetivo de la actividad: 
+Aplicar conceptos fundamentales de recuperación de bases de datos, 
+garantizando consistencia y control de concurrencia, así como la 
+ejecución de copias de seguridad y planificación de estrategias de 
+respaldo, mediante el diseño de ejercicios prácticos que refuercen la 
+integridad y disponibilidad de la información en sistemas críticos. 
+Recursos o temas que debe haber estudiado antes de hacer la actividad: 
+• Estrategias de consistencia 
+• Control de concurrencia 
+• Copias de seguridad y tipos de respaldo 
+• Planificación de respaldos y estrategias de recuperación 
+ 
+Formato de entrega: PDF, archivo .SQL  
+Instrucciones:  
+1. Creación de base de datos de prueba 
+o Crear la base de datos RecuperacionFundamentos. 
+o Incluir al menos dos tablas de ejemplo: 
+▪ Empleados (id, nombre, salario, departamento_id) 
+▪ Departamentos (id, nombre) 
+2. Estrategias de consistencia 
+o Implementar restricciones de integridad (PRIMARY KEY, 
+FOREIGN KEY, CHECK). 
+o Insertar registros válidos e inválidos para comprobar la 
+consistencia. 
+o Ejemplo: impedir salarios negativos o asignación de 
+empleados a un departamento inexistente. 
+3. Control de concurrencia 
+o Simular dos transacciones concurrentes que intentan 
+modificar el mismo registro: 
+▪ Caso 1: Lectura sucia (READ UNCOMMITTED). 
+▪ Caso 2: Lectura no repetible o fantasma. 
+
+  
+ 
+ 
+2 
+ 
+o Resolver aplicando distintos niveles de aislamiento: READ 
+COMMITTED, REPEATABLE READ, SERIALIZABLE. 
+4. Copias de seguridad y tipos de respaldo 
+o Generar un respaldo completo de la base. 
+o Generar un respaldo diferencial posterior. 
+o Generar un respaldo incremental o log de transacciones. 
+o Documentar ventajas y limitaciones de cada tipo de copia. 
+5. Planificación de respaldos y estrategias de recuperación 
+o Definir un plan de respaldo para la BD Recuperación 
+Fundamentos considerando: 
+▪ Frecuencia de respaldos (full, diferencial, incremental). 
+▪ Almacenamiento local y en nube. 
+▪ RPO (Recovery Point Objective) y RTO (Recovery Time 
+Objective). 
+▪ Procedimientos de prueba de restauración. 
+Debe realizar el informe en formato PDF y Archivo .SQL de l código 
+utilizado 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+  
+ 
+ 
+3 
+ 
+Bibliografía:  
+Ahmad, M. S., & Panda, B. N. (2024). ClusteredLog: Optimizing Log 
+Structures for Efficient Data Recovery and Integrity Management 
+in Database Systems. Electronics, 13(23), 4723. 
+https://doi.org/10.3390/electronics13234723 
+Armbrust, M., Das, T., Sun, L., Yavuz, B., Zhu, S., Murthy, M., Torres, J., Van 
+Hovell, H., Ionescu, A., Łuszczak, A., Świtakowski, M., Szafrański, M., 
+Li, X., Ueshin, T., Mokhtar, M., Boncz, P., Ghodsi, A., Paranjpye, S., 
+Senster, P., … Zaharia, M. (2020). Delta lake: High-performance 
+ACID table storage over cloud object stores. Proceedings of the 
+VLDB Endowment, 13(12), 3411-3424. 
+https://doi.org/10.14778/3415478.3415560 
+Choi, H., & Lee, S. (2023). Forensic analysis of SQL server transaction log in 
+unallocated area of file system. Forensic Science International: 
+Digital Investigation, 46, 301605. 
+https://doi.org/10.1016/j.fsidi.2023.301605 
+Elmasri, R., & Navathe, S. (2020). Fundamentos de sistemas de bases de 
+datos (5a ed). Pearson Addison Wesley. 
+Hayat, Z., & Soomro, T. R. (2018). Implementation of Microsoft SQL Server 
+using ‘AlwaysOn’ for High Availability and Disaster Recovery 
+without Shared Storage. International Journal of Experiential 
+Learning & Case Studies, 3(1), 09-17. 
+https://doi.org/10.22555/ijelcs.v3i1.1891 
+
+  
+ 
+ 
+4 
+ 
+Jorge Santiago Nolasco Valenzuela. (2018). Python Aplicaciones 
+prácticas. RA-MA Editorial. 
+Kassema, J. J. (2016). Disaster Recovery Plan for Business Continuity: Case 
+Study in a Business Sector. SSRN Electronic Journal. 
+https://doi.org/10.2139/ssrn.2796601 
+Olasehinde, T., & Wills, F. (2024). DISASTER RECOVERY AND BACKUP 
+STRATEGIES FOR FINANCIAL DATA LAKES. ResearchGate. 
+https://www.researchgate.net/publication/387031051_DISASTER_R
+ECOVERY_AND_BACKUP_STRATEGIES_FOR_FINANCIAL_DATA_LAKES 
+Rodríguez Guerrero, R., Vanegas, C. A., & Castang Montiel, G. (2020). 
+Python a su alcance. Editorial Universidad Distrital Francisco José 
+de Caldas. Editorial UD. 
+Russo, N., Mamede, H. S., Reis, L., Martins, J., & Branco, F. (2023). Exploring 
+a Multidisciplinary Assessment of Organisational Maturity in Business 
+Continuity: A Perspective and Future Research Outlook. Applied 
+Sciences, 13(21), 11846. https://doi.org/10.3390/app132111846 
+Saha, B. (2025). Best Practices for IT Disaster Recovery Planning in Multi-
+Cloud Environments. SSRN Electronic Journal. 
+https://doi.org/10.2139/ssrn.5224693 
+Silberschatz, A., Korth, H. F., & Sudarshan, S. (2020). Database system 
+concepts (Seventh edition). McGraw-Hill Education. 
+ 
+  
+
+  
+ 
+ 
+5 
+ 
+ 
+Rúbrica de evaluación  
+                
+Componente de aprendizaje:  Autónomo                     X Contacto con el 
+Docente    
+Nombre de la Unidad: UNIDAD 2: RECUPERACIÓN AVANZADA DE BASES DE DATOS  
+Resultado(s) de aprendizaje: • Analiza la consistencia y concurrencia de datos para garantizar la integridad en procesos de recuperación.  
+• Aplica técnicas de respaldo, restauración y recuperación de datos en DBMS. 
+Nombre de la Actividad: Implementación de estrategias de consistencia, control de concurrencia y respaldos básicos en un sistema de 
+gestión de base de datos 
+                
+  Escala de Valoración 
+Criterios  
+de Evaluación  
+Excelente 
+(10 - 9,1) 
+Bueno 
+(9 - 8,1) 
+Satisfactorio 
+(8 - 7) 
+Necesita 
+mejorar 
+(6,9 - 0,1) 
+No entrega 
+(0) Puntaje 
+ 
+Comentarios 
+(SIGEA) 
+1. Estrategias de 
+consistencia 
+Implementadas 
+correctamente con 
+ejemplos válidos e 
+inválidos 
+Implementadas 
+con mínimos 
+errores 
+Implementad
+as 
+parcialmente 
+Deficiente o con 
+errores graves No entrega   
+2. Control de 
+concurrencia 
+Demuestra casos de 
+anomalías y resuelve 
+con aislamiento 
+adecuado 
+Demuestra 
+anomalías, pero 
+con explicación 
+incompleta 
+Demuestra un 
+solo caso de 
+concurrencia 
+Evidencia 
+insuficiente No entrega   
+3. Respaldos y 
+restauración 
+Genera full, diferencial 
+e incremental con 
+explicación clara 
+Genera 
+respaldos con 
+algunas 
+omisiones 
+Genera solo 
+un tipo de 
+respaldo 
+Evidencia 
+incompleta o 
+errónea No entrega   
+4. Planificación de 
+respaldos (RPO/RTO) 
+Plan completo, realista 
+y bien documentado 
+Plan adecuado 
+pero incompleto 
+Plan básico 
+con errores 
+conceptuales 
+Deficiente o 
+poco aplicable No entrega   
+5. Innovación en 
+soluciones (Eje: 
+Innovación / 
+Autonomía) 
+Conecta teoría y 
+práctica con 
+propuestas 
+innovadoras 
+Reflexión 
+adecuada con 
+propuestas 
+generales 
+Reflexión 
+breve y poco 
+crítica 
+No propone 
+mejoras No entrega   
+        
+          Puntaje total      
+ 
