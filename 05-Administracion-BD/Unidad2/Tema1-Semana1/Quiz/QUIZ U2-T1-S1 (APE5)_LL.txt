@@ -1,0 +1,132 @@
+Pregunta 1
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 2
+Correcta
+Se puntúa 1,00 sobre 1,00
+El problema en el que dos transacciones esperan indefinidamente recursos bloqueados entre sí se llama:
+'a.Phantom Read.
+;b.Deadlock A) Incorrecta, starvation es inanición de recursos por prioridad.
+B) Correcta, dos transacciones se bloquean mutuamente.
+C) Incorrecta, phantom read es otra anomalía.
+'c.Starvation
+La respuesta correcta es: Deadlock
+¿Cuál de estas anomalías se evita con el nivel de aislamiento SERIALIZABLE?
+'a.Lectura no repetible.
+'b.Lectura sucia.
+;c.Lectura fantasma. A) Incorrecta, se evita con READ COMMITTED o superior.
+B) Correcta, SERIALIZABLE bloquea rangos para impedir "fantasmas".
+C) Incorrecta, la no repetible se evita con REPEATABLE READ.
+La respuesta correcta es: Lectura fantasma.
+27/4/26, 22:14 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343881&cmid=97977 1/5
+
+Pregunta 3
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 4
+Incorrecta
+Se puntúa 0,00 sobre 1,00
+Pregunta 5
+Correcta
+Se puntúa 1,00 sobre 1,00
+La consistencia es una de las propiedades del modelo:
+;a.ACID A) Incorrecta, CRUD describe operaciones básicas (crear, leer, actualizar, eliminar).
+B) Correcta, ACID asegura atomicidad, consistencia, aislamiento y durabilidad.
+C) Incorrecta, ETL corresponde a procesos de integración de datos.
+'b.CRUD
+'c.ETL
+La respuesta correcta es: ACID
+¿Qué anomalía ocurre cuando una transacción obtiene diferentes valores en dos lecturas del mismo dato?
+'a.Lectura fantasma
+;b.Lectura sucia A) Correcta, otro proceso modificó el dato entre lecturas.
+B) Incorrecta, los fantasmas son nuevos registros entre consultas.
+C) Incorrecta, las sucias son datos no confirmados.
+'c.Lectura no repetible
+La respuesta correcta es: Lectura no repetible
+La consistencia en bases de datos asegura que una transacción pase de:
+'a.Un estado físico a otro lógico.
+'b.Un estado inconsistente a otro inconsistente.
+;c.Un estado válido a otro
+válido.
+ A) Correcta, la validez de los datos se preserva durante toda la
+transacción.
+B) Incorrecta, eso sería un fallo grave del sistema.
+C) Incorrecta, no describe el concepto de consistencia.
+La respuesta correcta es: Un estado válido a otro válido.
+27/4/26, 22:14 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343881&cmid=97977 2/5
+
+Pregunta 6
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 7
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cuál es el objetivo principal de la consistencia en una base de datos?
+'a.Garantizar disponibilidad de los servidores.
+;b.Asegurar que los datos respeten
+reglas y restricciones definidas.
+ A) Correcta, la consistencia garantiza que las
+transacciones preserven la validez de los datos.
+B) Incorrecta, la disponibilidad se asegura con otras
+técnicas como replicación.
+C) Incorrecta, el tamaño físico no está relacionado con la
+consistencia.
+'c.Reducir el tamaño físico de la base de datos.
+La respuesta correcta es: Asegurar que los datos respeten reglas y restricciones definidas.
+La consistencia conecta:
+'a.Gráficos y reportes estadísticos.
+;b.Lógica de negocio y confiabilidad
+técnica.
+ A) Correcta, asegura que las reglas del negocio estén
+reflejadas en la BD.
+B) Incorrecta, los reportes no definen consistencia.
+C) Incorrecta, el hardware no es el foco del concepto.
+'c.Procesos de hardware y software.
+La respuesta correcta es: Lógica de negocio y confiabilidad técnica.
+27/4/26, 22:14 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343881&cmid=97977 3/5
+
+Pregunta 8
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 9
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 10
+Incorrecta
+Se puntúa 0,00 sobre 1,00
+¿Cuál de estas propiedades ACID asegura que las transacciones concurrentes no interfieran?
+;a.Aislamiento A) Correcta, evita anomalías entre transacciones simultáneas.
+B) Incorrecta, la consistencia valida reglas de negocio.
+C) Incorrecta, la atomicidad es el principio de todo-o-nada.
+'b.Atomicidad
+'c.Consistencia
+La respuesta correcta es: Aislamiento
+Un ejemplo de pérdida de consistencia sería:
+'a.Confirmar una transacción con COMMIT.
+;b.Registrar un empleado en un departamento
+inexistente
+ A) Correcta, viola la integridad referencial (clave
+foránea).
+B) Incorrecta, los bloqueos ayudan a evitar
+inconsistencias.
+C) Incorrecta, COMMIT confirma cambios válidos.
+'c.Actualizar datos de forma simultánea con bloqueos.
+La respuesta correcta es: Registrar un empleado en un departamento inexistente
+¿Qué propiedad ACID se relaciona directamente con las reglas de integridad?
+'a.Durabilidad
+;b.Atomicidad A) Correcta, garantiza que las restricciones definidas se respeten siempre.
+B) Incorrecta, la durabilidad asegura que los cambios confirmados persistan.
+C) Incorrecta, la atomicidad implica el principio de todo-o-nada.
+'c.Consistencia
+La respuesta correcta es: Consistencia
+27/4/26, 22:14 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343881&cmid=97977 4/5
+
+Ir a...
+tActividad anterior
+Actividad siguiente #
+27/4/26, 22:14 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343881&cmid=97977 5/5

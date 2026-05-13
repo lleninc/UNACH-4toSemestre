@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SistemaVentas | Backups y carga automática</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Sistema de práctica</p>
+        <h1>SistemaVentas</h1>
+        <p class="lead">Carga ficticia automática cada 3 minutos, control de respaldo y visualización de historial.</p>
+      </div>
+      <div class="hero-meta">
+        <div class="pill">Servidor: {{ server }}</div>
+        <div class="pill">Base: {{ database }}</div>
+        <div class="pill">Backups: {{ backup_dir }}</div>
+      </div>
+    </section>
+
+    <section class="cards">
+      <article class="card accent">
+        <span>Productos</span>
+        <strong>{{ stats.productos }}</strong>
+      </article>
+      <article class="card accent">
+        <span>Clientes</span>
+        <strong>{{ stats.clientes }}</strong>
+      </article>
+      <article class="card accent">
+        <span>Ventas</span>
+        <strong>{{ stats.ventas }}</strong>
+      </article>
+      <article class="card accent">
+        <span>Ingresos</span>
+        <strong>{{ stats.ingresos | money }}</strong>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Acciones rápidas</h2>
+        <div class="actions">
+          <form action="{{ url_for('seed_now') }}" method="post">
+            <button type="submit">Insertar venta ficticia ahora</button>
+          </form>
+          <a href="{{ url_for('backups_json') }}" target="_blank">Ver historial en JSON</a>
+          <a href="{{ url_for('refresh') }}">Actualizar</a>
+        </div>
+      </div>
+      <p>El proceso automático de carga corre cada 3 minutos cuando la app está activa. Los respaldos se ejecutan desde SQL Agent mediante scripts.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Historial de respaldos</h2>
+        <span class="hint">FULL = completo, DIFF = diferencial, LOG = transaccional</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Tipo</th>
+              <th>Nombre</th>
+              <th>Tamaño MB</th>
+              <th>Archivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in backups %}
+            <tr>
+              <td>{{ item.fecha }}</td>
+              <td><span class="tag tag-{{ item.tipo|lower }}">{{ item.tipo }}</span></td>
+              <td>{{ item.nombre }}</td>
+              <td>{{ '%.2f'|format(item.tamano_mb) }}</td>
+              <td class="mono">{{ item.archivo }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="5">Todavía no hay historial de respaldos registrado en <span class="mono">msdb</span>.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Generado para la práctica de Administración de BD.</span>
+      <span>{{ now.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+    </footer>
+  </main>
+</body>
+</html>

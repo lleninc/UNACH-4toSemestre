@@ -1,0 +1,133 @@
+Pregunta 1
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cuál de los siguientes escenarios representa una lectura fantasma?
+'a.Un usuario pierde cambios porque otra transacción sobrescribió su valor
+'b.Una transacción lee datos no confirmados
+;c.Una consulta devuelve más filas en la segunda
+ejecución por inserción de otra transacción.
+ A) Correcta, aparecen registros
+"fantasma" entre ejecuciones.
+B) Incorrecta, eso es lectura sucia.
+C) Incorrecta, corresponde a
+actualización perdida.
+La respuesta correcta es: Una consulta devuelve más filas en la segunda ejecución por inserción de otra
+transacción.
+27/4/26, 22:10 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343869&cmid=97977#question-350560-1 1/5
+
+Pregunta 2
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 3
+Correcta
+Se puntúa 1,00 sobre 1,00
+El objetivo principal del control de concurrencia es:
+'a.Permitir que varias transacciones modifiquen el mismo dato simultáneamente.
+'b.Reducir el tamaño físico de la base de datos.
+;c.Preservar la aislación de las transacciones
+concurrentes.
+ A) Incorrecta, esto provocaría inconsistencias y
+conflictos.
+B) Correcta, asegura que las transacciones no
+interfieran entre sí.
+C) Incorrecta, no es un objetivo del control de
+concurrencia.
+La respuesta correcta es: Preservar la aislación de las transacciones concurrentes.
+En SQL Server, para evitar anomalías de concurrencia se recomienda:
+'a.Permitir lecturas no confirmadas
+'b.Deshabilitar los bloqueos por completo
+;c.Usar niveles de aislamiento
+adecuados
+ A) Incorrecta, eliminar bloqueos expone a inconsistencias.
+B) Correcta, niveles como SERIALIZABLE o REPEATABLE READ
+reducen conflictos.
+C) Incorrecta, leer datos no confirmados aumenta los riesgos.
+La respuesta correcta es: Usar niveles de aislamiento adecuados
+27/4/26, 22:10 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343869&cmid=97977#question-350560-1 2/5
+
+Pregunta 4
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 5
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 6
+Correcta
+Se puntúa 1,00 sobre 1,00
+Si una transacción no cumple las restricciones de integridad, el sistema debe:
+'a.Guardar los datos parcialmente.
+;b.Rechazar la transacción
+completa.
+ A) Incorrecta, guardar parcialmente generaría inconsistencia.
+B) Correcta, así se garantiza que solo datos válidos se
+persistan.
+C) Incorrecta, el sistema no debe inventar valores.
+'c.Ajustar automáticamente los valores.
+La respuesta correcta es: Rechazar la transacción completa.
+¿Cuál de los siguientes métodos utiliza bloqueos para gestionar la concurrencia?
+'a.Timestamp Ordering.
+'b.MVCC
+;c.Locking A) Incorrecta, usa marcas de tiempo para ordenar operaciones.
+B) Incorrecta, maneja múltiples versiones de datos.
+C) Correcta, el bloqueo evita modificaciones simultáneas.
+La respuesta correcta es: Locking
+¿Cuál de estas anomalías se evita con el nivel de aislamiento SERIALIZABLE?
+'a.Lectura sucia.
+'b.Lectura no repetible.
+;c.Lectura fantasma. A) Incorrecta, se evita con READ COMMITTED o superior.
+B) Correcta, SERIALIZABLE bloquea rangos para impedir "fantasmas".
+C) Incorrecta, la no repetible se evita con REPEATABLE READ.
+La respuesta correcta es: Lectura fantasma.
+27/4/26, 22:10 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343869&cmid=97977#question-350560-1 3/5
+
+Pregunta 7
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 8
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 9
+Incorrecta
+Se puntúa 0,00 sobre 1,00
+La consistencia es una de las propiedades del modelo:
+;a.ACID A) Incorrecta, CRUD describe operaciones básicas (crear, leer, actualizar, eliminar).
+B) Correcta, ACID asegura atomicidad, consistencia, aislamiento y durabilidad.
+C) Incorrecta, ETL corresponde a procesos de integración de datos.
+'b.ETL
+'c.CRUD
+La respuesta correcta es: ACID
+¿Qué anomalía ocurre cuando una transacción obtiene diferentes valores en dos lecturas del mismo dato?
+'a.Lectura sucia
+;b.Lectura no repetible A) Correcta, otro proceso modificó el dato entre lecturas.
+B) Incorrecta, los fantasmas son nuevos registros entre consultas.
+C) Incorrecta, las sucias son datos no confirmados.
+'c.Lectura fantasma
+La respuesta correcta es: Lectura no repetible
+¿Cuál de estas anomalías se evita con el nivel de aislamiento SERIALIZABLE?
+'a.Lectura no repetible.
+'b.Lectura sucia.
+;c.Lectura fantasma. A) Correcta, se leen datos que podrían revertirse.
+B) Incorrecta, la lectura fantasma ocurre por inserciones nuevas.
+C) Incorrecta, la no repetible es cuando un dato cambia entre lecturas.
+La respuesta correcta es: Lectura sucia.
+27/4/26, 22:10 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343869&cmid=97977#question-350560-1 4/5
+
+Pregunta 10
+Correcta
+Se puntúa 1,00 sobre 1,00
+El problema en el que dos transacciones esperan indefinidamente recursos bloqueados entre sí se llama:
+'a.Starvation
+;b.Deadlock A) Incorrecta, starvation es inanición de recursos por prioridad.
+B) Correcta, dos transacciones se bloquean mutuamente.
+C) Incorrecta, phantom read es otra anomalía.
+'c.Phantom Read.
+La respuesta correcta es: Deadlock
+Ir a...
+tActividad anterior
+Actividad siguiente #
+27/4/26, 22:10 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343869&cmid=97977#question-350560-1 5/5

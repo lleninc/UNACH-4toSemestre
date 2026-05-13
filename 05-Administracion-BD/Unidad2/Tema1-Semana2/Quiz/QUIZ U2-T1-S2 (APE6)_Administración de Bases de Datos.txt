@@ -1,0 +1,122 @@
+Pregunta 1
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 2
+Correcta
+Se puntúa 1,00 sobre 1,00
+El monitoreo de respaldos permite:
+;a.Detectar fallos y cumplimiento del plan A) Correcta, garantiza ejecución.
+B) Incorrecta, no es el objetivo.
+C) Incorrecta, no corresponde.
+'b.Evitar consultas complejas
+'c.Reducir tamaño de BD
+La respuesta correcta es: Detectar fallos y cumplimiento del plan
+La automatización de respaldos busca:
+;a.Reducir la intervención manual A) Correcta, previene olvidos y errores humanos.
+B) Incorrecta, el objetivo es simplificar.
+C) Incorrecta, el monitoreo sigue siendo necesario.
+'b.Aumentar la complejidad
+'c.Eliminar monitoreo
+La respuesta correcta es: Reducir la intervención manual
+3/5/26, 2:02 QUIZ U2-T1-S2 (APE6): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=348866&cmid=97983 1/4
+
+Pregunta 3
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 4
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 5
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué significa la regla 3-2-1 en respaldos?
+;a.3 copias en 2 medios y 1 fuera del sitio A) Correcta, asegura redundancia.
+B) Incorrecta, no define frecuencia.
+C) Incorrecta, no corresponde a la regla.
+'b.3 diarios, 2 semanales y 1 mensual
+'c.3 políticas en 2 servidores y 1 nube
+La respuesta correcta es: 3 copias en 2 medios y 1 fuera del sitio
+Un ejemplo de herramienta para copias físicas en PostgreSQL es:
+;a.pg_basebackup A) Correcta, genera copias físicas del clúster.
+B) Incorrecta, pg_dump es copia lógica.
+C) Incorrecta, DBCC CHECKDB es de SQL Server.
+'b.DBCC CHECKDB
+'c.pg_dump
+La respuesta correcta es: pg_basebackup
+Una estrategia de respaldo adecuada debe equilibrar:
+'a.Diseño de reportes
+'b.CPU, memoria y red
+;c.Seguridad, costo y rapidez A) Correcta, busca continuidad eficiente.
+B) Incorrecta, son factores de hardware.
+C) Incorrecta, no son criterios de respaldo.
+La respuesta correcta es: Seguridad, costo y rapidez
+3/5/26, 2:02 QUIZ U2-T1-S2 (APE6): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=348866&cmid=97983 2/4
+
+Pregunta 6
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 7
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 8
+Correcta
+Se puntúa 1,00 sobre 1,00
+Una copia completa (Full Backup) se caracteriza por:
+;a.Respaldar toda la base de datos A) Incorrecta, eso corresponde a copias incrementales.
+B) Correcta, es una duplicación íntegra de la base de datos.
+C) Incorrecta, no es el alcance de un respaldo completo.
+'b.Exportar solo procedimientos almacenados
+'c.Respaldar únicamente los datos modificados
+La respuesta correcta es: Respaldar toda la base de datos
+¿Qué ventaja ofrece el respaldo diferencial frente al incremental?
+'a.No requiere respaldo completo previo
+;b.Es más rápido para restaurar A) Correcta, basta aplicar el último full y el último diferencial.
+B) Incorrecta, ocupa más espacio que el incremental.
+C) Incorrecta, depende de un respaldo completo previo.
+'c.Ocupa menos espacio
+La respuesta correcta es: Es más rápido para restaurar
+¿Cuándo es más recomendable usar un respaldo completo?
+;a.En bases pequeñas o antes de una
+migración crítica
+ A) Correcta, asegura una copia íntegra en un solo
+archivo.
+B) Incorrecta, allí conviene incremental o
+diferencial.
+C) Incorrecta, un respaldo completo consume más
+espacio.
+'b.En sistemas que cambian constantemente durante el día
+'c.Cuando se necesita ahorrar espacio
+La respuesta correcta es: En bases pequeñas o antes de una migración crítica
+3/5/26, 2:02 QUIZ U2-T1-S2 (APE6): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=348866&cmid=97983 3/4
+
+Pregunta 9
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 10
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué asegura la documentación en procesos de respaldo?
+;a.Facilita ejecución correcta de
+procedimientos
+ A) Correcta, guía en caso de emergencia.
+B) Incorrecta, no está relacionado.
+C) Incorrecta, la capacitación sigue siendo
+necesaria.
+'b.Reduce tiempo de consultas SQL
+'c.Elimina necesidad de capacitación
+La respuesta correcta es: Facilita ejecución correcta de procedimientos
+La retención de respaldos depende de:
+;a.Recursos y normativas legales A) Correcta, leyes y recursos definen tiempo de retención.
+B) Incorrecta, no determina retención.
+C) Incorrecta, el motor no lo impone.
+'b.Motor de BD empleado
+'c.Usuarios conectados
+La respuesta correcta es: Recursos y normativas legales
+Ir a...
+tActividad anterior
+Actividad siguiente #
+3/5/26, 2:02 QUIZ U2-T1-S2 (APE6): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=348866&cmid=97983 4/4

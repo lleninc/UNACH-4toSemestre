@@ -1,0 +1,137 @@
+Pregunta 1
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 2
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cuál es el rol de la consistencia dentro de ACID?
+'a.Garantizar mayor velocidad de consultas.
+'b.Permitir fallos parciales en transacciones.
+;c.Asegurar que los datos respeten las reglas
+de negocio.
+ A) Correcta, protege la integridad lógica y
+estructural de la BD.
+B) Incorrecta, los fallos parciales contradicen ACID.
+C) Incorrecta, el rendimiento no es su propósito.
+La respuesta correcta es: Asegurar que los datos respeten las reglas de negocio.
+Un ejemplo de consistencia aplicada sería:
+;a.Registrar una venta con cliente y
+producto válidos.
+ A) Correcta, respeta todas las restricciones definidas en
+el esquema.
+B) Incorrecta, viola la unicidad de la clave primaria.
+C) Incorrecta, infringe la regla NOT NULL.
+'b.Insertar registros duplicados en una clave primaria.
+'c.Permitir valores nulos en campos obligatorios.
+La respuesta correcta es: Registrar una venta con cliente y producto válidos.
+C a l i fi c a  👌
+27/4/26, 22:07 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343870&cmid=97977 1/4
+
+Pregunta 3
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 4
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 5
+Correcta
+Se puntúa 1,00 sobre 1,00
+En SQL Server, para evitar anomalías de concurrencia se recomienda:
+;a.Usar niveles de aislamiento
+adecuados
+ A) Incorrecta, eliminar bloqueos expone a inconsistencias.
+B) Correcta, niveles como SERIALIZABLE o REPEATABLE READ
+reducen conflictos.
+C) Incorrecta, leer datos no confirmados aumenta los riesgos.
+'b.Deshabilitar los bloqueos por completo
+'c.Permitir lecturas no confirmadas
+La respuesta correcta es: Usar niveles de aislamiento adecuados
+¿Cuál es el propósito del aislamiento en las propiedades ACID?
+'a.Optimizar consultas complejas
+'b.Reducir la redundancia en la base de datos
+;c.Garantizar que cada transacción se ejecute sin
+interferencias
+ A) Correcta, protege la independencia de cada
+transacción.
+B) Incorrecta, la redundancia se trata con
+normalización.
+C) Incorrecta, no es el objetivo del aislamiento.
+La respuesta correcta es: Garantizar que cada transacción se ejecute sin interferencias
+¿Qué técnica permite que las transacciones lean una versión consistente de los datos mientras otras escriben?
+'a.Locking
+;b.MVCC A) Incorrecta, puede bloquear lecturas innecesarias.
+B) Correcta, el control multiversión permite lecturas consistentes.
+C) Incorrecta, las marcas de tiempo solo ordenan.
+'c.Timestamp Ordering.
+La respuesta correcta es: MVCC
+C a l i fi c a  👌
+27/4/26, 22:07 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343870&cmid=97977 2/4
+
+Pregunta 6
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 7
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 8
+Correcta
+Se puntúa 1,00 sobre 1,00
+Un mecanismo de control de concurrencia eficaz debe equilibrar:
+'a.Rapidez de hardware y consumo energético
+'b.Diseño gráfico y usabilidad
+;c.Consistencia y eficiencia Correcta
+La respuesta correcta es: Consistencia y eficiencia
+¿Qué mecanismo ayuda a aplicar consistencia automáticamente?
+'a.Consultas sin restricciones.
+'b.Scripts manuales sin validaciones.
+;c.Constraints y triggers en el SGBD. A) Constraints y triggers en el SGBD.
+B) Scripts manuales sin validaciones.
+C) Consultas sin restricciones.
+La respuesta correcta es: Constraints y triggers en el SGBD.
+Una violación de consistencia ocurre cuando:
+'a.Se cumplen todas las reglas de integridad.
+;b.Se insertan datos que no cumplen con
+las restricciones.
+ A) Incorrecta, ahí la consistencia se respeta.
+B) Correcta, los datos inválidos rompen la integridad.
+C) Incorrecta, si la eliminación respeta reglas, no
+afecta la consistencia.
+'c.Se eliminan registros de forma controlada.
+La respuesta correcta es: Se insertan datos que no cumplen con las restricciones.
+C a l i fi c a  👌
+27/4/26, 22:07 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343870&cmid=97977 3/4
+
+Pregunta 9
+Correcta
+Se puntúa 1,00 sobre 1,00
+Pregunta 10
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cuál de los siguientes métodos utiliza bloqueos para gestionar la concurrencia?
+;a.Locking A) Incorrecta, usa marcas de tiempo para ordenar operaciones.
+B) Incorrecta, maneja múltiples versiones de datos.
+C) Correcta, el bloqueo evita modificaciones simultáneas.
+'b.MVCC
+'c.Timestamp Ordering.
+La respuesta correcta es: Locking
+¿Qué sucede si se intenta insertar la altura de una persona negativo en una tabla con restricción CHECK
+(altura > 0)?
+'a.El sistema acepta el valor sin problema.
+'b.Se guarda el valor y luego se corrige manualmente.
+;c.La transacción falla y se mantiene la
+consistencia.
+ A) Incorrecta, la restricción no permite un dato inválido.
+B) Correcta, el sistema rechaza el registro para preservar
+consistencia.
+C) Incorrecta, la corrección manual no garantiza
+integridad automática.
+La respuesta correcta es: La transacción falla y se mantiene la consistencia.
+Ir a...
+tActividad anterior
+Actividad siguiente #
+C a l i fi c a  👌
+27/4/26, 22:07 QUIZ U2-T1-S1 (APE5): Revisión del intento | Educación en Línea
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=343870&cmid=97977 4/4
