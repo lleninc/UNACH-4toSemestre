@@ -1,0 +1,134 @@
+
+# =========================================
+# PRONÓSTICO DE SERIES DE TIEMPO
+# Ventas de teléfonos celulares en LATAM
+# Modelos:
+# 1. Regresión Lineal
+# 2. Ridge Regression
+# 3. MLP Regressor
+# =========================================
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+from sklearn.linear_model import LinearRegression, Ridge
+from sklearn.neural_network import MLPRegressor
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+
+# -----------------------------------------
+# Cargar dataset
+# -----------------------------------------
+
+df = pd.read_csv("ventas_celulares_latam_2010_2025.csv")
+
+# Filtrar un país
+df = df[df["pais"] == "Mexico"].copy()
+
+# -----------------------------------------
+# Convertir fechas
+# -----------------------------------------
+
+df["fecha"] = pd.to_datetime(df["fecha"])
+
+# Crear índice temporal
+df["time_index"] = np.arange(len(df))
+
+# Variables
+X = df[["time_index"]]
+y = df["ventas_miles_unidades"]
+
+# -----------------------------------------
+# División entrenamiento / prueba
+# -----------------------------------------
+
+train_size = int(len(df) * 0.8)
+
+X_train = X[:train_size]
+X_test = X[train_size:]
+
+y_train = y[:train_size]
+y_test = y[train_size:]
+
+# =========================================
+# 1. REGRESIÓN LINEAL
+# =========================================
+
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+
+pred_lr = lr.predict(X_test)
+
+# =========================================
+# 2. RIDGE REGRESSION
+# =========================================
+
+ridge = Ridge(alpha=1.0)
+ridge.fit(X_train, y_train)
+
+pred_ridge = ridge.predict(X_test)
+
+# =========================================
+# 3. MLP REGRESSOR
+# =========================================
+
+mlp = Pipeline([
+    ("scaler", StandardScaler()),
+    ("model", MLPRegressor(
+        hidden_layer_sizes=(64,32),
+        activation="relu",
+        max_iter=5000,
+        random_state=42
+    ))
+])
+
+mlp.fit(X_train, y_train)
+
+pred_mlp = mlp.predict(X_test)
+
+# =========================================
+# MÉTRICAS
+# =========================================
+
+def evaluar(y_true, y_pred, nombre):
+    mae = mean_absolute_error(y_true, y_pred)
+    rmse = np.sqrt(mean_squared_error(y_true, y_pred))
+    r2 = r2_score(y_true, y_pred)
+
+    print(f"\nModelo: {nombre}")
+    print(f"MAE:  {mae:.2f}")
+    print(f"RMSE: {rmse:.2f}")
+    print(f"R2:   {r2:.4f}")
+
+evaluar(y_test, pred_lr, "Regresión Lineal")
+evaluar(y_test, pred_ridge, "Ridge Regression")
+evaluar(y_test, pred_mlp, "MLP Regressor")
+
+# =========================================
+# VISUALIZACIÓN
+# =========================================
+
+plt.figure(figsize=(12,6))
+
+plt.plot(df["fecha"][train_size:], y_test.values,
+         label="Valores reales")
+
+plt.plot(df["fecha"][train_size:], pred_lr,
+         label="Linear Regression")
+
+plt.plot(df["fecha"][train_size:], pred_ridge,
+         label="Ridge Regression")
+
+plt.plot(df["fecha"][train_size:], pred_mlp,
+         label="MLP Regressor")
+
+plt.title("Pronóstico de Ventas de Celulares")
+plt.xlabel("Fecha")
+plt.ylabel("Ventas (miles de unidades)")
+
+plt.legend()
+plt.grid()
+
+plt.show()

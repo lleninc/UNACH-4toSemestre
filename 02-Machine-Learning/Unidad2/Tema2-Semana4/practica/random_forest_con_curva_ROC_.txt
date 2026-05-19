@@ -1,0 +1,156 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import (
+    classification_report,
+    confusion_matrix,
+    accuracy_score,
+    roc_curve,
+    auc
+)
+from sklearn.preprocessing import LabelEncoder, label_binarize
+from sklearn.multiclass import OneVsRestClassifier
+
+# ============================================
+# CARGAR DATASET
+# ============================================
+
+df = pd.read_csv("/content/sample_data/dataset_paises_andinos_random_forest.csv", sep=';')
+
+# Variables de entrada
+X = df[[
+    "PIB_per_capita_USD",
+    "Desempleo_pct",
+    "Esperanza_vida",
+    "Internet_pct"
+]]
+
+# Variable de salida
+y = df["Clase_desarrollo"]
+
+# ============================================
+# CODIFICAR ETIQUETAS
+# ============================================
+
+encoder = LabelEncoder()
+y_encoded = encoder.fit_transform(y)
+
+# Binarización para curva ROC multiclase
+y_bin = label_binarize(y_encoded, classes=[0,1,2])
+n_classes = y_bin.shape[1]
+
+# ============================================
+# DIVISIÓN ENTRENAMIENTO / PRUEBA
+# ============================================
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y_encoded,
+    test_size=0.30,
+    random_state=42
+)
+
+# Binarización de datos de prueba
+y_test_bin = label_binarize(y_test, classes=[0,1,2])
+
+# ============================================
+# MODELO RANDOM FOREST
+# ============================================
+
+modelo = OneVsRestClassifier(
+    RandomForestClassifier(
+        n_estimators=100,
+        max_depth=5,
+        random_state=42
+    )
+)
+
+# Entrenamiento
+modelo.fit(X_train, y_train)
+
+# Predicciones
+y_pred = modelo.predict(X_test)
+
+# ============================================
+# MÉTRICAS
+# ============================================
+
+print("===================================")
+print("ACCURACY")
+print("===================================")
+print(accuracy_score(y_test, y_pred))
+
+print("\n===================================")
+print("MATRIZ DE CONFUSIÓN")
+print("===================================")
+print(confusion_matrix(y_test, y_pred))
+
+print("\n===================================")
+print("REPORTE DE CLASIFICACIÓN")
+print("===================================")
+print(classification_report(
+    y_test,
+    y_pred,
+    target_names=encoder.classes_
+))
+
+# ============================================
+# IMPORTANCIA DE VARIABLES
+# ============================================
+
+modelo_rf = modelo.estimators_[0]
+
+importancias = pd.DataFrame({
+    "Variable": X.columns,
+    "Importancia": modelo_rf.feature_importances_
+})
+
+print("\n===================================")
+print("IMPORTANCIA DE VARIABLES")
+print("===================================")
+print(importancias.sort_values(
+    by="Importancia",
+    ascending=False
+))
+
+# ============================================
+# CURVA ROC MULTICLASE
+# ============================================
+
+y_score = modelo.predict_proba(X_test)
+
+fpr = dict()
+tpr = dict()
+roc_auc = dict()
+
+for i in range(n_classes):
+    fpr[i], tpr[i], _ = roc_curve(
+        y_test_bin[:, i],
+        y_score[:, i]
+    )
+
+    roc_auc[i] = auc(fpr[i], tpr[i])
+
+# ============================================
+# GRÁFICO ROC
+# ============================================
+
+plt.figure(figsize=(8,6))
+
+for i in range(n_classes):
+    plt.plot(
+        fpr[i],
+        tpr[i],
+        label=f"Clase {encoder.classes_[i]} (AUC = {roc_auc[i]:.2f})"
+    )
+
+plt.plot([0,1], [0,1], linestyle='--')
+
+plt.xlabel("False Positive Rate")
+plt.ylabel("True Positive Rate")
+plt.title("Curva ROC - Random Forest Multiclase")
+plt.legend(loc="lower right")
+
+plt.show()

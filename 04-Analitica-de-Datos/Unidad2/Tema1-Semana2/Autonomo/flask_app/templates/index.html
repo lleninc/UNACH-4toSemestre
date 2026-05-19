@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autonomo 3 | Flask Analitica</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: rgba(255, 255, 255, 0.08);
+      --panel-strong: rgba(255, 255, 255, 0.12);
+      --text: #e7eef7;
+      --muted: #a8bdd4;
+      --accent: #4ade80;
+      --accent-2: #38bdf8;
+      --line: rgba(255, 255, 255, 0.12);
+      --shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.2), transparent 25%),
+        radial-gradient(circle at top right, rgba(74, 222, 128, 0.16), transparent 24%),
+        linear-gradient(180deg, #07111f 0%, #091527 50%, #050b14 100%);
+    }
+
+    .wrap {
+      width: min(1200px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 18px;
+      padding: 28px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(74, 222, 128, 0.08));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent-2);
+      font-size: 0.78rem;
+      margin: 0;
+    }
+
+    h1, h2, h3 { margin: 0; }
+    h1 { font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1.02; max-width: 12ch; }
+    .lead { color: var(--muted); font-size: 1.02rem; max-width: 78ch; line-height: 1.65; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .card {
+      padding: 18px;
+      min-height: 130px;
+    }
+
+    .card h3 {
+      font-size: 0.9rem;
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .metric {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.55rem;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .section {
+      margin-top: 22px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .panel {
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 10px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { color: var(--accent-2); font-size: 0.84rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    td { color: var(--text); }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 14px;
+    }
+
+    .charts img {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .footer {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1100px) {
+      .grid.cards, .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 720px) {
+      .wrap { width: min(100vw - 20px, 1200px); padding-top: 18px; }
+      .hero { padding: 20px; }
+      .grid.cards, .grid.two { grid-template-columns: 1fr; }
+      .section-header { flex-direction: column; align-items: start; }
+      h1 { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Analitica de Datos</p>
+      <h1>Taller 1</h1>
+      <p class="lead">
+        Esta app reproduce la logica del notebook <strong>Taller</strong> con el CSV real, limpia los datos,
+        detecta provincias, construye proporciones por clase, entrena un modelo de priorizacion y muestra resultados visibles en la web.
+      </p>
+      <div class="chips">
+        <span class="chip">CSV: {{ data.csv_path }}</span>
+        <span class="chip">Filas crudas: {{ data.raw_shape[0] }}</span>
+        <span class="chip">Provincias: {{ data.prov_shape[0] }}</span>
+        <span class="chip">Clases: {{ data.class_columns|join(', ') }}</span>
+      </div>
+    </section>
+
+    <section class="grid cards">
+      {% for item in data.notes %}
+      <article class="card">
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.text }}</p>
+      </article>
+      {% endfor %}
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Resumen de resultados</h2>
+          <p>Los valores de la tabla resumen ayudan a explicar el flujo del notebook por fases.</p>
+        </div>
+      </div>
+      <div class="panel table-wrap">
+        <table>
+          <thead>
+            <tr>
+              {% for column in data.summary_table.columns %}
+              <th>{{ column }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in data.summary_table.itertuples(index=True) %}
+            <tr>
+              <td>{{ row.Index }}</td>
+              {% for value in row[1:] %}
+              <td>{{ value }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="grid two section">
+      <article class="panel table-wrap">
+        <div class="section-header">
+          <div>
+            <h2>Top provincias</h2>
+            <p>Ranking por total general.</p>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              {% for column in data.top_provinces.columns %}
+              <th>{{ column }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in data.top_provinces.itertuples(index=False) %}
+            <tr>
+              {% for value in row %}
+              <td>{{ value }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </article>
+
+      <article class="panel table-wrap">
+        <div class="section-header">
+          <div>
+            <h2>Modelo</h2>
+            <p>Clasificacion Top vs no Top.</p>
+          </div>
+        </div>
+        <table>
+          <tbody>
+            <tr><th>Accuracy</th><td>{{ "%.3f"|format(data.split_metrics.accuracy) }}</td></tr>
+            <tr><th>Precision</th><td>{{ "%.3f"|format(data.split_metrics.precision) }}</td></tr>
+            <tr><th>Recall</th><td>{{ "%.3f"|format(data.split_metrics.recall) }}</td></tr>
+            <tr><th>F1</th><td>{{ "%.3f"|format(data.split_metrics.f1) }}</td></tr>
+            <tr><th>ROC-AUC</th><td>{{ "%.3f"|format(data.split_metrics.roc_auc) if data.split_metrics.roc_auc == data.split_metrics.roc_auc else 'n/d' }}</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top: 12px; color: var(--muted); white-space: pre-wrap;">{{ data.split_metrics.classification_report }}</div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Graficos generados</h2>
+          <p>Los graficos muestran el resultado visible del procesamiento y la validacion.</p>
+        </div>
+      </div>
+      <div class="grid two charts">
+        <article class="panel"><img src="data:image/png;base64,{{ data.charts.totals }}" alt="Emisiones por provincia"></article>
+        <article class="panel"><img src="data:image/png;base64,{{ data.charts.heat_abs }}" alt="Heatmap absoluto"></article>
+        <article class="panel"><img src="data:image/png;base64,{{ data.charts.heat_prop }}" alt="Heatmap proporciones"></article>
+        <article class="panel table-wrap">
+          <div class="section-header">
+            <div>
+              <h2>Importancias</h2>
+              <p>Variables mas influyentes del clasificador.</p>
+            </div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                {% for column in data.importance.columns %}
+                <th>{{ column }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in data.importance.itertuples(index=False) %}
+              <tr>
+                {% for value in row %}
+                <td>{{ value }}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Focalizacion operativa</h2>
+          <p>Ranking de provincias con probabilidad de pertenecer al grupo Top.</p>
+        </div>
+      </div>
+      <div class="panel table-wrap">
+        <table>
+          <thead>
+            <tr>
+              {% for column in data.rank_preview.columns %}
+              <th>{{ column }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in data.rank_preview.itertuples(index=False) %}
+            <tr>
+              {% for value in row %}
+              <td>{{ value }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="footer">
+      <p>
+        Grupo: <strong>Alisson Atupaña
+<strong></strong>Josselyn Obando</strong>.
+<strong></strong>Mario Camacho</strong>.
+<strong></strong>Gabriel Niama</strong>.
+<strong></strong>Lenin Lopez</strong>.
+</strong>.
+              </p>
+    </section>
+  </main>
+</body>
+</html>

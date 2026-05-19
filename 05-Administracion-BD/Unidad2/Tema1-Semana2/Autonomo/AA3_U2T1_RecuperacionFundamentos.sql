@@ -26,8 +26,8 @@ GO
 
 CREATE DATABASE RecuperacionFundamentos;
 GO
-
-ALTER DATABASE RecuperacionFundamentos SET RECOVERY FULL;
+-- Establecer modelo de recuperacion FULL para permitir respaldos de log y estrategias de recuperacion avanzadas.
+ALTER DATABASE RecuperacionFundamentos SET RECOVERY FULL; 
 GO
 
 USE RecuperacionFundamentos;
@@ -168,10 +168,10 @@ GO
 
 INSERT INTO dbo.Cargos(nombre, salario_min, salario_max)
 VALUES
-('Analista', 800, 1800),
-('Desarrollador', 1200, 3200),
-('Jefe de Area', 2200, 5000),
-('Asistente', 600, 1200);
+('Analista', 750, 900),
+('Desarrollador', 900, 1100),
+('Jefe de Area', 1100, 1800),
+('Asistente', 500, 800);
 GO
 
 INSERT INTO dbo.Empleados(nombre, salario, departamento_id, cargo_id, email)
@@ -301,11 +301,12 @@ Usar SERIALIZABLE para bloquear rango y evitar inserciones fantasma.
    ============================================================ */
 
 DECLARE @RutaBase NVARCHAR(400) = N'E:\Backups\RecuperacionFundamentos\';
+DECLARE @RutaFull NVARCHAR(400) = @RutaBase + N'RecuperacionFundamentos_FULL.bak';
 -- Asegurate de que la carpeta exista en el servidor SQL y tenga permisos.
 
 -- FULL
 BACKUP DATABASE RecuperacionFundamentos
-TO DISK = @RutaBase + N'RecuperacionFundamentos_FULL.bak'
+TO DISK = @RutaFull
 WITH INIT, FORMAT, NAME = 'FULL RecuperacionFundamentos', STATS = 5;
 GO
 
