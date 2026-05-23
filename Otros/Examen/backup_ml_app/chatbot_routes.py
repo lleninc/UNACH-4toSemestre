@@ -1,10 +1,9 @@
-"""
-Integración del Chatbot con la aplicación Flask
-"""
+"""Integracion del chatbot con la aplicacion Flask."""
 
-from flask import Flask, render_template, request, jsonify
+import os
+
+from flask import render_template, request, jsonify
 from chatbot_backup import BackupChatbot
-import json
 
 # Instancia global del chatbot
 chatbot = BackupChatbot()
@@ -109,6 +108,16 @@ def init_chatbot_routes(app):
                 'text': '❓ Ayuda',
                 'message': 'ayuda',
                 'icon': 'fas fa-question-circle'
+            },
+            {
+                'text': '🧯 Status 96',
+                'message': 'Tengo status 96 en un job de NetBackup en windows',
+                'icon': 'fas fa-fire-extinguisher'
+            },
+            {
+                'text': '📚 Estado entrenamiento',
+                'message': 'entrenamiento pdf',
+                'icon': 'fas fa-book'
             }
         ]
         
@@ -116,6 +125,57 @@ def init_chatbot_routes(app):
             'status': 'success',
             'quick_actions': quick_actions
         })
+
+    @app.route('/api/chatbot/knowledge/stats')
+    def chatbot_knowledge_stats():
+        """Obtener estadisticas de la base de conocimiento."""
+        try:
+            return jsonify({
+                'status': 'success',
+                'stats': chatbot.get_knowledge_stats()
+            })
+        except Exception as e:
+            return jsonify({
+                'status': 'error',
+                'message': f'Error obteniendo estadisticas: {str(e)}'
+            })
+
+    @app.route('/api/chatbot/knowledge/train', methods=['POST'])
+    def chatbot_knowledge_train():
+        """Entrenar chatbot cargando un PDF de runbooks/incidentes."""
+        try:
+            if 'pdf_file' not in request.files:
+                return jsonify({
+                    'status': 'error',
+                    'message': 'No se recibio archivo PDF'
+                })
+
+            pdf_file = request.files['pdf_file']
+            if not pdf_file or not pdf_file.filename:
+                return jsonify({
+                    'status': 'error',
+                    'message': 'Archivo invalido'
+                })
+
+            file_name = pdf_file.filename
+            if not file_name.lower().endswith('.pdf'):
+                return jsonify({
+                    'status': 'error',
+                    'message': 'Solo se permiten archivos .pdf'
+                })
+
+            os.makedirs('data/uploads', exist_ok=True)
+            file_path = os.path.join('data/uploads', file_name)
+            pdf_file.save(file_path)
+
+            train_result = chatbot.train_from_pdf(file_path, source_name=file_name)
+            return jsonify(train_result)
+
+        except Exception as e:
+            return jsonify({
+                'status': 'error',
+                'message': f'Error entrenando conocimiento: {str(e)}'
+            })
 
 # Para usar en app.py principal
 def register_chatbot_routes(app):

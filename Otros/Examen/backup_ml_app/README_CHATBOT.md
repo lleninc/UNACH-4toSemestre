@@ -105,6 +105,34 @@ Bot: 🎯 Predicción de riesgo: Medio
 
 ## 🔧 Uso del Chatbot
 
+### Flujo Operativo L1.5 (NetBackup)
+1. El operador revisa jobs en NetBackup.
+2. Si detecta un error, ingresa al chat y comparte status code + job id.
+3. El chatbot responde con runbook L1.5:
+    - causas probables
+    - pasos de remediacion
+    - comandos sugeridos para consola NetBackup
+4. El operador ejecuta y valida resultado.
+5. Si aparece un caso nuevo, se entrena el chatbot con PDF del incidente resuelto.
+
+### Entrenamiento por PDF
+La pantalla del chatbot incluye un panel para cargar documentos PDF.
+
+- Endpoint: `POST /api/chatbot/knowledge/train`
+- Campo esperado: `pdf_file`
+- Resultado: cantidad de paginas procesadas y fragmentos indexados
+
+Estadisticas del conocimiento cargado:
+
+- Endpoint: `GET /api/chatbot/knowledge/stats`
+- Retorna total de fragmentos y lista de fuentes PDF
+
+Dependencia requerida para procesar PDFs:
+
+```bash
+pip install pypdf
+```
+
 ### Interfaz Web
 1. Navegar a `/chatbot` en la aplicación Flask
 2. Usar el área de chat interactiva
