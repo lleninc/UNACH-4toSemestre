@@ -1,0 +1,110 @@
+18/5/26, 16:33 QUIZ U2-T2-S4 (APE8): Revisión del intento | Educación en Línea
+1
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Por qué la exactitud es engañosa en detección de fraudes?
+'a. Porque la clase fraudulenta es mayoritaria.
+'b. Porque no mide la precisión en tiempo real.
+;c. Porque un modelo puede predecir siempre "no fraude" y tener alta accuracy. Correcta
+La respuesta correcta es: Porque un modelo puede predecir siempre "no fraude" y tener alta accuracy.
+2
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué visión fomenta el análisis de errores en estudiantes?
+'a. Que solo importa el F1-score.
+;b. Una mirada crítica para evaluar limitaciones y mejoras. Correcta
+Califica 👌
+'c. Que los modelos son siempre exactos.
+La respuesta correcta es: Una mirada crítica para evaluar limitaciones y mejoras.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=363343&cmid=98505 1/4
+
+18/5/26, 16:33 QUIZ U2-T2-S4 (APE8): Revisión del intento | Educación en Línea
+3
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Por qué se prioriza el recall en problemas médicos?
+;a. Porque es más grave no detectar un caso positivo que detectarlo erróneamente. Correcta
+'b. Porque siempre da valores más altos que la precisión.
+'c. Porque se busca minimizar la cantidad de predicciones negativas.
+La respuesta correcta es: Porque es más grave no detectar un caso positivo que detectarlo erróneamente.
+4
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué representa un falso negativo en un dataset de salud (ej. Heart Disease)?
+'a. Diagnosticar correctamente la ausencia de enfermedad.
+'b. Detectar erróneamente enfermedad en un paciente sano.
+;c. No detectar enfermedad en un paciente que sí la tiene. Correcta
+La respuesta correcta es: No detectar enfermedad en un paciente que sí la tiene.
+5
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué mide el recall (sensibilidad) para una clase?
+'a. La proporción de falsos positivos sobre el total de predicciones positivas.
+;b. La proporción de verdaderos positivos sobre todos los casos realmente positivos. Correcta
+'c. La proporción de predicciones correctas sobre el total de predicciones.
+Califica 👌
+La respuesta correcta es: La proporción de verdaderos positivos sobre todos los casos realmente positivos.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=363343&cmid=98505 2/4
+
+18/5/26, 16:33 QUIZ U2-T2-S4 (APE8): Revisión del intento | Educación en Línea
+6
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Por qué la exactitud (accuracy) puede ser engañosa en un problema multiclase con clases
+desbalanceadas?
+;a. Porque un modelo puede acertar mayormente en clases frecuentes y fallar en las  Correcta
+minoritarias.
+'b. Porque siempre da un valor bajo en cualquier escenario.
+'c. Porque solo mide los errores en la clase mayoritaria.
+La respuesta correcta es: Porque un modelo puede acertar mayormente en clases frecuentes y fallar en las
+minoritarias.
+7
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué enseñan los errores en modelos de aprendizaje automático?
+;a. Que los errores pueden ser pistas para mejorar modelos y datos. Correcta
+'b. Que los algoritmos son siempre incorrectos.
+'c. Que las métricas no son necesarias.
+La respuesta correcta es: Que los errores pueden ser pistas para mejorar modelos y datos.
+8
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué indica un patrón sistemático en los errores?
+;a. Posible sesgo en los datos o el modelo. Correcta
+'b. Varianza alta. Califica 👌
+'c. Aleatoriedad total en los errores.
+La respuesta correcta es: Posible sesgo en los datos o el modelo.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=363343&cmid=98505 3/4
+
+18/5/26, 16:33 QUIZ U2-T2-S4 (APE8): Revisión del intento | Educación en Línea
+9
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué son los falsos positivos (FP) en clasificación?
+'a. Casos correctamente clasificados en la clase positiva.
+'b. Casos predichos como negativos siendo positivos.
+;c. Casos predichos como positivos siendo negativos. Correcta
+La respuesta correcta es: Casos predichos como positivos siendo negativos.
+10
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cómo puede mejorar un modelo con sesgo hacia precios bajos?
+'a. Eliminando la mitad de los datos.
+;b. Usando técnicas de regularización o nuevas variables. Correcta
+'c. Incrementando aleatoriamente los precios reales.
+La respuesta correcta es: Usando técnicas de regularización o nuevas variables.
+Ir a...
+t Actividad anterior
+Actividad siguiente #
+Califica 👌
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=363343&cmid=98505 4/4

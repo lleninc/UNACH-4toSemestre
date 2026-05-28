@@ -1,0 +1,96 @@
+1
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cómo funciona el weighted average en clasificación multiclase?
+'a. Usa el promedio de métricas más altas.
+'b. Ignora las clases con baja frecuencia.
+;c. Pondera cada clase según su proporción en el dataset. Correcta
+La respuesta correcta es: Pondera cada clase según su proporción en el dataset.
+2
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cómo puede mejorar un modelo con sesgo hacia precios bajos?
+;a. Usando técnicas de regularización o nuevas variables. Correcta
+'b. Incrementando aleatoriamente los precios reales.
+'c. Eliminando la mitad de los datos.
+La respuesta correcta es: Usando técnicas de regularización o nuevas variables.
+
+3
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Por qué se prioriza el recall en problemas médicos?
+'a. Porque se busca minimizar la cantidad de predicciones negativas.
+'b. Porque siempre da valores más altos que la precisión.
+;c. Porque es más grave no detectar un caso positivo que detectarlo erróneamente. Correcta
+La respuesta correcta es: Porque es más grave no detectar un caso positivo que detectarlo erróneamente.
+4
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cuál es la fórmula del F1-score?
+'a. F1=(Precisión+Recall)/2
+'b. F1=(Precisión-Recall)/(Precisión+Recall)
+;c. F1=2?(Precisión?Recall)/(Precisión+Recall) Correcta
+La respuesta correcta es: F1=2?(Precisión?Recall)/(Precisión+Recall)
+5
+Pregunta
+Incorrecta
+Se puntúa 0,00 sobre 1,00
+¿Qué son los falsos negativos (FN)?
+'a. Casos predichos como positivos siendo positivos.
+;b. Casos correctamente clasificados como negativos.  Incorrecta
+'c. Casos predichos como negativos siendo positivos.
+La respuesta correcta es: Casos predichos como negativos siendo positivos.
+
+6
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué refleja el análisis de palabras mal clasificadas en spam?
+;a. Que algunos patrones lingüísticos inducen a error al modelo. Correcta
+'b. Que el modelo tiene varianza infinita.
+'c. Que el dataset no sirve.
+La respuesta correcta es: Que algunos patrones lingüísticos inducen a error al modelo.
+7
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué indica un patrón sistemático en los errores?
+'a. Varianza alta.
+;b. Posible sesgo en los datos o el modelo. Correcta
+'c. Aleatoriedad total en los errores.
+La respuesta correcta es: Posible sesgo en los datos o el modelo.
+8
+Pregunta
+Incorrecta
+Se puntúa 0,00 sobre 1,00
+¿Qué problema se observa en la detección de spam?
+'a. El desbalance entre spam y no spam.
+'b. El log-loss siempre es bajo.
+;c. Los correos legítimos siempre se clasifican como spam.  Incorrecta
+La respuesta correcta es: El desbalance entre spam y no spam.
+
+9
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué mide el índice Kappa de Cohen en clasificación?
+'a. El porcentaje de falsos positivos.
+'b. El tiempo de entrenamiento del modelo.
+;c. El grado de acuerdo entre predicciones y realidad corrigiendo por azar. Correcta
+La respuesta correcta es: El grado de acuerdo entre predicciones y realidad corrigiendo por azar.
+10
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué mide el recall (sensibilidad) para una clase?
+'a. La proporción de falsos positivos sobre el total de predicciones positivas.
+;b. La proporción de verdaderos positivos sobre todos los casos realmente positivos. Correcta
+'c. La proporción de predicciones correctas sobre el total de predicciones.
+La respuesta correcta es: La proporción de verdaderos positivos sobre todos los casos realmente positivos.
+Ir a...
+t Actividad anterior
+Actividad siguiente #

@@ -1,0 +1,108 @@
+17/5/26, 22:10 QUIZ U2-T2-S3 (APE7): Revisión del intento | Educación en Línea
+1
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué significa que la entropía sea igual a 0 en un nodo?
+'a. El nodo contiene solo ejemplos positivos.
+;b. El nodo es completamente puro. Correcta
+'c. El nodo tiene incertidumbre máxima.
+La respuesta correcta es: El nodo es completamente puro.
+2
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué implica que un árbol tenga baja profundidad y alto error en entrenamiento?
+'a. Está sobreajustado.
+;b. Está subajustado. Correcta
+Califica 👌
+'c. Tiene baja varianza.
+La respuesta correcta es: Está subajustado.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=362709&cmid=98499 1/4
+
+17/5/26, 22:10 QUIZ U2-T2-S3 (APE7): Revisión del intento | Educación en Línea
+3
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué estrategia permite regular la complejidad de un árbol antes de crecer completamente?
+'a. Cálculo del error cuadrático medio.
+;b. Ajuste de hiperparámetros. Correcta
+'c. Aumento de hojas terminales.
+La respuesta correcta es: Ajuste de hiperparámetros.
+4
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué refleja el dilema entre sesgo y varianza en árboles de decisión?
+'a. El método de optimización.
+;b. El equilibrio entre simplicidad y capacidad de generalización. Correcta
+'c. El número de variables predictoras.
+La respuesta correcta es: El equilibrio entre simplicidad y capacidad de generalización.
+5
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué mide la entropía en un árbol de decisión?
+'a. La cantidad de nodos.
+'b. El número de divisiones realizadas.
+;c. El nivel de incertidumbre de la distribución de clases. Correcta
+Califica 👌
+La respuesta correcta es: El nivel de incertidumbre de la distribución de clases.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=362709&cmid=98499 2/4
+
+17/5/26, 22:10 QUIZ U2-T2-S3 (APE7): Revisión del intento | Educación en Línea
+6
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué significa que el índice de Gini sea cercano a 0?
+'a. La partición es heterogénea.
+;b. La partición es homogénea. Correcta
+'c. El árbol está sobreajustado.
+La respuesta correcta es: La partición es homogénea.
+7
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué tipo de pregunta representa cada nodo interno de un árbol de decisión?
+;a. Una condición sobre una variable. Correcta
+'b. Una operación aritmética.
+'c. Un promedio ponderado.
+La respuesta correcta es: Una condición sobre una variable.
+8
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cuál es el riesgo de no podar un árbol de decisión?
+'a. Eliminación de nodos homogéneos.
+;b. Captura de ruido en los datos. Correcta
+'c. Reducción de sesgo.
+Califica 👌
+La respuesta correcta es: Captura de ruido en los datos.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=362709&cmid=98499 3/4
+
+17/5/26, 22:10 QUIZ U2-T2-S3 (APE7): Revisión del intento | Educación en Línea
+9
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué puede suceder si se permite que los nodos de un árbol se dividan con muy pocas muestras?
+;a. El árbol se vuelve demasiado complejo y tiende a sobreajustar. Correcta
+'b. El modelo aumenta su sesgo de manera significativa.
+'c. El árbol se vuelve más general y sencillo.
+La respuesta correcta es: El árbol se vuelve demasiado complejo y tiende a sobreajustar.
+10
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué criterio es computacionalmente más eficiente en la práctica?
+;a. El índice de Gini. Correcta
+'b. El promedio de clases.
+'c. La entropía.
+La respuesta correcta es: El índice de Gini.
+Ir a...
+t Actividad anterior
+Actividad siguiente #
+Califica 👌
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=362709&cmid=98499 4/4

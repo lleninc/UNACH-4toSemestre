@@ -1,0 +1,100 @@
+1
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Por qué la exactitud es engañosa en detección de fraudes?
+'a. Porque la clase fraudulenta es mayoritaria.
+'b. Porque no mide la precisión en tiempo real.
+;c. Porque un modelo puede predecir siempre "no fraude" y tener alta accuracy. Correcta
+La respuesta correcta es: Porque un modelo puede predecir siempre "no fraude" y tener alta accuracy.
+2
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué muestra un gráfico de residuos en regresión?
+'a. La tasa de falsos positivos y negativos.
+'b. La distribución de las clases por categoría.
+Califica 👌
+;c. La diferencia entre valores predichos y observados. Correcta
+La respuesta correcta es: La diferencia entre valores predichos y observados.
+
+3
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué enseñan los errores en modelos de aprendizaje automático?
+'a. Que las métricas no son necesarias.
+;b. Que los errores pueden ser pistas para mejorar modelos y datos. Correcta
+'c. Que los algoritmos son siempre incorrectos.
+La respuesta correcta es: Que los errores pueden ser pistas para mejorar modelos y datos.
+4
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué tipo de datasets suelen presentar ruido y valores faltantes?
+'a. Datasets sintéticos.
+'b. Datasets balanceados.
+;c. Datasets reales. Correcta
+La respuesta correcta es: Datasets reales.
+5
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+En regresión, ¿qué mide el error cuadrático medio (MSE)?
+'a. El porcentaje de errores de clasificación.
+'b. El promedio de las diferencias absolutas.
+;c. El promedio de los cuadrados de las diferencias entre predicciones y valores reales. Correcta
+Califica 👌
+La respuesta correcta es: El promedio de los cuadrados de las diferencias entre predicciones y valores reales.
+
+6
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué rol tiene el análisis de residuos en predicción de precios de vivienda?
+'a. Ajustar automáticamente los hiperparámetros.
+'b. Ver la distribución de las etiquetas reales.
+;c. Identificar si el modelo subestima precios altos. Correcta
+La respuesta correcta es: Identificar si el modelo subestima precios altos.
+7
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué son los falsos positivos (FP) en clasificación?
+'a. Casos correctamente clasificados en la clase positiva.
+;b. Casos predichos como positivos siendo negativos. Correcta
+'c. Casos predichos como negativos siendo positivos.
+La respuesta correcta es: Casos predichos como positivos siendo negativos.
+8
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué visión fomenta el análisis de errores en estudiantes?
+'a. Que los modelos son siempre exactos.
+;b. Una mirada crítica para evaluar limitaciones y mejoras. Correcta
+'c. Que solo importa el F1-score.
+Califica 👌
+La respuesta correcta es: Una mirada crítica para evaluar limitaciones y mejoras.
+
+9
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué penaliza el log-loss en clasificación?
+'a. Los errores de predicción con baja probabilidad.
+;b. Las predicciones incorrectas con alta confianza. Correcta
+'c. Los aciertos en clases mayoritarias.
+La respuesta correcta es: Las predicciones incorrectas con alta confianza.
+10
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cómo se extiende el ROC-AUC a problemas multiclase?
+;a. Usando el enfoque "uno contra todos" para cada clase. Correcta
+'b. Calculando un valor único de exactitud.
+'c. Promediando las matrices de confusión.
+La respuesta correcta es: Usando el enfoque "uno contra todos" para cada clase.
+Ir a...
+t Actividad anterior
+Actividad siguiente #
+Califica 👌

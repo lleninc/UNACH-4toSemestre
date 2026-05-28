@@ -1,0 +1,104 @@
+17/5/26, 1:31 QUIZ U2-T2-S3 (APE7): Revisión del intento | Educación en Línea
+1
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué representan los nodos internos en un árbol de decisión?
+'a. Predicciones finales.
+;b. Condiciones de partición sobre variables. Correcta
+'c. Registros individuales de entrenamiento.
+La respuesta correcta es: Condiciones de partición sobre variables.
+2
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué efecto tiene la poda en un árbol de decisión?
+'a. Aumentar el número de nodos terminales.
+'b. Calcular de nuevo la entropía.
+;c. Reducir ramas innecesarias para mejorar generalización. Correcta
+La respuesta correcta es: Reducir ramas innecesarias para mejorar generalización.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=361394&cmid=98499 1/4
+
+17/5/26, 1:31 QUIZ U2-T2-S3 (APE7): Revisión del intento | Educación en Línea
+3
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué sucede con la capacidad de generalización de un árbol muy profundo?
+'a. Permanece igual.
+'b. Se incrementa siempre.
+;c. Se reduce al aprender ruido. Correcta
+La respuesta correcta es: Se reduce al aprender ruido.
+4
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Cuál es el riesgo de no podar un árbol de decisión?
+'a. Eliminación de nodos homogéneos.
+'b. Reducción de sesgo.
+;c. Captura de ruido en los datos. Correcta
+La respuesta correcta es: Captura de ruido en los datos.
+5
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué tipo de pregunta representa cada nodo interno de un árbol de decisión?
+'a. Una operación aritmética.
+'b. Un promedio ponderado.
+;c. Una condición sobre una variable. Correcta
+La respuesta correcta es: Una condición sobre una variable.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=361394&cmid=98499 2/4
+
+17/5/26, 1:31 QUIZ U2-T2-S3 (APE7): Revisión del intento | Educación en Línea
+6
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué ocurre si un árbol es demasiado poco profundo?
+;a. Se subajusta. Correcta
+'b. Se sobreajusta.
+'c. No genera predicciones.
+La respuesta correcta es: Se subajusta.
+7
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué ocurre si se limita demasiado la profundidad de un árbol?
+;a. Puede perder patrones relevantes. Correcta
+'b. Mejora la generalización siempre.
+'c. La entropía se anula.
+La respuesta correcta es: Puede perder patrones relevantes.
+8
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué criterio es computacionalmente más eficiente en la práctica?
+;a. El índice de Gini. Correcta
+'b. La entropía.
+'c. El promedio de clases.
+La respuesta correcta es: El índice de Gini.
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=361394&cmid=98499 3/4
+
+17/5/26, 1:31 QUIZ U2-T2-S3 (APE7): Revisión del intento | Educación en Línea
+9
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué relación tienen los árboles de decisión con el sesgo y la varianza?
+'a. Siempre tienen alto sesgo.
+;b. Pueden regularse para equilibrar ambos. Correcta
+'c. Siempre tienen baja varianza.
+La respuesta correcta es: Pueden regularse para equilibrar ambos.
+10
+Pregunta
+Correcta
+Se puntúa 1,00 sobre 1,00
+¿Qué representa un valor de Gini cercano a 0.5 en un nodo binario?
+'a. Un nodo eliminado por poda.
+;b. Un nodo muy mezclado. Correcta
+'c. Un nodo puro.
+La respuesta correcta es: Un nodo muy mezclado.
+Ir a...
+t Actividad anterior
+Actividad siguiente #
+https://online.unach.edu.ec/mod/quiz/review.php?attempt=361394&cmid=98499 4/4
