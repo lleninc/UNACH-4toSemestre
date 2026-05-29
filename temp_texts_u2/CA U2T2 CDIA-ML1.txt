@@ -1,0 +1,329 @@
+TEMA 2:
+Árboles de decisión y
+métricas avanzadas.
+Descripción:
+La Unidad 2 profundiza en los modelos
+supervisados avanzados, fundamentales
+en el aprendizaje automático moderno.
+Se exploran métodos lineales y no
+lineales, incluyendo regresión
+polinómica, logística y técnicas de
+UNIDAD 2
+regularización, que amplían la
+capacidad predictiva y reducen el
+sobreajuste. Además, se abordan
+algoritmos potentes como Máquinas de
+Modelos avanzados Soporte Vectorial y redes neuronales
+básicas, que permiten modelar
+de clasificación y
+relaciones complejas en los datos.
+regresión.
+Finalmente, se estudian árboles de
+decisión, métricas multiclase y
+estrategias para interpretar errores,
+aplicando los conocimientos en datasets
+reales. Esta unidad fomenta la
+comprensión crítica y el dominio
+práctico para enfrentar problemas
+predictivos actuales.
+Machine Learning 1
+P ERIODO ACADÉMICO 2026-1S
+
+UNIDAD 2: Modelos avanzados de clasificación y
+regresión.
+Árboles Métricas Interpretación Aplicaciones
+TABLA DE CONTENIDO
+Tema 2. Árboles de decisión y métricas avanzadas. ................................... 2
+2.1.Árboles de decisión: criterios de partición. ............................................. 2
+2.2.Métricas para multiclase ........................................................................... 5
+2.3.Interpretación y análisis de errores .......................................................... 7
+2.4.Aplicaciones prácticas en datasets reales ............................................. 9
+Bibliografía ...................................................................................................... 12
+1
+
+UNIDAD 2: Modelos avanzados de clasificación y
+regresión.
+Árboles Métricas Interpretación Aplicaciones
+Tema 2. Árboles de decisión y métricas
+avanzadas.
+Este tema constituye un puente entre la construcción de modelos
+predictivos y la evaluación crítica de su desempeño. Los árboles de
+decisión ofrecen una estructura jerárquica que traduce problemas
+complejos en secuencias de reglas comprensibles, lo cual facilita tanto la
+predicción como la interpretación. Su funcionamiento se basa en criterios
+de partición, como la ganancia de información y el índice de Gini, que
+buscan dividir los datos en regiones homogéneas y permiten discutir de
+manera pedagógica conceptos centrales como el sesgo y la varianza.
+Sin embargo, entrenar un modelo no basta: es fundamental comprender
+cómo evaluar sus resultados en escenarios reales. En este sentido, las
+métricas multiclase —precisión, recall, F1-score, ROC-AUC o log-loss—
+trascienden la simple exactitud, ofreciendo una mirada más equilibrada
+cuando las clases están desbalanceadas. Además, la interpretación y el
+análisis de errores revelan no solo las limitaciones del modelo, sino
+también oportunidades de mejora y sesgos en los datos. Finalmente,
+trabajar con datasets reales como Kaggle o UCI transforma la teoría en
+práctica, mostrando que el aprendizaje automático no es solo una
+técnica matemática, sino también una herramienta para la toma de
+decisiones en ámbitos como la salud, las finanzas o la seguridad digital.
+2.1. Árboles de decisión: criterios de partición.
+Los árboles de decisión son modelos de aprendizaje supervisado que
+buscan dividir el espacio de los datos en regiones cada vez más
+homogéneas con respecto a la variable objetivo.
+2
+
+UNIDAD 2: Modelos avanzados de clasificación y
+regresión.
+Árboles Métricas Interpretación Aplicaciones
+La idea pedagógica central es que un árbol funciona como un conjunto
+de preguntas secuenciales: en cada nodo se aplica una condición sobre
+una variable predictora, y de acuerdo con la respuesta, se sigue una
+rama u otra.
+Cada nodo interno del árbol representa una condición de partición sobre
+una variable 𝑥 , mientras que cada nodo hoja corresponde a una
+𝑗
+predicción 𝑦̂. En clasificación, la predicción se da como la clase
+mayoritaria; en regresión, como el valor promedio de los ejemplos en la
+hoja. El objetivo del entrenamiento es seleccionar en cada nodo el mejor
+criterio de partición. Dos de los más utilizados son:
+• Ganancia de información (basada en entropía): mide la reducción
+de incertidumbre lograda al aplicar una división.
+𝐾
+𝐻(𝑆) = −∑𝑝 𝑙𝑜𝑔 (𝑝 )
+𝑘 2 𝑘
+𝑘=1
+donde 𝑝 es la proporción de ejemplos de la clase 𝑘.
+𝑘
+• Índice de Gini: mide la impureza de una partición.
+𝐾
+𝐺(𝑆) = 1−∑𝑝 2
+𝑘
+𝑘=1
+Un valor bajo de Gini indica mayor homogeneidad.
+En la práctica, tanto Gini como entropía suelen dar resultados similares,
+aunque el índice de Gini es más eficiente computacionalmente (Müller &
+Guido, 2017; Benítez et al., 2025).
+3
+
+UNIDAD 2: Modelos avanzados de clasificación y
+regresión.
+Árboles Métricas Interpretación Aplicaciones
+Figura 1. Criterios de partición en árboles de decisión
+Fuente: Elaboración propia
+La capacidad predictiva de un árbol depende directamente de su
+profundidad. Un árbol demasiado profundo puede sobreajustar los datos
+de entrenamiento, capturando ruido y perdiendo capacidad de
+generalización; en contraste, un árbol poco profundo puede subajustar
+al no detectar patrones relevantes. Para equilibrar este dilema, se
+emplean técnicas como la poda y el ajuste de hiperparámetros, que
+permiten regular la complejidad del modelo.
+Este aspecto convierte a los árboles de decisión en un recurso ideal para
+discutir el compromiso entre sesgo y varianza, un tema central en el
+aprendizaje automático contemporáneo.
+4
+
+UNIDAD 2: Modelos avanzados de clasificación y
+regresión.
+Árboles Métricas Interpretación Aplicaciones
+2.2. Métricas para multiclase
+En los problemas de clasificación multiclase, la exactitud o accuracy
+resulta insuficiente para evaluar el desempeño de un modelo,
+especialmente cuando las clases se encuentran desbalanceadas.
+Con frecuencia, un modelo puede mostrar una alta exactitud
+simplemente por predecir bien las clases mayoritarias, pero fallar de
+manera sistemática en las minoritarias. Por ello, la evaluación en
+escenarios multiclase requiere un enfoque más amplio que considere
+métricas multicriterio y permita un análisis más equilibrado del rendimiento
+del algoritmo.
+Figura 2. Matriz de confusión
+Fuente: Elaboración propia
+5
+
+UNIDAD 2: Modelos avanzados de clasificación y
+regresión.
+Árboles Métricas Interpretación Aplicaciones
+La primera herramienta fundamental es la matriz de confusión, que
+organiza las predicciones en una tabla de dimensión 𝐾 ×𝐾, donde 𝐾 es
+el número de clases. Este recurso visualiza los aciertos y errores de
+clasificación, mostrando en qué categorías se producen mayores
+confusiones como se aprecia en la Figura.
+A partir de esta matriz se derivan métricas clave: la precisión (precision),
+que mide la proporción de verdaderos positivos sobre todos los predichos
+como positivos para una clase
+𝑇𝑃
+𝑘
+𝑃𝑟𝑒𝑐𝑖𝑠𝑖ó𝑛 =
+𝑘 𝑇𝑃 +𝐹𝑃
+𝑘 𝑘
+El recall o sensibilidad, que indica la proporción de verdaderos positivos
+sobre todos los ejemplos realmente positivos.
+𝑇𝑃
+𝑘
+𝑅𝑒𝑐𝑎𝑙𝑙 =
+𝑘 𝑇𝑃 +𝐹𝑁
+𝑘 𝑘
+El F1-score, que corresponde a la media armónica entre precisión y recall.
+𝑃𝑟𝑒𝑐𝑖𝑠𝑖ó𝑛 ∙𝑅𝑒𝑐𝑎𝑙𝑙
+𝑘 𝑘
+𝐹1 = 2∙
+𝑃𝑟𝑒𝑐𝑖𝑠𝑖ó𝑛 +𝑅𝑒𝑐𝑎𝑙𝑙
+𝑘 𝑘
+En clasificación multiclase, estas métricas pueden calcularse mediante
+distintos esquemas de promedio: macro average, que trata a todas las
+clases por igual; weighted average, que pondera las métricas según el
+tamaño de cada clase; y micro average, que combina los conteos
+globales de verdaderos positivos, falsos positivos y falsos negativos
+(Raschka, Liu & Mirjalili, 2022).
+Además, existen métricas complementarias que enriquecen la
+evaluación. El ROC-AUC multiclase se extiende bajo el enfoque “uno
+contra todos” y permite analizar la discriminación entre clases. El índice
+Kappa de Cohen introduce una corrección para el acuerdo esperado
+6
+
+UNIDAD 2: Modelos avanzados de clasificación y
+regresión.
+Árboles Métricas Interpretación Aplicaciones
+por azar, resultando útil en contextos donde la distribución de clases está
+muy sesgada. Finalmente, el log-loss se centra en la calidad de las
+probabilidades predichas, penalizando más severamente las
+predicciones con alta confianza que resultan erróneas (scikit-learn
+developers, 2024).
+Figura 3. Evaluación de Métricas de Clasificación
+Fuente: Elaboración propia
+2.3. Interpretación y análisis de errores
+Uno de los aspectos más relevantes en el aprendizaje automático no es
+únicamente entrenar un modelo, sino comprender las razones por las
+cuales se equivoca.
+7
+
+UNIDAD 2: Modelos avanzados de clasificación y
+regresión.
+Árboles Métricas Interpretación Aplicaciones
+La interpretación y el análisis de errores constituyen un paso esencial
+tanto en la práctica profesional como en la enseñanza, ya que permiten
+ir más allá de las métricas globales para explorar las limitaciones y los
+sesgos del algoritmo. Entender los errores no solo mejora la calidad de los
+modelos, sino que también desarrolla en los estudiantes la capacidad
+crítica para evaluar resultados de manera rigurosa.
+Cuando un modelo produce predicciones 𝑦̂ a partir de entradas 𝑥 , el
+𝑖 𝑖
+error se define como la diferencia entre la predicción y la etiqueta real 𝑦 .
+𝑖
+Este concepto se manifiesta de formas distintas dependiendo del tipo de
+tarea. En problemas de clasificación, los errores más relevantes son los
+falsos positivos (FP) y los falsos negativos (FN). Un falso positivo ocurre
+cuando el modelo predice “1” (positivo) siendo en realidad “0”, mientras
+que un falso negativo corresponde al caso opuesto. La matriz de
+confusión organiza de manera sistemática estas situaciones, mostrando
+en qué categorías se concentran los fallos.
+Por otro lado, en problemas de regresión, los errores suelen evaluarse
+mediante métricas como el error cuadrático medio (MSE) o el error
+absoluto medio (MAE), complementándose con el análisis visual de los
+residuos. Este enfoque gráfico permite identificar patrones sistemáticos,
+como la tendencia de un modelo a subestimar los valores más altos de la
+variable respuesta.
+Resulta importante comprender que los errores contienen información
+valiosa sobre el sesgo, la varianza y la calidad de los datos. Por ejemplo,
+si un modelo comete errores sistemáticos, ello puede revelar un sesgo en
+los datos o una falta de complejidad en la hipótesis del modelo. En
+contraste, si los errores son aleatorios pero elevados, esto puede reflejar
+una varianza alta y un problema de sobreajuste. Asimismo, en contextos
+desbalanceados, como la detección de fraudes, una alta exactitud
+puede ser engañosa: un modelo que predice siempre la clase
+mayoritaria puede parecer “preciso” en términos de accuracy, pero
+carecer de utilidad práctica (Müller & Guido, 2023; Benítez, Cencerrado,
+Escudero & Kanaan, 2025).
+La interpretación de los errores es tan importante como entrenar el
+modelo mismo. Esta práctica fomenta una visión crítica en los estudiantes,
+8
+
+UNIDAD 2: Modelos avanzados de clasificación y
+regresión.
+Árboles Métricas Interpretación Aplicaciones
+ayudándoles a reconocer que los algoritmos no son perfectos y que cada
+error puede convertirse en una oportunidad de mejora.
+Figura 4. Errores en Aprendizaje Automático
+Fuente: Elaboración propia
+2.4. Aplicaciones prácticas en datasets reales
+El análisis de errores adquiere un papel crucial cuando se traslada del
+entorno teórico a la práctica con datasets reales, pues en estos datos
+aparecen imperfecciones inherentes al mundo profesional, como ruido,
+valores faltantes o desbalance de clases.
+9
+
+UNIDAD 2: Modelos avanzados de clasificación y
+regresión.
+Árboles Métricas Interpretación Aplicaciones
+Este ejercicio no solo permite evaluar la capacidad predictiva de los
+algoritmos, sino que también brinda a los estudiantes una comprensión
+más profunda sobre la relevancia de interpretar los resultados más allá de
+una métrica única como la exactitud. En el ámbito de la detección de
+spam, por ejemplo, el uso de colecciones como SpamAssassin o SMS
+Spam Collection en Kaggle invita a reflexionar sobre los desafíos del
+desbalance de clases, así como sobre la interpretación de métricas
+multicriterio como el ROC-AUC. En este escenario, identificar qué
+palabras o patrones lingüísticos conducen a errores se convierte en una
+oportunidad para relacionar el aprendizaje automático con problemas
+de seguridad digital (Raschka, Liu, & Mirjalili, 2022).
+En el campo de la salud, datasets como Heart Disease (UCI/Kaggle)
+ofrecen un espacio pedagógico privilegiado, ya que el análisis de falsos
+positivos y falsos negativos tiene consecuencias directas: un falso
+negativo puede implicar la ausencia de un diagnóstico en un paciente
+con enfermedad cardíaca, lo que resalta la importancia de priorizar
+métricas como el recall. Esto evidencia que el aprendizaje automático
+no solo se evalúa por su desempeño global, sino por la manera en que
+responde a las necesidades de un dominio específico (Murphy, 2023).
+De manera similar, los conjuntos de imágenes como MNIST o Fashion-
+MNIST permiten conectar teoría y percepción visual. Observar ejemplos
+mal clasificados —como la confusión entre un “5” y un “8”— motiva a
+discutir sobre la calidad de las representaciones aprendidas y la dificultad
+inherente a ciertas categorías. La práctica, en este sentido, fomenta un
+aprendizaje crítico al mostrar que los errores no son meros fallos, sino pistas
+para mejorar modelos y algoritmos (Géron, 2023).
+Por otro lado, en problemas de regresión, como la predicción de precios
+de vivienda en el famoso dataset House Prices – Advanced Regression
+Techniques de Kaggle, los gráficos de residuos adquieren un rol
+protagónico. Estos permiten identificar si el modelo subestima
+sistemáticamente los precios de viviendas costosas, revelando un sesgo
+hacia el promedio. Tal análisis fortalece la capacidad de los estudiantes
+para evaluar las limitaciones del modelo y discutir estrategias de mejora,
+como la regularización o la selección de atributos (Benítez, Cencerrado,
+Escudero, & Kanaan, 2025).
+10
+
+UNIDAD 2: Modelos avanzados de clasificación y
+regresión.
+Árboles Métricas Interpretación Aplicaciones
+En conclusión, la utilización de datasets reales refuerza tanto el dominio
+técnico como la comprensión crítica de los modelos, conectando la
+teoría con problemáticas concretas en salud, economía o seguridad
+digital. Este enfoque pedagógico convierte el error en una ventana hacia
+la mejora y en una oportunidad para vincular el aprendizaje automático
+con la toma de decisiones en contextos reales.
+Figura 5. Proyectos de Aprendizaje Automático
+Fuente: Elaboración propia
+11
+
+UNIDAD 2: Modelos avanzados de clasificación y
+regresión.
+Árboles Métricas Interpretación Aplicaciones
+Bibliografía
+Benítez, R., Cencerrado, A., Escudero, G., & Kanaan, S. (2025). Inteligencia
+artificial avanzada. FUOC.
+Géron, A. (2023). Hands-On Machine Learning with Scikit-Learn, Keras &
+TensorFlow (3rd ed.). O’Reilly.
+Hosmer, D. W., Lemeshow, S., & Sturdivant, R. X. (2023). Applied Logistic
+Regression (4th ed.). Wiley.
+James, G., Witten, D., Hastie, T., Tibshirani, R., & Taylor, J. (2023). An
+Introduction to Statistical Learning with Applications in Python (2nd ed.).
+Springer.
+Müller, A. C., & Guido, S. (2017). Introduction to Machine Learning with
+Python: A Guide for Data Scientists. O’Reilly Media.
+Murphy, K. P. (2023). Probabilistic Machine Learning: Advanced Topics. MIT
+Press.
+Raschka, S., Liu, Y., & Mirjalili, V. (2022). Machine Learning with PyTorch and
+Scikit-Learn. Packt.
+scikit-learn developers. (2024). User Guide v1.4–1.5 (Linear models; SVM;
+Neural networks; Model selection).
+scikit-learn developers. (2024). User Guide v1.4–1.5 (Model evaluation and
+metrics).
+12

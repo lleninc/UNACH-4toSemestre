@@ -1,119 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
-// Dynamic loader: fetch quiz `notas.md` files and `resumen.md` to build interactive content at runtime.
-const QS_FALLBACK = [];
-// Relative paths (HTML is inside 02-Machine-Learning/) — ensure page is served over HTTP for fetch to work
-const notaFiles = [
-  'Unidad1/Tema1-Semana1/notas.md',
-  'Unidad1/Tema1-Semana2/notas.md',
-  'Unidad1/Tema2-Semana3/notas.md',
-  'Unidad1/Tema2-Semana4/notas.md',
-  'Unidad2/Tema1-Semana1/notas.md',
-  'Unidad2/Tema1-Semana2/notas.md',
-  'Unidad2/Tema2-Semana3/notas.md',
-  'Unidad2/Tema2-Semana4/notas.md',
-  'Unidad3/Tema1-Semana1/notas.md',
-  'Unidad3/Tema1-Semana2/notas.md',
-  'Unidad3/Tema2-Semana3/notas.md',
-  'Unidad3/Tema2-Semana4/notas.md',
-  'Unidad4/Tema1-Semana1/notas.md',
-  'Unidad4/Tema1-Semana2/notas.md',
-  'Unidad4/Tema2-Semana3/notas.md',
-  'Unidad4/Tema2-Semana4/notas.md'
-];
-const resumenPath = 'Unidad1/resumen.md';
-
-function optIndexFromLabel(line){
-  const m = line.match(/^[\-\*]?\s*([abc])\.?\s*/i);
-  if(!m) return null; return ['a','b','c'].indexOf(m[1].toLowerCase());
-}
-
-async function fetchText(path){
-  try{ const res = await fetch(path); if(!res.ok) throw new Error('not ok'); return await res.text(); }catch(e){ console.warn('Failed to fetch',path); return ''; }
-}
-
-function parseNotas(mdText, sCode){
-  const lines = mdText.split(/\r?\n/);
-  const qs=[]; let i=0;
-  while(i<lines.length){
-    const L = lines[i].trim();
-    const qMatch = L.match(/^\d+\.\s*(?:\*\*)?¿(.+?)\*?\*?$/);
-    if(qMatch){
-      const qtext = qMatch[1].trim();
-      const opts=[]; let correct=0; let j=i+1; let explanation='';
-      while(j<lines.length){
-        const ln = lines[j].trim();
-        const optMatch = ln.match(/^[\-\*]?\s*([abc])\.?\s*(.+)$/i);
-        if(optMatch){
-          let lab = optMatch[1].toLowerCase();
-          let text = optMatch[2].replace(/✓/g,'').replace(/Correcta/i,'').trim();
-          opts.push(text);
-          if(optMatch[2].includes('✓') || optMatch[2].includes('Correcta')) correct = ['a','b','c'].indexOf(lab);
-        } else if(ln.toLowerCase().startsWith('la respuesta correcta') || ln.toLowerCase().startsWith('correcta')){
-          explanation = ln.replace(/La respuesta correcta es[:\-]?/i,'').trim();
-        } else if(ln===''){
-          break;
-        }
-        j++; if(opts.length>=4) break;
-      }
-      if(opts.length>=2){ qs.push({s:sCode||'S1',t:'general',q:qtext,o:opts,c:correct,e:explanation}); }
-      i=j; continue;
-    }
-    const alt = L.match(/^\d+\s*$/);
-    if(alt){
-      let j=i+1; let qtext='';
-      while(j<lines.length && !qtext){ if(lines[j].includes('?')) qtext = lines[j].trim(); j++; }
-      const opts=[]; let correct=0; while(j<lines.length){ const ln=lines[j].trim(); const om=ln.match(/^[\-\*]?\s*([abc])\.?\s*(.+)$/i); if(om){ let lab=om[1].toLowerCase(); let txt=om[2].replace(/✓/g,'').trim(); opts.push(txt); if(om[2].includes('✓')) correct=['a','b','c'].indexOf(lab); } else if(ln==='') break; j++; }
-      if(qtext && opts.length>=2) qs.push({s:sCode||'S1',t:'general',q:qtext,o:opts,c:correct,e:''});
-      i=j; continue;
-    }
-    i++;
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML1 — Estudio Interactivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0f;--surface:#111118;--card:#16161f;--border:#2a2a3a;
+    --accent:#f5a623;--accent2:#7c6deb;--green:#2ecc71;--red:#e74c3c;
+    --text:#e8e8f0;--muted:#666680;
+    --mono:'Space Mono',monospace;--sans:'Syne',sans-serif;
   }
-  return qs;
-}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,109,235,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,109,235,0.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+  .container{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:24px 20px;}
 
-function parseResumen(mdText){
-  const parts = mdText.split(/\n##\s+/).slice(1);
-  const cards=[];
-  for(const p of parts){
-    const lines = p.split(/\r?\n/);
-    const title = lines[0].trim();
-    let body=''; let idx=1;
-    while(idx<lines.length && !body){ if(lines[idx].trim()) body = lines[idx].trim(); idx++; }
-    if(title && body) cards.push({s:'U-summary',t:'resumen',q:title,o:[body],c:0,e:body});
-  }
-  return cards;
-}
+  header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:16px;}
+  .logo-tag{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;}
+  .logo h1{font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1.1;margin-top:4px;}
+  .logo h1 span{color:var(--accent);}
+  .score-display{font-family:var(--mono);text-align:right;}
+  .score-num{font-size:36px;font-weight:700;color:var(--accent);line-height:1;}
+  .score-label{font-size:11px;color:var(--muted);letter-spacing:2px;}
 
-async function buildData(){
-  let ALL_QS = [];
-  for(const f of notaFiles){
-    const txt = await fetchText(f);
-    if(!txt) continue;
-    const m = f.match(/Unidad(\d+).*Tema(\d+)-Semana(\d+)/);
-    const sCode = m?`U${m[1]}-T${m[2]}-S${m[3]}`:f.split('/')[0]||'S1';
-    const parsed = parseNotas(txt,sCode);
-    ALL_QS = ALL_QS.concat(parsed);
-  }
-  if(ALL_QS.length===0) ALL_QS = QS_FALLBACK.slice();
-  const resumenTxt = await fetchText(resumenPath);
-  let FLASHCARDS = resumenTxt? parseResumen(resumenTxt) : [];
-  if(FLASHCARDS.length===0){ FLASHCARDS = [{s:'U-summary',t:'resumen',q:'Resumen',o:['Resumen disponible en archivo.'],c:0,e:'Resumen disponible.'}]; }
-  window.ALL_QS = ALL_QS; window.FLASHCARDS = FLASHCARDS;
-  // replace initial data structures used by the app
-  if(Array.isArray(window.ALL_QS) && window.ALL_QS.length) {
-    // assign to internal QS and cur sources
-    QS.length = 0; // clear any embedded
-    window.ALL_QS.forEach((q,i)=>{ QS.push(Object.assign({id:1000+i},q)); });
-  }
-  if(Array.isArray(window.FLASHCARDS)){
-    // build initial flashcards pool
-    window.FLASH_POOL = window.FLASHCARDS.slice();
-  }
-  applyF();
-}
+  .main-tabs{display:flex;gap:6px;margin-bottom:28px;background:var(--surface);padding:6px;border-radius:14px;border:1px solid var(--border);flex-wrap:wrap;}
+  .main-tab{flex:1;min-width:90px;padding:10px 12px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.25s;text-align:center;}
+  .main-tab.active{background:var(--accent);color:#000;}
 
-buildData();
+  .stats-strip{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
   .stat-box{flex:1;min-width:70px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;text-align:center;}
   .stat-value{font-family:var(--mono);font-size:22px;font-weight:700;display:block;}
   .stat-value.green{color:var(--green);}.stat-value.red{color:var(--red);}.stat-value.yellow{color:var(--accent);}
@@ -276,19 +192,8 @@ buildData();
 <div id="filtersBlock">
   <div class="filter-row" id="sessionFilter">
     <button class="pill active" onclick="filterSession('all',this)">TODAS</button>
-    <button class="pill" onclick="filterSession('U1-T1-S1',this)">U1-T1-S1</button>
-    <button class="pill" onclick="filterSession('U1-T1-S2',this)">U1-T1-S2</button>
-    <button class="pill" onclick="filterSession('U1-T2-S3',this)">U1-T2-S3</button>
-    <button class="pill" onclick="filterSession('U1-T2-S4',this)">U1-T2-S4</button>
-    <button class="pill" onclick="filterSession('U2-T1-S1',this)">U2-T1-S1</button>
-    <button class="pill" onclick="filterSession('U2-T1-S2',this)">U2-T1-S2</button>
-    <button class="pill" onclick="filterSession('U2-T2-S3',this)">U2-T2-S3</button>
-    <button class="pill" onclick="filterSession('U2-T2-S4',this)">U2-T2-S4</button>
-  </div>
-  <div class="filter-row" id="unitFilter" style="margin-top:8px;">
-    <button class="pill active" onclick="filterUnit('all',this)">TODAS UNIDADES</button>
-    <button class="pill" onclick="filterUnit('U1',this)">Unidad 1</button>
-    <button class="pill" onclick="filterUnit('U2',this)">Unidad 2</button>
+    <button class="pill" onclick="filterSession('S1',this)">U1-T1-S1</button>
+    <button class="pill" onclick="filterSession('S2',this)">U1-T1-S2</button>
   </div>
   <div class="filter-row" id="topicFilter">
     <span class="chip active" onclick="filterTopic('all',this)">TODOS</span>
@@ -545,34 +450,21 @@ const QS=[
   {id:33,s:'S2',t:'matematicas',q:'¿Qué aportan las estadísticas al aprendizaje automático?',o:['Ayudan a diseñar arquitecturas neuronales profundas','Permiten únicamente calcular promedios','Ofrecen métodos de inferencia y validación para asegurar la generalización'],c:2,e:'Estadística en ML: inferencia (generalizar desde muestra), validación cruzada, pruebas de hipótesis, intervalos de confianza.'},
   {id:34,s:'S2',t:'herramientas',q:'¿Qué entorno interactivo permite documentar procesos reproducibles?',o:['Jupyter Notebook','Visual Studio Code','Eclipse'],c:0,e:'Jupyter Notebook: entorno web para código + texto + gráficas en un mismo documento. Permite reproducibilidad total de experimentos de ML.'},
   {id:35,s:'S2',t:'herramientas',q:'¿Cuál es la función de pandas? (variante)',o:['Manipular y analizar datos en tablas (DataFrames)','Renderizar gráficos 3D','Crear redes neuronales profundas'],c:0,e:'Pandas = manipulación de datos tabulares. DataFrames permiten leer CSV/Excel, filtrar, agrupar, pivotar, manejar nulos. El "Excel" de Python para ML.'}
-  // ----- Preguntas agregadas desde notas de Unidad1 y Unidad2 -----
-  ,{id:100,s:'U1-T2-S3',t:'proyecto',q:'¿Cuál es el primer paso razonable en un proyecto de ML?',o:['Entrenar un modelo inmediatamente','Definir el problema y objetivos','Publicar el modelo sin pruebas'],c:1,e:'El flujo correcto inicia definiendo el problema, para luego recolectar y preparar datos, entrenar y validar modelos.'}
-  ,{id:101,s:'U1-T2-S3',t:'proyecto',q:'¿Por qué dividir los datos en entrenamiento/validación/prueba?',o:['Para usar más datos en producción','Para evitar evaluar con datos ya vistos y estimar generalización','Para mezclar resultados durante el entrenamiento'],c:1,e:'Separar datos evita sobreoptimizar hiperparámetros y proporciona una estimación honesta del desempeño en datos no vistos.'}
-  ,{id:102,s:'U1-T2-S3',t:'metricas',q:'¿Qué mide el F1-score?',o:['Balance entre precision y recall','Solo la precisión','Solo el recall'],c:0,e:'F1 es la media armónica entre precision y recall, útil en problemas con clases desbalanceadas.'}
-  ,{id:103,s:'U1-T2-S4',t:'validacion',q:'¿Cuál es la idea principal de la validación cruzada?',o:['Evaluar el modelo varias veces con distintas particiones','Entrenar con todo para maximizar rendimiento','Usar siempre el mismo corte de datos'],c:0,e:'La validación cruzada rota los pliegues para promediar resultados y obtener estimaciones más estables del desempeño.'}
-  ,{id:104,s:'U1-T2-S4',t:'overfit',q:'¿Cuál es una señal típica de sobreajuste?',o:['Desempeño similar en entrenamiento y validación','Muy buen desempeño en entrenamiento y mal desempeño en validación','Mejoras constantes en validación durante entrenamiento'],c:1,e:'Si el entrenamiento muestra rendimiento muy alto pero la validación cae, es señal de sobreajuste.'}
-  ,{id:105,s:'U1-T2-S4',t:'overfit',q:'¿Qué acción ayuda a reducir el sobreajuste?',o:['Simplificar el modelo o usar regularización','Eliminar la evaluación','Mezclar entrenamiento y prueba'],c:0,e:'Regularización y modelos más simples reducen la varianza y mejoran la generalización.'}
-  ,{id:106,s:'U2-T2-S3',t:'arboles',q:'¿Qué representan los nodos internos en un árbol de decisión?',o:['Predicciones finales','Condiciones de partición sobre variables','Registros individuales de entrenamiento'],c:1,e:'Los nodos internos aplican condiciones sobre atributos para dividir el espacio y obtener regiones más homogéneas.'}
-  ,{id:107,s:'U2-T2-S3',t:'arboles',q:'¿Qué criterio es más eficiente computacionalmente?',o:['Entropía','Índice de Gini','Promedio de clases'],c:1,e:'El índice de Gini evita cálculos de logaritmos, siendo ligeramente más rápido en práctica que la entropía.'}
-  ,{id:108,s:'U2-T2-S4',t:'metricas',q:'¿Por qué la exactitud puede ser engañosa en detección de fraudes?',o:['Porque la clase fraudulenta es mayoritaria','Porque no mide la precisión en tiempo real','Porque un modelo puede predecir siempre "no fraude" y tener alta accuracy'],c:2,e:'En problemas muy desbalanceados la clase mayoritaria domina la métrica, ocultando fallos en la minoría.'}
-  ,{id:109,s:'U2-T2-S4',t:'metricas',q:'¿Qué mide el recall (sensibilidad)?',o:['La proporción de falsos positivos','La proporción de verdaderos positivos sobre todos los casos realmente positivos','La proporción de predicciones correctas totales'],c:1,e:'Recall mide la capacidad del modelo para detectar los positivos reales: VP/(VP+FN).'}
-  ,{id:110,s:'U2-T2-S4',t:'metricas',q:'¿Qué penaliza el log-loss en clasificación?',o:['Los aciertos en clases mayoritarias','Las predicciones incorrectas con alta confianza','Los errores de predicción con baja probabilidad'],c:1,e:'Log-loss castiga fuertemente predicciones incorrectas emitidas con probabilidades altas, penalizando confianza equivocada.'}
 ];
 
-let cur=[],filt=[...QS],idx=0,ans=false,ok=0,ko=0,mode='quiz',fi=0,ff=false,sf='all',tf='all',uf='all';
+let cur=[],filt=[...QS],idx=0,ans=false,ok=0,ko=0,mode='quiz',fi=0,ff=false,sf='all',tf='all';
 const TL={tipos:'Tipos ML',aplicaciones:'Aplicaciones',matematicas:'Math',herramientas:'Herramientas',historia:'Historia IA'};
 function tl(t){return TL[t]||t;}
 function shuf(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 
 function applyF(){
-  filt=QS.filter(q=>(sf==='all'||q.s===sf)&&(tf==='all'||q.t===tf)&&(uf==='all'||(q.s&&q.s.startsWith&&q.s.startsWith(uf))));
+  filt=QS.filter(q=>(sf==='all'||q.s===sf)&&(tf==='all'||q.t===tf));
   cur=shuf([...filt]);idx=0;ok=0;ko=0;ans=false;
   if(mode==='quiz')renderQ();else if(mode==='flashcard'){fi=0;ff=false;renderF();}else if(mode==='review')renderRv();
   updStats();
 }
 function filterSession(s,el){sf=s;document.querySelectorAll('#sF .pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');applyF();}
 function filterTopic(t,el){tf=t;document.querySelectorAll('#tF .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');applyF();}
-function filterUnit(u,el){uf=u;document.querySelectorAll('#unitFilter .pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');applyF();}
 
 function setMode(m){
   mode=m;

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ML1 — Estudio Interactivo (fix)</title>
+<style>
+body{font-family:Inter,system-ui,Arial;background:#0b0b10;color:#ececf6;margin:0;padding:20px}
+.container{max-width:1000px;margin:0 auto}
+.header{display:flex;justify-content:space-between;align-items:center}
+.card{background:#12121a;border:1px solid #2a2a3a;border-radius:12px;padding:18px;margin-top:16px}
+.q{font-weight:800;font-size:18px}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.opt{padding:10px;border-radius:8px;background:#181824;border:1px solid #2a2a3a;cursor:pointer}
+.flash{margin-top:12px;padding:16px;border-radius:10px;background:#181824}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div>
+      <div style="font-size:12px;letter-spacing:2px;color:#f5a623">UNACH · Machine Learning 1</div>
+      <h1 style="margin:6px 0 0">Estudio Interactivo — (fix)</h1>
+    </div>
+    <div style="text-align:right">PUNTUACIÓN<br><strong id="score">—</strong></div>
+  </div>
+
+  <div class="card" id="quizCard">
+    <div id="questionHost"><div class="q">No hay preguntas cargadas.</div><div style="color:#9a9ab0">Usa la versión original o importa preguntas JSON para empezar.</div></div>
+    <div style="margin-top:12px"><button id="reload">Recargar demo</button></div>
+  </div>
+
+  <div class="card flash">
+    <div style="font-weight:800">Flashcard</div>
+    <div id="flashText" style="margin-top:8px">Cargando...</div>
+    <div style="margin-top:10px"><button id="prev">←</button> <button id="flip">Voltear</button> <button id="next">→</button></div>
+  </div>
+</div>
+
+<script>
+const SAMPLE_QS = [
+  {q:'¿Qué distingue la regresión logística de la lineal?', o:['Predice categorías','Predice valores continuos','Usa SVD'], c:0, e:'Logística → clasificación; Lineal → valores continuos.'}
+];
+const FLASH = [ {front:'Visión general', back:'Machine Learning: teoría + práctica con datos.'}, {front:'Tipos', back:'Supervisado / No supervisado / Refuerzo.'} ];
+let fi=0, fb=false;
+function renderQuiz(){ const host=document.getElementById('questionHost'); if(!SAMPLE_QS.length){ host.innerHTML='<div class="q">No hay preguntas cargadas.</div><div style="color:#9a9ab0">Importa preguntas para comenzar.</div>'; return;} const q=SAMPLE_QS[0]; host.innerHTML=`<div class="q">${q.q}</div><div class="opts">${q.o.map((o,i)=>`<div class="opt" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</div>`).join('')}</div><div style="margin-top:10px;color:#9a9ab0">${q.e}</div>`; document.querySelectorAll('.opt').forEach(el=>el.addEventListener('click',()=>{ document.getElementById('score').textContent = (el.dataset.i==q.c)?'Correcto':'Incorrecto'; })); }
+function renderFlash(){ const c=FLASH[fi%FLASH.length]; document.getElementById('flashText').textContent = fb?c.back:c.front; }
+renderQuiz(); renderFlash();
+document.getElementById('flip').addEventListener('click',()=>{ fb=!fb; renderFlash(); });
+document.getElementById('next').addEventListener('click',()=>{ fi=(fi+1)%FLASH.length; fb=false; renderFlash(); });
+document.getElementById('prev').addEventListener('click',()=>{ fi=(fi-1+FLASH.length)%FLASH.length; fb=false; renderFlash(); });
+document.getElementById('reload').addEventListener('click',()=>{ renderQuiz(); renderFlash(); });
+</script>
+</body>
+</html>

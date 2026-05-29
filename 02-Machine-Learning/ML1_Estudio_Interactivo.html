@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML1 — Estudio Interactivo</title>
+<style>
+:root {
+  --bg:#0b0b10; --surface:#12121a; --card:#181824; --border:#2a2a3a;
+  --accent:#f5a623; --accent2:#7c6deb; --green:#2ecc71; --red:#e74c3c; --text:#ececf6; --muted:#787892;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --sans: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+* { box-sizing:border-box; }
+body { margin:0; min-height:100vh; background:radial-gradient(circle at top, rgba(124,109,235,.14), transparent 30%), var(--bg); color:var(--text); font-family:var(--sans); }
+body::before { content:''; position:fixed; inset:0; background-image:linear-gradient(rgba(124,109,235,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(124,109,235,.05) 1px,transparent 1px); background-size:48px 48px; pointer-events:none; }
+.wrap { position:relative; z-index:1; max-width:1200px; margin:0 auto; padding:24px 18px 40px; }
+header { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+.tag { font-family:var(--mono); font-size:10px; letter-spacing:3px; color:var(--accent); text-transform:uppercase; }
+<script>
+// Minimal safe initializer: empty quiz and two flashcards so the page JS runs.
+const QUIZ = [];
+const FLASHCARDS = [
+  { front: 'Visión general', back: 'Breve introducción a Machine Learning.' },
+  { front: 'Tipos', back: 'Supervisado, No supervisado, Semi-supervisado, Refuerzo.' }
+];
+
+function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+function renderStats(){document.getElementById('totalQ').textContent = QUIZ.length; document.getElementById('correctQ').textContent = '0'; document.getElementById('wrongQ').textContent = '0'; document.getElementById('remainQ').textContent = '0'; document.getElementById('progressFill').style.width = '0%';}
+
+function renderCurrentQuestion(){ const host = document.getElementById('questionHost'); host.innerHTML = `<div class="card"><div class="q">No hay preguntas para estos filtros.</div><div style="color:var(--muted)">Genera o carga preguntas para comenzar el quiz.</div></div>`; document.getElementById('nextBtn').classList.add('hidden'); }
+
+let cardIndex = 0, cardBack=false;
+function renderFlashcard(){ const c = FLASHCARDS[cardIndex%FLASHCARDS.length]; document.getElementById('flashText').textContent = c.front; document.getElementById('flipInfo').textContent = `${(cardIndex%FLASHCARDS.length)+1} / ${FLASHCARDS.length}`; }
+function flipFlashcard(){ cardBack=!cardBack; const c=FLASHCARDS[cardIndex%FLASHCARDS.length]; document.getElementById('flashText').textContent = cardBack?c.back:c.front; }
+function nextCard(){ cardIndex=(cardIndex+1)%FLASHCARDS.length; renderFlashcard(); }
+function prevCard(){ cardIndex=(cardIndex-1+FLASHCARDS.length)%FLASHCARDS.length; renderFlashcard(); }
+
+document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click', ()=>{ document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }));
+document.getElementById('skipBtn').addEventListener('click', ()=>{});
+document.getElementById('shuffleBtn').addEventListener('click', ()=>{});
+document.getElementById('nextBtn').addEventListener('click', ()=>{});
+document.getElementById('restartBtn').addEventListener('click', ()=>{ renderCurrentQuestion(); renderStats(); });
+document.getElementById('flashcard').addEventListener('click', flipFlashcard);
+document.getElementById('prevCardBtn').addEventListener('click', prevCard);
+document.getElementById('nextCardBtn').addEventListener('click', nextCard);
+document.getElementById('searchBox').addEventListener('input', ()=>{});
+
+renderCurrentQuestion(); renderFlashcard(); renderStats();
+</script>
+      "Dropout",
+      "Aumentar neuronas sin límite"
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué representan los nodos internos en un árbol de decisión?",
+    "o": [
+      ") Predicciones finales.",
+      ") Condiciones de partición sobre variables. ()",
+      ") Registros individuales de entrenamiento.",
+      "orrecta: b) Condiciones de partición sobre variables."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué efecto tiene la poda en un árbol de decisión?",
+    "o": [
+      ") Aumentar el número de nodos terminales.",
+      ") Calcular de nuevo la entropía.",
+      ") Reducir ramas innecesarias para mejorar generalización. ()",
+      "orrecta: c) Reducir ramas innecesarias para mejorar generalización."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué sucede con la capacidad de generalización de un árbol muy profundo?",
+    "o": [
+      ") Permanece igual.",
+      ") Se incrementa siempre.",
+      ") Se reduce al aprender ruido. ()",
+      "orrecta: c) Se reduce al aprender ruido."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Cuál es el riesgo de no podar un árbol de decisión?",
+    "o": [
+      ") Eliminación de nodos homogéneos.",
+      ") Reducción de sesgo.",
+      ") Captura de ruido en los datos. ()",
+      "orrecta: c) Captura de ruido en los datos."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué tipo de pregunta representa cada nodo interno de un árbol de decisión?",
+    "o": [
+      ") Una operación aritmética.",
+      ") Un promedio ponderado.",
+      ") Una condición sobre una variable. ()",
+      "orrecta: c) Una condición sobre una variable."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué ocurre si un árbol es demasiado poco profundo?",
+    "o": [
+      ") Se subajusta. ()",
+      ") Se sobreajusta.",
+      ") No genera predicciones.",
+      "orrecta: a) Se subajusta."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué ocurre si se limita demasiado la profundidad de un árbol?",
+    "o": [
+      ") Puede perder patrones relevantes. ()",
+      ") Mejora la generalización siempre.",
+      ") La entropía se anula.",
+      "orrecta: a) Puede perder patrones relevantes."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué criterio es computacionalmente más eficiente en la práctica?",
+    "o": [
+      ") El índice de Gini. ()",
+      ") La entropía.",
+      ") El promedio de clases.",
+      "orrecta: a) El índice de Gini."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué relación tienen los árboles de decisión con el sesgo y la varianza?",
+    "o": [
+      ") Siempre tienen alto sesgo.",
+      ") Pueden regularse para equilibrar ambos. ()",
+      ") Siempre tienen baja varianza.",
+      "orrecta: b) Pueden regularse para equilibrar ambos."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué representa un valor de Gini cercano a 0.5 en un nodo binario?",
+    "o": [
+      ") Un nodo eliminado por poda.",
+      ") Un nodo muy mezclado. ()",
+      ") Un nodo puro.",
+      "orrecta: b) Un nodo muy mezclado."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué significa que la entropía sea igual a 0 en un nodo?",
+    "o": [
+      ") El nodo contiene solo ejemplos positivos.",
+      ") El nodo es completamente puro. ()",
+      ") El nodo tiene incertidumbre máxima.",
+      "orrecta: b) El nodo es completamente puro."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué implica que un árbol tenga baja profundidad y alto error en entrenamiento?",
+    "o": [
+      ") Está sobreajustado.",
+      ") Está subajustado. ()",
+      ") Tiene baja varianza.",
+      "orrecta: b) Está subajustado."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué estrategia permite regular la complejidad de un árbol antes de crecer completamente?",
+    "o": [
+      ") Cálculo del error cuadrático medio.",
+      ") Ajuste de hiperparámetros. ()",
+      ") Aumento de hojas terminales.",
+      "orrecta: b) Ajuste de hiperparámetros."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué refleja el dilema entre sesgo y varianza en árboles de decisión?",
+    "o": [
+      ") El método de optimización.",
+      ") El equilibrio entre simplicidad y capacidad de generalización. ()",
+      ") El número de variables predictoras.",
+      "orrecta: b) El equilibrio entre simplicidad y capacidad de generalización."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué mide la entropía en un árbol de decisión?",
+    "o": [
+      ") La cantidad de nodos.",
+      ") El número de divisiones realizadas.",
+      ") El nivel de incertidumbre de la distribución de clases. ()",
+      "orrecta: c) El nivel de incertidumbre de la distribución de clases."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué significa que el índice de Gini sea cercano a 0?",
+    "o": [
+      ") La partición es heterogénea.",
+      ") La partición es homogénea. ()",
+      ") El árbol está sobreajustado.",
+      "orrecta: b) La partición es homogénea."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué tipo de pregunta representa cada nodo interno de un árbol de decisión?",
+    "o": [
+      ") Una condición sobre una variable. ()",
+      ") Una operación aritmética.",
+      ") Un promedio ponderado.",
+      "orrecta: a) Una condición sobre una variable."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Cuál es el riesgo de no podar un árbol de decisión?",
+    "o": [
+      ") Eliminación de nodos homogéneos.",
+      ") Captura de ruido en los datos. ()",
+      ") Reducción de sesgo.",
+      "orrecta: b) Captura de ruido en los datos."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué puede suceder si se permite que los nodos de un árbol se dividan con muy pocas muestras?",
+    "o": [
+      ") El árbol se vuelve demasiado complejo y tiende a sobreajustar. ()",
+      ") El modelo aumenta su sesgo de manera significativa.",
+      ") El árbol se vuelve más general y sencillo.",
+      "orrecta: a) El árbol se vuelve demasiado complejo y tiende a sobreajustar."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S3",
+    "src": "Unidad2",
+    "q": "Qué criterio es computacionalmente más eficiente en la práctica?",
+    "o": [
+      ") El índice de Gini. ()",
+      ") El promedio de clases.",
+      ") La entropía.",
+      "orrecta: a) El índice de Gini."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Por qué la exactitud es engañosa en detección de fraudes?",
+    "o": [
+      ") Porque la clase fraudulenta es mayoritaria.",
+      ") Porque no mide la precisión en tiempo real.",
+      ") Porque un modelo puede predecir siempre \"no fraude\" y tener alta accuracy. ()",
+      "orrecta: c) Porque un modelo puede predecir siempre \"no fraude\" y tener alta accuracy."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué visión fomenta el análisis de errores en estudiantes?",
+    "o": [
+      ") Que solo importa el F1-score.",
+      ") Una mirada crítica para evaluar limitaciones y mejoras. ()",
+      ") Que los modelos son siempre exactos.",
+      "orrecta: b) Una mirada crítica para evaluar limitaciones y mejoras."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Por qué se prioriza el recall en problemas médicos?",
+    "o": [
+      ") Porque es más grave no detectar un caso positivo que detectarlo erróneamente. ()",
+      ") Porque siempre da valores más altos que la precisión.",
+      ") Porque se busca minimizar la cantidad de predicciones negativas.",
+      "orrecta: a) Porque es más grave no detectar un caso positivo que detectarlo erróneamente."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué representa un falso negativo en un dataset de salud?",
+    "o": [
+      ") Diagnosticar correctamente la ausencia de enfermedad.",
+      ") Detectar erróneamente enfermedad en un paciente sano.",
+      ") No detectar enfermedad en un paciente que sí la tiene. ()",
+      "orrecta: c) No detectar enfermedad en un paciente que sí la tiene."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué mide el recall (sensibilidad) para una clase?",
+    "o": [
+      ") La proporción de falsos positivos sobre el total de predicciones positivas.",
+      ") La proporción de verdaderos positivos sobre todos los casos realmente positivos. ()",
+      ") La proporción de predicciones correctas sobre el total de predicciones.",
+      "orrecta: b) La proporción de verdaderos positivos sobre todos los casos realmente positivos."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Por qué la accuracy puede ser engañosa en un problema multiclase desbalanceado?",
+    "o": [
+      ") Porque un modelo puede acertar mayormente en clases frecuentes y fallar en las minoritarias. ()",
+      ") Porque siempre da un valor bajo en cualquier escenario.",
+      ") Porque solo mide los errores en la clase mayoritaria.",
+      "orrecta: a) Porque un modelo puede acertar mayormente en clases frecuentes y fallar en las minoritarias."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué enseñan los errores en modelos de aprendizaje automático?",
+    "o": [
+      ") Que los errores pueden ser pistas para mejorar modelos y datos. ()",
+      ") Que los algoritmos son siempre incorrectos.",
+      ") Que las métricas no son necesarias.",
+      "orrecta: a) Que los errores pueden ser pistas para mejorar modelos y datos."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué indica un patrón sistemático en los errores?",
+    "o": [
+      ") Posible sesgo en los datos o el modelo. ()",
+      ") Varianza alta.",
+      ") Aleatoriedad total en los errores.",
+      "orrecta: a) Posible sesgo en los datos o el modelo."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué son los falsos positivos (FP) en clasificación?",
+    "o": [
+      ") Casos correctamente clasificados en la clase positiva.",
+      ") Casos predichos como negativos siendo positivos.",
+      ") Casos predichos como positivos siendo negativos. ()",
+      "orrecta: c) Casos predichos como positivos siendo negativos."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Cómo puede mejorar un modelo con sesgo hacia precios bajos?",
+    "o": [
+      ") Eliminando la mitad de los datos.",
+      ") Usando técnicas de regularización o nuevas variables. ()",
+      ") Incrementando aleatoriamente los precios reales.",
+      "orrecta: b) Usando técnicas de regularización o nuevas variables."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Por qué la exactitud es engañosa en detección de fraudes?",
+    "o": [
+      ") Porque la clase fraudulenta es mayoritaria.",
+      ") Porque no mide la precisión en tiempo real.",
+      ") Porque un modelo puede predecir siempre \"no fraude\" y tener alta accuracy. ()",
+      "orrecta: c) Porque un modelo puede predecir siempre \"no fraude\" y tener alta accuracy."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué muestra un gráfico de residuos en regresión?",
+    "o": [
+      ") La tasa de falsos positivos y negativos.",
+      ") La distribución de las clases por categoría.",
+      ") La diferencia entre valores predichos y observados. ()",
+      "orrecta: c) La diferencia entre valores predichos y observados."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué enseñan los errores en modelos de aprendizaje automático?",
+    "o": [
+      ") Que las métricas no son necesarias.",
+      ") Que los errores pueden ser pistas para mejorar modelos y datos. ()",
+      ") Que los algoritmos son siempre incorrectos.",
+      "orrecta: b) Que los errores pueden ser pistas para mejorar modelos y datos."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué tipo de datasets suelen presentar ruido y valores faltantes?",
+    "o": [
+      ") Datasets sintéticos.",
+      ") Datasets balanceados.",
+      ") Datasets reales. ()",
+      "orrecta: c) Datasets reales."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué rol tiene el análisis de residuos en predicción de precios de vivienda?",
+    "o": [
+      ") Ajustar automáticamente los hiperparámetros.",
+      ") Ver la distribución de las etiquetas reales.",
+      ") Identificar si el modelo subestima precios altos. ()",
+      "orrecta: c) Identificar si el modelo subestima precios altos."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué son los falsos positivos (FP) en clasificación?",
+    "o": [
+      ") Casos correctamente clasificados en la clase positiva.",
+      ") Casos predichos como positivos siendo negativos. ()",
+      ") Casos predichos como negativos siendo positivos.",
+      "orrecta: b) Casos predichos como positivos siendo negativos."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué visión fomenta el análisis de errores en estudiantes?",
+    "o": [
+      ") Que los modelos son siempre exactos.",
+      ") Una mirada crítica para evaluar limitaciones y mejoras. ()",
+      ") Que solo importa el F1-score.",
+      "orrecta: b) Una mirada crítica para evaluar limitaciones y mejoras."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué penaliza el log-loss en clasificación?",
+    "o": [
+      ") Los errores de predicción con baja probabilidad.",
+      ") Las predicciones incorrectas con alta confianza. ()",
+      ") Los aciertos en clases mayoritarias.",
+      "orrecta: b) Las predicciones incorrectas con alta confianza."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Cómo puede extenderse el ROC-AUC a problemas multiclase?",
+    "o": [
+      ") Usando el enfoque \"uno contra todos\" para cada clase. ()",
+      ") Calculando un valor único de exactitud.",
+      ") Promediando las matrices de confusión.",
+      "orrecta: a) Usando el enfoque \"uno contra todos\" para cada clase."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Cómo funciona el weighted average en clasificación multiclase?",
+    "o": [
+      ") Usa el promedio de métricas más altas.",
+      ") Ignora las clases con baja frecuencia.",
+      ") Pondera cada clase según su proporción en el dataset. ()",
+      "orrecta: c) Pondera cada clase según su proporción en el dataset."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Cómo puede mejorar un modelo con sesgo hacia precios bajos?",
+    "o": [
+      ") Usando técnicas de regularización o nuevas variables. ()",
+      ") Incrementando aleatoriamente los precios reales.",
+      ") Eliminando la mitad de los datos.",
+      "orrecta: a) Usando técnicas de regularización o nuevas variables."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Por qué se prioriza el recall en problemas médicos?",
+    "o": [
+      ") Porque se busca minimizar la cantidad de predicciones negativas.",
+      ") Porque siempre da valores más altos que la precisión.",
+      ") Porque es más grave no detectar un caso positivo que detectarlo erróneamente. ()",
+      "orrecta: c) Porque es más grave no detectar un caso positivo que detectarlo erróneamente."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Cuál es la fórmula del F1-score?",
+    "o": [
+      ") F1=(Precisión+Recall)/2",
+      ") F1=(Precisión-Recall)/(Precisión+Recall)",
+      ") F1=2*(Precisión*Recall)/(Precisión+Recall) ()",
+      "orrecta: c) F1=2*(Precisión*Recall)/(Precisión+Recall)."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué son los falsos negativos (FN)?",
+    "o": [
+      ") Casos predichos como positivos siendo positivos.",
+      ") Casos correctamente clasificados como negativos.",
+      ") Casos predichos como negativos siendo positivos. ()",
+      "orrecta: c) Casos predichos como negativos siendo positivos."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué refleja el análisis de palabras mal clasificadas en spam?",
+    "o": [
+      ") Que algunos patrones lingüísticos inducen a error al modelo. ()",
+      ") Que el modelo tiene varianza infinita.",
+      ") Que el dataset no sirve.",
+      "orrecta: a) Que algunos patrones lingüísticos inducen a error al modelo."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué indica un patrón sistemático en los errores?",
+    "o": [
+      ") Varianza alta.",
+      ") Posible sesgo en los datos o el modelo. ()",
+      ") Aleatoriedad total en los errores.",
+      "orrecta: b) Posible sesgo en los datos o el modelo."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué problema se observa en la detección de spam?",
+    "o": [
+      ") El desbalance entre spam y no spam. ()",
+      ") El log-loss siempre es bajo.",
+      ") Los correos legítimos siempre se clasifican como spam.",
+      "orrecta: a) El desbalance entre spam y no spam."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué mide el índice Kappa de Cohen en clasificación?",
+    "o": [
+      ") El porcentaje de falsos positivos.",
+      ") El tiempo de entrenamiento del modelo.",
+      ") El grado de acuerdo entre predicciones y realidad corrigiendo por azar. ()",
+      "orrecta: c) El grado de acuerdo entre predicciones y realidad corrigiendo por azar."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U2",
+    "s": "T2S4",
+    "src": "Unidad2",
+    "q": "Qué mide el recall (sensibilidad) para una clase?",
+    "o": [
+      ") La proporción de falsos positivos sobre el total de predicciones positivas.",
+      ") La proporción de verdaderos positivos sobre todos los casos realmente positivos. ()",
+      ") La proporción de predicciones correctas sobre el total de predicciones.",
+      "orrecta: b) La proporción de verdaderos positivos sobre todos los casos realmente positivos."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué significa la calidad de datos en ML?**",
+    "o": [
+      "Que ruido y valores faltantes afectan la validez del modelo.",
+      "Que los modelos pueden aprender incluso sin datos.",
+      "Que basta con tener grandes volúmenes sin importar su fiabilidad."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué implica la complejidad computacional?**",
+    "o": [
+      "Que los modelos no requieren energía.",
+      "Que solo funcionan en computadores personales antiguos.",
+      "Que los modelos profundos necesitan hardware especializado y alto consumo."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué tipo de ML se usa para entrenar un robot a caminar?**",
+    "o": [
+      "Auto-supervisado.",
+      "Por refuerzo.",
+      "Semi-supervisado."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Cuál es la esencia del aprendizaje automático?**",
+    "o": [
+      "Memorizar todos los ejemplos de entrenamiento.",
+      "Requerir supervisión humana en cada decisión.",
+      "Generalizar a partir de ejemplos para predecir nuevos casos."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Cuál es una aplicación en salud?**",
+    "o": [
+      "Diagnóstico asistido por imágenes médicas.",
+      "Monitoreo de redes sociales.",
+      "Predicción de ventas minoristas."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Cuál fue un hito en IA en los 2010s?**",
+    "o": [
+      "El uso de reglas lógicas en todo sistema.",
+      "El éxito de redes profundas en visión y lenguaje.",
+      "La exclusión de datos no estructurados."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "En qué consiste el aprendizaje no supervisado?**",
+    "o": [
+      "Identifica estructuras ocultas en datos sin etiquetas.",
+      "No requiere procesamiento computacional.",
+      "Depende de etiquetas predefinidas."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Cuál es una limitación ética central?**",
+    "o": [
+      "La reproducción de discriminaciones sociales.",
+      "La precisión excesiva.",
+      "El consumo eléctrico de GPUs."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué distingue al aprendizaje supervisado?**",
+    "o": [
+      "Utiliza conjuntos de datos con etiquetas conocidas.",
+      "Siempre requiere que los datos no tengan etiquetas.",
+      "Se centra únicamente en simular redes neuronales."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Por qué es importante la interpretabilidad?**",
+    "o": [
+      "Porque mejora la velocidad de cómputo.",
+      "Porque sustituye la necesidad de pruebas estadísticas.",
+      "Porque en áreas críticas se requiere explicar decisiones."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Cuál fue un hito en IA en los 2010s?**",
+    "o": [
+      "El éxito de redes profundas en visión y lenguaje.",
+      "El uso de reglas lógicas en todo sistema.",
+      "La exclusión de datos no estructurados."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué problema busca resolver el aprendizaje auto-supervisado en NLP?**",
+    "o": [
+      "Mejorar hardware de GPUs.",
+      "Reducir costos en satélites.",
+      "Crear representaciones de lenguaje sin etiquetas manuales."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "En qué década surgió el término \"inteligencia artificial\"?**",
+    "o": [
+      "1940.",
+      "1980.",
+      "1950."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué permitió el resurgimiento de la IA en los 2000?**",
+    "o": [
+      "Mayor poder computacional y big data.",
+      "La desaparición de la estadística.",
+      "La caída de internet."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Por qué es clave la transparencia en medicina?**",
+    "o": [
+      "Para aumentar la velocidad de consultas.",
+      "Para reducir el costo de tratamientos.",
+      "Para que médicos y pacientes comprendan las decisiones del modelo."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué distingue al aprendizaje supervisado?**",
+    "o": [
+      "Siempre requiere que los datos no tengan etiquetas.",
+      "Se centra únicamente en simular redes neuronales.",
+      "Utiliza conjuntos de datos con etiquetas conocidas."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué hace único al aprendizaje auto-supervisado?**",
+    "o": [
+      "Genera etiquetas artificiales a partir de los propios datos.",
+      "Depende exclusivamente de hardware especializado.",
+      "No utiliza datos."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "En qué consiste el aprendizaje no supervisado?**",
+    "o": [
+      "Depende de etiquetas predefinidas.",
+      "No requiere procesamiento computacional.",
+      "Identifica estructuras ocultas en datos sin etiquetas."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué tipo de ML se usa para entrenar un robot a caminar?**",
+    "o": [
+      "Semi-supervisado.",
+      "Auto-supervisado.",
+      "Por refuerzo."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué significa la calidad de datos en ML?**",
+    "o": [
+      "Que ruido y valores faltantes afectan la validez del modelo.",
+      "Que basta con tener grandes volúmenes sin importar su fiabilidad.",
+      "Que los modelos pueden aprender incluso sin datos."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Cuál es un desafío clave en la implementación de ML en educación?**",
+    "o": [
+      "Que los modelos siempre generan mejores profesores.",
+      "Que no requieren datos de estudiantes.",
+      "Evitar sesgos en recomendaciones personalizadas."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué implica la complejidad computacional?**",
+    "o": [
+      "Que los modelos no requieren energía.",
+      "Que los modelos profundos necesitan hardware especializado y alto consumo.",
+      "Que solo funcionan en computadores personales antiguos."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué representa la figura del espectro de aplicaciones de IA?**",
+    "o": [
+      "Que cubre desde asistencia humana hasta automatización completa.",
+      "Que se restringe a educación y salud.",
+      "Que solo sirve en entornos militares."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Cuál es la característica del aprendizaje semi-supervisado?**",
+    "o": [
+      "Solo funciona con datos completamente etiquetados.",
+      "Combina datos etiquetados y no etiquetados.",
+      "Se limita a tareas de predicción de precios."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S1",
+    "src": "Unidad1",
+    "q": "Qué busca la IA explicable (XAI)?**",
+    "o": [
+      "Reducir el costo del hardware.",
+      "Aumentar la velocidad de procesamiento.",
+      "Transparencia en las decisiones de los modelos."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué papel cumple el álgebra lineal en el aprendizaje automático?**",
+    "o": [
+      "Define reglas de lógica simbólica.",
+      "Facilita la edición de imágenes en alta resolución.",
+      "Permite representar datos en vectores y matrices y aplicar transformaciones lineales."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué ventaja principal ofrecen los Jupyter Notebooks?**",
+    "o": [
+      "Reemplazan los sistemas operativos tradicionales.",
+      "Permiten crear animaciones 3D automáticamente.",
+      "Integran código, texto y visualizaciones en un solo documento."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Cómo se representan normalmente los datos en álgebra lineal dentro del aprendizaje automático?**",
+    "o": [
+      "Como tablas periódicas.",
+      "Como ecuaciones diferenciales.",
+      "Como vectores y matrices."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué caracteriza al aprendizaje supervisado?**",
+    "o": [
+      "Se entrena con pares entrada-salida.",
+      "No requiere etiquetas.",
+      "Solo se usa en clustering."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué biblioteca es clave en Python para manipulación de arreglos numéricos?**",
+    "o": [
+      "NumPy.",
+      "BeautifulSoup.",
+      "Seaborn."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué caracteriza al aprendizaje no supervisado?**",
+    "o": [
+      "El modelo encuentra patrones sin etiquetas previas.",
+      "Solo se usa en imágenes médicas.",
+      "Los datos incluyen etiquetas definidas."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué lenguaje domina el ecosistema de ML?**",
+    "o": [
+      "Python.",
+      "C puro.",
+      "Java."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué ventaja tiene usar Google Colab sobre otros entornos?**",
+    "o": [
+      "No permite compartir proyectos.",
+      "Carece de acceso a bibliotecas de Python.",
+      "Ofrece recursos gratuitos en la nube para ejecutar modelos."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué aportan las estadísticas al aprendizaje automático?**",
+    "o": [
+      "Ofrecen métodos de inferencia y validación para asegurar la generalización.",
+      "Permiten únicamente calcular promedios.",
+      "Ayudan a diseñar arquitecturas neuronales profundas."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué caracteriza al aprendizaje no supervisado?**",
+    "o": [
+      "Descubre estructuras ocultas sin etiquetas.",
+      "Depende exclusivamente de pruebas de hipótesis.",
+      "Utiliza regresión lineal."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué relación tiene la probabilidad con los modelos de Markov?**",
+    "o": [
+      "Solo sirven en álgebra lineal.",
+      "Modelan procesos estocásticos y secuenciales.",
+      "Representan datos deterministas."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Cómo se representan normalmente los datos en álgebra lineal dentro del aprendizaje automático?**",
+    "o": [
+      "Como tablas periódicas.",
+      "Como ecuaciones diferenciales.",
+      "Como vectores y matrices."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué caracteriza al aprendizaje supervisado?**",
+    "o": [
+      "No requiere etiquetas.",
+      "Solo se usa en clustering.",
+      "Se entrena con pares entrada-salida."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Por qué la integración de álgebra lineal, probabilidad y estadística es esencial en ML?**",
+    "o": [
+      "Porque son asignaturas independientes.",
+      "Porque eliminan la necesidad de programación.",
+      "Porque juntas permiten diseñar algoritmos robustos y generalizables."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué caracteriza al aprendizaje semi-supervisado?**",
+    "o": [
+      "Usa solo datos etiquetados.",
+      "Combina datos etiquetados y no etiquetados.",
+      "Requiere árboles de decisión siempre."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué caracteriza al aprendizaje no supervisado?**",
+    "o": [
+      "Los datos incluyen etiquetas definidas.",
+      "Solo se usa en imágenes médicas.",
+      "El modelo encuentra patrones sin etiquetas previas."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué caracteriza al aprendizaje no supervisado?**",
+    "o": [
+      "Utiliza regresión lineal.",
+      "Descubre estructuras ocultas sin etiquetas.",
+      "Depende exclusivamente de pruebas de hipótesis."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué aportan las estadísticas al aprendizaje automático?**",
+    "o": [
+      "Ayudan a diseñar arquitecturas neuronales profundas.",
+      "Permiten únicamente calcular promedios.",
+      "Ofrecen métodos de inferencia y validación para asegurar la generalización."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué entorno interactivo permite documentar procesos reproducibles?**",
+    "o": [
+      "Jupyter Notebook.",
+      "Visual Studio Code.",
+      "Eclipse."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Cuál es la función de pandas?**",
+    "o": [
+      "Manipular y analizar datos en tablas (DataFrames).",
+      "Renderizar gráficos 3D.",
+      "Crear redes neuronales profundas."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué biblioteca es clave en Python para manipulación de arreglos numéricos?**",
+    "o": [
+      "BeautifulSoup.",
+      "NumPy.",
+      "Seaborn."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué lenguaje domina el ecosistema de ML?**",
+    "o": [
+      "Java.",
+      "Python.",
+      "C puro."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Por qué la estadística es fundamental en validación de modelos?**",
+    "o": [
+      "Para graficar redes neuronales.",
+      "Para construir arquitecturas convolucionales.",
+      "Para aplicar pruebas de hipótesis y asegurar generalización."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué biblioteca se usa para visualización en ML?**",
+    "o": [
+      "Keras.",
+      "TensorFlow.",
+      "Matplotlib."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué papel cumple el álgebra lineal en el aprendizaje automático?**",
+    "o": [
+      "Define reglas de lógica simbólica.",
+      "Permite representar datos en vectores y matrices y aplicar transformaciones lineales.",
+      "Facilita la edición de imágenes en alta resolución."
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué ventaja tiene usar Google Colab sobre otros entornos?**",
+    "o": [
+      "Carece de acceso a bibliotecas de Python.",
+      "No permite compartir proyectos.",
+      "Ofrece recursos gratuitos en la nube para ejecutar modelos."
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T1S2",
+    "src": "Unidad1",
+    "q": "Qué es MLOps?**",
+    "o": [
+      "Prácticas que integran ingeniería de software y ciencia de datos para producción.",
+      "Un tipo de regresión lineal.",
+      "Un algoritmo de clustering jerárquico."
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S3",
+    "src": "Unidad1",
+    "q": "Qué significa un modelo con accuracy = 0.95 en dataset muy desbalanceado (95% negativos)?**",
+    "o": [
+      "Puede estar ignorando casi todos los positivos",
+      "Clasifica bien ambas clases",
+      "Tiene recall perfecto"
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S3",
+    "src": "Unidad1",
+    "q": "Qué métrica es más adecuada cuando los falsos positivos son muy costosos?**",
+    "o": [
+      "R²",
+      "Precision",
+      "Recall"
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S3",
+    "src": "Unidad1",
+    "q": "Cuál es el propósito principal de la trazabilidad en el ciclo de vida de un modelo de ML?**",
+    "o": [
+      "Aumentar la velocidad de entrenamiento",
+      "Documentar y verificar decisiones y riesgos",
+      "Reducir el tamaño del dataset"
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S3",
+    "src": "Unidad1",
+    "q": "Qué función se relaciona con mapear riesgos y supuestos en el diseño?**",
+    "o": [
+      "MANAGE",
+      "MEASURE",
+      "MAP"
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S3",
+    "src": "Unidad1",
+    "q": "Qué ocurre con el recall si aumentan los falsos negativos?**",
+    "o": [
+      "Se mantiene igual",
+      "Aumenta",
+      "Disminuye"
+    ],
+    "c": 2,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S3",
+    "src": "Unidad1",
+    "q": "Qué combinación refleja un modelo con alta precisión pero bajo recall?**",
+    "o": [
+      "Muchos FN y pocos FP",
+      "Muchos FP y pocos FN",
+      "Pocos FN y muchos FP"
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S4",
+    "src": "Unidad1",
+    "q": "Cuál es el propósito principal de dividir los datos en entrenamiento, validación y prueba?**",
+    "o": [
+      "Para acelerar el entrenamiento de los modelos",
+      "Para evaluar generalización de manera confiable",
+      "Para evitar el uso de algoritmos complejos"
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S4",
+    "src": "Unidad1",
+    "q": "Qué es validación cruzada anidada?**",
+    "o": [
+      "Una variante de K-fold con menos pliegues",
+      "Un bucle interno para hiperparámetros y externo para evaluación",
+      "Entrenar con menos datos para ahorrar tiempo"
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S4",
+    "src": "Unidad1",
+    "q": "Qué refleja el término \"fuga de información\"?**",
+    "o": [
+      "Baja precisión por desbalance",
+      "Uso indebido de datos de validación o futuro en entrenamiento",
+      "Pérdida de datos durante el entrenamiento"
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S4",
+    "src": "Unidad1",
+    "q": "Qué sucede si el error de entrenamiento es muy bajo pero validación sigue alto?**",
+    "o": [
+      "Subajuste",
+      "Sobreajuste",
+      "Modelo balanceado"
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S4",
+    "src": "Unidad1",
+    "q": "Qué parámetro se ajustó en el video para evitar que el árbol se sobreajuste?**",
+    "o": [
+      "Learning rate",
+      "Máxima profundidad del árbol",
+      "Número de pliegues"
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S4",
+    "src": "Unidad1",
+    "q": "Qué métrica NO es adecuada en un dataset desbalanceado?**",
+    "o": [
+      "Accuracy",
+      "F1-score",
+      "Recall"
+    ],
+    "c": 0,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S4",
+    "src": "Unidad1",
+    "q": "Cuál de los siguientes síntomas refleja sobreajuste?**",
+    "o": [
+      "Ambos errores altos",
+      "Error bajo en entrenamiento pero alto en validación",
+      "Error alto en entrenamiento y validación"
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S4",
+    "src": "Unidad1",
+    "q": "Qué caracteriza a la validación cruzada K-fold?**",
+    "o": [
+      "Usa siempre el mismo corte de datos",
+      "Divide en K pliegues y rota validación",
+      "Entrena con todo y valida con todo"
+    ],
+    "c": 1,
+    "e": ""
+  },
+  {
+    "u": "U1",
+    "s": "T2S4",
+    "src": "Unidad1",
+    "q": "Qué sucede cuando se aplica dropout en una red neuronal?**",
+    "o": [
+      "Se desactivan aleatoriamente durante entrenamiento",
+      "Se eliminan definitivamente neuronas",
+      "Se reducen los datos de entrada"
+    ],
+    "c": 0,
+    "e": ""
+  }
+];
+const FLASHCARDS = [
+  { front: 'Visión general', back: 'Breve introducción a Machine Learning: teoría y práctica con Python.' },
+  { front: 'Tipos de aprendizaje', back: 'Supervisado, No supervisado, Semi-supervisado y Por refuerzo.' }
+];
+
+const units = ['all','U1','U2','U3','U4'];
+const sessionsByUnit = {
+  all: ['all'],
+  U1: ['all','T1S1','T1S2','T2S3','T2S4'],
+  U2: ['all','U2T1','U2T2','T1S1','T1S2','T2S3','T2S4'],
+  U3: ['all','T1S1','T1S2','T2S3','T2S4'],
+  U4: ['all','T1S1','T1S2','T2S3','T2S4'],
+};
+
+let mode = 'quiz';
+let unitFilter = 'all';
+let sessionFilter = 'all';
+let searchFilter = '';
+let currentQuestions = [];
+let currentIndex = 0;
+let answered = false;
+let correct = 0;
+let wrong = 0;
+let cardIndex = 0;
+let cardFlipped = false;
+
+const unitLabels = { all:'Todas las unidades', U1:'Unidad 1', U2:'Unidad 2', U3:'Unidad 3', U4:'Unidad 4' };
+const sessionLabels = { all:'Todas las sesiones', T1S1:'T1·S1', T1S2:'T1·S2', T2S3:'T2·S3', T2S4:'T2·S4', U2T1:'U2·T1', U2T2:'U2·T2' };
+
+function parseSource(src) {
+  const m = src.match(/Unidad(\d+).*Tema(\d+)-Semana(\d+)/);
+  if (!m) return { unit:'all', session:'all', label: src || 'notas.md' };
+  return { unit:`U${m[1]}`, session:`T${m[2]}S${m[3]}`, label:`U${m[1]} T${m[2]} S${m[3]}` };
+}
+
+const questions = QUIZ.map((q, idx) => {
+  const src = parseSource(q.src || '');
+  return {
+    id: idx + 1,
+    unit: q.u || src.unit,
+    session: q.s || src.session,
+    label: src.label,
+    source: q.src || '',
+    topic: q.src || '',
+    q: q.q,
+    o: q.o,
+    c: q.c,
+    e: q.e || '',
+  };
+});
+
+function unique(arr) { return [...new Set(arr)]; }
+function bySourceLabel(q) { return q.label || q.source || 'notas.md'; }
+function bySession(q) { return q.session || 'all'; }
+function byUnit(q) { return q.unit || 'all'; }
+function shuf(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+function filteredQuestions() {
+  const term = searchFilter.trim().toLowerCase();
+  return questions.filter(q => {
+    const unitOk = unitFilter === 'all' || byUnit(q) === unitFilter;
+    const sessionOk = sessionFilter === 'all' || bySession(q) === sessionFilter;
+    const searchOk = !term || [q.q, q.source, q.label, q.topic, q.o.join(' ')].join(' ').toLowerCase().includes(term);
+    return unitOk && sessionOk && searchOk;
+  });
+}
+
+function rebuildQuestions() {
+  currentQuestions = shuf(filteredQuestions());
+  currentIndex = 0;
+  answered = false;
+  correct = 0;
+  wrong = 0;
+  renderCurrentQuestion();
+  renderStats();
+}
+
+function renderStats() {
+  const total = currentQuestions.length;
+  const remaining = Math.max(0, total - currentIndex - (answered ? 1 : 0));
+  document.getElementById('totalQ').textContent = total;
+  document.getElementById('correctQ').textContent = correct;
+  document.getElementById('wrongQ').textContent = wrong;
+  document.getElementById('remainQ').textContent = remaining;
+  document.getElementById('progressFill').style.width = total ? (((currentIndex + (answered ? 1 : 0)) / total) * 100) + '%' : '0%';
+  const attempts = correct + wrong;
+  document.getElementById('scoreNum').textContent = attempts ? Math.round((correct / attempts) * 100) + '%' : '—';
+}
+
+function setMode(nextMode) {
+  mode = nextMode;
+  document.querySelectorAll('.tab').forEach(btn => btn.classList.toggle('active', btn.dataset.mode === nextMode));
+  document.getElementById('statsStrip').classList.toggle('hidden', nextMode === 'notes');
+  document.getElementById('quizView').classList.toggle('hidden', nextMode === 'review' || nextMode === 'notes');
+  document.getElementById('reviewView').classList.toggle('hidden', nextMode !== 'review');
+  document.getElementById('notesView').classList.toggle('hidden', nextMode !== 'notes');
+  document.getElementById('endScreen').classList.add('hidden');
+  if (nextMode === 'quiz') renderCurrentQuestion();
+  if (nextMode === 'flash') renderFlashcard();
+  if (nextMode === 'review') renderReview();
+  if (nextMode === 'notes') renderNotes();
+}
+
+function renderCurrentQuestion() {
+  if (mode !== 'quiz') return;
+  const host = document.getElementById('questionHost');
+  if (!currentQuestions.length) {
+    host.innerHTML = `<div class="card"><div class="q">No hay preguntas para estos filtros.</div><div style="color:var(--muted)">Prueba cambiando unidad, sesión o búsqueda.</div></div>`;
+    document.getElementById('nextBtn').classList.add('hidden');
+    renderStats();
+    return;
+  }
+  if (currentIndex >= currentQuestions.length) { showEnd(); return; }
+  answered = false;
+  document.getElementById('nextBtn').classList.add('hidden');
+  const q = currentQuestions[currentIndex];
+  host.innerHTML = `
+    <div class="card">
+      <div class="meta">
+        <span class="badge a">P ${currentIndex + 1}/${currentQuestions.length}</span>
+        <span class="badge b">${q.unit}</span>
+        <span class="badge c">${q.session}</span>
+        <span class="badge d">${q.label}</span>
+      </div>
+      <div class="q">${escapeHtml(q.q)}</div>
+      <div class="opts">
+        ${q.o.map((opt, i) => `<button class="opt" data-idx="${i}"><span class="l">${['A','B','C','D','E'][i] || String.fromCharCode(65+i)}</span><span>${escapeHtml(opt)}</span></button>`).join('')}
+      </div>
+      <div class="fb" id="feedback"></div>
+    </div>`;
+  host.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', () => selectAnswer(Number(btn.dataset.idx))));
+  renderStats();
+}
+
+function selectAnswer(choice) {
+  if (answered) return;
+  answered = true;
+  const q = currentQuestions[currentIndex];
+  const buttons = document.querySelectorAll('.opt');
+  buttons.forEach(b => b.disabled = true);
+  const fb = document.getElementById('feedback');
+  const correctText = q.o[q.c];
+  if (choice === q.c) {
+    correct++;
+    buttons[choice].classList.add('ok');
+    fb.className = 'fb ok show';
+    fb.innerHTML = `<div class="t">✓ Correcto</div><div class="b">${escapeHtml(q.e || 'Respuesta correcta.')}</div>`;
+  } else {
+    wrong++;
+    buttons[choice].classList.add('no');
+    if (buttons[q.c]) buttons[q.c].classList.add('ok');
+    fb.className = 'fb no show';
+    fb.innerHTML = `<div class="t">✗ Incorrecto — La correcta: "${escapeHtml(correctText)}"</div><div class="b">${escapeHtml(q.e || 'Revisa la explicación en las notas.')}</div>`;
+  }
+  document.getElementById('nextBtn').classList.remove('hidden');
+  renderStats();
+}
+
+function nextQuestion() {
+  currentIndex++;
+  renderCurrentQuestion();
+}
+
+function skipQuestion() {
+  if (!currentQuestions.length) return;
+  const item = currentQuestions.splice(currentIndex, 1)[0];
+  currentQuestions.push(item);
+  renderCurrentQuestion();
+}
+
+function shuffleQuestions() {
+  rebuildQuestions();
+}
+
+function showEnd() {
+  document.getElementById('quizView').classList.add('hidden');
+  document.getElementById('endScreen').classList.remove('hidden');
+  const total = correct + wrong;
+  const pct = total ? Math.round((correct / total) * 100) : 0;
+  document.getElementById('endScore').textContent = `${correct}/${total}`;
+  document.getElementById('endEmoji').textContent = pct >= 90 ? '🏆' : pct >= 70 ? '💪' : '📚';
+  document.getElementById('endTitle').textContent = pct >= 90 ? '¡Excelente dominio!' : pct >= 70 ? '¡Buen trabajo!' : 'Sigue repasando';
+  document.getElementById('endSub').textContent = `${unitLabels[unitFilter] || unitFilter} · ${sessionLabels[sessionFilter] || sessionFilter} · ${searchFilter ? 'Búsqueda activa' : 'Sin búsqueda'}`;
+  document.getElementById('progressFill').style.width = '100%';
+}
+
+function restartQuiz() {
+  currentQuestions = shuf(filteredQuestions());
+  currentIndex = 0;
+  answered = false;
+  correct = 0;
+  wrong = 0;
+  document.getElementById('endScreen').classList.add('hidden');
+  document.getElementById('quizView').classList.remove('hidden');
+  renderCurrentQuestion();
+  renderStats();
+}
+
+let cardBack = false;
+function renderFlashcard() {
+  if (!FLASHCARDS.length) {
+    document.getElementById('flashText').textContent = 'Sin tarjetas disponibles.';
+    return;
+  }
+  const card = FLASHCARDS[cardIndex % FLASHCARDS.length];
+  cardBack = false;
+  document.getElementById('flashText').className = 'front';
+  document.getElementById('flashText').textContent = card.front;
+  document.getElementById('flipInfo').textContent = `${(cardIndex % FLASHCARDS.length) + 1} / ${FLASHCARDS.length}`;
+}
+function flipFlashcard() {
+  if (!FLASHCARDS.length) return;
+  const card = FLASHCARDS[cardIndex % FLASHCARDS.length];
+  cardBack = !cardBack;
+  if (cardBack) {
+    document.getElementById('flashText').className = 'back';
+    document.getElementById('flashText').innerHTML = escapeHtml(card.back).replace(/
+/g, '<br>');
+  } else {
+    renderFlashcard();
+  }
+}
+function nextCard() { cardIndex = (cardIndex + 1) % Math.max(FLASHCARDS.length, 1); renderFlashcard(); }
+function prevCard() { cardIndex = (cardIndex - 1 + Math.max(FLASHCARDS.length, 1)) % Math.max(FLASHCARDS.length, 1); renderFlashcard(); }
+
+function renderReview() {
+  const el = document.getElementById('reviewView');
+  el.innerHTML = currentQuestions.map((q, i) => `
+    <div class="item">
+      <div class="t1">P${i+1} · ${q.unit} · ${q.session} · ${q.label}</div>
+      <div class="t2">${escapeHtml(q.q)}</div>
+      ${q.o.map((o, j) => `<div style="padding:8px 10px;border-radius:8px;margin-bottom:6px;background:${j===q.c?'rgba(46,204,113,.1)':'var(--surface)'};border:1px solid ${j===q.c?'rgba(46,204,113,.35)':'var(--border)'};color:${j===q.c?'var(--green)':'var(--muted)'}"><strong style="font-family:var(--mono)">${['A','B','C','D','E'][j] || String.fromCharCode(65+j)}.</strong> ${escapeHtml(o)} ${j===q.c?'✓':''}</div>`).join('')}
+      <div class="t3">${escapeHtml(q.e || '')}</div>
+    </div>`).join('');
+}
+
+function renderNotes() {
+  const el = document.getElementById('notesView');
+  el.classList.remove('hidden');
+  el.innerHTML = `
+    <div style="font-weight:800;font-size:18px;margin-bottom:10px">Resumen para estudio rápido</div>
+    <div class="list">${FLASHCARDS.map(c => `
+      <div class="item">
+        <div class="t2">${escapeHtml(c.front)}</div>
+        <div class="t3">${escapeHtml(c.back)}</div>
+      </div>`).join('')}</div>`;
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
+    .replaceAll('"','&quot;').replaceAll("'",'&#39;');
+}
+
+function buildFilterButtons() {
+  const uWrap = document.getElementById('unitFilters');
+  const sWrap = document.getElementById('sessionFilters');
+  uWrap.innerHTML = ['all','U1','U2','U3','U4'].map(u => `<button class="pill${u==='all'?' active-pill':''}" data-unit="${u}">${unitLabels[u] || u}</button>`).join('');
+  sWrap.innerHTML = ['all','T1S1','T1S2','T2S3','T2S4','U2T1','U2T2'].map(s => `<button class="chip${s==='all'?' active-chip':''}" data-session="${s}">${sessionLabels[s] || s}</button>`).join('');
+  uWrap.querySelectorAll('[data-unit]').forEach(btn => btn.addEventListener('click', () => {
+    unitFilter = btn.dataset.unit;
+    uWrap.querySelectorAll('[data-unit]').forEach(b => b.classList.toggle('active-pill', b.dataset.unit === unitFilter));
+    const allowed = sessionsByUnit[unitFilter] || ['all'];
+    if (!allowed.includes(sessionFilter)) sessionFilter = 'all';
+    sWrap.querySelectorAll('[data-session]').forEach(b => b.classList.toggle('active-chip', b.dataset.session === sessionFilter));
+    rebuildQuestions();
+  }));
+  sWrap.querySelectorAll('[data-session]').forEach(btn => btn.addEventListener('click', () => {
+    sessionFilter = btn.dataset.session;
+    sWrap.querySelectorAll('[data-session]').forEach(b => b.classList.toggle('active-chip', b.dataset.session === sessionFilter));
+    rebuildQuestions();
+  }));
+}
+
+function hookEvents() {
+  document.querySelectorAll('.tab').forEach(btn => btn.addEventListener('click', () => setMode(btn.dataset.mode)));
+  document.getElementById('skipBtn').addEventListener('click', skipQuestion);
+  document.getElementById('shuffleBtn').addEventListener('click', shuffleQuestions);
+  document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+  document.getElementById('restartBtn').addEventListener('click', restartQuiz);
+  document.getElementById('flashcard').addEventListener('click', flipFlashcard);
+  document.getElementById('prevCardBtn').addEventListener('click', prevCard);
+  document.getElementById('nextCardBtn').addEventListener('click', nextCard);
+  document.getElementById('searchBox').addEventListener('input', (e) => { searchFilter = e.target.value; rebuildQuestions(); });
+}
+
+buildFilterButtons();
+hookEvents();
+currentQuestions = shuf(filteredQuestions());
+renderCurrentQuestion();
+renderFlashcard();
+renderStats();
+renderReview();
+</script>
+</body>
+</html>
