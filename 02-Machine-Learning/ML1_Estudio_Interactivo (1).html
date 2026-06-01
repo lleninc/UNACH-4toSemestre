@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML1 — Estudio Interactivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#111118;--card:#16161f;--border:#2a2a3a;--accent:#f5a623;--accent2:#7c6deb;--green:#2ecc71;--red:#e74c3c;--blue:#3498db;--text:#e8e8f0;--muted:#666680;--mono:'Space Mono',monospace;--sans:'Syne',sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(124,109,235,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,109,235,.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:24px 18px;}
+header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:14px;}
+.logo-tag{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;}
+.logo h1{font-size:26px;font-weight:800;letter-spacing:-1px;line-height:1.1;margin-top:4px;}
+.logo h1 span{color:var(--accent);}
+.score-box{font-family:var(--mono);text-align:right;}
+.score-num{font-size:34px;font-weight:700;color:var(--accent);line-height:1;}
+.score-lbl{font-size:10px;color:var(--muted);letter-spacing:2px;}
+.top-tabs{display:flex;gap:5px;margin-bottom:24px;background:var(--surface);padding:5px;border-radius:14px;border:1px solid var(--border);flex-wrap:wrap;}
+.top-tab{flex:1;min-width:80px;padding:9px 10px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;}
+.top-tab.active{background:var(--accent);color:#000;}
+.stats{display:flex;gap:9px;margin-bottom:20px;flex-wrap:wrap;}
+.stat{flex:1;min-width:65px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:11px 12px;text-align:center;}
+.stat-v{font-family:var(--mono);font-size:20px;font-weight:700;display:block;}
+.stat-v.y{color:var(--accent);}.stat-v.g{color:var(--green);}.stat-v.r{color:var(--red);}
+.stat-l{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+.filter-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;}
+.pill{font-family:var(--mono);font-size:10px;padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.8px;}
+.pill.active{border-color:var(--accent2);color:var(--accent2);background:rgba(124,109,235,.1);}
+.chip{font-family:var(--mono);font-size:9px;padding:4px 11px;border-radius:20px;background:rgba(124,109,235,.1);color:var(--accent2);border:1px solid rgba(124,109,235,.2);cursor:pointer;transition:all .2s;letter-spacing:.8px;}
+.chip.active{background:var(--accent2);color:#fff;}
+.prog-bar{width:100%;height:3px;background:var(--border);border-radius:2px;margin-bottom:24px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width .5s cubic-bezier(.4,0,.2,1);}
+.qcard{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px;margin-bottom:16px;position:relative;overflow:hidden;animation:sli .3s cubic-bezier(.4,0,.2,1);}
+@keyframes sli{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.qcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent2),var(--accent));}
+.qmeta{display:flex;align-items:center;gap:9px;margin-bottom:16px;flex-wrap:wrap;}
+.badge{font-family:var(--mono);font-size:9px;padding:3px 9px;border-radius:5px;letter-spacing:1px;}
+.badge.n{color:var(--accent);background:rgba(245,166,35,.12);}
+.badge.s{color:var(--accent2);background:rgba(124,109,235,.1);}
+.badge.t{color:var(--muted);background:var(--surface);}
+.badge.u{color:var(--green);background:rgba(46,204,113,.1);}
+.qtext{font-size:17px;font-weight:700;line-height:1.45;margin-bottom:22px;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:14px;cursor:pointer;text-align:left;transition:all .2s;line-height:1.4;}
+.opt:hover:not(:disabled){border-color:var(--accent2);background:rgba(124,109,235,.07);transform:translateX(3px);}
+.opt .ol{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--muted);min-width:16px;margin-top:2px;}
+.opt.ok{border-color:var(--green);background:rgba(46,204,113,.1);}.opt.ok .ol{color:var(--green);}
+.opt.no{border-color:var(--red);background:rgba(231,76,60,.1);}.opt.no .ol{color:var(--red);}
+.opt.sh{border-color:var(--green);background:rgba(46,204,113,.05);opacity:.65;}
+.fb{margin-top:16px;padding:14px 18px;border-radius:10px;display:none;animation:fbu .3s ease;}
+@keyframes fbu{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.fb.show{display:block;}
+.fb.ok-fb{background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.28);}
+.fb.no-fb{background:rgba(231,76,60,.07);border:1px solid rgba(231,76,60,.28);}
+.fb-t{font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.fb.ok-fb .fb-t{color:var(--green);}.fb.no-fb .fb-t{color:var(--red);}
+.fb-b{font-size:12px;line-height:1.65;color:var(--text);font-family:var(--mono);}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:9px;flex-wrap:wrap;}
+.btn{padding:10px 22px;border-radius:9px;border:none;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-p{background:var(--accent);color:#000;}.btn-p:hover{background:#f0b840;transform:translateY(-1px);}
+.btn-s{background:transparent;color:var(--muted);border:1px solid var(--border);}.btn-s:hover{color:var(--text);}
+.btn-g{background:rgba(124,109,235,.13);color:var(--accent2);border:1px solid rgba(124,109,235,.3);}.btn-g:hover{background:rgba(124,109,235,.23);}
+.flash{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:44px 32px;text-align:center;cursor:pointer;min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;margin-bottom:16px;}
+.flash::before{content:'';position:absolute;inset:0;border-radius:20px;background:linear-gradient(135deg,rgba(124,109,235,.05),transparent);pointer-events:none;}
+.flip-hint{position:absolute;top:16px;right:20px;font-family:var(--mono);font-size:9px;color:var(--muted);letter-spacing:1px;}
+.fch{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:20px;text-transform:uppercase;}
+.fcc{font-size:19px;font-weight:700;line-height:1.4;}
+.fca{font-size:15px;line-height:1.6;color:var(--green);font-weight:600;}
+.end{text-align:center;padding:52px 20px;display:none;}
+.end.show{display:block;}
+.end-em{font-size:58px;margin-bottom:16px;}
+.end-title{font-size:32px;font-weight:800;margin-bottom:8px;letter-spacing:-1px;}
+.end-sub{color:var(--muted);font-size:14px;margin-bottom:32px;}
+.end-score{font-family:var(--mono);font-size:72px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:5px;}
+.end-sl{font-size:12px;color:var(--muted);letter-spacing:2px;margin-bottom:32px;}
+/* NOTES */
+#notesMode{display:none;}#notesMode.show{display:block;}
+.unit-tabs{display:flex;gap:7px;margin-bottom:18px;flex-wrap:wrap;}
+.unit-tab{padding:9px 18px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;}
+.unit-tab.active{background:var(--accent2);color:#fff;border-color:var(--accent2);}
+.theme-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.theme-tab{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--mono);font-size:10px;cursor:pointer;transition:all .2s;}
+.theme-tab.active{background:rgba(245,166,35,.15);border-color:var(--accent);color:var(--accent);}
+.nc{display:none;}.nc.show{display:block;}
+.nsec{margin-bottom:13px;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.nsec-hd{padding:15px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;}
+.nsec-hd:hover{background:rgba(124,109,235,.04);}
+.si{font-size:18px;}.stw{flex:1;}
+.stag{font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:2px;}
+.sti{font-size:14px;font-weight:800;}
+.tog{font-family:var(--mono);font-size:14px;color:var(--muted);transition:transform .3s;}
+.nsec.open .tog{transform:rotate(180deg);}
+.nb{padding:0 20px;max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1),padding .3s;}
+.nsec.open .nb{max-height:4000px;padding:16px 20px 22px;}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:9px;margin:11px 0;}
+.cc2{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 15px;}
+.cc2-i{font-size:16px;margin-bottom:5px;}.cc2-t{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:4px;}
+.cc2-b{font-size:11px;color:var(--muted);line-height:1.6;font-family:var(--mono);}
+.hbox{background:rgba(124,109,235,.08);border:1px solid rgba(124,109,235,.22);border-radius:9px;padding:11px 15px;font-family:var(--mono);font-size:12px;line-height:1.6;margin:10px 0;color:var(--text);}
+.hbox strong{color:var(--accent);}
+.hbox.gr{background:rgba(46,204,113,.06);border-color:rgba(46,204,113,.2);}
+.hbox.gr strong{color:var(--green);}
+.hbox.rd{background:rgba(231,76,60,.06);border-color:rgba(231,76,60,.2);}
+.hbox.rd strong{color:var(--red);}
+.itable{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;}
+.itable th{text-align:left;font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--accent);padding:7px 10px;border-bottom:1px solid var(--border);text-transform:uppercase;}
+.itable td{padding:8px 10px;border-bottom:1px solid rgba(42,42,58,.5);color:var(--text);vertical-align:top;line-height:1.5;font-size:12px;}
+.itable tr:last-child td{border-bottom:none;}
+.itable tr:hover td{background:rgba(124,109,235,.04);}
+.kl{list-style:none;display:flex;flex-direction:column;gap:7px;margin:10px 0;}
+.kl li{display:flex;align-items:flex-start;gap:9px;font-size:13px;line-height:1.5;}
+.kl li::before{content:'→';font-family:var(--mono);color:var(--accent2);flex-shrink:0;margin-top:1px;}
+.chi{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.chi:last-child{border-bottom:none;}
+.cn{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--accent2);min-width:28px;line-height:1;}
+.ct{font-size:13px;font-weight:700;margin-bottom:3px;}.cd{font-size:11px;color:var(--muted);font-family:var(--mono);line-height:1.5;}
+.tool-r{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid rgba(42,42,58,.4);}
+.tool-r:last-child{border-bottom:none;}
+.tb2{font-family:var(--mono);font-size:10px;font-weight:700;color:#000;background:var(--accent);padding:3px 8px;border-radius:4px;min-width:72px;text-align:center;white-space:nowrap;margin-top:2px;}
+.tb2.p{background:var(--accent2);color:#fff;}.tb2.g{background:var(--green);}.tb2.b{background:var(--blue);color:#fff;}.tb2.gr{background:#636e72;color:#fff;}.tb2.d{background:#2c3e50;color:#fff;}
+.tf{font-size:12px;font-weight:600;margin-bottom:2px;}.td2{font-size:11px;color:var(--muted);font-family:var(--mono);line-height:1.5;}
+.formula{background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:8px;padding:11px 15px;font-family:var(--mono);font-size:12px;color:var(--accent);margin:9px 0;text-align:center;}
+.spill{display:inline-block;font-family:var(--mono);font-size:9px;padding:2px 8px;border-radius:4px;background:rgba(124,109,235,.15);color:var(--accent2);border:1px solid rgba(124,109,235,.25);margin-bottom:13px;letter-spacing:1px;}
+.hidden{display:none!important;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">
+    <span class="logo-tag">UNACH · 4TO SEM · 2026-1S</span>
+    <h1>Machine <span>Learning 1</span></h1>
+  </div>
+  <div class="score-box">
+    <div class="score-num" id="sNum">—</div>
+    <div class="score-lbl">PUNTUACIÓN</div>
+  </div>
+</header>
+
+<div class="top-tabs">
+  <button class="top-tab active" onclick="setMode('quiz')">⚡ Quiz</button>
+  <button class="top-tab" onclick="setMode('flash')">🃏 Flashcards</button>
+  <button class="top-tab" onclick="setMode('review')">📋 Ver todo</button>
+  <button class="top-tab" onclick="setMode('notes')">📖 Resumen</button>
+</div>
+
+<div id="statsStrip" class="stats">
+  <div class="stat"><span class="stat-v y" id="tQ">0</span><div class="stat-l">Total</div></div>
+  <div class="stat"><span class="stat-v g" id="cQ">0</span><div class="stat-l">Correctas</div></div>
+  <div class="stat"><span class="stat-v r" id="wQ">0</span><div class="stat-l">Incorrectas</div></div>
+  <div class="stat"><span class="stat-v y" id="rQ">0</span><div class="stat-l">Restantes</div></div>
+</div>
+
+<div id="filtersBlock">
+  <div class="filter-row" id="uF">
+    <button class="pill active" onclick="fU('all',this)">TODAS</button>
+    <button class="pill" onclick="fU('U1',this)">U1 · Fundamentos</button>
+    <button class="pill" onclick="fU('U2',this)">U2 · Modelos Avanzados</button>
+  </div>
+  <div class="filter-row" id="sF">
+    <button class="pill active" onclick="fS('all',this)">TODAS SESIONES</button>
+    <button class="pill" onclick="fS('T1S1',this)">T1·S1</button>
+    <button class="pill" onclick="fS('T1S2',this)">T1·S2</button>
+    <button class="pill" onclick="fS('T2S3',this)">T2·S3</button>
+    <button class="pill" onclick="fS('T2S4',this)">T2·S4</button>
+    <button class="pill" onclick="fS('U2T1',this)">U2·T1</button>
+    <button class="pill" onclick="fS('U2T2',this)">U2·T2</button>
+  </div>
+  <div class="filter-row" id="tF">
+    <span class="chip active" onclick="fT('all',this)">TODOS</span>
+    <span class="chip" onclick="fT('tipos_app',this)">Tipos / Aplic.</span>
+    <span class="chip" onclick="fT('matematicas_tools',this)">Math / Tools</span>
+    <span class="chip" onclick="fT('metricas',this)">Métricas</span>
+    <span class="chip" onclick="fT('validacion',this)">Validación</span>
+    <span class="chip" onclick="fT('regresion',this)">Regresión</span>
+    <span class="chip" onclick="fT('svm_nn',this)">SVM / Redes</span>
+    <span class="chip" onclick="fT('arboles',this)">Árboles</span>
+    <span class="chip" onclick="fT('metricas_av',this)">Métricas Av.</span>
+  </div>
+</div>
+
+<div class="prog-bar" id="progBar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+
+<div id="quizMode"><div id="qCard"></div>
+  <div class="nav">
+    <button class="btn btn-s" onclick="skipQ()">Saltar →</button>
+    <button class="btn btn-g" onclick="shuffleQ()">🔀 Mezclar</button>
+    <button class="btn btn-p" id="nextBtn" onclick="nextQ()" style="display:none">Siguiente →</button>
+  </div>
+</div>
+
+<div id="flashMode" class="hidden">
+  <div class="flash" onclick="flipCard()">
+    <div class="flip-hint">CLICK PARA VOLTEAR</div>
+    <div class="fch" id="fHint">PREGUNTA</div>
+    <div class="fcc" id="fContent"></div>
+  </div>
+  <div class="nav">
+    <button class="btn btn-s" onclick="prevF()">← Anterior</button>
+    <button class="btn btn-g" id="fCount">1/1</button>
+    <button class="btn btn-p" onclick="nextF()">Siguiente →</button>
+  </div>
+</div>
+
+<div id="reviewMode" class="hidden"></div>
+
+<!-- ══════════════ NOTES ══════════════ -->
+<div id="notesMode">
+  <div class="unit-tabs">
+    <button class="unit-tab active" onclick="showUnit('u1',this)">📘 Unidad 1 · Fundamentos de ML</button>
+    <button class="unit-tab" onclick="showUnit('u2',this)">📙 Unidad 2 · Modelos de Regresión</button>
+  </div>
+
+  <!-- ═══ U1 ═══ -->
+  <div class="nc show" id="n-u1">
+    <div class="theme-tabs">
+      <button class="theme-tab active" onclick="showTheme('u1','t1',this)">Tema 1 · Intro y Fundamentos (S1+S2)</button>
+      <button class="theme-tab" onclick="showTheme('u1','t2',this)">Tema 2 · Modelado y Validación (S3+S4)</button>
+    </div>
+
+    <!-- U1 T1 -->
+    <div class="nc show" id="n-u1-t1">
+      <div class="spill">U1 · T1 · S1 + S2</div>
+
+      <div class="nsec open" id="n1">
+        <div class="nsec-hd" onclick="tog('n1')"><span class="si">🤖</span><div class="stw"><div class="stag">1.1 · CONCEPTO</div><div class="sti">Concepto y Tipos de ML</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div class="hbox"><strong>Definición ISO (2023):</strong> El aprendizaje automático desarrolla algoritmos capaces de mejorar su desempeño en tareas específicas a partir de datos, <strong>sin ser programados explícitamente</strong> para cada caso.</div>
+          <div class="hbox rd"><strong>vs Programación tradicional:</strong> Programación → el humano escribe las reglas. ML → el algoritmo <strong>aprende las reglas</strong> a partir de los datos.</div>
+          <div class="cgrid">
+            <div class="cc2"><div class="cc2-i">🏷️</div><div class="cc2-t">1. Supervisado</div><div class="cc2-b">Datos con etiquetas conocidas. El más usado.<br><br>Ej: spam, diagnóstico médico, predicción de precios.</div></div>
+            <div class="cc2"><div class="cc2-i">🔍</div><div class="cc2-t">2. No Supervisado</div><div class="cc2-b">Sin etiquetas. Descubre estructuras ocultas.<br><br>Ej: clustering de clientes, PCA, análisis de redes.</div></div>
+            <div class="cc2"><div class="cc2-i">🔀</div><div class="cc2-t">3. Semi-supervisado</div><div class="cc2-b">Pocos etiquetados + muchos sin etiquetar.<br><br>Ej: genómica, Google Photos.</div></div>
+            <div class="cc2"><div class="cc2-i">🎮</div><div class="cc2-t">4. Por Refuerzo</div><div class="cc2-b">Recompensas y penalizaciones al interactuar con entorno.<br><br>Ej: robot caminando, videojuegos.</div></div>
+            <div class="cc2"><div class="cc2-i">🧠</div><div class="cc2-t">5. Auto-supervisado</div><div class="cc2-b">Genera sus propias etiquetas desde los datos.<br><br>Ej: GPT, BERT, LLMs.</div></div>
+            <div class="cc2"><div class="cc2-i">🔗</div><div class="cc2-t">Sistemas Híbridos</div><div class="cc2-b">Combinan múltiples paradigmas. Arquitecturas más robustas y versátiles.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nsec" id="n2">
+        <div class="nsec-hd" onclick="tog('n2')"><span class="si">🌐</span><div class="stw"><div class="stag">1.2 · APLICACIONES</div><div class="sti">Aplicaciones y Desafíos en Ciencia e Ingeniería</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <table class="itable"><thead><tr><th>Campo</th><th>Aplicaciones de ML</th></tr></thead><tbody>
+            <tr><td>🏥 Salud y Biomedicina</td><td>Diagnóstico por imágenes · Predicción cardiovascular · Descubrimiento de fármacos</td></tr>
+            <tr><td>🏗️ Civil y Ambiental</td><td>Fallas estructurales · Predicción de deslizamientos · Inundaciones satelitales</td></tr>
+            <tr><td>📡 Telecomunicaciones</td><td>Detección de fraudes · Congestión de red · Optimización de recursos</td></tr>
+            <tr><td>📖 Educación</td><td>Sistemas adaptativos · Itinerarios personalizados · Evitar sesgos</td></tr>
+          </tbody></table>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:13px 0 8px;text-transform:uppercase">DESAFÍOS CRÍTICOS</div>
+          <div class="chi"><div class="cn">01</div><div><div class="ct">Sesgos y Equidad</div><div class="cd">Algoritmos reproducen sesgos de los datos → retos éticos (Mersha et al., 2024).</div></div></div>
+          <div class="chi"><div class="cn">02</div><div><div class="ct">Complejidad Computacional</div><div class="cd">Modelos profundos requieren GPU/TPU y alto consumo energético (Hao et al., 2022).</div></div></div>
+          <div class="chi"><div class="cn">03</div><div><div class="ct">Calidad de Datos</div><div class="cd">Ruido, valores faltantes y distribuciones no representativas → "Garbage In = Garbage Out".</div></div></div>
+          <div class="chi"><div class="cn">04</div><div><div class="ct">Interpretabilidad</div><div class="cd">Necesidad de modelos explicables → XAI (Explainable AI) y Physics-Informed ML.</div></div></div>
+        </div>
+      </div>
+
+      <div class="nsec" id="n3">
+        <div class="nsec-hd" onclick="tog('n3')"><span class="si">📐</span><div class="stw"><div class="stag">1.3 + 1.4 · MATH + HERRAMIENTAS</div><div class="sti">Fundamentos Matemáticos y Ecosistema Python</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div class="cgrid">
+            <div class="cc2" style="border-color:rgba(245,166,35,.3)"><div class="cc2-i">📐</div><div class="cc2-t" style="color:var(--accent)">Álgebra Lineal</div><div class="cc2-b">→ Datos en vectores y matrices<br>→ Transformaciones lineales<br>→ SVD, PCA<br>→ Álgebra aleatorizada (big data)</div></div>
+            <div class="cc2" style="border-color:rgba(124,109,235,.3)"><div class="cc2-i">📊</div><div class="cc2-t" style="color:var(--accent2)">Probabilidad</div><div class="cc2-b">→ Incertidumbre con distribuciones<br>→ Modelos de Markov (refuerzo)<br>→ Teorema de Bayes</div></div>
+            <div class="cc2" style="border-color:rgba(46,204,113,.3)"><div class="cc2-i">📈</div><div class="cc2-t" style="color:var(--green)">Estadística</div><div class="cc2-b">→ Inferencia y validación<br>→ Pruebas de hipótesis<br>→ Asegurar generalización</div></div>
+          </div>
+          <div class="hbox gr"><strong>Modelos de Markov:</strong> Modelan procesos estocásticos y secuenciales. P(siguiente | actual). Base del refuerzo. NO son datos deterministas ni solo álgebra lineal.</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:13px 0 8px;text-transform:uppercase">HERRAMIENTAS</div>
+          <div class="tool-r"><span class="tb2">Python</span><div><div class="tf">Lenguaje principal de ML</div><div class="td2">Productividad + comunidad + librerías. No es el único con condicionales.</div></div></div>
+          <div class="tool-r"><span class="tb2 b">NumPy</span><div><div class="tf">Computación numérica — arreglos</div><div class="td2">Base de todo el ecosistema. No hace visualización ni modelos por sí solo.</div></div></div>
+          <div class="tool-r"><span class="tb2 b">Pandas</span><div><div class="tf">DataFrames — análisis tabular</div><div class="td2">Cargar, limpiar, filtrar, agrupar. El "Excel" de Python para ML. No crea redes neuronales.</div></div></div>
+          <div class="tool-r"><span class="tb2" style="background:#e67e22">Matplotlib</span><div><div class="tf">Visualización de datos</div><div class="td2">Gráficas, histogramas, scatter. No hace modelado predictivo.</div></div></div>
+          <div class="tool-r"><span class="tb2 g">Scikit-learn</span><div><div class="tf">ML clásico — fit / predict / score</div><div class="td2">Clasificación, regresión, clustering. No hace deep learning.</div></div></div>
+          <div class="tool-r"><span class="tb2 p">TensorFlow</span><div><div class="tf">Deep Learning — Google</div><div class="td2">Redes neuronales profundas. Keras como API de alto nivel. Producción a escala.</div></div></div>
+          <div class="tool-r"><span class="tb2 p">PyTorch</span><div><div class="tf">Deep Learning flexible — Meta</div><div class="td2">Prototipado rápido. Favorito en investigación académica.</div></div></div>
+          <div class="tool-r"><span class="tb2 gr">Jupyter</span><div><div class="tf">Entorno reproducible</div><div class="td2">Código + texto + gráficas en un documento. Estándar en ciencia de datos.</div></div></div>
+          <div class="tool-r"><span class="tb2 gr">Colab</span><div><div class="tf">Jupyter en la nube — Google</div><div class="td2">GPU gratis, sin instalación. Ofrece recursos en la nube para ejecutar modelos.</div></div></div>
+          <div class="tool-r"><span class="tb2 d">MLOps</span><div><div class="tf">Software + Data Science en producción</div><div class="td2">Reproducibilidad y escalabilidad. CI/CD con ciclos de vida de modelos.</div></div></div>
+        </div>
+      </div>
+
+      <!-- ── 1.3 Fundamentos Matemáticos ── -->
+      <div class="nsec" id="n3a">
+        <div class="nsec-hd" onclick="tog('n3a')"><span class="si">📐</span><div class="stw"><div class="stag">1.3 · U1 T1 S1+S2</div><div class="sti">Fundamentos Matemáticos: Álgebra Lineal, Probabilidad y Estadística</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div class="hbox"><strong>Los 3 pilares matemáticos</strong> trabajan integrados para diseñar algoritmos robustos que equilibren precisión, eficiencia y capacidad de generalización.</div>
+          <div class="cgrid">
+            <div class="cc2" style="border-color:rgba(245,166,35,.4)">
+              <div class="cc2-i">📐</div><div class="cc2-t" style="color:var(--accent)">Álgebra Lineal</div>
+              <div class="cc2-b">→ Datos en <strong style="color:var(--text)">vectores y matrices</strong><br>→ Transformaciones lineales<br>→ Descomposiciones: <strong style="color:var(--text)">SVD y PCA</strong><br>→ Álgebra lineal aleatorizada (big data)<br><br>Sin álgebra lineal no hay representación eficiente de datos en ML.</div>
+            </div>
+            <div class="cc2" style="border-color:rgba(124,109,235,.4)">
+              <div class="cc2-i">📊</div><div class="cc2-t" style="color:var(--accent2)">Probabilidad</div>
+              <div class="cc2-b">→ Modelar <strong style="color:var(--text)">incertidumbre</strong> con distribuciones<br>→ Procesos estocásticos<br>→ <strong style="color:var(--text)">Modelos de Markov</strong> — base del refuerzo<br>→ Teorema de Bayes</div>
+            </div>
+            <div class="cc2" style="border-color:rgba(46,204,113,.4)">
+              <div class="cc2-i">📈</div><div class="cc2-t" style="color:var(--green)">Estadística</div>
+              <div class="cc2-b">→ Métodos de <strong style="color:var(--text)">inferencia</strong> y validación<br>→ Pruebas de hipótesis<br>→ Asegurar <strong style="color:var(--text)">generalización</strong><br>→ Evitar patrones espurios (Symeonidis, 2022)</div>
+            </div>
+          </div>
+          <div class="hbox gr"><strong>Modelos de Markov — punto crítico del quiz:</strong><br>
+          → Modelan procesos <strong>estocásticos y secuenciales</strong>: P(estado siguiente | estado actual)<br>
+          → Son la base matemática del <strong>aprendizaje por refuerzo</strong><br>
+          → <strong>NO son datos deterministas</strong><br>
+          → <strong>NO se limitan al álgebra lineal</strong> — pertenecen a probabilidad y procesos estocásticos</div>
+          <table class="itable"><thead><tr><th>Pilar</th><th>Concepto clave</th><th>Uso en ML</th></tr></thead><tbody>
+            <tr><td>Álgebra Lineal</td><td>Vectores, matrices, SVD, PCA</td><td>Representar y transformar datos eficientemente</td></tr>
+            <tr><td>Probabilidad</td><td>Distribuciones, Markov, Bayes</td><td>Modelar incertidumbre y secuencias</td></tr>
+            <tr><td>Estadística</td><td>Inferencia, hipótesis, validación</td><td>Asegurar que los modelos generalicen</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+
+      <!-- ── Hitos Históricos ── -->
+      <div class="nsec" id="n3b">
+        <div class="nsec-hd" onclick="tog('n3b')"><span class="si">⏳</span><div class="stw"><div class="stag">HISTORIA · U1 T1</div><div class="sti">Hitos Históricos de la Inteligencia Artificial</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <table class="itable"><thead><tr><th>Época</th><th>Hito</th><th>Impacto</th></tr></thead><tbody>
+            <tr><td>🔵 1950s</td><td>John McCarthy acuña "Inteligencia Artificial" — Conferencia Dartmouth, 1956</td><td>Nace la IA como disciplina formal</td></tr>
+            <tr><td>🟡 1980-1990s</td><td>Era simbólica — sistemas expertos basados en reglas lógicas</td><td>IA basada en reglas escritas manualmente</td></tr>
+            <tr><td>🟠 2000s</td><td>Mayor poder computacional + Big Data + Internet</td><td>Regresa el interés en ML con datos masivos disponibles</td></tr>
+            <tr><td>🔴 2012</td><td>AlexNet gana ImageNet — CNNs profundas</td><td>Revolución en visión por computadora</td></tr>
+            <tr><td>🔴 2017</td><td>"Attention is All You Need" — Transformers</td><td>Base de GPT, BERT y todos los LLMs modernos</td></tr>
+            <tr><td>🔴 2018-2020</td><td>GPT-2 y GPT-3 de OpenAI</td><td>Avance masivo en procesamiento de lenguaje natural</td></tr>
+          </tbody></table>
+          <div class="hbox rd"><strong>Lo que más preguntan en el quiz:</strong><br>
+          · ¿Cuándo surgió el término "IA"? → <strong>1950s</strong> (no 1940, no 1980)<br>
+          · ¿Hito en los 2010s? → <strong>éxito de redes profundas en visión y lenguaje</strong><br>
+          · ¿Qué permitió el resurgimiento en los 2000s? → <strong>mayor poder computacional y Big Data</strong><br>
+          · Reglas lógicas en todo sistema → era <strong>1980-1990s</strong>, NO los 2010s</div>
+        </div>
+      </div>
+
+      <div class="nsec" id="n4">
+        <div class="nsec-hd" onclick="tog('n4')"><span class="si">🔑</span><div class="stw"><div class="stag">RESUMEN · U1 T1 S1+S2</div><div class="sti">Todo lo que debes recordar para el quiz</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:8px;text-transform:uppercase">TIPOS DE ML</div>
+          <ul class="kl">
+            <li>ML aprende patrones <strong>sin código explícito</strong> — diferencia fundamental con programación tradicional basada en reglas fijas.</li>
+            <li>Supervisado = pares entrada→salida con etiquetas conocidas. Ejemplo clásico: <strong>filtro de spam</strong>. Se entrena con pares entrada-salida.</li>
+            <li>No supervisado = sin etiquetas, descubre estructura oculta. Ejemplo: <strong>clustering de clientes, PCA</strong>.</li>
+            <li>Semi-supervisado = pocos etiquetados + muchos sin etiquetar. Ejemplo: <strong>Google Photos</strong> (reconocimiento de rostros).</li>
+            <li>Por refuerzo = agente aprende a caminar, jugar, tradear. Recompensas (+) y penalizaciones (−). <strong>Sin etiquetas predefinidas</strong>.</li>
+            <li>Auto-supervisado = genera sus propias etiquetas desde los datos. Base de <strong>GPT, BERT y LLMs</strong>.</li>
+            <li>Sistemas híbridos = combinan múltiples paradigmas para mayor robustez.</li>
+          </ul>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:11px 0 8px;text-transform:uppercase">HISTORIA</div>
+          <ul class="kl">
+            <li>El término "IA" surgió en los <strong>1950s</strong> (Dartmouth 1956, John McCarthy). <strong>No 1940, no 1980.</strong></li>
+            <li>Resurgimiento IA en 2000s = <strong>mayor poder computacional + Big Data</strong>.</li>
+            <li>Hito en 2010s = <strong>éxito de redes profundas en visión y lenguaje</strong> (AlexNet 2012, Transformers 2017).</li>
+            <li>Reglas lógicas en todo sistema = era <strong>1980-1990s</strong>, NO los 2010s.</li>
+          </ul>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:11px 0 8px;text-transform:uppercase">APLICACIONES Y DESAFÍOS</div>
+          <ul class="kl">
+            <li><strong>Calidad &gt; Cantidad</strong>. 80% del trabajo en ML es preparación de datos. "GIGO — Garbage In Garbage Out".</li>
+            <li>Civil/ambiental → <strong>predice deslizamientos e inundaciones</strong>. No traduce textos ni genera multimedia.</li>
+            <li>ML en educación → <strong>adapta contenidos</strong> al desempeño del estudiante. No sustituye al profesor.</li>
+            <li>Transparencia en medicina → para que médicos y pacientes comprendan las decisiones del modelo.</li>
+            <li>Complejidad computacional → modelos profundos necesitan <strong>GPU/TPU y alto consumo energético</strong>.</li>
+            <li>XAI busca <strong>transparencia en decisiones</strong>. Crítico en medicina y finanzas.</li>
+            <li>Un falso negativo en salud = <strong>no detectar una enfermedad en un paciente que sí la tiene</strong>.</li>
+          </ul>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:11px 0 8px;text-transform:uppercase">HERRAMIENTAS Y MATEMÁTICAS</div>
+          <ul class="kl">
+            <li>Pandas ≠ deep learning. <strong>TensorFlow/PyTorch = redes profundas</strong>. Pandas = DataFrames tabulares. No renderiza 3D.</li>
+            <li>NumPy = arreglos numéricos. <strong>No hace modelos ni visualización por sí solo</strong>.</li>
+            <li>Scikit-learn = ML clásico (fit/predict/score). <strong>No hace deep learning</strong>.</li>
+            <li>Jupyter = documentación <strong>reproducible</strong>. Colab = Jupyter en la nube con <strong>GPU gratis</strong>. Sí permite compartir proyectos.</li>
+            <li>Python es preferido por <strong>productividad + comunidad + librerías</strong>. Sí depende de bibliotecas externas.</li>
+            <li>MLOps = ingeniería de software + ciencia de datos para producción (Symeonidis et al., 2022).</li>
+            <li>Modelos de Markov = probabilidad aplicada a procesos <strong>estocásticos y secuenciales</strong>. <strong>NO deterministas, NO solo álgebra lineal</strong>.</li>
+            <li>Los 3 pilares juntos (álgebra lineal + probabilidad + estadística) permiten diseñar algoritmos <strong>robustos y generalizables</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /u1-t1 -->
+
+    <!-- U1 T2 -->
+    <div class="nc" id="n-u1-t2">
+      <div class="spill">U1 · T2 · S3 + S4 — Modelado y Validación</div>
+
+      <div class="nsec open" id="n5">
+        <div class="nsec-hd" onclick="tog('n5')"><span class="si">🔄</span><div class="stw"><div class="stag">2.1 · U1 T2 S3</div><div class="sti">Flujo de un Proyecto de ML</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div class="hbox rd"><strong>Idea central:</strong> el flujo NO es lineal. Se vuelve a etapas anteriores cuando los datos son malos, la métrica es baja o el modelo no generaliza. Definir el problema siempre va primero.</div>
+          <table class="itable"><thead><tr><th>Etapa</th><th>Qué se hace</th><th>Por qué importa</th></tr></thead><tbody>
+            <tr><td>1. Definir problema</td><td>¿Qué predecir? ¿Qué métrica usar?</td><td>Evita construir un modelo para una meta ambigua</td></tr>
+            <tr><td>2. Explorar datos (EDA)</td><td>Patrones, errores, distribuciones, variables clave</td><td>Entiende la calidad real del dataset</td></tr>
+            <tr><td>3. Preprocesar</td><td>Faltantes, ruido, escalado, codificación</td><td>Mejora la calidad de entrada al modelo</td></tr>
+            <tr><td>4. Dividir datos</td><td>Train / Val / Test (estratificar si es necesario)</td><td>Evita evaluar con datos ya vistos</td></tr>
+            <tr><td>5. Entrenar</td><td>El algoritmo aprende relaciones</td><td>Construye el modelo</td></tr>
+            <tr><td>6. Validar y tunear</td><td>Ajustar hiperparámetros con CV</td><td>Elige la mejor versión del modelo</td></tr>
+            <tr><td>7. Evaluar</td><td>Métricas sobre datos de prueba</td><td>Mide el desempeño real (una sola vez)</td></tr>
+            <tr><td>8. Desplegar y monitorear</td><td>Modelo en producción</td><td>Convierte el modelo en una solución útil</td></tr>
+          </tbody></table>
+          <div class="cgrid">
+            <div class="cc2"><div class="cc2-i">🏋️</div><div class="cc2-t">Entrenamiento</div><div class="cc2-b">Aprende patrones. Ajusta parámetros del modelo. El 80% del tiempo se invierte en preparación de datos.</div></div>
+            <div class="cc2"><div class="cc2-i">🔧</div><div class="cc2-t">Validación</div><div class="cc2-b">Ajusta hiperparámetros y compara modelos. Se usa múltiples veces. NO es el conjunto final.</div></div>
+            <div class="cc2"><div class="cc2-i">🎯</div><div class="cc2-t">Prueba</div><div class="cc2-b">Se usa <strong style="color:var(--text)">UNA SOLA VEZ</strong> al final. Estima el desempeño con datos completamente nuevos. Nunca para ajustar.</div></div>
+            <div class="cc2"><div class="cc2-i">📋</div><div class="cc2-t">Gobernanza</div><div class="cc2-b">Trazabilidad, gestión de riesgos (NIST AI RMF), control de fugas de información, versionado y pipelines reproducibles.</div></div>
+          </div>
+          <div class="hbox"><strong>NIST AI RMF:</strong> Marco de gestión de riesgos para IA. Función MAP → mapear riesgos y supuestos. MEASURE → medir. MANAGE → gestionar. GOVERN → gobernar.</div>
+        </div>
+      </div>
+
+      <div class="nsec" id="n6">
+        <div class="nsec-hd" onclick="tog('n6')"><span class="si">📊</span><div class="stw"><div class="stag">2.2 · U1 T2 S3</div><div class="sti">Métricas de Evaluación — Clasificación y Regresión</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div class="hbox rd"><strong>Matriz de confusión:</strong><br>VP = predijo positivo, era positivo ✓ &nbsp;|&nbsp; VN = predijo negativo, era negativo ✓<br>FP = predijo positivo, era negativo ✗ &nbsp;|&nbsp; FN = predijo negativo, era positivo ✗</div>
+
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:12px 0 8px;text-transform:uppercase">MÉTRICAS DE CLASIFICACIÓN</div>
+          <div class="cgrid">
+            <div class="cc2"><div class="cc2-i">🎯</div><div class="cc2-t">Accuracy</div><div class="cc2-b">(VP+VN) / Total<br><br>Útil solo con clases <strong style="color:var(--text)">balanceadas</strong>.<br>Con 95% negativos, predecir siempre negativo da 95% accuracy → <strong style="color:var(--red)">engañoso</strong>.</div></div>
+            <div class="cc2"><div class="cc2-i">🔬</div><div class="cc2-t">Precision</div><div class="cc2-b">VP / (VP + FP)<br><br>¿De los que predije positivos, cuántos lo eran?<br>Útil cuando <strong style="color:var(--text)">FP es costoso</strong>.<br>Ej: spam → no marcar correos legítimos.</div></div>
+            <div class="cc2"><div class="cc2-i">🩺</div><div class="cc2-t">Recall (Sensibilidad)</div><div class="cc2-b">VP / (VP + FN)<br><br>¿De los positivos reales, cuántos detecté?<br>Útil cuando <strong style="color:var(--text)">FN es costoso</strong>.<br>Ej: medicina → no perder enfermos.</div></div>
+            <div class="cc2"><div class="cc2-i">⚖️</div><div class="cc2-t">F1-score</div><div class="cc2-b">2·(Precision·Recall)/(Precision+Recall)<br><br>Media armónica entre precision y recall.<br>Ideal con datos <strong style="color:var(--text)">desbalanceados</strong>.<br>Alta precision + bajo recall → muchos FN, pocos FP.</div></div>
+            <div class="cc2"><div class="cc2-i">📈</div><div class="cc2-t">AUROC / AUPRC</div><div class="cc2-b">ROC-AUC: área bajo la curva ROC. En multiclase usar enfoque "uno contra todos".<br>AUPRC: mejor para datasets muy desbalanceados.</div></div>
+            <div class="cc2"><div class="cc2-i">🎲</div><div class="cc2-t">Log-loss / Kappa</div><div class="cc2-b">Log-loss: penaliza predicciones incorrectas con <strong style="color:var(--text)">alta confianza</strong>.<br>Kappa de Cohen: acuerdo entre predicciones y realidad corrigiendo por azar.</div></div>
+          </div>
+
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:13px 0 8px;text-transform:uppercase">MÉTRICAS DE REGRESIÓN</div>
+          <div class="cgrid">
+            <div class="cc2"><div class="cc2-i">📉</div><div class="cc2-t">RMSE</div><div class="cc2-b">√(Σ(y−ŷ)²/n)<br>Más bajo = mejor. Penaliza errores grandes.<br>Solo para <strong style="color:var(--text)">regresión</strong>, NO clasificación.</div></div>
+            <div class="cc2"><div class="cc2-i">📏</div><div class="cc2-t">MAE</div><div class="cc2-b">Σ|y−ŷ|/n<br>Error absoluto medio. Más robusto a outliers que RMSE.</div></div>
+            <div class="cc2"><div class="cc2-i">R²</div><div class="cc2-t">R² (Coef. determinación)</div><div class="cc2-b">Proporción de varianza explicada por el modelo.<br>R²=1 → ajuste perfecto. R²=0 → no mejor que la media.</div></div>
+          </div>
+
+          <table class="itable"><thead><tr><th>Métrica</th><th>Tipo</th><th>Cuándo usar</th><th>Cuándo NO usar</th></tr></thead><tbody>
+            <tr><td>Accuracy</td><td>Clasificación</td><td>Clases balanceadas</td><td>Datos desbalanceados</td></tr>
+            <tr><td>Precision</td><td>Clasificación</td><td>FP costosos (spam, alertas)</td><td>FN más costosos que FP</td></tr>
+            <tr><td>Recall</td><td>Clasificación</td><td>FN costosos (medicina, fraude)</td><td>FP más costosos que FN</td></tr>
+            <tr><td>F1-score</td><td>Clasificación</td><td>Desbalance de clases</td><td>Cuando solo importa una métrica</td></tr>
+            <tr><td>RMSE / MAE</td><td>Regresión</td><td>Valores continuos</td><td>Problemas de clasificación</td></tr>
+          </tbody></table>
+
+          <div class="hbox gr"><strong>Weighted average en multiclase:</strong> Pondera cada clase según su proporción en el dataset. Usa "uno contra todos" para extender ROC-AUC a multiclase.</div>
+          <div class="hbox"><strong>Ajuste del umbral:</strong> El umbral de decisión (por defecto 0.5) puede ajustarse según los costos del dominio. En medicina → bajar umbral para priorizar recall. En spam → subir umbral para priorizar precision.</div>
+        </div>
+      </div>
+
+      <div class="nsec" id="n7">
+        <div class="nsec-hd" onclick="tog('n7')"><span class="si">✂️</span><div class="stw"><div class="stag">2.3 · U1 T2 S4</div><div class="sti">Validación Cruzada, División de Datos y Data Leakage</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:9px;text-transform:uppercase">DIVISIÓN DE DATOS</div>
+          <table class="itable"><thead><tr><th>División</th><th>Proporciones</th><th>Cuándo usar</th></tr></thead><tbody>
+            <tr><td>Train / Test</td><td>80 / 20</td><td>Casos simples o datasets pequeños</td></tr>
+            <tr><td>Train / Val / Test</td><td>70 / 15 / 15</td><td>Proyectos académicos y prototipos</td></tr>
+            <tr><td>Train / Val / Test</td><td>60 / 20 / 20</td><td>Cuando se quiere validación más clara</td></tr>
+          </tbody></table>
+          <div class="hbox gr"><strong>Estratificación:</strong> Al dividir, mantener la proporción de clases en cada subconjunto. Importante en datasets desbalanceados para que cada split sea representativo.</div>
+
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:13px 0 8px;text-transform:uppercase">K-FOLD CROSS-VALIDATION</div>
+          <div class="hbox"><strong>Proceso K-Fold:</strong><br>1. Divide el dataset en K pliegues (folds)<br>2. Entrena en K-1 pliegues<br>3. Valida en el pliegue restante<br>4. Repite K veces rotando el pliegue de validación<br>5. Promedia los resultados → estimación más estable</div>
+          <div class="cgrid">
+            <div class="cc2"><div class="cc2-i">✅</div><div class="cc2-t">Ventajas K-Fold</div><div class="cc2-b">Usa mejor todos los datos disponibles. Da estimación más estable y robusta. Reduce riesgo de una división afortunada o desafortunada.</div></div>
+            <div class="cc2"><div class="cc2-i">⚠️</div><div class="cc2-t">Desventajas K-Fold</div><div class="cc2-b">Requiere más tiempo de cómputo (K× más entrenamientos). Costoso con modelos complejos o datasets muy grandes.</div></div>
+            <div class="cc2"><div class="cc2-i">🔁</div><div class="cc2-t">CV Anidada (Nested CV)</div><div class="cc2-b">Bucle <strong style="color:var(--text)">interno</strong>: tuning de hiperparámetros. Bucle <strong style="color:var(--text)">externo</strong>: evaluación honesta del modelo. Evita sesgo en la selección de hiperparámetros.</div></div>
+          </div>
+
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:13px 0 8px;text-transform:uppercase">DATA LEAKAGE — FUGA DE INFORMACIÓN</div>
+          <div class="hbox rd"><strong>¿Qué es?</strong> Uso indebido de datos de validación/prueba o del futuro en el entrenamiento. Produce evaluaciones optimistas que no se reproducen en producción.</div>
+          <div class="cgrid">
+            <div class="cc2" style="border-color:rgba(231,76,60,.4)"><div class="cc2-i">🚨</div><div class="cc2-t" style="color:var(--red)">Cómo ocurre</div><div class="cc2-b">· Usar datos de test para seleccionar hiperparámetros<br>· Escalar con estadísticas del dataset completo (antes de dividir)<br>· Incluir features del futuro en series temporales</div></div>
+            <div class="cc2" style="border-color:rgba(46,204,113,.4)"><div class="cc2-i">🛡️</div><div class="cc2-t" style="color:var(--green)">Cómo evitarlo</div><div class="cc2-b">· Encapsular preprocesos dentro del pipeline de entrenamiento<br>· Nunca tocar el conjunto de prueba hasta el final<br>· Usar CV anidada para tuning honesto</div></div>
+          </div>
+          <div class="hbox rd"><strong>Regla de oro:</strong> El conjunto de PRUEBA se usa <strong>UNA SOLA VEZ</strong> al final. Usarlo para ajustar hiperparámetros = fuga de información = evaluación optimista no reproducible.</div>
+        </div>
+      </div>
+
+      <div class="nsec" id="n8">
+        <div class="nsec-hd" onclick="tog('n8')"><span class="si">⚖️</span><div class="stw"><div class="stag">2.4 · U1 T2 S4</div><div class="sti">Sobreajuste, Subajuste y Dilema Sesgo-Varianza</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <table class="itable"><thead><tr><th>Situación</th><th>Error Train</th><th>Error Val/Test</th><th>Causa</th><th>Sesgo/Varianza</th></tr></thead><tbody>
+            <tr><td>✅ Buen ajuste</td><td>Bajo</td><td>Bajo</td><td>Modelo adecuado</td><td>Balance óptimo</td></tr>
+            <tr><td>🔴 Sobreajuste</td><td>Muy bajo</td><td>Alto</td><td>Modelo demasiado complejo</td><td>Varianza alta</td></tr>
+            <tr><td>🟡 Subajuste</td><td>Alto</td><td>Alto</td><td>Modelo demasiado simple</td><td>Sesgo alto</td></tr>
+          </tbody></table>
+
+          <div class="cgrid">
+            <div class="cc2" style="border-color:rgba(231,76,60,.4)">
+              <div class="cc2-i">🔴</div><div class="cc2-t" style="color:var(--red)">Sobreajuste (Overfitting)</div>
+              <div class="cc2-b">
+                El modelo memoriza el ruido del entrenamiento en lugar de aprender patrones generales.<br><br>
+                <strong style="color:var(--text)">Diagnóstico:</strong> error train muy bajo, error val/test alto.<br><br>
+                <strong style="color:var(--text)">Técnicas para mitigar:</strong><br>
+                · Regularización L1 (Lasso) / L2 (Ridge)<br>
+                · Early stopping<br>
+                · Dropout (redes neuronales)<br>
+                · Validación cruzada<br>
+                · Más datos de entrenamiento<br>
+                · Reducir complejidad del modelo<br>
+                · Ensembles (bagging)
+              </div>
+            </div>
+            <div class="cc2" style="border-color:rgba(245,166,35,.4)">
+              <div class="cc2-i">🟡</div><div class="cc2-t" style="color:var(--accent)">Subajuste (Underfitting)</div>
+              <div class="cc2-b">
+                El modelo es demasiado simple para capturar la estructura de los datos.<br><br>
+                <strong style="color:var(--text)">Diagnóstico:</strong> error train alto Y error val/test alto.<br><br>
+                <strong style="color:var(--text)">Técnicas para mitigar:</strong><br>
+                · Usar modelo más expresivo / complejo<br>
+                · Añadir más variables (features)<br>
+                · Entrenar más tiempo (más epochs)<br>
+                · Reducir regularización excesiva<br>
+                · Mejorar preprocesamiento de datos<br>
+                · Ensembles (boosting)
+              </div>
+            </div>
+          </div>
+
+          <div class="hbox">
+            <strong>Dilema Sesgo-Varianza:</strong><br>
+            · Sesgo alto = subajuste = modelo muy rígido/simple<br>
+            · Varianza alta = sobreajuste = modelo muy flexible/complejo<br>
+            · El objetivo es encontrar el <strong>punto de equilibrio óptimo</strong><br>
+            · Regularización, validación cruzada y ensembles ayudan a encontrarlo
+          </div>
+          <div class="hbox gr"><strong>Curvas de aprendizaje:</strong> Graficar error de entrenamiento y validación vs. tamaño del dataset o epochs. Si el gap es grande → sobreajuste. Si ambas son altas → subajuste. Herramienta clave para diagnóstico.</div>
+          <div class="hbox rd"><strong>Manejo del desbalance de clases:</strong> class_weights (penaliza la clase mayoritaria), SMOTE (sobre-muestrea la clase minoritaria), re-muestreo. Siempre aplicar dentro del pipeline de CV para evitar leakage.</div>
+        </div>
+      </div>
+
+      <div class="nsec" id="n9">
+        <div class="nsec-hd" onclick="tog('n9')"><span class="si">🔑</span><div class="stw"><div class="stag">RESUMEN · U1 T2 S3+S4</div><div class="sti">Todo lo que debes recordar para el quiz</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:8px;text-transform:uppercase">FLUJO DE PROYECTO</div>
+          <ul class="kl">
+            <li>El flujo de ML <strong>NO es lineal</strong> — se itera cuando los datos son malos o las métricas son bajas.</li>
+            <li>Secuencia correcta: definir problema → preparar datos → entrenar → validar → evaluar. Nunca al revés.</li>
+            <li>Función MAP en NIST AI RMF → <strong>mapear riesgos y supuestos</strong> en el diseño.</li>
+          </ul>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:11px 0 8px;text-transform:uppercase">MÉTRICAS</div>
+          <ul class="kl">
+            <li><strong>Accuracy puede engañar</strong> con datos desbalanceados → usar F1, Recall o métricas balanceadas.</li>
+            <li>Con accuracy=0.95 en dataset 95% negativo → el modelo puede estar ignorando todos los positivos.</li>
+            <li>Precision → FP costosos (spam, alertas falsas). Recall → FN costosos (medicina, fraude).</li>
+            <li>Alta precision + bajo recall = <strong>muchos FN y pocos FP</strong> (modelo muy conservador).</li>
+            <li>F1 = 2·(P·R)/(P+R). Media armónica. Ideal con datos desbalanceados.</li>
+            <li>RMSE / MAE / R² → solo para <strong>regresión</strong> (valores continuos), no clasificación.</li>
+            <li>Log-loss penaliza predicciones incorrectas realizadas con <strong>alta confianza</strong>.</li>
+            <li>Kappa de Cohen: acuerdo entre predicciones y realidad corrigiendo por azar.</li>
+            <li>ROC-AUC multiclase → enfoque <strong>"uno contra todos"</strong> para cada clase.</li>
+            <li>Falso positivo (FP) = predicho positivo siendo negativo. Falso negativo (FN) = predicho negativo siendo positivo.</li>
+            <li>En medicina, es más grave <strong>no detectar un positivo (FN)</strong> que generar una alarma falsa (FP) → priorizar recall.</li>
+            <li>Patrón sistemático en errores → indica <strong>sesgo en datos o en el modelo</strong>.</li>
+          </ul>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:11px 0 8px;text-transform:uppercase">VALIDACIÓN Y SOBREAJUSTE</div>
+          <ul class="kl">
+            <li>Conjunto de prueba = se usa <strong>una sola vez</strong> al final. Jamás para ajustar hiperparámetros.</li>
+            <li>Usar el conjunto de prueba para seleccionar hiperparámetros = <strong>fuga de información</strong> → evaluación optimista.</li>
+            <li>K-Fold: divide en K pliegues y <strong>rota el pliegue de validación</strong> en cada iteración.</li>
+            <li>CV anidada: bucle interno para hiperparámetros + bucle externo para evaluación honesta.</li>
+            <li>Sobreajuste: error train muy bajo + error val alto → <strong>varianza alta</strong> → regularización, dropout, más datos.</li>
+            <li>Subajuste: error alto en train Y val → <strong>sesgo alto</strong> → modelo más complejo, más features, menos restricciones.</li>
+            <li>Limitar la <strong>máxima profundidad del árbol</strong> (max_depth) es el parámetro clave para evitar sobreajuste en árboles.</li>
+            <li>Dropout <strong>desactiva aleatoriamente neuronas</strong> durante entrenamiento para reducir sobreajuste en redes.</li>
+            <li>SMOTE y class_weights para manejar desbalance → siempre <strong>dentro del pipeline de CV</strong>, no antes.</li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /u1-t2 -->
+  </div><!-- /n-u1 -->
+
+  <!-- ═══ U2 ═══ -->
+  <div class="nc" id="n-u2">
+    <div class="theme-tabs">
+      <button class="theme-tab active" onclick="showTheme('u2','t1',this)">Tema 1 · Regresión y Clasificación</button>
+      <button class="theme-tab" onclick="showTheme('u2','t2',this)">Tema 2 · SVM, Redes Neuronales y Árboles</button>
+    </div>
+    <div class="nc show" id="n-u2-t1">
+      <div class="spill">U2 · T1 · S1</div>
+
+      <!-- 1.1 Regresión Lineal -->
+      <div class="nsec open" id="n10">
+        <div class="nsec-hd" onclick="tog('n10')"><span class="si">📈</span><div class="stw"><div class="stag">1.1 · U2 T1 S1</div><div class="sti">Regresión Lineal, Polinómica y Regularizada</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+
+          <!-- Regresión Lineal -->
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:9px;text-transform:uppercase">REGRESIÓN LINEAL</div>
+          <div class="hbox">
+            <strong>Propósito:</strong> Estimar una variable de salida ŷ como combinación lineal de un conjunto de predictores x₁, x₂, ..., xₚ. El ajuste se logra minimizando el error cuadrático medio (MSE).
+          </div>
+          <div class="formula">ŷ = β₀ + Σ βⱼ xⱼ &nbsp;&nbsp;donde β₀ = intercepto, βⱼ = coeficientes</div>
+          <div class="formula">Solución matricial: β = (XᵀX)⁻¹ Xᵀy &nbsp;(requiere que X tenga rango completo)</div>
+          <div class="cgrid">
+            <div class="cc2"><div class="cc2-i">📌</div><div class="cc2-t">Interpretabilidad</div><div class="cc2-b">Los coeficientes muestran cómo cambia ŷ por cada unidad de cambio en cada predictor. Fácil de comunicar.</div></div>
+            <div class="cc2"><div class="cc2-i">⚠️</div><div class="cc2-t">Supuestos</div><div class="cc2-b">Relaciones lineales · Independencia de errores · Homocedasticidad (varianza constante) · Normalidad de residuos</div></div>
+          </div>
+
+          <!-- Regresión Polinómica -->
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:15px 0 9px;text-transform:uppercase">REGRESIÓN POLINÓMICA</div>
+          <div class="hbox rd"><strong>¿Cuándo usarla?</strong> Cuando la relación entre variables NO es lineal. Amplía la expresividad introduciendo potencias de los predictores (x², x³, ..., xⁿ).</div>
+          <div class="formula">ŷ = β₀ + β₁x + β₂x² + β₃x³ + ... + βₙxⁿ</div>
+          <div class="cgrid">
+            <div class="cc2"><div class="cc2-i">✅</div><div class="cc2-t">Ventaja</div><div class="cc2-b">Permite capturar curvaturas y tendencias complejas que el modelo lineal simple no puede representar.</div></div>
+            <div class="cc2"><div class="cc2-i">🔴</div><div class="cc2-t">Riesgo</div><div class="cc2-b">Incrementar el grado genera sobreajuste. Tensión sesgo-varianza: bajo grado = alto sesgo, alto grado = alta varianza.</div></div>
+          </div>
+
+          <!-- Regularización -->
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:15px 0 9px;text-transform:uppercase">REGULARIZACIÓN — RIDGE Y LASSO</div>
+          <div class="hbox gr"><strong>¿Para qué sirve?</strong> Estrategia esencial para controlar la complejidad del modelo y evitar sobreajuste. Añade una penalización a la función de pérdida.</div>
+          <div class="cgrid">
+            <div class="cc2" style="border-color:rgba(52,152,219,.4)">
+              <div class="cc2-i">🔵</div>
+              <div class="cc2-t" style="color:var(--blue)">Ridge — L2</div>
+              <div class="cc2-b">
+                Penaliza suma de <strong style="color:var(--text)">cuadrados</strong> de coeficientes:<br>
+                <span style="color:var(--accent)">Minimiza: RSS + λ Σ β²ⱼ</span><br><br>
+                → Encoge los coeficientes (los reduce)<br>
+                → <strong style="color:var(--text)">No anula</strong> coeficientes<br>
+                → Útil frente a colinealidad
+              </div>
+            </div>
+            <div class="cc2" style="border-color:rgba(231,76,60,.4)">
+              <div class="cc2-i">🔴</div>
+              <div class="cc2-t" style="color:var(--red)">Lasso — L1</div>
+              <div class="cc2-b">
+                Penaliza suma de <strong style="color:var(--text)">valores absolutos</strong>:<br>
+                <span style="color:var(--accent)">Minimiza: RSS + λ Σ |βⱼ|</span><br><br>
+                → Puede <strong style="color:var(--text)">anular</strong> coeficientes<br>
+                → Actúa como <strong style="color:var(--text)">selector de variables</strong><br>
+                → Produce modelos más interpretables
+              </div>
+            </div>
+          </div>
+          <div class="hbox">
+            <strong>Hiperparámetro λ (lambda):</strong><br>
+            · Controla la intensidad de la penalización<br>
+            · Se ajusta mediante <strong>validación cruzada</strong><br>
+            · λ = 0 → sin penalización → regresión lineal clásica<br>
+            · λ grande → más penalización → mayor sesgo, menor varianza<br>
+            · λ pequeño → menos penalización → menor sesgo, mayor varianza
+          </div>
+          <table class="itable"><thead><tr><th>Método</th><th>Penalización</th><th>Anula β?</th><th>Uso ideal</th></tr></thead><tbody>
+            <tr><td>Lineal clásica</td><td>Ninguna (λ=0)</td><td>No</td><td>Datos sin colinealidad ni sobreajuste</td></tr>
+            <tr><td>Ridge (L2)</td><td>Σ β²ⱼ</td><td>No</td><td>Colinealidad entre predictores</td></tr>
+            <tr><td>Lasso (L1)</td><td>Σ |βⱼ|</td><td>Sí</td><td>Selección automática de variables</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+
+      <!-- 1.2 Regresión Logística y Softmax -->
+      <div class="nsec" id="n11">
+        <div class="nsec-hd" onclick="tog('n11')"><span class="si">🔐</span><div class="stw"><div class="stag">1.2 · U2 T1 S1</div><div class="sti">Regresión Logística y Softmax</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+
+          <!-- Regresión Logística Binaria -->
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:9px;text-transform:uppercase">REGRESIÓN LOGÍSTICA BINARIA</div>
+          <div class="hbox rd"><strong>Diferencia clave:</strong> A diferencia de la regresión lineal, la logística está diseñada para resolver problemas de <strong>clasificación</strong>, no de predicción de valores continuos.</div>
+          <div class="formula">P(y=1|X) = σ(wᵀx + b) = 1 / (1 + e⁻⁽ʷᵀˣ⁺ᵇ⁾)</div>
+          <div class="cgrid">
+            <div class="cc2"><div class="cc2-i">σ</div><div class="cc2-t">Función Sigmoide</div><div class="cc2-b">σ(z) mapea cualquier valor real al intervalo [0,1]. Interpreta la salida como probabilidad de pertenecer a la clase positiva.</div></div>
+            <div class="cc2"><div class="cc2-i">⚖️</div><div class="cc2-t">Parámetros</div><div class="cc2-b">w = vector de pesos (coeficientes). b = sesgo (bias / intercepto). Los coeficientes se interpretan en términos de <strong style="color:var(--text)">log-odds</strong>.</div></div>
+          </div>
+          <div class="hbox">
+            <strong>Función de pérdida — Entropía cruzada:</strong><br>
+            L(w) = -Σ [ y log(ŷ) + (1-y) log(1-ŷ) ]<br>
+            Se minimiza mediante optimización iterativa (gradient descent).<br>
+            <strong>NO es el error cuadrático medio (MSE).</strong>
+          </div>
+          <div class="hbox gr">Muy valorada en: <strong>ciencias de la salud, economía y marketing</strong> por su interpretabilidad y capacidad de generar probabilidades de clasificación.</div>
+
+          <!-- Softmax -->
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:15px 0 9px;text-transform:uppercase">SOFTMAX — CLASIFICACIÓN MULTICLASE</div>
+          <div class="hbox"><strong>¿Cuándo usarlo?</strong> Cuando el problema incluye <strong>más de dos clases</strong> (K &gt; 2). Softmax generaliza la regresión logística binaria.</div>
+          <div class="formula">P(y=k|X) = e^(wₖᵀx + bₖ) / Σⱼ e^(wⱼᵀx + bⱼ) &nbsp;&nbsp;para j = 1 a K</div>
+          <div class="cgrid">
+            <div class="cc2"><div class="cc2-i">📊</div><div class="cc2-t">Salida en vector</div><div class="cc2-b">Cada observación recibe un vector de probabilidades que <strong style="color:var(--text)">suma exactamente 1</strong>. Se asigna la clase con mayor probabilidad.</div></div>
+            <div class="cc2"><div class="cc2-i">🧠</div><div class="cc2-t">Uso en Redes Neuronales</div><div class="cc2-b">Es la <strong style="color:var(--text)">capa de salida estándar</strong> en redes neuronales para clasificación multiclase. Gran eficacia en imágenes y texto.</div></div>
+          </div>
+          <table class="itable"><thead><tr><th>Modelo</th><th>Clases</th><th>Función</th><th>Pérdida</th></tr></thead><tbody>
+            <tr><td>Reg. Lineal</td><td>—</td><td>Identidad</td><td>MSE (error cuadrático)</td></tr>
+            <tr><td>Reg. Logística</td><td>2 (binario)</td><td>Sigmoide σ(z)</td><td>Entropía cruzada binaria</td></tr>
+            <tr><td>Softmax</td><td>K &gt; 2 (multiclase)</td><td>Softmax</td><td>Entropía cruzada categórica</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+
+      <!-- Resumen U2 -->
+      <div class="nsec" id="n12">
+        <div class="nsec-hd" onclick="tog('n12')"><span class="si">🔑</span><div class="stw"><div class="stag">RESUMEN · U2 T1 S1</div><div class="sti">Lo que debes recordar para el quiz</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <ul class="kl">
+            <li>Regresión lineal → predice <strong>valores continuos</strong>. Regresión logística → predice <strong>probabilidades de clase</strong>.</li>
+            <li>La solución matricial de regresión lineal requiere que X tenga <strong>rango completo</strong> para que (XᵀX)⁻¹ exista.</li>
+            <li>Regresión polinómica captura relaciones no lineales, pero a mayor grado → mayor riesgo de <strong>sobreajuste</strong>.</li>
+            <li>Lasso (L1) <strong>puede anular</strong> coeficientes → selección automática de variables. Ridge (L2) solo los encoge.</li>
+            <li>Ridge es útil frente a <strong>colinealidad</strong>. Lasso produce modelos más <strong>interpretables</strong>.</li>
+            <li>λ = 0 → regresión lineal clásica sin penalización. λ grande → mayor sesgo, menor varianza.</li>
+            <li>La regresión logística usa la función <strong>sigmoide</strong>. No identidad, no tanh.</li>
+            <li>La función de pérdida en regresión logística es <strong>entropía cruzada</strong>, NO el MSE.</li>
+            <li>Los coeficientes w en regresión logística se interpretan como <strong>log-odds</strong>.</li>
+            <li>El parámetro b en logística = <strong>sesgo (bias / intercepto)</strong>. Valor cuando todos los predictores son cero.</li>
+            <li>Softmax → para <strong>más de dos clases (K &gt; 2)</strong>. Produce un vector de probabilidades que suma 1.</li>
+            <li>Softmax es la <strong>capa de salida estándar</strong> en redes neuronales multiclase (imágenes, texto).</li>
+            <li>Los modelos de regresión buscan el equilibrio entre <strong>complejidad e interpretabilidad</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ U2 T2 ═══ -->
+    <div class="nc" id="n-u2-t2">
+      <div class="spill">U2 · T2 · SVM · Redes Neuronales · Árboles</div>
+
+      <!-- SVM -->
+      <div class="nsec open" id="n13">
+        <div class="nsec-hd" onclick="tog('n13')"><span class="si">🧲</span><div class="stw"><div class="stag">U2 T2 · SVM</div><div class="sti">Máquinas de Soporte Vectorial (SVM)</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div class="hbox"><strong>Objetivo:</strong> Buscar el hiperplano de <strong>máximo margen</strong> entre clases. Los <strong>vectores de soporte</strong> son los puntos más cercanos al hiperplano — son los que definen y determinan la frontera de decisión.</div>
+          <div class="formula">f(x) = wᵀx + b &nbsp;&nbsp;→ distancia con signo al hiperplano</div>
+          <div class="cgrid">
+            <div class="cc2" style="border-color:rgba(52,152,219,.4)"><div class="cc2-i">⚙️</div><div class="cc2-t" style="color:var(--blue)">Hiperparámetro C</div><div class="cc2-b">Controla el trade-off margen/errores.<br>C grande → penaliza más errores → margen estrecho → riesgo sobreajuste.<br>C pequeño → margen amplio → más errores tolerados.</div></div>
+            <div class="cc2" style="border-color:rgba(124,109,235,.4)"><div class="cc2-i">🌐</div><div class="cc2-t" style="color:var(--accent2)">Kernels</div><div class="cc2-b">Permiten separar datos no lineales:<br>· <strong style="color:var(--text)">Lineal</strong>: datos linealmente separables<br>· <strong style="color:var(--text)">Polinomial</strong>: relaciones polinómicas<br>· <strong style="color:var(--text)">RBF</strong>: fronteras complejas (más usado)<br>· <strong style="color:var(--text)">Sigmoide</strong>: relacionado con neuronas artificiales</div></div>
+            <div class="cc2" style="border-color:rgba(231,76,60,.4)"><div class="cc2-i">🎯</div><div class="cc2-t" style="color:var(--red)">Gamma (γ) en RBF</div><div class="cc2-b">Controla influencia local de cada muestra.<br>γ alto → fronteras muy onduladas/localizadas → <strong style="color:var(--text)">sobreajuste</strong><br>γ bajo → fronteras suaves → mejor generalización<br>Ajustar C y γ siempre con validación cruzada.</div></div>
+          </div>
+          <div class="hbox gr"><strong>¿Cuándo usar SVM?</strong> Con datasets pequeños/medianos y cuando la interpretabilidad importa. Para datasets grandes y complejos → redes neuronales.</div>
+          <table class="itable"><thead><tr><th>Kernel</th><th>Cuándo usar</th><th>Parámetro clave</th></tr></thead><tbody>
+            <tr><td>Lineal</td><td>Datos linealmente separables</td><td>C</td></tr>
+            <tr><td>Polinomial</td><td>Relaciones polinómicas</td><td>C, grado</td></tr>
+            <tr><td>RBF (Gaussiano)</td><td>Fronteras complejas, no lineales</td><td>C, γ</td></tr>
+            <tr><td>Sigmoide</td><td>Similar a neuronas artificiales</td><td>C</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+
+      <!-- Redes Neuronales -->
+      <div class="nsec" id="n14">
+        <div class="nsec-hd" onclick="tog('n14')"><span class="si">🧠</span><div class="stw"><div class="stag">U2 T2 · MLP</div><div class="sti">Redes Neuronales (MLP) — Backpropagation y Optimización</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div class="hbox"><strong>Neurona artificial:</strong> Calcula una <strong>suma ponderada</strong> de entradas más un sesgo (b), luego aplica una función de activación.<br>z = Σ wᵢxᵢ + b &nbsp;&nbsp;→ &nbsp;&nbsp;salida = f(z)</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:12px 0 8px;text-transform:uppercase">FUNCIONES DE ACTIVACIÓN</div>
+          <div class="cgrid">
+            <div class="cc2" style="border-color:rgba(46,204,113,.4)"><div class="cc2-i">⚡</div><div class="cc2-t" style="color:var(--green)">ReLU (estándar moderno)</div><div class="cc2-b">ReLU(x) = max(0, x)<br>Eficiente computacionalmente.<br>Evita el problema del gradiente evanescente.<br>Estándar en capas ocultas de redes profundas.</div></div>
+            <div class="cc2"><div class="cc2-i">σ</div><div class="cc2-t">Sigmoide</div><div class="cc2-b">σ(z) = 1/(1+e⁻ᶻ) → salida en [0,1].<br>Estándar en clasificación binaria (capa de salida).<br>Problema: gradiente evanescente en capas profundas.</div></div>
+            <div class="cc2"><div class="cc2-i">🔄</div><div class="cc2-t">Tanh</div><div class="cc2-b">Salida en [-1, 1]. Centrada en 0.<br>Mejor que sigmoide para capas ocultas.<br>También sufre gradiente evanescente.</div></div>
+            <div class="cc2"><div class="cc2-i">📊</div><div class="cc2-t">Softmax (salida)</div><div class="cc2-b">Probabilidades normalizadas que suman 1.<br>Estándar en clasificación multiclase (capa de salida).<br>Compatible con entropía cruzada como pérdida.</div></div>
+          </div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:13px 0 8px;text-transform:uppercase">ENTRENAMIENTO</div>
+          <div class="cgrid">
+            <div class="cc2"><div class="cc2-i">↩️</div><div class="cc2-t">Retropropagación (Backprop)</div><div class="cc2-b">Calcula gradientes de la función de pérdida respecto a cada parámetro usando la regla de la cadena. Permite actualizar pesos en cada capa.</div></div>
+            <div class="cc2"><div class="cc2-i">📉</div><div class="cc2-t">Optimizadores</div><div class="cc2-b">SGD: descenso de gradiente estocástico (clásico).<br><strong style="color:var(--text)">Adam</strong>: adaptativo, más robusto que SGD. Estándar en la práctica.<br>Requieren escalado previo de las entradas.</div></div>
+          </div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:13px 0 8px;text-transform:uppercase">REGULARIZACIÓN EN REDES</div>
+          <div class="cgrid">
+            <div class="cc2" style="border-color:rgba(231,76,60,.3)"><div class="cc2-i">💧</div><div class="cc2-t" style="color:var(--red)">Dropout</div><div class="cc2-b">Desactiva aleatoriamente neuronas durante entrenamiento. Reduce sobreajuste. En inferencia todas las neuronas están activas.</div></div>
+            <div class="cc2"><div class="cc2-i">⏹️</div><div class="cc2-t">Early Stopping</div><div class="cc2-b">Detiene el entrenamiento cuando la métrica de validación deja de mejorar. Evita sobreajuste sin modificar la arquitectura.</div></div>
+            <div class="cc2"><div class="cc2-i">⚖️</div><div class="cc2-t">Weight Decay (L2)</div><div class="cc2-b">Penaliza pesos grandes durante el entrenamiento. Equivalente a regularización Ridge en redes neuronales.</div></div>
+          </div>
+          <div class="hbox rd"><strong>El perceptrón simple NO puede resolver el problema XOR</strong> — no es linealmente separable. Se necesitan redes multicapa (MLP) con funciones de activación no lineales.</div>
+          <div class="hbox"><strong>Función de pérdida en clasificación:</strong> Entropía cruzada (cross-entropy). NO el MSE (que es para regresión).</div>
+        </div>
+      </div>
+
+      <!-- Árboles de Decisión -->
+      <div class="nsec" id="n15">
+        <div class="nsec-hd" onclick="tog('n15')"><span class="si">🌳</span><div class="stw"><div class="stag">U2 T2 · ÁRBOLES</div><div class="sti">Árboles de Decisión — Entropía, Gini y Poda</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div class="hbox"><strong>Estructura:</strong> Nodos internos = condiciones sobre variables. Hojas = predicciones finales. El árbol divide recursivamente el espacio de características.</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:12px 0 8px;text-transform:uppercase">CRITERIOS DE DIVISIÓN</div>
+          <div class="cgrid">
+            <div class="cc2" style="border-color:rgba(245,166,35,.4)"><div class="cc2-i">📊</div><div class="cc2-t" style="color:var(--accent)">Entropía</div><div class="cc2-b">H(X) = -Σ p(x)·log₂p(x)<br><br>Mide el nivel de incertidumbre de la distribución de clases.<br>H=0 → nodo puro (una sola clase)<br>H=1 → máxima mezcla (50/50 binario)<br>El árbol busca cortes que maximicen la <strong style="color:var(--text)">Ganancia de Información</strong>.</div></div>
+            <div class="cc2" style="border-color:rgba(52,152,219,.4)"><div class="cc2-i">📐</div><div class="cc2-t" style="color:var(--blue)">Índice de Gini</div><div class="cc2-b">Gini = 1 - Σ p²(k)<br><br>Gini ≈ 0 → partición homogénea (nodo puro)<br>Gini ≈ 0.5 → máxima mezcla (binario)<br><strong style="color:var(--text)">Computacionalmente más eficiente</strong> que la entropía en la práctica.</div></div>
+          </div>
+          <table class="itable"><thead><tr><th>Valor</th><th>Entropía</th><th>Gini</th><th>Significado</th></tr></thead><tbody>
+            <tr><td>Nodo puro (100% una clase)</td><td>0</td><td>0</td><td>Sin incertidumbre → hoja</td></tr>
+            <tr><td>Mezcla máxima (50/50)</td><td>1</td><td>0.5</td><td>Máxima incertidumbre</td></tr>
+            <tr><td>Mezcla parcial</td><td>0 a 1</td><td>0 a 0.5</td><td>Incertidumbre parcial</td></tr>
+          </tbody></table>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:13px 0 8px;text-transform:uppercase">SOBREAJUSTE Y SUBAJUSTE EN ÁRBOLES</div>
+          <div class="cgrid">
+            <div class="cc2" style="border-color:rgba(231,76,60,.3)"><div class="cc2-i">🔴</div><div class="cc2-t" style="color:var(--red)">Árbol muy profundo → Sobreajuste</div><div class="cc2-b">Aprende el ruido del entrenamiento. La capacidad de generalización se reduce. Sin poda → captura ruido → overfitting.</div></div>
+            <div class="cc2" style="border-color:rgba(245,166,35,.3)"><div class="cc2-i">🟡</div><div class="cc2-t" style="color:var(--accent)">Árbol muy poco profundo → Subajuste</div><div class="cc2-b">Baja profundidad + alto error en entrenamiento = subajuste. No aprende patrones suficientes → underfitting.</div></div>
+          </div>
+          <div class="hbox gr"><strong>Poda:</strong> Reduce ramas innecesarias para mejorar la generalización. Pre-poda (max_depth, min_samples_split) controla la complejidad antes de crecer. Post-poda (ccp_alpha) recorta después.</div>
+          <div class="hbox"><strong>Dilema sesgo-varianza en árboles:</strong> refleja el equilibrio entre <strong>simplicidad</strong> (poco profundo = sesgo alto) y <strong>capacidad de generalización</strong> (muy profundo = varianza alta). Se regula con hiperparámetros.</div>
+        </div>
+      </div>
+
+      <!-- Ensembles -->
+      <div class="nsec" id="n16">
+        <div class="nsec-hd" onclick="tog('n16')"><span class="si">🎯</span><div class="stw"><div class="stag">U2 T2 · ENSEMBLES</div><div class="sti">Métodos de Conjunto — Bagging, Boosting y Stacking</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div class="cgrid">
+            <div class="cc2" style="border-color:rgba(46,204,113,.4)"><div class="cc2-i">🌲</div><div class="cc2-t" style="color:var(--green)">Bagging</div><div class="cc2-b">Reduce <strong style="color:var(--text)">varianza</strong>. Entrena modelos en muestras bootstrap y promedia.<br><br>Ejemplo: <strong style="color:var(--text)">Random Forest</strong> (árboles con subconjuntos aleatorios de features).</div></div>
+            <div class="cc2" style="border-color:rgba(245,166,35,.4)"><div class="cc2-i">🚀</div><div class="cc2-t" style="color:var(--accent)">Boosting</div><div class="cc2-b">Corrige <strong style="color:var(--text)">sesgos</strong>. Modelos secuenciales que aprenden de los errores del anterior.<br><br>Ejemplos: <strong style="color:var(--text)">XGBoost, LightGBM</strong>.</div></div>
+            <div class="cc2"><div class="cc2-i">🔗</div><div class="cc2-t">Stacking</div><div class="cc2-b">Combina predicciones de múltiples modelos usando un meta-modelo.<br>Mejora estabilidad general pero requiere validación cuidadosa para evitar fugas.</div></div>
+          </div>
+          <div class="hbox gr"><strong>Recomendación práctica:</strong> Empezar con modelos simples (regresión lineal, logística, SVM) para establecer una línea base. Escalar a redes o ensembles solo si los datos y el problema lo justifican. Siempre validar con esquemas reproducibles.</div>
+        </div>
+      </div>
+
+      <!-- Resumen U2 T2 -->
+      <div class="nsec" id="n17">
+        <div class="nsec-hd" onclick="tog('n17')"><span class="si">🔑</span><div class="stw"><div class="stag">RESUMEN · U2 T2</div><div class="sti">Todo lo que debes recordar para el quiz</div></div><span class="tog">▼</span></div>
+        <div class="nb">
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin-bottom:8px;text-transform:uppercase">SVM</div>
+          <ul class="kl">
+            <li>SVM busca el hiperplano de <strong>máximo margen</strong>. Los vectores de soporte son los puntos <strong>más cercanos</strong> al hiperplano.</li>
+            <li>C grande → penaliza errores más → margen estrecho → riesgo de sobreajuste.</li>
+            <li>γ alto en RBF → fronteras onduladas/localizadas → <strong>sobreajuste</strong>. γ bajo → fronteras suaves → mejor generalización.</li>
+            <li>Kernel lineal → datos linealmente separables. Kernel sigmoide → relacionado con neuronas artificiales.</li>
+            <li>SVM es mejor en <strong>datasets pequeños/medianos</strong>. Redes neuronales para datos grandes y complejos.</li>
+          </ul>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:12px 0 8px;text-transform:uppercase">REDES NEURONALES</div>
+          <ul class="kl">
+            <li>Neurona = <strong>suma ponderada + sesgo → función de activación</strong>. El sesgo (b) desplaza la función de activación.</li>
+            <li>Función de activación estándar en redes modernas: <strong>ReLU</strong>. No sigmoide, no tanh.</li>
+            <li>Sigmoide → clasificación binaria (capa de salida). Softmax → multiclase (capa de salida).</li>
+            <li>Backpropagation calcula <strong>gradientes de la pérdida</strong> para actualizar parámetros. No propaga datos hacia adelante.</li>
+            <li>Adam es la alternativa estándar al SGD clásico. Más robusto y adaptativo.</li>
+            <li>Dropout <strong>desactiva aleatoriamente neuronas</strong> durante entrenamiento → reduce sobreajuste.</li>
+            <li>Early stopping detiene el entrenamiento antes del sobreajuste sin modificar la arquitectura.</li>
+            <li>Función de pérdida en clasificación → <strong>entropía cruzada</strong>. NO el MSE (que es para regresión).</li>
+            <li>El perceptrón simple <strong>no puede resolver XOR</strong> — no es linealmente separable.</li>
+          </ul>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:12px 0 8px;text-transform:uppercase">ÁRBOLES DE DECISIÓN</div>
+          <ul class="kl">
+            <li>Nodos internos = <strong>condiciones sobre variables</strong>. Hojas = predicciones finales.</li>
+            <li>Entropía = 0 → nodo puro (una sola clase). Gini = 0 → partición homogénea.</li>
+            <li>Gini ≈ 0.5 → nodo muy mezclado (máxima mezcla binaria).</li>
+            <li>Gini es <strong>computacionalmente más eficiente</strong> que la entropía en la práctica.</li>
+            <li>Árbol muy profundo → <strong>sobreajuste</strong> (captura ruido). Árbol muy poco profundo → <strong>subajuste</strong>.</li>
+            <li>Sin poda → captura ruido en los datos → sobreajuste y pérdida de generalización.</li>
+            <li>Limitar demasiado la profundidad puede hacer perder patrones relevantes.</li>
+            <li>El dilema sesgo-varianza en árboles refleja el equilibrio entre <strong>simplicidad y capacidad de generalización</strong>.</li>
+            <li>Ajustar hiperparámetros (max_depth, min_samples) regula la complejidad <strong>antes</strong> de que crezca el árbol.</li>
+          </ul>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:2px;margin:12px 0 8px;text-transform:uppercase">ENSEMBLES</div>
+          <ul class="kl">
+            <li>Bagging (Random Forest) → reduce <strong>varianza</strong>. Boosting (XGBoost) → corrige <strong>sesgo</strong>.</li>
+            <li>Siempre empezar con modelos simples como línea base antes de usar ensembles o redes.</li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /n-u2-t2 -->
+
+    </div><!-- /n-u2 -->
+</div><!-- /notesMode -->
+
+<div class="end" id="endScreen">
+  <div class="end-em" id="eEm">🎉</div>
+  <div class="end-title" id="eTitle">¡Quiz completado!</div>
+  <div class="end-sub" id="eSub"></div>
+  <div class="end-score" id="eScore"></div>
+  <div class="end-sl">RESPUESTAS CORRECTAS</div>
+  <button class="btn btn-p" style="margin:0 auto;display:block" onclick="restart()">🔄 Intentar de nuevo</button>
+</div>
+</div>
+<script>
+const QS=[
+{u:'U2',s:'U2T1',t:'regresion',q:'Qué determina la clase predicha en Softmax?',o:['El promedio de coeficientes','La clase con probabilidad más alta','La suma de errores'],c:1,e:'Softmax produce un vector de probabilidades que suma 1. La clase predicha es la de mayor probabilidad.'},
+{u:'U2',s:'U2T1',t:'regresion',q:'Qué función se utiliza en la regresión logística binaria?',o:['Sigmoide logística','Función identidad','Tangente hiperbólica'],c:0,e:'Revisa el resumen de notas para este tema.'},
+{u:'U2',s:'U2T1',t:'regresion',q:'Qué supone la regresión lineal sobre los errores?',o:['Que sean independientes y homocedásticos','Que sigan una distribución uniforme','Que siempre sean positivos'],c:0,e:'La regresión lineal estima ŷ=β₀+Σβⱼxⱼ minimizando el MSE. Predice valores continuos.'},
+{u:'U2',s:'U2T1',t:'regresion',q:'Cuál es el propósito principal de la regresión lineal?',o:['Clasificar variables en categorías','Estimar una variable de salida en función de predictores','Calcular probabilidades acumuladas'],c:1,e:'La regresión lineal estima ŷ=β₀+Σβⱼxⱼ minimizando el MSE. Predice valores continuos.'},
+{u:'U2',s:'U2T1',t:'regresion',q:'Qué papel cumple el parámetro b en la regresión logística?',o:['El grado polinómico','La tasa de aprendizaje','El sesgo bias o intercepto'],c:2,e:'El parámetro b es el sesgo (bias/intercepto): valor de la salida cuando todos los predictores son 0.'},
+{u:'U2',s:'U2T1',t:'regresion',q:'Qué condición debe cumplir la matriz X para que la solución matricial de la regresión lineal sea posible?',o:['Que todos los coeficientes sean positivos','Que tenga rango completo','Que todos los residuos sean iguales a cero'],c:1,e:'La regresión lineal estima ŷ=β₀+Σβⱼxⱼ minimizando el MSE. Predice valores continuos.'},
+{u:'U2',s:'U2T1',t:'regresion',q:'Qué ocurre si la relación entre variables es no lineal y se usa regresión lineal simple?',o:['El modelo ajusta perfectamente los datos','El modelo presenta alto sesgo','El modelo mejora la varianza'],c:1,e:'La regresión lineal estima ŷ=β₀+Σβⱼxⱼ minimizando el MSE. Predice valores continuos.'},
+{u:'U2',s:'U2T1',t:'regresion',q:'Qué ocurre si λ=0 en Ridge o Lasso?',o:['Se obtiene la regresión lineal clásica','Se eliminan todas las variables','El modelo se vuelve no lineal'],c:0,e:'Con λ=0 no hay penalización → se obtiene la regresión lineal clásica sin regularización.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué riesgo aumenta al incrementar el grado del polinomio?',o:['Sobreajuste','Falta de convergencia numérica','Sesgo'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Cuál es el objetivo principal de las SVM?',o:['Maximizar el error de clasificación','Buscar el hiperplano con mayor margen entre clases','Minimizar el número de características'],c:1,e:'SVM busca el hiperplano de máximo margen entre clases. C controla penalización por errores.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué son los vectores de soporte en SVM?',o:['Los puntos más alejados de la frontera de decisión','Los puntos más cercanos a la frontera de decisión','Puntos seleccionados aleatoriamente'],c:1,e:'SVM busca el hiperplano de máximo margen entre clases. C controla penalización por errores.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué significa γ (gamma) alto en SVM con kernel RBF?',o:['Fronteras suaves bajo sesgo','Fronteras onduladas, muy localizadas alto riesgo de sobreajuste','Mayor generalización'],c:1,e:'SVM busca el hiperplano de máximo margen entre clases. C controla penalización por errores.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Cuál es la función de activación estándar en redes modernas?',o:['Sigmoide','Tanh','ReLU'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué hace la retropropagación en una red neuronal?',o:['Propaga datos hacia adelante','Calcula gradientes de la función de pérdida para actualizar parámetros','Escala las variables de entrada'],c:1,e:'Backpropagation calcula gradientes de la pérdida respecto a cada parámetro para actualizarlos.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Para qué se utiliza Dropout en redes neuronales?',o:['Para acelerar el entrenamiento','Para reducir sobreajuste desactivando aleatoriamente neuronas','Para aumentar la precisión'],c:1,e:'Dropout desactiva aleatoriamente neuronas durante entrenamiento → reduce sobreajuste.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Cuándo es mejor usar SVM sobre redes neuronales?',o:['Siempre son superiores las redes neuronales','Con datasets pequeños/medianos y cuando interpretabilidad es importante','SVM es siempre mejor'],c:1,e:'SVM busca el hiperplano de máximo margen entre clases. C controla penalización por errores.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué algoritmo de optimización es alternativa al SGD clásico?',o:['Newton-Raphson','Backtracking','Adam'],c:2,e:'Revisa el resumen de notas para este tema.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué kernel se relaciona conceptualmente con las neuronas artificiales?',o:['Polinomial','RBF','Sigmoide'],c:2,e:'Revisa el resumen de notas para este tema.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué función de pérdida es común en clasificación con redes neuronales?',o:['MSE','Entropía cruzada','Log-loss'],c:1,e:'Revisa el resumen de notas para este tema.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué mide la función f(x)=w?x+b en SVM?',o:['La distancia al hiperplano','El número de vectores de soporte','La probabilidad de clase'],c:0,e:'SVM busca el hiperplano de máximo margen entre clases. C controla penalización por errores.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué kernel es más adecuado cuando los datos son linealmente separables?',o:['Kernel RBF','Kernel polinomial','Kernel lineal'],c:2,e:'El kernel lineal es el más adecuado cuando los datos son linealmente separables.'},
+{u:'U1',s:'T2S4',t:'validacion',q:'Qué ocurre si se seleccionan hiperparámetros usando el conjunto de prueba?',o:['Mejora generalización','No tiene consecuencias','Se produce fuga de información y evaluación optimista'],c:2,e:'La validación correcta del modelo garantiza que el desempeño medido refleje la generalización real.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué salida produce una capa Softmax en redes neuronales?',o:['Probabilidades normalizadas multiclase','Valores entre -1 y 1','Distancias al hiperplano'],c:0,e:'Revisa el resumen de notas para este tema.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué función de activación es estándar en redes modernas por su eficiencia?',o:['Sigmoide','Tanh','ReLU'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Cuál es el rol de los vectores de soporte en SVM?',o:['Son los puntos más cercanos al hiperplano que definen la frontera','Son los puntos más alejados del hiperplano','Son todos los puntos de entrenamiento'],c:0,e:'SVM busca el hiperplano de máximo margen entre clases. C controla penalización por errores.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué busca maximizar una SVM lineal al separar clases?',o:['El margen entre las clases','El número de parámetros del modelo','El número de vectores de soporte'],c:0,e:'SVM busca el hiperplano de máximo margen entre clases. C controla penalización por errores.'},
+{u:'U1',s:'T1S2',t:'matematicas_tools',q:'Qué función de activación se usa típicamente en clasificación binaria por probabilidades?',o:['ReLU','Tanh','Sigmoide'],c:2,e:'Fundamentos matemáticos y herramientas del ecosistema Python para Machine Learning.'},
+{u:'U1',s:'T2S4',t:'validacion',q:'Qué técnica ayuda a detener el entrenamiento antes del sobreajuste?',o:['Expansión de dataset','Early stopping','Regularización L1'],c:1,e:'La validación correcta del modelo garantiza que el desempeño medido refleje la generalización real.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Cuál es una diferencia práctica entre SVM y redes neuronales?',o:['SVM requiere más datos','SVM es más eficiente en datasets pequeños','RNA es más interpretable'],c:1,e:'SVM busca el hiperplano de máximo margen entre clases. C controla penalización por errores.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué combina una neurona artificial antes de aplicar la función de activación?',o:['Un producto cruzado entre entradas','Una resta entre entradas','Una suma ponderada más un sesgo'],c:2,e:'Revisa el resumen de notas para este tema.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué representa el hiperparámetro C en una SVM?',o:['El número de vectores de soporte','El grado de penalización por errores de entrenamiento','La tasa de aprendizaje del modelo'],c:1,e:'SVM busca el hiperplano de máximo margen entre clases. C controla penalización por errores.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué efecto tiene un gamma (γ) alto en un kernel RBF?',o:['Fronteras suaves y generalización amplia','Fronteras muy onduladas y riesgo de sobreajuste','Disminución de la dimensionalidad'],c:1,e:'γ alto en RBF → fronteras muy localizadas/onduladas → mayor riesgo de sobreajuste.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué rol tiene el sesgo (b) en una neurona?',o:['Aumenta el número de neuronas','Desplaza la función de activación','Evita la regularización'],c:1,e:'El sesgo (b) en una neurona desplaza la función de activación, permitiendo mayor flexibilidad.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué problema clásico no puede resolver un perceptrón simple?',o:['Problema XOR','Regresión lineal','Clasificación lineal'],c:0,e:'El perceptrón simple no puede resolver el problema XOR (no es linealmente separable).'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué técnica evita sobreajuste en redes neuronales?',o:['Usar siempre sigmoide','Dropout','Aumentar neuronas sin límite'],c:1,e:'Revisa el resumen de notas para este tema.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué representan los nodos internos en un árbol de decisión?',o:['Predicciones finales','Condiciones de partición sobre variables','Registros individuales de entrenamiento'],c:1,e:'Los nodos internos de un árbol de decisión representan condiciones/preguntas sobre variables predictoras.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué efecto tiene la poda en un árbol de decisión?',o:['Aumentar el número de nodos terminales','Calcular de nuevo la entropía','Reducir ramas innecesarias para mejorar generalización'],c:2,e:'La poda reduce ramas innecesarias del árbol para mejorar la generalización y reducir sobreajuste.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué sucede con la capacidad de generalización de un árbol muy profundo?',o:['Permanece igual','Se incrementa siempre','Se reduce al aprender ruido'],c:2,e:'Un árbol muy profundo aprende el ruido del entrenamiento → reduce la capacidad de generalización.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Cuál es el riesgo de no podar un árbol de decisión?',o:['Eliminación de nodos homogéneos','Reducción de sesgo','Captura de ruido en los datos'],c:2,e:'La poda reduce ramas innecesarias del árbol para mejorar la generalización y reducir sobreajuste.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué tipo de pregunta representa cada nodo interno de un árbol de decisión?',o:['Una operación aritmética','Un promedio ponderado','Una condición sobre una variable'],c:2,e:'Revisa el resumen de notas para este tema.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué ocurre si un árbol es demasiado poco profundo?',o:['Se subajusta','Se sobreajusta','No genera predicciones'],c:0,e:'Un árbol muy poco profundo no aprende suficientes patrones → subajuste (underfitting).'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué ocurre si se limita demasiado la profundidad de un árbol?',o:['Puede perder patrones relevantes','Mejora la generalización siempre','La entropía se anula'],c:0,e:'Limitar demasiado la profundidad puede hacer que el árbol pierda patrones relevantes en los datos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué criterio es computacionalmente más eficiente en la práctica?',o:['El índice de Gini','La entropía','El promedio de clases'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué relación tienen los árboles de decisión con el sesgo y la varianza?',o:['Siempre tienen alto sesgo','Pueden regularse para equilibrar ambos','Siempre tienen baja varianza'],c:1,e:'Revisa el resumen de notas para este tema.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué representa un valor de Gini cercano a 0.5 en un nodo binario?',o:['Un nodo eliminado por poda','Un nodo muy mezclado','Un nodo puro'],c:1,e:'El índice de Gini es computacionalmente más eficiente que la entropía en la práctica.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué significa que la entropía sea igual a 0 en un nodo?',o:['El nodo contiene solo ejemplos positivos','El nodo es completamente puro','El nodo tiene incertidumbre máxima'],c:1,e:'Entropía=0 → nodo completamente puro → todas las muestras son de la misma clase.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué implica que un árbol tenga baja profundidad y alto error en entrenamiento?',o:['Está sobreajustado','Está subajustado','Tiene baja varianza'],c:1,e:'Baja profundidad + alto error en entrenamiento → subajuste → modelo demasiado simple.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué estrategia permite regular la complejidad de un árbol antes de crecer completamente?',o:['Cálculo del error cuadrático medio','Ajuste de hiperparámetros','Aumento de hojas terminales'],c:1,e:'Ajustar hiperparámetros (max_depth, min_samples_split) regula la complejidad antes de que crezca.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué refleja el dilema entre sesgo y varianza en árboles de decisión?',o:['El método de optimización','El equilibrio entre simplicidad y capacidad de generalización','El número de variables predictoras'],c:1,e:'Los árboles pueden regularse (profundidad, poda, min_samples) para equilibrar sesgo y varianza.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué mide la entropía en un árbol de decisión?',o:['La cantidad de nodos','El número de divisiones realizadas','El nivel de incertidumbre de la distribución de clases'],c:2,e:'La entropía mide el nivel de incertidumbre de la distribución de clases en un nodo.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué significa que el índice de Gini sea cercano a 0?',o:['La partición es heterogénea','La partición es homogénea','El árbol está sobreajustado'],c:1,e:'El índice de Gini es computacionalmente más eficiente que la entropía en la práctica.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué puede suceder si se permite que los nodos de un árbol se dividan con muy pocas muestras?',o:['El árbol se vuelve demasiado complejo y tiende a sobreajustar','El modelo aumenta su sesgo de manera significativa','El árbol se vuelve más general y sencillo'],c:0,e:'Dividir nodos con muy pocas muestras genera un árbol demasiado complejo que tiende a sobreajustar.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Por qué la exactitud es engañosa en detección de fraudes?',o:['Porque la clase fraudulenta es mayoritaria','Porque no mide la precisión en tiempo real','Porque un modelo puede predecir siempre "no fraude" y tener alta accuracy'],c:2,e:'Un modelo que predice siempre "no fraude" puede tener alta accuracy ignorando todos los fraudes.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué visión fomenta el análisis de errores en estudiantes?',o:['Que solo importa el F1-score','Una mirada crítica para evaluar limitaciones y mejoras','Que los modelos son siempre exactos'],c:1,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Por qué se prioriza el recall en problemas médicos?',o:['Porque es más grave no detectar un caso positivo que detectarlo erróneamente','Porque siempre da valores más altos que la precisión','Porque se busca minimizar la cantidad de predicciones negativas'],c:0,e:'En medicina es más grave no detectar un positivo (FN) que generar una alarma falsa (FP).'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Qué representa un falso negativo en un dataset de salud?',o:['Diagnosticar correctamente la ausencia de enfermedad','Detectar erróneamente enfermedad en un paciente sano','No detectar enfermedad en un paciente que sí la tiene'],c:2,e:'Falso negativo en salud = no detectar enfermedad en un paciente que sí la tiene.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Qué mide el recall (sensibilidad) para una clase?',o:['La proporción de falsos positivos sobre el total de predicciones positivas','La proporción de verdaderos positivos sobre todos los casos realmente positivos','La proporción de predicciones correctas sobre el total de predicciones'],c:1,e:'Recall = VP / (VP + FN): proporción de positivos reales que el modelo detectó correctamente.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Por qué la accuracy puede ser engañosa en un problema multiclase desbalanceado?',o:['Porque un modelo puede acertar mayormente en clases frecuentes y fallar en las minoritarias','Porque siempre da un valor bajo en cualquier escenario','Porque solo mide los errores en la clase mayoritaria'],c:0,e:'Un modelo que predice siempre "no fraude" puede tener alta accuracy ignorando todos los fraudes.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué enseñan los errores en modelos de aprendizaje automático?',o:['Que los errores pueden ser pistas para mejorar modelos y datos','Que los algoritmos son siempre incorrectos','Que las métricas no son necesarias'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué indica un patrón sistemático en los errores?',o:['Posible sesgo en los datos o el modelo','Varianza alta','Aleatoriedad total en los errores'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué son los falsos positivos (FP) en clasificación?',o:['Casos correctamente clasificados en la clase positiva','Casos predichos como negativos siendo positivos','Casos predichos como positivos siendo negativos'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Cómo puede mejorar un modelo con sesgo hacia precios bajos?',o:['Eliminando la mitad de los datos','Usando técnicas de regularización o nuevas variables','Incrementando aleatoriamente los precios reales'],c:1,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Qué muestra un gráfico de residuos en regresión?',o:['La tasa de falsos positivos y negativos','La distribución de las clases por categoría','La diferencia entre valores predichos y observados'],c:2,e:'El gráfico de residuos muestra la diferencia entre valores predichos y observados.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué tipo de datasets suelen presentar ruido y valores faltantes?',o:['Datasets sintéticos','Datasets balanceados','Datasets reales'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Qué rol tiene el análisis de residuos en predicción de precios de vivienda?',o:['Ajustar automáticamente los hiperparámetros','Ver la distribución de las etiquetas reales','Identificar si el modelo subestima precios altos'],c:2,e:'Revisa el resumen de notas para este tema.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Qué penaliza el log-loss en clasificación?',o:['Los errores de predicción con baja probabilidad','Las predicciones incorrectas con alta confianza','Los aciertos en clases mayoritarias'],c:1,e:'Log-loss penaliza especialmente las predicciones incorrectas realizadas con alta confianza.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Cómo puede extenderse el ROC-AUC a problemas multiclase?',o:['Usando el enfoque "uno contra todos" para cada clase','Calculando un valor único de exactitud','Promediando las matrices de confusión'],c:0,e:'ROC-AUC multiclase se extiende con el enfoque "uno contra todos" para cada clase.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Cómo funciona el weighted average en clasificación multiclase?',o:['Usa el promedio de métricas más altas','Ignora las clases con baja frecuencia','Pondera cada clase según su proporción en el dataset'],c:2,e:'Revisa el resumen de notas para este tema.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Cuál es la fórmula del F1-score?',o:['F1=Precisión+Recall/2','F1=Precisión-Recall/Precisión+Recall','F1=2*Precisión*Recall/Precisión+Recall'],c:2,e:'F1 = 2·(Precisión·Recall)/(Precisión+Recall). Media armónica entre precisión y recall.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué son los falsos negativos (FN)?',o:['Casos predichos como positivos siendo positivos','Casos correctamente clasificados como negativos','Casos predichos como negativos siendo positivos'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Qué refleja el análisis de palabras mal clasificadas en spam?',o:['Que algunos patrones lingüísticos inducen a error al modelo','Que el modelo tiene varianza infinita','Que el dataset no sirve'],c:0,e:'Las palabras mal clasificadas en spam revelan patrones lingüísticos que inducen error al modelo.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Qué problema se observa en la detección de spam?',o:['El desbalance entre spam y no spam','El log-loss siempre es bajo','Los correos legítimos siempre se clasifican como spam'],c:0,e:'Revisa el resumen de notas para este tema.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Qué mide el índice Kappa de Cohen en clasificación?',o:['El porcentaje de falsos positivos','El tiempo de entrenamiento del modelo','El grado de acuerdo entre predicciones y realidad corrigiendo por azar'],c:2,e:'El índice Kappa mide el acuerdo entre predicciones y realidad corrigiendo por el azar.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué significa la calidad de datos en ML?',o:['Que ruido y valores faltantes afectan la validez del modelo','Que los modelos pueden aprender incluso sin datos','Que basta con tener grandes volúmenes sin importar su fiabilidad'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué implica la complejidad computacional?',o:['Que los modelos no requieren energía','Que solo funcionan en computadores personales antiguos','Que los modelos profundos necesitan hardware especializado y alto consumo'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué tipo de ML se usa para entrenar un robot a caminar?',o:['Auto-supervisado','Por refuerzo','Semi-supervisado'],c:1,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Cuál es la esencia del aprendizaje automático?',o:['Memorizar todos los ejemplos de entrenamiento','Requerir supervisión humana en cada decisión','Generalizar a partir de ejemplos para predecir nuevos casos'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Cuál es una aplicación en salud?',o:['Diagnóstico asistido por imágenes médicas','Monitoreo de redes sociales','Predicción de ventas minoristas'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Cuál fue un hito en IA en los 2010s?',o:['El uso de reglas lógicas en todo sistema','El éxito de redes profundas en visión y lenguaje','La exclusión de datos no estructurados'],c:1,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'En qué consiste el aprendizaje no supervisado?',o:['Identifica estructuras ocultas en datos sin etiquetas','No requiere procesamiento computacional','Depende de etiquetas predefinidas'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Cuál es una limitación ética central?',o:['La reproducción de discriminaciones sociales','La precisión excesiva','El consumo eléctrico de GPUs'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué distingue al aprendizaje supervisado?',o:['Utiliza conjuntos de datos con etiquetas conocidas','Siempre requiere que los datos no tengan etiquetas','Se centra únicamente en simular redes neuronales'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Por qué es importante la interpretabilidad?',o:['Porque mejora la velocidad de cómputo','Porque sustituye la necesidad de pruebas estadísticas','Porque en áreas críticas se requiere explicar decisiones'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué problema busca resolver el aprendizaje auto-supervisado en NLP?',o:['Mejorar hardware de GPUs','Reducir costos en satélites','Crear representaciones de lenguaje sin etiquetas manuales'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'En qué década surgió el término "inteligencia artificial"?',o:['1940','1980','1950'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué permitió el resurgimiento de la IA en los 2000?',o:['Mayor poder computacional y big data','La desaparición de la estadística','La caída de internet'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Por qué es clave la transparencia en medicina?',o:['Para aumentar la velocidad de consultas','Para reducir el costo de tratamientos','Para que médicos y pacientes comprendan las decisiones del modelo'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué hace único al aprendizaje auto-supervisado?',o:['Genera etiquetas artificiales a partir de los propios datos','Depende exclusivamente de hardware especializado','No utiliza datos'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Cuál es un desafío clave en la implementación de ML en educación?',o:['Que los modelos siempre generan mejores profesores','Que no requieren datos de estudiantes','Evitar sesgos en recomendaciones personalizadas'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué representa la figura del espectro de aplicaciones de IA?',o:['Que cubre desde asistencia humana hasta automatización completa','Que se restringe a educación y salud','Que solo sirve en entornos militares'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Cuál es la característica del aprendizaje semi-supervisado?',o:['Solo funciona con datos completamente etiquetados','Combina datos etiquetados y no etiquetados','Se limita a tareas de predicción de precios'],c:1,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué busca la IA explicable (XAI)?',o:['Reducir el costo del hardware','Aumentar la velocidad de procesamiento','Transparencia en las decisiones de los modelos'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S2',t:'matematicas_tools',q:'Qué papel cumple el álgebra lineal en el aprendizaje automático?',o:['Define reglas de lógica simbólica','Facilita la edición de imágenes en alta resolución','Permite representar datos en vectores y matrices y aplicar transformaciones lineales'],c:2,e:'Fundamentos matemáticos y herramientas del ecosistema Python para Machine Learning.'},
+{u:'U1',s:'T1S2',t:'matematicas_tools',q:'Qué ventaja principal ofrecen los Jupyter Notebooks?',o:['Reemplazan los sistemas operativos tradicionales','Permiten crear animaciones 3D automáticamente','Integran código, texto y visualizaciones en un solo documento'],c:2,e:'Fundamentos matemáticos y herramientas del ecosistema Python para Machine Learning.'},
+{u:'U1',s:'T1S2',t:'matematicas_tools',q:'Cómo se representan normalmente los datos en álgebra lineal dentro del aprendizaje automático?',o:['Como tablas periódicas','Como ecuaciones diferenciales','Como vectores y matrices'],c:2,e:'Fundamentos matemáticos y herramientas del ecosistema Python para Machine Learning.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué caracteriza al aprendizaje supervisado?',o:['Se entrena con pares entrada-salida','No requiere etiquetas','Solo se usa en clustering'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S2',t:'matematicas_tools',q:'Qué biblioteca es clave en Python para manipulación de arreglos numéricos?',o:['NumPy','BeautifulSoup','Seaborn'],c:0,e:'Fundamentos matemáticos y herramientas del ecosistema Python para Machine Learning.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué caracteriza al aprendizaje no supervisado?',o:['El modelo encuentra patrones sin etiquetas previas','Solo se usa en imágenes médicas','Los datos incluyen etiquetas definidas'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué lenguaje domina el ecosistema de ML?',o:['Python','C puro','Java'],c:0,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S2',t:'matematicas_tools',q:'Qué ventaja tiene usar Google Colab sobre otros entornos?',o:['No permite compartir proyectos','Carece de acceso a bibliotecas de Python','Ofrece recursos gratuitos en la nube para ejecutar modelos'],c:2,e:'Fundamentos matemáticos y herramientas del ecosistema Python para Machine Learning.'},
+{u:'U1',s:'T1S2',t:'matematicas_tools',q:'Qué aportan las estadísticas al aprendizaje automático?',o:['Ofrecen métodos de inferencia y validación para asegurar la generalización','Permiten únicamente calcular promedios','Ayudan a diseñar arquitecturas neuronales profundas'],c:0,e:'Fundamentos matemáticos y herramientas del ecosistema Python para Machine Learning.'},
+{u:'U1',s:'T1S2',t:'matematicas_tools',q:'Qué relación tiene la probabilidad con los modelos de Markov?',o:['Solo sirven en álgebra lineal','Modelan procesos estocásticos y secuenciales','Representan datos deterministas'],c:1,e:'Fundamentos matemáticos y herramientas del ecosistema Python para Machine Learning.'},
+{u:'U1',s:'T1S2',t:'matematicas_tools',q:'Por qué la integración de álgebra lineal, probabilidad y estadística es esencial en ML?',o:['Porque son asignaturas independientes','Porque eliminan la necesidad de programación','Porque juntas permiten diseñar algoritmos robustos y generalizables'],c:2,e:'Fundamentos matemáticos y herramientas del ecosistema Python para Machine Learning.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué caracteriza al aprendizaje semi-supervisado?',o:['Usa solo datos etiquetados','Combina datos etiquetados y no etiquetados','Requiere árboles de decisión siempre'],c:1,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Qué entorno interactivo permite documentar procesos reproducibles?',o:['Jupyter Notebook','Visual Studio Code','Eclipse'],c:0,e:'Revisa el resumen de notas para este tema.'},
+{u:'U1',s:'T1S2',t:'matematicas_tools',q:'Cuál es la función de pandas?',o:['Manipular y analizar datos en tablas DataFrames','Renderizar gráficos 3D','Crear redes neuronales profundas'],c:0,e:'Fundamentos matemáticos y herramientas del ecosistema Python para Machine Learning.'},
+{u:'U1',s:'T2S4',t:'validacion',q:'Por qué la estadística es fundamental en validación de modelos?',o:['Para graficar redes neuronales','Para construir arquitecturas convolucionales','Para aplicar pruebas de hipótesis y asegurar generalización'],c:2,e:'La validación correcta del modelo garantiza que el desempeño medido refleje la generalización real.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué biblioteca se usa para visualización en ML?',o:['Keras','TensorFlow','Matplotlib'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S2',t:'matematicas_tools',q:'Qué es MLOps?',o:['Prácticas que integran ingeniería de software y ciencia de datos para producción','Un tipo de regresión lineal','Un algoritmo de clustering jerárquico'],c:0,e:'Fundamentos matemáticos y herramientas del ecosistema Python para Machine Learning.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Qué significa un modelo con accuracy = 0.95 en dataset muy desbalanceado (95% negativos)?',o:['Puede estar ignorando casi todos los positivos','Clasifica bien ambas clases','Tiene recall perfecto'],c:0,e:'Con 95% negativos, un modelo que predice siempre negativo tiene 95% accuracy ignorando los positivos.'},
+{u:'U1',s:'T2S3',t:'metricas',q:'Qué métrica es más adecuada cuando los falsos positivos son muy costosos?',o:['R²','Precision','Recall'],c:1,e:'Las métricas de evaluación permiten cuantificar el desempeño real del modelo en distintos contextos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Cuál es el propósito principal de la trazabilidad en el ciclo de vida de un modelo de ML?',o:['Aumentar la velocidad de entrenamiento','Documentar y verificar decisiones y riesgos','Reducir el tamaño del dataset'],c:1,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U1',s:'T1S1',t:'tipos_app',q:'Qué función se relaciona con mapear riesgos y supuestos en el diseño?',o:['MANAGE','MEASURE','MAP'],c:2,e:'Concepto fundamental de ML: aprender patrones desde datos para generalizar a nuevos casos.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Qué ocurre con el recall si aumentan los falsos negativos?',o:['Se mantiene igual','Aumenta','Disminuye'],c:2,e:'Si aumentan los FN → recall = VP/(VP+FN) disminuye directamente.'},
+{u:'U2',s:'U2T2',t:'metricas_av',q:'Qué combinación refleja un modelo con alta precisión pero bajo recall?',o:['Muchos FN y pocos FP','Muchos FP y pocos FN','Pocos FN y muchos FP'],c:0,e:'Alta precision + bajo recall = muchos FN y pocos FP (modelo muy conservador).'},
+{u:'U1',s:'T2S4',t:'validacion',q:'Cuál es el propósito principal de dividir los datos en entrenamiento, validación y prueba?',o:['Para acelerar el entrenamiento de los modelos','Para evaluar generalización de manera confiable','Para evitar el uso de algoritmos complejos'],c:1,e:'La validación correcta del modelo garantiza que el desempeño medido refleje la generalización real.'},
+{u:'U1',s:'T2S4',t:'validacion',q:'Qué es validación cruzada anidada?',o:['Una variante de K-fold con menos pliegues','Un bucle interno para hiperparámetros y externo para evaluación','Entrenar con menos datos para ahorrar tiempo'],c:1,e:'La validación correcta del modelo garantiza que el desempeño medido refleje la generalización real.'},
+{u:'U1',s:'T2S4',t:'validacion',q:'Qué refleja el término "fuga de información"?',o:['Baja precisión por desbalance','Uso indebido de datos de validación o futuro en entrenamiento','Pérdida de datos durante el entrenamiento'],c:1,e:'La validación correcta del modelo garantiza que el desempeño medido refleje la generalización real.'},
+{u:'U1',s:'T2S4',t:'validacion',q:'Qué sucede si el error de entrenamiento es muy bajo pero validación sigue alto?',o:['Subajuste','Sobreajuste','Modelo balanceado'],c:1,e:'La validación correcta del modelo garantiza que el desempeño medido refleje la generalización real.'},
+{u:'U2',s:'U2T2',t:'arboles',q:'Qué parámetro se ajustó en el video para evitar que el árbol se sobreajuste?',o:['Learning rate','Máxima profundidad del árbol','Número de pliegues'],c:1,e:'Revisa el resumen de notas para este tema.'},
+{u:'U1',s:'T2S3',t:'metricas',q:'Qué métrica NO es adecuada en un dataset desbalanceado?',o:['Accuracy','F1-score','Recall'],c:0,e:'Las métricas de evaluación permiten cuantificar el desempeño real del modelo en distintos contextos.'},
+{u:'U1',s:'T2S4',t:'validacion',q:'Cuál de los siguientes síntomas refleja sobreajuste?',o:['Ambos errores altos','Error bajo en entrenamiento pero alto en validación','Error alto en entrenamiento y validación'],c:1,e:'La validación correcta del modelo garantiza que el desempeño medido refleje la generalización real.'},
+{u:'U1',s:'T2S4',t:'validacion',q:'Qué caracteriza a la validación cruzada K-fold?',o:['Usa siempre el mismo corte de datos','Divide en K pliegues y rota validación','Entrena con todo y valida con todo'],c:1,e:'La validación correcta del modelo garantiza que el desempeño medido refleje la generalización real.'},
+{u:'U2',s:'U2T2',t:'svm_nn',q:'Qué sucede cuando se aplica dropout en una red neuronal?',o:['Se desactivan aleatoriamente durante entrenamiento','Se eliminan definitivamente neuronas','Se reducen los datos de entrada'],c:0,e:'Dropout desactiva aleatoriamente neuronas durante entrenamiento → reduce sobreajuste.'}
+];
+
+let cur=[],filt=[...QS],idx=0,ans=false,ok=0,ko=0,mode='quiz',fi=0,ff=false;
+let ufil='all',sfil='all',tfil='all';
+const TL={tipos:'Tipos ML',tipos_app:'Tipos/Aplic.',aplicaciones:'Aplic.',matematicas:'Math',matematicas_tools:'Math/Tools',herramientas:'Tools',historia:'Historia',metricas:'Métricas',validacion:'Validación',regresion:'Regresión',svm_nn:'SVM/Redes',arboles:'Árboles',metricas_av:'Métricas Av.'};
+const SL={T1S1:'T1·S1',T1S2:'T1·S2',T2S3:'T2·S3',T2S4:'T2·S4',U2T1:'U2·T1',U2T2:'U2·T2'};
+function tl(t){return TL[t]||t;}function sl(s){return SL[s]||s;}
+function shuf(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function applyF(){filt=QS.filter(q=>(ufil==='all'||q.u===ufil)&&(sfil==='all'||q.s===sfil)&&(tfil==='all'||q.t===tfil));cur=shuf([...filt]);idx=0;ok=0;ko=0;ans=false;if(mode==='quiz')renderQ();else if(mode==='flash'){fi=0;ff=false;renderF();}else if(mode==='review')renderRv();updS();}
+function fU(v,el){ufil=v;document.querySelectorAll('#uF .pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');applyF();}
+function fS(v,el){sfil=v;document.querySelectorAll('#sF .pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');applyF();}
+function fT(v,el){tfil=v;document.querySelectorAll('#tF .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');applyF();}
+function setMode(m){mode=m;document.querySelectorAll('.top-tab').forEach((t,i)=>t.classList.toggle('active',['quiz','flash','review','notes'][i]===m));const isN=m==='notes';document.getElementById('statsStrip').classList.toggle('hidden',isN);document.getElementById('filtersBlock').classList.toggle('hidden',isN||m==='review');document.getElementById('progBar').classList.toggle('hidden',isN);document.getElementById('quizMode').classList.toggle('hidden',m!=='quiz');document.getElementById('flashMode').classList.toggle('hidden',m!=='flash');document.getElementById('reviewMode').classList.toggle('hidden',m!=='review');document.getElementById('endScreen').classList.remove('show');if(isN){document.getElementById('notesMode').classList.add('show');}else{document.getElementById('notesMode').classList.remove('show');if(m==='flash'){fi=0;ff=false;renderF();}else if(m==='review')renderRv();else renderQ();}}
+function updS(){const tot=cur.length,rem=Math.max(0,tot-idx-(ans?1:0));document.getElementById('tQ').textContent=tot;document.getElementById('cQ').textContent=ok;document.getElementById('wQ').textContent=ko;document.getElementById('rQ').textContent=rem;document.getElementById('progFill').style.width=(tot?((idx+(ans?1:0))/tot)*100:0)+'%';const t=ok+ko;document.getElementById('sNum').textContent=t?Math.round((ok/t)*100)+'%':'—';}
+function renderQ(){document.getElementById('endScreen').classList.remove('show');document.getElementById('quizMode').classList.remove('hidden');ans=false;document.getElementById('nextBtn').style.display='none';if(idx>=cur.length){showEnd();return;}const q=cur[idx];updS();document.getElementById('qCard').innerHTML=`<div class="qcard"><div class="qmeta"><span class="badge n">P ${idx+1}/${cur.length}</span><span class="badge u">${q.u}</span><span class="badge s">${sl(q.s)}</span><span class="badge t">${tl(q.t)}</span></div><div class="qtext">${q.q}</div><div class="opts">${q.o.map((o,i)=>`<button class="opt" onclick="sel(${i})" id="op${i}"><span class="ol">${['A','B','C'][i]}</span>${o}</button>`).join('')}</div><div class="fb" id="fb"></div></div>`;}
+function sel(i){if(ans)return;ans=true;const q=cur[idx];document.querySelectorAll('.opt').forEach(b=>b.disabled=true);const fb=document.getElementById('fb');if(i===q.c){ok++;document.getElementById('op'+i).classList.add('ok');fb.className='fb ok-fb show';fb.innerHTML=`<div class="fb-t">✓ Correcto</div><div class="fb-b">${q.e}</div>`;}else{ko++;document.getElementById('op'+i).classList.add('no');document.getElementById('op'+q.c).classList.add('sh');fb.className='fb no-fb show';fb.innerHTML=`<div class="fb-t">✗ Incorrecto — La correcta: "${q.o[q.c]}"</div><div class="fb-b">${q.e}</div>`;}document.getElementById('nextBtn').style.display='inline-block';updS();}
+function nextQ(){idx++;renderQ();}
+function skipQ(){if(idx<cur.length){const sk=cur.splice(idx,1)[0];cur.push(sk);renderQ();}}
+function shuffleQ(){cur=shuf([...filt]);idx=0;ok=0;ko=0;renderQ();}
+function restart(){idx=0;ok=0;ko=0;ans=false;cur=shuf([...filt]);document.getElementById('endScreen').classList.remove('show');document.getElementById('quizMode').classList.remove('hidden');renderQ();updS();}
+function showEnd(){document.getElementById('quizMode').classList.add('hidden');const tot=ok+ko,pct=tot?Math.round((ok/tot)*100):0;document.getElementById('endScreen').classList.add('show');document.getElementById('eScore').textContent=`${ok}/${tot}`;document.getElementById('eSub').textContent=`${ufil==='all'?'Todas':ufil} · ${sfil==='all'?'Todas sesiones':sl(sfil)} · ${tfil==='all'?'Todos temas':tl(tfil)}`;document.getElementById('eEm').textContent=pct>=90?'🏆':pct>=70?'💪':'📚';document.getElementById('eTitle').textContent=pct>=90?'¡Excelente dominio!':pct>=70?'¡Buen trabajo!':'Sigue repasando';document.getElementById('progFill').style.width='100%';}
+function renderF(){ff=false;const q=cur[fi%cur.length];document.getElementById('fHint').textContent='PREGUNTA';document.getElementById('fContent').className='fcc';document.getElementById('fContent').innerHTML=q.q;document.getElementById('fCount').textContent=`${(fi%cur.length)+1} / ${cur.length}`;}
+function flipCard(){ff=!ff;const q=cur[fi%cur.length];if(ff){document.getElementById('fHint').textContent='RESPUESTA CORRECTA';document.getElementById('fContent').innerHTML=`<div class="fca">✓ ${q.o[q.c]}</div><div style="margin-top:11px;font-size:11px;color:var(--muted);font-family:var(--mono);line-height:1.6">${q.e}</div>`;}else renderF();}
+function nextF(){fi=(fi+1)%cur.length;renderF();}function prevF(){fi=(fi-1+cur.length)%cur.length;renderF();}
+function renderRv(){document.getElementById('reviewMode').innerHTML=QS.map((q,i)=>`<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:10px;"><div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap"><span style="font-family:var(--mono);font-size:9px;color:var(--accent);background:rgba(245,166,35,.1);padding:2px 8px;border-radius:4px;letter-spacing:2px">P${i+1}</span><span style="font-family:var(--mono);font-size:9px;color:var(--green);background:rgba(46,204,113,.1);padding:2px 7px;border-radius:4px">${q.u}</span><span style="font-family:var(--mono);font-size:9px;color:var(--accent2);background:rgba(124,109,235,.1);padding:2px 7px;border-radius:4px">${sl(q.s)}</span><span style="font-family:var(--mono);font-size:9px;color:var(--muted);background:var(--surface);padding:2px 7px;border-radius:4px">${tl(q.t)}</span></div><div style="font-size:14px;font-weight:700;margin-bottom:9px;line-height:1.4">${q.q}</div>${q.o.map((o,j)=>`<div style="padding:7px 11px;border-radius:7px;margin-bottom:4px;font-size:12px;background:${j===q.c?'rgba(46,204,113,.1)':'var(--surface)'};border:1px solid ${j===q.c?'rgba(46,204,113,.4)':'var(--border)'};color:${j===q.c?'var(--green)':'var(--muted)'}"><strong style="font-family:var(--mono)">${['A','B','C'][j]}.</strong> ${o} ${j===q.c?'✓':''}</div>`).join('')}<div style="margin-top:9px;padding:10px 14px;background:rgba(124,109,235,.07);border-radius:8px;font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.6;border:1px solid rgba(124,109,235,.15)">${q.e}</div></div>`).join('');}
+function tog(id){document.getElementById(id).classList.toggle('open');}
+function showUnit(u,el){document.querySelectorAll('.unit-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('#notesMode > .nc').forEach(c=>c.classList.remove('show'));el.classList.add('active');document.getElementById('n-'+u).classList.add('show');}
+function showTheme(unit,theme,el){const container=document.getElementById('n-'+unit);container.querySelectorAll('.theme-tab').forEach(t=>t.classList.remove('active'));container.querySelectorAll('.nc').forEach(c=>c.classList.remove('show'));el.classList.add('active');document.getElementById('n-'+unit+'-'+theme).classList.add('show');}
+cur=shuf([...filt]);renderQ();updS();
+</script>
+</body>
+</html>
