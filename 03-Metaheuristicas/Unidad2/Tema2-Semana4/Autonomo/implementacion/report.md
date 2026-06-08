@@ -11,12 +11,36 @@ Resultados (resumen):
 
 Archivo de datos: `results_experiments.csv` (contiene coste, tiempo y iteraciones por corrida).
 
-Reflexión crítica (≈300 palabras):
+**Análisis comparativo**
 
-En esta actividad se implementaron dos algoritmos de trayectoria para el TSP: Simulated Annealing (SA) y Tabu Search (TS). Ambos métodos exploraron el espacio de soluciones mediante intercambios de posiciones (swap). En las condiciones experimentales (instancia de 8 nodos y parámetros por defecto seleccionados), ambos algoritmos encontraron soluciones con el mismo coste óptimo observado (~253.28) en las repeticiones realizadas. Sin embargo, el comportamiento en tiempo y dinámica de búsqueda mostró diferencias notables.
+A continuación se presenta un análisis comparativo entre los algoritmos más relevantes para el problema TSP, tomando como referencia los resultados obtenidos (SA y TS) y un contexto general con métodos comunes (Nearest Neighbor, 2-opt, Genetic Algorithm).
 
-SA es un enfoque probabilístico que permite aceptar peores soluciones con una probabilidad dependiente de una temperatura decreciente. Esto facilita escapar de mínimos locales y, con una regulación adecuada de la temperatura inicial y la tasa de enfriamiento, converge a soluciones de buena calidad. En nuestros experimentos SA requirió más iteraciones (media ≈4594) aunque el tiempo por iteración es muy bajo, resultando en un tiempo medio total pequeño (≈0.02 s). Esto indica que SA exploró ampliamente el espacio manteniendo operaciones baratas por paso.
+| Algoritmo | Precisión (calidad) | Eficiencia (tiempo/recursos) | Robustez (consistencia/ajuste de parámetros) |
+|---|---:|---:|---:|
+| Simulated Annealing (SA) | Alta — buena capacidad para escapar de mínimos locales | Alta — bajo coste por iteración, requiere más iteraciones | Media — sensible a temperatura y programación de enfriamiento |
+| Tabu Search (TS) | Alta — intensificación local efectiva | Media-Baja — costo por iteración mayor si se examina todo el vecindario | Alta — estable si se ajusta la tenencia tabú y el vecindario |
+| Nearest Neighbor (heurística golosa) | Baja-Media — rápida pero suele quedar lejos del óptimo | Muy alta — extremadamente rápido | Baja — depende fuertemente del nodo inicial |
+| 2-opt (mejora local) | Media-Alta — mejora sustancial sobre heurísticas golosas | Alta — operaciones baratas por intercambio local | Media — puede quedarse en óptimos locales sin estrategia global |
+| Genetic Algorithm (GA) | Variable-Alta — buena exploración con operadores adecuados | Media-Baja — coste adicional por población y operadores | Media — requiere ajuste de población, crossover y mutación |
 
-TS, por su parte, realiza una búsqueda determinista guiada por una lista tabú que evita volver a movimientos recientes. TS tiende a intensificar la búsqueda alrededor de soluciones prometedoras, pero en nuestra implementación la evaluación exhaustiva del vecindario en cada iteración (calcular coste para todos los swaps) incrementó el coste computacional por iteración, traduciéndose en mayor tiempo medio (≈0.19 s) pese a limitar las iteraciones a 2000. En problemas de mayor tamaño sería crucial optimizar la evaluación incremental de costes y/o reducir el tamaño del vecindario considerado.
+Análisis de diferencias (precisión, eficiencia, robustez):
 
-Conclusión: Para instancias pequeñas ambos algoritmos pueden ofrecer soluciones comparables en calidad; SA mostró una relación tiempo-calidad más favorable en esta implementación simple. Para escalabilidad y uso práctico conviene: (1) implementar evaluaciones delta para swaps/two-opt para reducir coste por iteración, (2) diseñar criterios adaptativos de parada, y (3) ajustar parámetros (temperatura, tenencia tabú) mediante búsqueda de hiperparámetros. En aplicaciones reales (logística, robótica) la elección dependerá de la necesidad de soluciones rápidas frente a la calidad óptima y de la complejidad del modelo de vecindario.
+- Precisión: métodos que combinan búsqueda global y mejora local (por ejemplo GA con 2-opt, o SA con enfriamiento lento) tienden a producir mejores soluciones para instancias pequeñas y medianas. En nuestros experimentos SA y TS alcanzaron la misma mejor solución observada, lo que confirma que ambos pueden lograr alta precisión si están bien parametrizados.
+- Eficiencia: SA mostró menor tiempo total en esta implementación porque cada iteración es muy barata; TS consumió más tiempo debido a la evaluación más amplia del vecindario. Heurísticas simples (Nearest Neighbor) son extremadamente rápidas pero sacrifican calidad.
+- Robustez: TS puede ofrecer comportamientos más predecibles cuando la tenencia tabú y el esquema de vecindario están bien definidos; SA necesita cuidado en la selección de temperatura inicial y tasa de enfriamiento para evitar tanto convergencia prematura como exploración excesiva.
+
+Recomendaciones prácticas:
+
+- Para prototipos rápidos y restricciones de tiempo usar Nearest Neighbor + 2-opt como pipeline: la heurística inicial es veloz y 2-opt mejora la calidad con bajo coste.
+- Para búsqueda de soluciones de mayor calidad usar SA o TS con evaluaciones delta (two‑opt delta) para reducir coste por iteración.
+- Para problemas reales grandes considerar metaheurísticas híbridas (GA+local search, ACO con intensificación) y automatizar la búsqueda de hiperparámetros.
+
+**Reflexión crítica (≈300 palabras)**
+
+Los algoritmos de trayectoria y las metaheurísticas aplicadas al TSP tienen una relevancia directa en problemas reales de logística, robótica y planificación de recursos, porque ofrecen un equilibrio práctico entre calidad de solución y coste computacional. En logística, por ejemplo, rutas de reparto y recolección requieren soluciones cercanas al óptimo en tiempos limitados: aquí, una combinación de heurística inicial (Nearest Neighbor) seguida de una mejora local (2-opt/3-opt) puede proporcionar rutas útiles en segundos, mientras que métodos más costosos (GA, ACO, TS) pueden reservarse para windows de optimización nocturna o planificación estratégica donde el tiempo no es tan crítico.
+
+En robótica la planificación de trayectorias tiene además restricciones geométricas y dinámicas (obstáculos, cinemática del robot) que convierten el problema en variantes del TSP o en problemas de ruteo con restricciones. Las metaheurísticas son valiosas porque permiten incorporar restricciones adicionales en la evaluación de soluciones y explorar espacios de alta dimensionalidad donde métodos exactos no son prácticos. Sin embargo, en entornos con fuerte requerimiento en tiempo real, es común usar políticas híbridas: planificador rápido para emergencia y optimizador off-line para refinar trayectorias.
+
+En planificación de recursos (asignación de tareas, secuenciación de máquinas), la robustez y la consistencia son tan importantes como la calidad puntual de la solución; aquí, TS puede ser preferible por su capacidad para intensificar y diversificar controladamente, mientras que SA o GA aportan flexibilidad para escapar de mínimos locales en espacios complejos.
+
+Finalmente, la aplicabilidad práctica exige más que un buen algoritmo: requiere modelado realista, evaluaciones delta para eficiencia, validación con datos reales y pipelines automatizados para ajuste de parámetros. Las decisiones entre velocidad y calidad, la tolerancia a subóptimos y la necesidad de explicabilidad condicionan la elección del método en cada dominio. En resumen, las metaheurísticas aportan herramientas potentes y flexibles, pero su éxito en la práctica depende tanto de su implementación eficiente como de una integración cuidadosa con las restricciones y procesos operativos del problema a resolver.

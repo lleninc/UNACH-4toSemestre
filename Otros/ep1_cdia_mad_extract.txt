@@ -1,0 +1,139 @@
+﻿METODOLOG═AS DE ANAL═TICA DE DATOS
+Evaluaci¾n Primer Parcial
+Aplicaci¾n de la TeorÝa
+Unidad 1: Fundamentos de analÝtica de datos
+Unidad 2: Enfoques clßsicos de la analÝtica de datos
+Nombres:
+Fecha:
+Carrera:
+Periodo acadÚmico:
+Semestre:
+Objetivo de la actividad: Evaluar la consolidaci¾n de los conocimientos
+adquiridos en las unidades 1 y 2 de la asignatura.
+Recursos o temas que debe haber estudiado antes de hacer la actividad:
+ò MetodologÝa Datlas para analÝtica
+ò Knowledge Discovery in Databases (KDD)
+ò SEMMA (Sample, Explore, Modify, Model, Assess)
+Formato de entrega: PDF
+Instrucciones:
+ò Conectarse puntualmente a la sesi¾n.
+ò No se permite el uso de celulares.
+ò Nombrar al archivo de la siguiente manera:
+Apellido_Nombre_Grupo_X.
+1. Liste con sus propias palabras las fases de la metodologÝa Datlas y,
+para cada una, explique su definici¾n y mencione un entregable
+de la fase.
+(3 puntos)
+2. Liste con sus propias palabras las fases de la metodologÝa
+Knowledge Discovery in Databases (KDD) y, para cada una, explique
+su definici¾n y mencione un entregable de la fase.
+(3 puntos)
+3. Liste con sus propias palabras las Etapas de la metodologÝa SEMMA
+y, para cada una, explique su definici¾n y mencione un
+entregable de la fase.
+(3 puntos)
+4. Realice un cuadro de diferencias y semejanzas de las
+metodologÝas, Datlas, Knowledge Discovery in Databases (KDD) y
+SEMMA.
+(1 puntos)
+BibliografÝa:
+ò Datlas. (2024, noviembre 20). Actualizamos nuestra metodologÝa de
+analÝtica de datos: desc·brela. Blog Datlas.
+https://blogdatlas.wordpress.com/2024/11/20/actualizamos-
+1
+nuestra-metodologia-de-analitica-de-datos-descubrela-columna-
+de-opinion-datlas/
+ò Fayyad, U., Piatetsky-Shapiro, G., & Smyth, P. (1996). From data
+mining to knowledge discovery in databases. AI Magazine, 17(3),
+37û54.
+ò Han, J., Kamber, J., & Pei, J. (2012). Data mining: Concepts and
+techniques (3rd ed.). Morgan Kaufmann.
+ò SAS Institute Inc. (2023). Introduction to SEMMA. SAS
+Documentation.
+https://documentation.sas.com/doc/en/emref/15.3/n061bzurmej4
+j3n1jnj8bbjjm1a2.htm
+ò SAS Institute Inc. (s. f.). Data mining and SEMMA. SAS
+Documentation.
+https://documentation.sas.com/doc/en/emcs/14.3/n0pejm83csbj
+a4n1xueveo2uoujy.htm
+ò Azevedo, A., & Santos, M. F. (2008). KDD, SEMMA and CRISP-DM: A
+parallel overview. Proceedings of the IADIS European Conference
+on Data Mining. https://recipp.ipp.pt/bitstreams/c464567e-7a80-
+425a-9d12-5f4206f2ad14/download
+ò Provost, F., & Fawcett, T. (2013). Data science for business: What you
+need to know about data mining and data-analytic thinking.
+OÆReilly Media.
+2
+R·brica de evaluaci¾n
+Componente de aprendizaje: Aut¾nomo Contacto con el X
+Docente
+Nombre de la Unidad:
+Unidad 1: Fundamentos de analÝtica de datos
+Unidad 2: Enfoques clßsicos de la analÝtica
+Resultado(s) de aprendizaje: ò Explica las metodologÝas de analÝtica de datos
+ò Justifica el uso de cada fase y conoce sus entregables
+ò Explica las diferencias entre las metodologÝas de analÝtica de datos Datlas, KDD y SEMMA.
+Nombre de la Actividad: Evaluaci¾n Primer Parcial
+Escala de Valoraci¾n
+Excelente Bueno Satisfactorio Necesita mejorar No entrega Comentario
+Puntaje
+(10 - 9,1) (9 - 8,1) (8 - 7) (6,9 - 0,1) (0) s
+Criterios de
+(SIGEA)
+Evaluaci¾n
+1. Aplicaci¾n de El estudiante aplica de El estudiante El estudiante El estudiante
+conceptos de a la manera excepcional aplica de manera aplica los tiene
+metodologÝa Datlas. los conceptos efectiva los conceptos de dificultades para
+relevantes al conceptos, manera bßsica, aplicar los
+demostrando una mostrando una con algunas conceptos de No entrega
+comprensi¾n profunda buena limitaciones en manera
+del tema Datlas. comprensi¾n del la comprensi¾n significativa en la
+tema Datlas. del tema Datlas. comprensi¾n del
+tema Datlas.
+2. Aplicaci¾n de El estudiante aplica de El estudiante El estudiante El estudiante
+conceptos de a la manera excepcional aplica de manera aplica los tiene
+metodologÝa KDD. los conceptos efectiva los conceptos de dificultades para
+relevantes al conceptos, manera bßsica, aplicar los
+demostrando una mostrando una con algunas conceptos de No entrega
+comprensi¾n profunda buena limitaciones en manera
+del tema KDD. comprensi¾n del la comprensi¾n significativa en la
+tema KDD. del tema KDD. comprensi¾n del
+tema KDD.
+3. Aplicaci¾n de El estudiante aplica de El estudiante El estudiante El estudiante
+conceptos de a la manera excepcional aplica de manera aplica los tiene
+metodologÝa SEMMA. los conceptos efectiva los conceptos de dificultades para
+relevantes al conceptos, manera bßsica, aplicar los
+demostrando una mostrando una con algunas conceptos de No entrega
+comprensi¾n profunda buena limitaciones en manera
+del tema SEMMA. comprensi¾n del la comprensi¾n significativa en la
+tema SEMMA. del tema KDD comprensi¾n del
+SEMMA SEMMA.
+4. Identifica las Respuestas Respuestas Cumple lo Presenta
+diferencias y semejanzas precisas y mayormente mÝnimo confusiones/omisi
+entre metodologÝas de completas. correctas. requerido. ones.
+analÝtica de datos No entrega
+5. Autenticidad El enfoque del El enfoque del Muestra cierto El desarrollo
+y transparencia. estudiante es estudiante es grado de carece
+altamente original y original y presenta originalidad, de originalidad,
+muestra ideas ideas creativas pero las ideas reflejando No entrega
+creativas que que contribuyen lo no son exactas un patr¾n
+sobrepasan lo solicitado en la ni aplicadas a com·n al de
+solicitado en la pregunta. la pregunta. otros trabajos.
+pregunta.
+Puntaje total
+El criterio 5 estß alineado a los ejes de formaci¾n del Modelo Educativo UNACH ôIntrospecci¾n y Prospectivaö y responden principalmente a dos de
+los siguientes ejes:
+1. Ambiente;
+2. AutonomÝa y adaptabilidad;
+3. Comunicaci¾n;
+4. Desarrollo humano;
+5. ╔tica y valores;
+6. Emprendimiento;
+7. Inter y multidisciplinariedad;
+8. Innovaci¾n;
+9. Inclusi¾n e interculturalidad;
+10. Investigaci¾n;
+11. Impacto social;
+12. TecnologÝas.
+3
+3
