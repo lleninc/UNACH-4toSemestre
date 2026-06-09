@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller de Repaso - Examen de Grado</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --text-color: #333333;
+            --card-bg: #ffffff;
+            --primary-color: #3498db;
+            --primary-hover: #2980b9;
+            --btn-bg: #f8f9fa;
+            --btn-border: #dee2e6;
+            --btn-hover: #e2e6ea;
+            --correct-bg: #d4edda;
+            --correct-border: #28a745;
+            --correct-text: #155724;
+            --incorrect-bg: #f8d7da;
+            --incorrect-border: #dc3545;
+            --incorrect-text: #721c24;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --primary-color: #4facfe;
+            --primary-hover: #3b8fd9;
+            --btn-bg: #2c2c2c;
+            --btn-border: #444444;
+            --btn-hover: #3a3a3a;
+            --correct-bg: #1b4332;
+            --correct-border: #2d6a4f;
+            --correct-text: #95d5b2;
+            --incorrect-bg: #590d22;
+            --incorrect-border: #800f2f;
+            --incorrect-text: #ffb3c6;
+            --shadow: 0 4px 6px rgba(0,0,0,0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--btn-border);
+            padding-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            padding: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: var(--btn-border);
+            border-radius: 5px;
+            height: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background-color: var(--btn-bg);
+            color: var(--text-color);
+            border: 2px solid var(--btn-border);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: var(--btn-hover);
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+
+        .option-btn.correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-border);
+            color: var(--correct-text);
+            font-weight: bold;
+        }
+
+        .option-btn.incorrect {
+            background-color: var(--incorrect-bg);
+            border-color: var(--incorrect-border);
+            color: var(--incorrect-text);
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .next-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: none;
+            font-weight: bold;
+        }
+
+        .next-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .results-container {
+            display: none;
+            text-align: center;
+        }
+
+        .score-text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        .restart-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .restart-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Repaso Examen de Grado</h1>
+            <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+        </div>
+
+        <div id="quiz-area">
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            
+            <div class="stats">
+                <span id="question-count">Pregunta 1 / 40</span>
+                <span id="score-display">Puntos: 0</span>
+            </div>
+
+            <div class="question-container">
+                <div class="question-text" id="question">Cargando pregunta...</div>
+                <div class="options-container" id="options">
+                    <!-- Opciones generadas por JS -->
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="next-btn" id="next-btn" onclick="nextQuestion()">Siguiente ➔</button>
+            </div>
+        </div>
+
+        <div class="results-container" id="results-area">
+            <h2>¡Taller Completado!</h2>
+            <div class="score-text" id="final-score">0 / 40</div>
+            <p id="feedback-message">Calculando tus resultados...</p>
+            <button class="restart-btn" onclick="restartQuiz()">↻ Volver a Intentar</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // TEMA 1: Evolución
+            { q: "¿Qué estudia la teoría de la evolución?", options: ["El origen del universo.", "Los cambios de los seres vivos a lo largo del tiempo.", "La formación de los planetas.", "El clima de la Tierra."], answer: 1 },
+            { q: "¿Quién propuso la teoría de la selección natural?", options: ["Gregor Mendel.", "Louis Pasteur.", "Charles Darwin.", "Aristóteles."], answer: 2 },
+            { q: "Según la teoría de la evolución, los seres vivos actuales provienen de:", options: ["Creaciones independientes.", "Organismos ancestrales comunes.", "Minerales de la Tierra.", "Fenómenos meteorológicos."], answer: 1 },
+            { q: "¿Qué es la selección natural?", options: ["Un proceso en el que sobreviven y se reproducen los organismos mejor adaptados.", "Un método para clasificar especies.", "La creación espontánea de organismos.", "La extinción de todas las especies."], answer: 0 },
+            { q: "¿Qué evidencia apoya la teoría de la evolución?", options: ["Los fósiles.", "La genética.", "La anatomía comparada.", "Todas las anteriores."], answer: 3 },
+            { q: "¿Qué plantea la teoría de la abiogénesis?", options: ["Que la vida surgió a partir de materia no viva.", "Que la vida llegó del espacio.", "Que los seres vivos siempre existieron.", "Que los organismos no cambian."], answer: 0 },
+            { q: "¿Qué experimento apoyó la hipótesis de la evolución química de la vida?", options: ["Experimento de Mendel.", "Experimento de Rutherford.", "Experimento de Miller y Urey.", "Experimento de Galileo."], answer: 2 },
+            { q: "¿Qué son las mutaciones?", options: ["Cambios en el material genético de los organismos.", "Tipos de fósiles.", "Formas de reproducción.", "Procesos de nutrición."], answer: 0 },
+            { q: "¿Qué ciencia estudia los fósiles?", options: ["Ecología.", "Genética.", "Paleontología.", "Zoología."], answer: 2 },
+            { q: "¿Cuál es una de las principales características de la evolución biológica?", options: ["Los seres vivos permanecen siempre iguales.", "Las especies cambian a través del tiempo.", "No existe relación entre las especies.", "Los organismos aparecen de forma espontánea."], answer: 1 },
+            
+            // TEMA 2: Herencia y Genética
+            { q: "¿Qué es la genética?", options: ["La ciencia que estudia los ecosistemas.", "La ciencia que estudia la herencia y la variación de los seres vivos.", "La ciencia que estudia los fósiles.", "La ciencia que estudia las células."], answer: 1 },
+            { q: "¿Quién es considerado el padre de la genética?", options: ["Charles Darwin.", "Louis Pasteur.", "Gregor Mendel.", "James Watson."], answer: 2 },
+            { q: "¿Cómo se denomina la unidad básica de la herencia?", options: ["Cromosoma.", "ADN.", "Gen.", "Núcleo."], answer: 2 },
+            { q: "¿Qué son los alelos?", options: ["Tipos de células reproductoras.", "Diferentes versiones de un mismo gen.", "Estructuras del núcleo celular.", "Moléculas que producen energía."], answer: 1 },
+            { q: "¿Qué representa el genotipo de un organismo?", options: ["Sus características observables.", "Su apariencia física.", "Su constitución genética.", "Su hábitat natural."], answer: 2 },
+            { q: "¿Qué es el fenotipo?", options: ["El conjunto de genes de un individuo.", "Las características observables de un organismo.", "El número de cromosomas.", "El proceso de reproducción."], answer: 1 },
+            { q: "Un individuo que posee dos alelos iguales para una característica es:", options: ["Heterocigoto.", "Dominante.", "Homocigoto.", "Recesivo."], answer: 2 },
+            { q: "En un cruce donde 'A' es dominante sobre 'a', ¿cuál es el genotipo heterocigoto?", options: ["AA.", "aa.", "Aa.", "Ninguna de las anteriores."], answer: 2 },
+            { q: "¿Cuál es la función principal del ADN?", options: ["Producir energía para la célula.", "Almacenar y transmitir la información genética.", "Transportar oxígeno.", "Eliminar desechos celulares."], answer: 1 },
+            { q: "¿Qué estructura celular contiene la mayor parte del ADN en las células eucariotas?", options: ["Citoplasma.", "Membrana plasmática.", "Mitocondria.", "Núcleo."], answer: 3 },
+            
+            // TEMA 3: Diversidad Biológica y Conservación
+            { q: "¿Qué es la biodiversidad?", options: ["La cantidad de agua en un ecosistema.", "La variedad de seres vivos y ecosistemas existentes.", "El número de personas que viven en una región.", "La cantidad de suelo fértil."], answer: 1 },
+            { q: "¿Cuál de los siguientes niveles forma parte de la biodiversidad?", options: ["Diversidad genética.", "Diversidad de especies.", "Diversidad de ecosistemas.", "Todas las anteriores."], answer: 3 },
+            { q: "¿Por qué es importante la biodiversidad?", options: ["Porque garantiza el equilibrio de los ecosistemas.", "Porque reduce la cantidad de lluvia.", "Porque elimina la necesidad de recursos naturales.", "Porque aumenta la contaminación."], answer: 0 },
+            { q: "¿Cuál es una de las principales amenazas para la biodiversidad?", options: ["La conservación de áreas protegidas.", "La reforestación.", "La destrucción de hábitats.", "La educación ambiental."], answer: 2 },
+            { q: "¿Qué es una especie endémica?", options: ["Una especie que vive únicamente en una región determinada.", "Una especie que se encuentra en todo el mundo.", "Una especie doméstica.", "Una especie en cautiverio."], answer: 0 },
+            { q: "¿Qué acción contribuye a la conservación de la biodiversidad?", options: ["La tala indiscriminada de bosques.", "La contaminación de los ríos.", "La creación de áreas protegidas.", "La caza ilegal."], answer: 2 },
+            { q: "¿Qué es la extinción?", options: ["El aumento de la población de una especie.", "La desaparición total de una especie.", "La migración de una especie.", "La adaptación de una especie."], answer: 1 },
+            { q: "¿Cuál es el objetivo principal de la conservación biológica?", options: ["Explotar los recursos naturales.", "Mantener y proteger la biodiversidad para las futuras generaciones.", "Incrementar la contaminación.", "Eliminar especies invasoras sin control."], answer: 1 },
+            { q: "¿Qué institución en Ecuador administra gran parte de las áreas protegidas?", options: ["Ministerio de Educación.", "Ministerio de Salud Pública.", "Ministerio del Ambiente, Agua y Transición Ecológica.", "Consejo Nacional Electoral."], answer: 2 },
+            { q: "¿Cuál de las siguientes acciones puede realizar una persona para proteger la biodiversidad?", options: ["Arrojar basura en los ríos.", "Comprar productos provenientes de la caza ilegal.", "Participar en campañas de reforestación y reciclaje.", "Destruir áreas verdes."], answer: 2 },
+            
+            // TEMA 4: Sistemas Animales y Vegetales
+            { q: "¿Cuál es la función principal del sistema circulatorio en los animales?", options: ["Producir energía.", "Transportar sustancias como oxígeno y nutrientes por el cuerpo.", "Coordinar los movimientos.", "Eliminar desechos."], answer: 1 },
+            { q: "¿Qué sistema animal se encarga de captar oxígeno y eliminar dióxido de carbono?", options: ["Sistema digestivo.", "Sistema nervioso.", "Sistema respiratorio.", "Sistema reproductor."], answer: 2 },
+            { q: "¿Cuál es la función principal del sistema digestivo?", options: ["Transportar sangre.", "Transformar los alimentos en nutrientes aprovechables.", "Coordinar respuestas del cuerpo.", "Producir células reproductoras."], answer: 1 },
+            { q: "¿Qué tejido vegetal es responsable del transporte de agua y sales minerales?", options: ["Floema.", "Xilema.", "Epidermis.", "Meristemo."], answer: 1 },
+            { q: "¿Cuál es la función principal del floema?", options: ["Transportar agua desde las raíces.", "Proteger la planta.", "Transportar los nutrientes producidos en la fotosíntesis.", "Absorber minerales."], answer: 2 },
+            { q: "¿En qué órgano vegetal ocurre principalmente la fotosíntesis?", options: ["Raíz.", "Tallo.", "Flor.", "Hoja."], answer: 3 },
+            { q: "¿Qué sistema animal coordina las actividades del organismo mediante impulsos nerviosos?", options: ["Sistema circulatorio.", "Sistema nervioso.", "Sistema respiratorio.", "Sistema digestivo."], answer: 1 },
+            { q: "¿Cuál es la principal función de la raíz en las plantas?", options: ["Realizar la fotosíntesis.", "Absorber agua y nutrientes del suelo.", "Producir flores.", "Transportar oxígeno."], answer: 1 },
+            { q: "¿Qué estructura permite el intercambio gaseoso en las hojas?", options: ["Xilema.", "Floema.", "Estomas.", "Meristemos."], answer: 2 },
+            { q: "¿Qué característica comparten los sistemas animales y vegetales?", options: ["Ambos permiten el funcionamiento y supervivencia del organismo.", "Ambos poseen cerebro.", "Ambos tienen pulmones.", "Ambos producen semillas."], answer: 0 }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let isAnswered = false;
+
+        const questionEl = document.getElementById('question');
+        const optionsEl = document.getElementById('options');
+        const nextBtn = document.getElementById('next-btn');
+        const progressEl = document.getElementById('progress');
+        const questionCountEl = document.getElementById('question-count');
+        const scoreDisplayEl = document.getElementById('score-display');
+        
+        const quizArea = document.getElementById('quiz-area');
+        const resultsArea = document.getElementById('results-area');
+        const finalScoreEl = document.getElementById('final-score');
+        const feedbackMessageEl = document.getElementById('feedback-message');
+        const themeBtn = document.getElementById('themeBtn');
+
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            themeBtn.innerText = '☀️';
+        }
+
+        function toggleTheme() {
+            if (document.body.getAttribute('data-theme') === 'dark') {
+                document.body.removeAttribute('data-theme');
+                themeBtn.innerText = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeBtn.innerText = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function loadQuestion() {
+            isAnswered = false;
+            nextBtn.style.display = 'none';
+            
+            const currentQuestion = questions[currentQuestionIndex];
+            questionEl.innerText = currentQuestion.q;
+            
+            // Actualizar HUD (Estadísticas y Barra)
+            questionCountEl.innerText = `Pregunta ${currentQuestionIndex + 1} / ${questions.length}`;
+            scoreDisplayEl.innerText = `Puntos: ${score}`;
+            const progressPercent = ((currentQuestionIndex) / questions.length) * 100;
+            progressEl.style.width = `${progressPercent}%`;
+
+            // Limpiar y crear botones de opciones
+            optionsEl.innerHTML = '';
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('option-btn');
+                button.onclick = () => selectOption(index, button);
+                optionsEl.appendChild(button);
+            });
+        }
+
+        function selectOption(selectedIndex, selectedButton) {
+            if (isAnswered) return;
+            isAnswered = true;
+
+            const currentQuestion = questions[currentQuestionIndex];
+            const allButtons = optionsEl.querySelectorAll('.option-btn');
+            
+            if (selectedIndex === currentQuestion.answer) {
+                selectedButton.classList.add('correct');
+                score++;
+                scoreDisplayEl.innerText = `Puntos: ${score}`;
+            } else {
+                selectedButton.classList.add('incorrect');
+                // Resaltar también la respuesta correcta
+                allButtons[currentQuestion.answer].classList.add('correct');
+            }
+
+            // Deshabilitar todos los botones después de elegir
+            allButtons.forEach(btn => btn.disabled = true);
+            
+            // Mostrar botón siguiente
+            if (currentQuestionIndex < questions.length - 1) {
+                nextBtn.innerText = 'Siguiente ➔';
+            } else {
+                nextBtn.innerText = 'Ver Resultados 🏁';
+            }
+            nextBtn.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizArea.style.display = 'none';
+            resultsArea.style.display = 'block';
+            
+            progressEl.style.width = `100%`;
+            finalScoreEl.innerText = `${score} / ${questions.length}`;
+            
+            const percentage = (score / questions.length) * 100;
+            if (percentage >= 90) {
+                feedbackMessageEl.innerText = '¡Excelente! Estás más que listo para tu examen de grado. 🏆';
+            } else if (percentage >= 70) {
+                feedbackMessageEl.innerText = '¡Muy buen trabajo! Tienes un buen dominio de los temas. 🌟';
+            } else if (percentage >= 50) {
+                feedbackMessageEl.innerText = 'Vas por buen camino, pero te recomiendo repasar un poco más las flashcards. 📚';
+            } else {
+                feedbackMessageEl.innerText = 'Hay áreas de oportunidad. Te sugiero repasar el taller detenidamente e intentarlo de nuevo. 💪';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            quizArea.style.display = 'block';
+            resultsArea.style.display = 'none';
+            
+            // Mezclar preguntas aleatoriamente (opcional, lo omitimos para mantener el orden de los temas)
+            
+            loadQuestion();
+        }
+
+        // Iniciar el cuestionario
+        loadQuestion();
+    </script>
+</body>
+</html>

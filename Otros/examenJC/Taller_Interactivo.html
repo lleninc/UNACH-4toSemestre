@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller de Repaso - Interactivo</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; background-color: #f4f7f6; color: #333; margin: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #2c3e50; }
+        .question { margin-bottom: 20px; padding: 15px; border-bottom: 1px solid #ddd; }
+        .options button { display: block; width: 100%; margin: 5px 0; padding: 10px; cursor: pointer; border: 1px solid #ccc; border-radius: 5px; background: #fff; transition: 0.3s; }
+        .options button:hover { background: #e0e0e0; }
+        .correct { background-color: #d4edda !important; border-color: #28a745 !important; }
+        .incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; }
+        .feedback { margin-top: 10px; font-weight: bold; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Taller de Repaso - Examen de Grado</h1>
+    <div id="quiz"></div>
+</div>
+
+<script>
+    const questions = [
+        { q: "¿Quién propuso la teoría de la selección natural?", a: ["Gregor Mendel", "Louis Pasteur", "Charles Darwin", "Aristóteles"], c: 2 },
+        { q: "¿Qué estudia la teoría de la evolución?", a: ["El origen del universo", "Los cambios de los seres vivos", "La formación de planetas", "El clima"], c: 1 },
+        { q: "¿Quién es el padre de la genética?", a: ["Charles Darwin", "Louis Pasteur", "Gregor Mendel", "James Watson"], c: 2 },
+        { q: "¿Qué transporta el xilema?", a: ["Agua y sales", "Alimentos", "Oxígeno", "Dióxido de carbono"], c: 0 },
+        { q: "¿Qué órgano vegetal hace la fotosíntesis?", a: ["Raíz", "Tallo", "Flor", "Hoja"], c: 3 }
+    ];
+
+    const quizDiv = document.getElementById('quiz');
+    questions.forEach((item, index) => {
+        let qDiv = document.createElement('div');
+        qDiv.className = 'question';
+        qDiv.innerHTML = `<p><strong>${index + 1}. ${item.q}</strong></p>`;
+        
+        let optionsDiv = document.createElement('div');
+        optionsDiv.className = 'options';
+        item.a.forEach((opt, i) => {
+            let btn = document.createElement('button');
+            btn.innerText = opt;
+            btn.onclick = () => {
+                if(i === item.c) { btn.classList.add('correct'); } 
+                else { btn.classList.add('incorrect'); }
+                btn.parentElement.querySelectorAll('button').forEach(b => b.disabled = true);
+            };
+            optionsDiv.appendChild(btn);
+        });
+        qDiv.appendChild(optionsDiv);
+        quizDiv.appendChild(qDiv);
+    });
+</script>
+</body>
+</html>
