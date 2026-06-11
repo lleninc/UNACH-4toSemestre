@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examen Interactivo — UNACH 4to Semestre</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface2: #f0ede8;
+    --border: rgba(0,0,0,0.1);
+    --border2: rgba(0,0,0,0.18);
+    --text: #1a1916;
+    --text2: #6b6760;
+    --text3: #9e9b96;
+    --accent: #c84b1f;
+    --accent-bg: #fdf0eb;
+    --green: #2d6a2d;
+    --green-bg: #eaf3e0;
+    --amber: #8a5a00;
+    --amber-bg: #fdf3dc;
+    --blue: #1a4f8a;
+    --blue-bg: #e8f0fb;
+    --purple: #5a3fa0;
+    --purple-bg: #f0ecfc;
+    --teal: #0d6b52;
+    --teal-bg: #e2f5ee;
+    --red: #c0392b;
+    --red-bg: #fdecea;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141412;
+      --surface: #1e1d1a;
+      --surface2: #252420;
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.14);
+      --text: #edeae4;
+      --text2: #9e9b96;
+      --text3: #6b6760;
+      --accent: #e8734a;
+      --accent-bg: #2a1a10;
+      --green: #5aad5a;
+      --green-bg: #0f2010;
+      --amber: #d4a030;
+      --amber-bg: #1e1500;
+      --blue: #6aa3e8;
+      --blue-bg: #0a1828;
+      --purple: #a07ae8;
+      --purple-bg: #18102a;
+      --teal: #4dcba0;
+      --teal-bg: #061a12;
+      --red: #e74c3c;
+      --red-bg: #2a0f0c;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  .layout {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 5rem;
+  }
+
+  /* Header */
+  .top-bar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .top-bar h1 {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .top-bar p {
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 3px;
+    font-family: var(--mono);
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* Subject filter */
+  .subject-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border2);
+    background: var(--surface);
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .tab-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .tab-btn.tab-ml.active   { background: var(--blue);   border-color: var(--blue);   }
+  .tab-btn.tab-mn.active   { background: var(--teal);   border-color: var(--teal);   }
+  .tab-btn.tab-mh.active   { background: var(--purple); border-color: var(--purple); }
+  .tab-btn.tab-ad.active   { background: var(--amber);  border-color: var(--amber);  color: #fff; }
+  .tab-btn.tab-bd.active   { background: var(--green);  border-color: var(--green);  }
+  .tab-btn.tab-all.active  { background: var(--accent); border-color: var(--accent); }
+
+  /* Stats bar */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .stat-card .val {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1;
+  }
+  .stat-card .lbl {
+    font-size: 11px;
+    color: var(--text2);
+    margin-top: 4px;
+    font-family: var(--mono);
+  }
+  .stat-card.green .val { color: var(--green); }
+  .stat-card.red   .val { color: var(--red);   }
+  .stat-card.blue  .val { color: var(--blue);  }
+
+  /* Progress bar */
+  .progress-wrap {
+    margin-bottom: 1.5rem;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text2);
+    font-family: var(--mono);
+    margin-bottom: 6px;
+  }
+  .progress-bar {
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 99px;
+    transition: width 0.3s ease;
+  }
+
+  /* Question card */
+  .question-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    margin-bottom: 1rem;
+  }
+  .q-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .q-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text3);
+  }
+  .q-subject-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .tag-ml   { background: var(--blue-bg);   color: var(--blue);   }
+  .tag-mn   { background: var(--teal-bg);   color: var(--teal);   }
+  .tag-mh   { background: var(--purple-bg); color: var(--purple); }
+  .tag-ad   { background: var(--amber-bg);  color: var(--amber);  }
+  .tag-bd   { background: var(--green-bg);  color: var(--green);  }
+
+  .q-text {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Options */
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .option-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    background: var(--surface2);
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--text);
+    transition: all 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: var(--accent-bg);
+  }
+  .option-btn .opt-letter {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: var(--surface);
+    color: var(--text2);
+    transition: all 0.15s;
+  }
+  .option-btn:hover:not(:disabled) .opt-letter {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .option-btn.correct {
+    border-color: var(--green);
+    background: var(--green-bg);
+    color: var(--green);
+  }
+  .option-btn.correct .opt-letter {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
+  .option-btn.wrong {
+    border-color: var(--red);
+    background: var(--red-bg);
+    color: var(--red);
+  }
+  .option-btn.wrong .opt-letter {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+  .option-btn.reveal-correct {
+    border-color: var(--green);
+    background: var(--green-bg);
+    opacity: 0.7;
+  }
+  .option-btn.reveal-correct .opt-letter {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
+  .option-btn:disabled { cursor: default; }
+
+  /* Feedback box */
+  .feedback-box {
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    line-height: 1.65;
+    display: none;
+  }
+  .feedback-box.correct-fb {
+    background: var(--green-bg);
+    border: 1px solid var(--green);
+    color: var(--green);
+    display: block;
+  }
+  .feedback-box.wrong-fb {
+    background: var(--red-bg);
+    border: 1px solid var(--red);
+    color: var(--red);
+    display: block;
+  }
+  .feedback-box .fb-title {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .feedback-box .fb-explanation {
+    color: var(--text);
+    font-size: 13px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Navigation */
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-secondary {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border2);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Results screen */
+  .results-screen {
+    display: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  .results-screen h2 {
+    font-family: var(--mono);
+    font-size: 22px;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .results-screen .score-big {
+    font-family: var(--mono);
+    font-size: 64px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1.1;
+    margin: 1rem 0 0.25rem;
+  }
+  .results-screen .score-label {
+    font-size: 15px;
+    color: var(--text2);
+    font-family: var(--mono);
+    margin-bottom: 1.5rem;
+  }
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 1.5rem 0;
+    text-align: center;
+  }
+  .r-stat {
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  .r-stat .r-val {
+    font-family: var(--mono);
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .r-stat .r-lbl {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text2);
+    margin-top: 4px;
+  }
+  .review-list {
+    text-align: left;
+    margin-top: 2rem;
+  }
+  .review-list h3 {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--text2);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .review-item {
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .review-item.ri-correct { border-color: var(--green); background: var(--green-bg); }
+  .review-item.ri-wrong   { border-color: var(--red);   background: var(--red-bg); }
+  .review-icon { flex-shrink: 0; font-size: 15px; line-height: 1.4; }
+  .review-item .ri-q { color: var(--text); font-weight: 500; }
+  .review-item .ri-ans { font-family: var(--mono); font-size: 12px; color: var(--text2); margin-top: 4px; }
+
+  /* Timer */
+  .timer-display {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .timer-display.warning { color: var(--red); }
+
+  /* Shuffle indicator */
+  .control-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .toggle-btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border2);
+    background: var(--surface);
+    color: var(--text2);
+    cursor: pointer;
+  }
+  .toggle-btn.active {
+    background: var(--blue-bg);
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  @media (max-width: 540px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .results-grid { grid-template-columns: repeat(2, 1fr); }
+    .q-text { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- Header -->
+  <div class="top-bar">
+    <div>
+      <h1>📝 Examen Interactivo</h1>
+      <p>UNACH — Ingeniería en Ciencia de Datos e IA · 4to Semestre 2026-1S</p>
+    </div>
+    <div class="badge">Lenin López · Paralelo A</div>
+  </div>
+
+  <!-- Subject tabs -->
+  <div class="subject-tabs" id="subjectTabs">
+    <button class="tab-btn tab-all active" onclick="filterSubject('all', this)">🎯 Todas</button>
+    <button class="tab-btn tab-ml"  onclick="filterSubject('ml',  this)">🤖 Machine Learning</button>
+    <button class="tab-btn tab-mn"  onclick="filterSubject('mn',  this)">🔢 Métodos Numéricos</button>
+    <button class="tab-btn tab-mh"  onclick="filterSubject('mh',  this)">🧬 Metaheurísticas</button>
+    <button class="tab-btn tab-ad"  onclick="filterSubject('ad',  this)">📊 Analítica de Datos</button>
+    <button class="tab-btn tab-bd"  onclick="filterSubject('bd',  this)">🗄️ Admin. de BD</button>
+  </div>
+
+  <!-- Controls -->
+  <div class="control-row">
+    <button class="toggle-btn" id="shuffleBtn" onclick="toggleShuffle()">🔀 Mezclar preguntas</button>
+    <button class="toggle-btn" id="timerBtn"   onclick="toggleTimer()">⏱ Cronómetro</button>
+    <button class="btn btn-primary" onclick="startQuiz()" style="padding:5px 16px;font-size:12px;">▶ Iniciar / Reiniciar</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-card blue">
+      <div class="val" id="statTotal">0</div>
+      <div class="lbl">Preguntas</div>
+    </div>
+    <div class="stat-card green">
+      <div class="val" id="statCorrect">0</div>
+      <div class="lbl">Correctas</div>
+    </div>
+    <div class="stat-card red">
+      <div class="val" id="statWrong">0</div>
+      <div class="lbl">Incorrectas</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" id="statTimer">0:00</div>
+      <div class="lbl">Tiempo</div>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span id="progLabel">Pregunta 0 de 0</span>
+      <span id="progPct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- Question card -->
+  <div class="question-card" id="questionCard">
+    <div style="text-align:center;padding:2rem;color:var(--text2);font-family:var(--mono);font-size:13px;">
+      Selecciona una materia y presiona <strong>▶ Iniciar</strong> para comenzar.
+    </div>
+  </div>
+
+  <!-- Nav buttons -->
+  <div class="nav-row" id="navRow" style="display:none;">
+    <button class="btn btn-secondary" id="btnPrev" onclick="prevQuestion()">← Anterior</button>
+    <div class="timer-display" id="timerDisplay" style="display:none;">⏱ <span id="timerVal">0:00</span></div>
+    <button class="btn btn-primary"  id="btnNext" onclick="nextQuestion()">Siguiente →</button>
+  </div>
+
+  <!-- Results -->
+  <div class="results-screen" id="resultsScreen">
+    <div style="font-size:36px;margin-bottom:0.5rem;">🎓</div>
+    <h2>¡Examen Completado!</h2>
+    <div class="score-big" id="resFinalScore">0%</div>
+    <div class="score-label" id="resSubLabel">–</div>
+    <div class="results-grid">
+      <div class="r-stat">
+        <div class="r-val" id="resCorrect">0</div>
+        <div class="r-lbl">Correctas</div>
+      </div>
+      <div class="r-stat">
+        <div class="r-val" id="resWrong">0</div>
+        <div class="r-lbl">Incorrectas</div>
+      </div>
+      <div class="r-stat">
+        <div class="r-val" id="resTime">–</div>
+        <div class="r-lbl">Tiempo total</div>
+      </div>
+    </div>
+    <div class="review-list" id="reviewList"></div>
+    <div style="margin-top:1.5rem;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn btn-primary"   onclick="startQuiz()">🔄 Repetir examen</button>
+      <button class="btn btn-secondary" onclick="filterSubject('ml', document.querySelector('.tab-ml')); startQuiz()">🤖 Solo Machine Learning</button>
+    </div>
+  </div>
+
+</div><!-- /layout -->
+
+<script>
+// ─────────────────────────────────────────────────────────────
+//  BANCO DE PREGUNTAS
+//  Fuentes: notas.md de cada materia + READMEs del repositorio
+// ─────────────────────────────────────────────────────────────
+const ALL_QUESTIONS = [
+
+  // ════════════════════════════════
+  //  MACHINE LEARNING  (quiz real U1-T1-S1 + complementarias)
+  // ════════════════════════════════
+  {
+    subject: "ml", subjectLabel: "Machine Learning",
+    question: "¿Cuál fue un hito en IA durante los 2010s?",
+    options: [
+      "El uso de reglas lógicas en todo sistema experto",
+      "La exclusión de datos no estructurados del análisis",
+      "El éxito de redes profundas en visión y lenguaje",
+      "La sustitución completa de estadística clásica"
+    ],
+    correct: 2,
+    explanation: "En los 2010s ocurrieron eventos históricos: AlexNet (2012) revolucionó la visión computacional con CNNs, y los Transformers (2017) sentaron las bases de GPT y BERT. Estos marcaron la transición de IA simbólica a IA basada en aprendizaje profundo. Las reglas lógicas corresponden a los 1980s-90s (era experta)."
+  },
+  {
+    subject: "ml", subjectLabel: "Machine Learning",
+    question: "¿Qué significa la calidad de datos en Machine Learning?",
+    options: [
+      "Que basta con tener grandes volúmenes sin importar su fiabilidad",
+      "Que ruido y valores faltantes afectan la validez del modelo",
+      "Que los modelos pueden aprender incluso sin datos",
+      "Que solo importa el tamaño del dataset, no su contenido"
+    ],
+    correct: 1,
+    explanation: "La calidad de datos es uno de los desafíos críticos de ML (Dritsas et al., 2025). Ruido, valores faltantes y distribuciones no representativas comprometen la validez de los modelos. Rige el principio GIGO (Garbage In, Garbage Out): 10,000 registros limpios > 1 millón con 90% de errores."
+  },
+  {
+    subject: "ml", subjectLabel: "Machine Learning",
+    question: "¿En qué consiste el aprendizaje no supervisado?",
+    options: [
+      "Depende de etiquetas predefinidas para entrenarse",
+      "Identifica estructuras ocultas en datos sin etiquetas",
+      "No requiere procesamiento computacional significativo",
+      "Usa siempre recompensas y penalizaciones del entorno"
+    ],
+    correct: 1,
+    explanation: "El aprendizaje no supervisado trabaja con datos sin etiquetas buscando patrones ocultos como grupos (clustering) o relaciones latentes. Aplicaciones típicas: segmentación de clientes, análisis de redes sociales. A diferencia del supervisado, no hay respuestas 'correctas' predefinidas."
+  },
+  {
+    subject: "ml", subjectLabel: "Machine Learning",
+    question: "¿Qué se entiende por aprendizaje automático (ML) según ISO 2023?",
+    options: [
+      "Algoritmos que solo ejecutan instrucciones predefinidas caso a caso",
+      "Sistemas que reemplazan completamente a los humanos en cualquier tarea",
+      "La disciplina que desarrolla algoritmos que mejoran su desempeño a partir de datos sin ser programados explícitamente",
+      "Software que requiere reglas manuales para cada situación nueva"
+    ],
+    correct: 2,
+    explanation: "ML se define (ISO, 2023) como la disciplina que crea algoritmos capaces de aprender de datos y mejorar su desempeño en tareas concretas sin programar cada regla manualmente. La opción A describe software tradicional; la B exagera el alcance actual de la IA."
+  },
+  {
+    subject: "ml", subjectLabel: "Machine Learning",
+    question: "En ingeniería civil y ambiental, ¿para qué se usa principalmente el ML?",
+    options: [
+      "Traducción automática de textos técnicos",
+      "Creación de contenido multimedia",
+      "Predicción de deslizamientos e inundaciones",
+      "Diseño de interfaces de usuario web"
+    ],
+    correct: 2,
+    explanation: "En civil/ambiental, ML se aplica a predicción de riesgos usando datos históricos, climáticos y geoespaciales: detección de fallas estructurales, predicción de deslizamientos de tierra, modelado de inundaciones con datos satelitales. La traducción automática pertenece a NLP y el contenido multimedia a IA generativa."
+  },
+  {
+    subject: "ml", subjectLabel: "Machine Learning",
+    question: "¿Cuál de los siguientes tipos de ML usa recompensas y penalizaciones durante el entrenamiento?",
+    options: [
+      "Supervisado",
+      "No supervisado",
+      "Semi-supervisado",
+      "Por refuerzo"
+    ],
+    correct: 3,
+    explanation: "El aprendizaje por refuerzo entrena agentes mediante interacción con un entorno: reciben recompensas por acciones correctas y penalizaciones por incorrectas. Aplicaciones clave: robótica, videojuegos complejos (AlphaGo), sistemas de control autónomo."
+  },
+  {
+    subject: "ml", subjectLabel: "Machine Learning",
+    question: "¿Qué pilar matemático se usa en ML para modelar la incertidumbre con distribuciones y el Teorema de Bayes?",
+    options: [
+      "Álgebra lineal",
+      "Probabilidad y estadística",
+      "Cálculo diferencial",
+      "Teoría de grafos"
+    ],
+    correct: 1,
+    explanation: "La Probabilidad modela la incertidumbre mediante distribuciones, procesos estocásticos y el Teorema de Bayes (fundamental en Naive Bayes, redes bayesianas). La Estadística complementa con métodos de inferencia para garantizar que los modelos sean generalizables y eviten patrones espurios."
+  },
+  {
+    subject: "ml", subjectLabel: "Machine Learning",
+    question: "¿Qué librería de Python es el estándar para modelos clásicos de ML como árboles de decisión, SVM y regresión?",
+    options: [
+      "TensorFlow",
+      "PyTorch",
+      "Scikit-learn",
+      "NumPy"
+    ],
+    correct: 2,
+    explanation: "Scikit-learn es la biblioteca estándar para modelos clásicos de ML en Python: árboles de decisión, SVM, regresión lineal/logística, k-NN, clustering, etc. TensorFlow y PyTorch son frameworks de Deep Learning. NumPy es para manipulación numérica general."
+  },
+  {
+    subject: "ml", subjectLabel: "Machine Learning",
+    question: "El aprendizaje auto-supervisado crea etiquetas artificiales a partir de los propios datos. ¿Cuál es una aplicación típica?",
+    options: [
+      "Clasificación de imágenes médicas con etiquetas de radiólogos",
+      "Modelos de lenguaje grandes (LLMs) como GPT",
+      "Predicción de precios con dataset tabulares etiquetados",
+      "Segmentación de clientes por comportamiento"
+    ],
+    correct: 1,
+    explanation: "El auto-supervisado crea etiquetas artificiales desde los datos mismos (ej.: predecir la siguiente palabra en un texto). GPT y BERT son ejemplos icónicos: aprenden de texto masivo sin etiquetas humanas. La clasificación médica supervisada y la predicción tabulada etiquetada son aprendizaje supervisado."
+  },
+  {
+    subject: "ml", subjectLabel: "Machine Learning",
+    question: "¿Qué es XAI (Explainable AI)?",
+    options: [
+      "Un lenguaje de programación para IA",
+      "Un framework exclusivo para redes neuronales convolucionales",
+      "Una solución emergente para hacer los modelos de ML interpretables y transparentes",
+      "Una técnica de compresión de datos"
+    ],
+    correct: 2,
+    explanation: "XAI (IA Explicable) es una solución emergente al desafío de interpretabilidad: busca que los modelos de ML puedan explicar sus decisiones de forma comprensible. Es crítico en medicina (diagnóstico) y finanzas (crédito), donde las decisiones deben ser auditables y justas."
+  },
+
+  // ════════════════════════════════
+  //  MÉTODOS NUMÉRICOS
+  // ════════════════════════════════
+  {
+    subject: "mn", subjectLabel: "Métodos Numéricos",
+    question: "¿Cuál es el principio fundamental del método de bisección para encontrar raíces?",
+    options: [
+      "Usa la derivada de la función para encontrar el punto de cruce con el eje x",
+      "Divide iterativamente un intervalo [a,b] donde f(a)·f(b)<0, reduciendo el error a la mitad cada vez",
+      "Calcula la raíz directamente con una fórmula cerrada",
+      "Aproxima la función con una recta tangente en el punto inicial"
+    ],
+    correct: 1,
+    explanation: "El método de bisección requiere un intervalo [a,b] donde f(a) y f(b) tienen signos opuestos (cambio de signo garantiza raíz por T. de Bolzano). En cada iteración evalúa el punto medio c=(a+b)/2 y selecciona el subintervalo que contiene la raíz. Convergencia garantizada pero lenta (lineal)."
+  },
+  {
+    subject: "mn", subjectLabel: "Métodos Numéricos",
+    question: "¿Cuál es la principal ventaja del método de Newton-Raphson sobre la bisección?",
+    options: [
+      "Siempre converge sin importar el punto inicial",
+      "No requiere calcular derivadas de la función",
+      "Tiene convergencia cuadrática, lo que lo hace mucho más rápido",
+      "Funciona bien con funciones discontinuas"
+    ],
+    correct: 2,
+    explanation: "Newton-Raphson tiene convergencia cuadrática: el número de dígitos correctos se duplica en cada iteración (cerca de la raíz). Su fórmula es x_{n+1} = x_n - f(x_n)/f'(x_n). La desventaja es que requiere calcular f'(x) y puede divergir si el punto inicial no está cerca de la raíz o si f'(x)≈0."
+  },
+  {
+    subject: "mn", subjectLabel: "Métodos Numéricos",
+    question: "En interpolación numérica, ¿qué estima el polinomio interpolante de Lagrange?",
+    options: [
+      "La derivada exacta de una función en cualquier punto",
+      "El valor de una función desconocida en un punto dado, usando un conjunto de puntos conocidos",
+      "El área bajo una curva entre dos límites",
+      "La solución de un sistema de ecuaciones diferenciales"
+    ],
+    correct: 1,
+    explanation: "La interpolación de Lagrange construye un polinomio que pasa exactamente por n+1 puntos conocidos (x_i, y_i) y permite estimar valores intermedios. Es útil cuando se tiene una tabla de datos pero no la función analítica. Problema: el fenómeno de Runge con muchos puntos (oscilaciones en los extremos)."
+  },
+  {
+    subject: "mn", subjectLabel: "Métodos Numéricos",
+    question: "¿Qué representa el error de truncamiento en métodos numéricos?",
+    options: [
+      "El error causado por la precisión limitada del hardware (punto flotante)",
+      "El error introducido al aproximar una operación matemática continua con pasos discretos",
+      "La diferencia entre dos soluciones numéricas distintas",
+      "El número máximo de iteraciones permitidas"
+    ],
+    correct: 1,
+    explanation: "El error de truncamiento surge al aproximar series infinitas o derivadas continuas con expresiones finitas (ej.: serie de Taylor truncada). Es diferente del error de redondeo (limitación del hardware). Controlar ambos tipos es fundamental para que los métodos numéricos den resultados confiables."
+  },
+  {
+    subject: "mn", subjectLabel: "Métodos Numéricos",
+    question: "¿Cuál de los siguientes métodos de integración numérica usa trapecios para aproximar el área bajo una curva?",
+    options: [
+      "Método de Simpson 1/3",
+      "Cuadratura de Gauss",
+      "Regla del trapecio",
+      "Método de Euler"
+    ],
+    correct: 2,
+    explanation: "La regla del trapecio aproxima el área bajo f(x) en [a,b] usando trapecios: ∫≈(b-a)/2 · [f(a)+f(b)]. Simpson 1/3 usa parábolas (mayor precisión). La cuadratura de Gauss usa puntos y pesos óptimos. El método de Euler resuelve EDOs, no integra directamente."
+  },
+
+  // ════════════════════════════════
+  //  METAHEURÍSTICAS
+  // ════════════════════════════════
+  {
+    subject: "mh", subjectLabel: "Metaheurísticas",
+    question: "¿Qué es una metaheurística en el contexto de optimización?",
+    options: [
+      "Un algoritmo que garantiza encontrar la solución óptima global siempre",
+      "Una estrategia de alto nivel inspirada en la naturaleza que guía la búsqueda en espacios complejos",
+      "Un método exacto de programación lineal",
+      "Un framework específico para redes neuronales"
+    ],
+    correct: 1,
+    explanation: "Las metaheurísticas son estrategias de búsqueda de alto nivel (generalmente inspiradas en la naturaleza) que guían algoritmos más simples para explorar espacios de soluciones complejos. No garantizan el óptimo global pero ofrecen buenas soluciones en tiempos razonables. Ejemplos: AG, PSO, SA, ACO."
+  },
+  {
+    subject: "mh", subjectLabel: "Metaheurísticas",
+    question: "En los Algoritmos Genéticos (AG), ¿qué operador introduce variaciones aleatorias pequeñas en los cromosomas para evitar convergencia prematura?",
+    options: [
+      "Selección",
+      "Cruce (crossover)",
+      "Mutación",
+      "Evaluación de aptitud (fitness)"
+    ],
+    correct: 2,
+    explanation: "La mutación en AG cambia aleatoriamente uno o más genes de un cromosoma con baja probabilidad. Esto mantiene la diversidad genética y evita que el algoritmo quede atrapado en óptimos locales (convergencia prematura). El cruce intercambia material genético entre dos padres para explorar nuevas soluciones."
+  },
+  {
+    subject: "mh", subjectLabel: "Metaheurísticas",
+    question: "¿Qué inspira al algoritmo de Optimización por Enjambre de Partículas (PSO)?",
+    options: [
+      "El comportamiento de hormigas buscando comida mediante feromonas",
+      "El proceso de enfriamiento gradual de metales (recocido)",
+      "El movimiento colectivo de bandadas de pájaros y bancos de peces",
+      "La evolución darwiniana con selección natural"
+    ],
+    correct: 2,
+    explanation: "PSO (Particle Swarm Optimization) se inspira en el comportamiento social de bandadas de pájaros y bancos de peces. Cada partícula recuerda su mejor posición personal y la mejor posición del enjambre. Actualiza velocidad y posición combinando ambas memorias con componentes aleatorios."
+  },
+  {
+    subject: "mh", subjectLabel: "Metaheurísticas",
+    question: "En Recocido Simulado (Simulated Annealing), ¿por qué se acepta a veces una solución peor que la actual?",
+    options: [
+      "Por un error en el algoritmo que se corrige en iteraciones posteriores",
+      "Para escapar de óptimos locales, con una probabilidad que decrece con la temperatura",
+      "Porque la función objetivo es siempre cóncava en problemas reales",
+      "Para garantizar convergencia al óptimo global en tiempo polinomial"
+    ],
+    correct: 1,
+    explanation: "SA acepta soluciones peores con probabilidad e^(-ΔE/T) donde T es la 'temperatura'. Al inicio (T alta) se acepta casi cualquier solución (exploración amplia). Al enfriar, T decrece y se vuelve más selectivo. Esto permite escapar de óptimos locales donde algoritmos voraces quedarían atrapados."
+  },
+  {
+    subject: "mh", subjectLabel: "Metaheurísticas",
+    question: "La Optimización por Colonia de Hormigas (ACO) se basa en el concepto de feromonas. ¿Cuál es su función en el algoritmo?",
+    options: [
+      "Penalizar las malas soluciones eliminándolas del conjunto",
+      "Marcar las rutas encontradas de manera que las mejores soluciones atraigan más a futuras hormigas",
+      "Representar restricciones duras del problema de optimización",
+      "Calcular el gradiente de la función objetivo"
+    ],
+    correct: 1,
+    explanation: "En ACO, las hormigas depositan feromonas en las rutas que recorren. Las mejores rutas (menor costo) acumulan más feromonas y atraen a más hormigas. También hay evaporación de feromonas para evitar convergencia prematura. Aplicación clásica: Problema del Viajero (TSP)."
+  },
+
+  // ════════════════════════════════
+  //  ANALÍTICA DE DATOS
+  // ════════════════════════════════
+  {
+    subject: "ad", subjectLabel: "Analítica de Datos",
+    question: "¿Qué establece la metodología CRISP-DM como primer paso del proceso analítico?",
+    options: [
+      "Modelado de datos con algoritmos de ML",
+      "Comprensión del negocio (Business Understanding)",
+      "Limpieza y preparación de datos",
+      "Despliegue del modelo en producción"
+    ],
+    correct: 1,
+    explanation: "CRISP-DM (Cross-Industry Standard Process for Data Mining) define 6 fases: 1) Comprensión del negocio, 2) Comprensión de los datos, 3) Preparación de datos, 4) Modelado, 5) Evaluación, 6) Despliegue. Comenzar por entender el problema de negocio es crítico para asegurar que el análisis sea relevante y actionable."
+  },
+  {
+    subject: "ad", subjectLabel: "Analítica de Datos",
+    question: "¿Qué es el Análisis Exploratorio de Datos (EDA)?",
+    options: [
+      "El proceso de entrenar un modelo predictivo con datos etiquetados",
+      "Una técnica para desplegar modelos en producción",
+      "El examen inicial de los datos para descubrir patrones, anomalías, y formular hipótesis usando estadística y visualización",
+      "La fase de limpieza que elimina todos los valores nulos automáticamente"
+    ],
+    correct: 2,
+    explanation: "EDA es la fase exploratoria previa al modelado: se examinan distribuciones, correlaciones, outliers y patrones usando estadística descriptiva y visualizaciones (histogramas, boxplots, scatter plots, heatmaps). Formulada por Tukey (1977), es esencial para entender el dataset antes de modelar."
+  },
+  {
+    subject: "ad", subjectLabel: "Analítica de Datos",
+    question: "En el preprocesamiento de datos, ¿qué técnica se usa para escalar variables numéricas al rango [0,1]?",
+    options: [
+      "Codificación one-hot (One-Hot Encoding)",
+      "Normalización Min-Max",
+      "Imputación por media",
+      "PCA (Análisis de Componentes Principales)"
+    ],
+    correct: 1,
+    explanation: "La normalización Min-Max escala cada valor: x_norm = (x - x_min) / (x_max - x_min). Resulta en valores en [0,1]. Es importante cuando los algoritmos son sensibles a la escala (SVM, KNN, redes neuronales). One-Hot Encoding convierte variables categóricas; PCA reduce dimensionalidad."
+  },
+  {
+    subject: "ad", subjectLabel: "Analítica de Datos",
+    question: "¿Qué metodología complementa a CRISP-DM y fue propuesta por Fayyad et al. para el descubrimiento de conocimiento?",
+    options: [
+      "SCRUM",
+      "Modelo en cascada (Waterfall)",
+      "KDD (Knowledge Discovery in Databases)",
+      "DevOps"
+    ],
+    correct: 2,
+    explanation: "KDD (Knowledge Discovery in Databases), propuesta por Fayyad et al. (1996), es un proceso iterativo de selección, preprocesamiento, transformación, minería de datos e interpretación. CRISP-DM es su versión más orientada a la industria. Ambas buscan extraer conocimiento útil de datos masivos."
+  },
+  {
+    subject: "ad", subjectLabel: "Analítica de Datos",
+    question: "¿Cuál es el propósito del 'storytelling con datos'?",
+    options: [
+      "Crear bases de datos más eficientes para almacenar información",
+      "Comunicar hallazgos analíticos de forma clara y persuasiva a audiencias no técnicas",
+      "Automatizar la generación de reportes sin intervención humana",
+      "Acelerar la velocidad de procesamiento de grandes volúmenes de datos"
+    ],
+    correct: 1,
+    explanation: "El storytelling con datos (data storytelling) convierte análisis complejos en narrativas comprensibles y accionables para tomadores de decisiones no técnicos. Combina visualizaciones efectivas, contexto y una narrativa coherente. Cole Nussbaumer Knaflic (2015) lo popularizó como habilidad crítica en analítica."
+  },
+
+  // ════════════════════════════════
+  //  ADMINISTRACIÓN DE BD
+  // ════════════════════════════════
+  {
+    subject: "bd", subjectLabel: "Admin. de Bases de Datos",
+    question: "¿Cuál es la diferencia entre un LEFT JOIN y un INNER JOIN en SQL?",
+    options: [
+      "LEFT JOIN retorna solo las filas coincidentes; INNER JOIN retorna todas las filas de la tabla izquierda",
+      "INNER JOIN retorna solo las filas con coincidencias en ambas tablas; LEFT JOIN retorna todas las filas de la tabla izquierda, con NULL donde no hay coincidencia",
+      "Ambos producen exactamente el mismo resultado en SQL estándar",
+      "LEFT JOIN es más rápido siempre porque usa menos memoria"
+    ],
+    correct: 1,
+    explanation: "INNER JOIN retorna únicamente las filas que tienen coincidencia en AMBAS tablas. LEFT JOIN retorna TODAS las filas de la tabla izquierda; las columnas de la tabla derecha muestran NULL donde no hay coincidencia. Elegir el tipo correcto es fundamental para no perder datos en consultas."
+  },
+  {
+    subject: "bd", subjectLabel: "Admin. de Bases de Datos",
+    question: "¿Para qué sirve un índice (INDEX) en una base de datos relacional?",
+    options: [
+      "Para cifrar los datos sensibles de una tabla",
+      "Para acelerar las búsquedas y consultas a costa de mayor espacio en disco",
+      "Para hacer backups automáticos de la base de datos",
+      "Para definir las relaciones de clave foránea entre tablas"
+    ],
+    correct: 1,
+    explanation: "Un índice crea una estructura de datos auxiliar (B-tree, hash) que acelera las búsquedas tipo SELECT y WHERE a costa de: más espacio en disco y mayor tiempo en operaciones INSERT/UPDATE/DELETE (deben actualizar el índice). Se recomienda en columnas frecuentemente filtradas u ordenadas."
+  },
+  {
+    subject: "bd", subjectLabel: "Admin. de Bases de Datos",
+    question: "En administración de bases de datos, ¿qué es una transacción ACID?",
+    options: [
+      "Un tipo especial de índice para datos ácidos (numéricos con decimales)",
+      "Un conjunto de operaciones que se ejecutan como unidad atómica, con propiedades de Atomicidad, Consistencia, Aislamiento y Durabilidad",
+      "Un protocolo de cifrado para comunicaciones seguras entre cliente y servidor",
+      "Un método de replicación de datos entre servidores"
+    ],
+    correct: 1,
+    explanation: "ACID define las propiedades fundamentales de las transacciones: Atomicidad (todo o nada), Consistencia (la BD pasa de un estado válido a otro), Aislamiento (transacciones concurrentes no interfieren entre sí), Durabilidad (los cambios confirmados persisten aunque haya fallos del sistema)."
+  },
+  {
+    subject: "bd", subjectLabel: "Admin. de Bases de Datos",
+    question: "¿Cuál de los siguientes comandos SQL se usa para crear un nuevo usuario en MySQL?",
+    options: [
+      "INSERT INTO users VALUES ('nombre', 'contraseña')",
+      "ADD USER 'nombre'@'localhost' WITH PASSWORD '...'",
+      "CREATE USER 'nombre'@'localhost' IDENTIFIED BY 'contraseña'",
+      "GRANT USER 'nombre' ON *.* TO 'localhost'"
+    ],
+    correct: 2,
+    explanation: "La sintaxis correcta en MySQL es: CREATE USER 'nombre'@'host' IDENTIFIED BY 'contraseña'. Luego se asignan permisos con GRANT. El '@host' especifica desde qué host puede conectarse (localhost = solo local, '%' = cualquier host). INSERT INTO no crea usuarios del sistema."
+  },
+  {
+    subject: "bd", subjectLabel: "Admin. de Bases de Datos",
+    question: "¿Cuál es la diferencia entre un backup completo y un backup incremental?",
+    options: [
+      "El backup completo es más rápido de restaurar pero el incremental copia solo los cambios desde el último backup",
+      "El backup incremental siempre es más lento que el completo en todos los escenarios",
+      "No existe diferencia práctica; ambos producen el mismo archivo final",
+      "El backup completo se hace en la nube y el incremental en disco local"
+    ],
+    correct: 0,
+    explanation: "Backup completo: copia todos los datos → más rápido de restaurar (solo un archivo), pero lento de crear y ocupa más espacio. Backup incremental: copia solo los cambios desde el último backup → rápido de crear, ocupa menos espacio, pero restaurar requiere el completo + todos los incrementales en orden."
+  }
+];
+
+// ─────────────────────────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────────────────────────
+let state = {
+  questions:   [],
+  current:     0,
+  answers:     [],   // null | index (chosen option)
+  correct:     0,
+  wrong:       0,
+  shuffle:     false,
+  timerOn:     false,
+  seconds:     0,
+  timerHandle: null,
+  filter:      'all',
+  finished:    false
+};
+
+// ─────────────────────────────────────────────────────────────
+//  HELPERS
+// ─────────────────────────────────────────────────────────────
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function fmtTime(s) {
+  const m = Math.floor(s / 60);
+  const ss = String(s % 60).padStart(2, '0');
+  return `${m}:${ss}`;
+}
+
+function letters(i) { return ['A', 'B', 'C', 'D'][i]; }
+
+// ─────────────────────────────────────────────────────────────
+//  FILTER
+// ─────────────────────────────────────────────────────────────
+function filterSubject(subj, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  state.filter = subj;
+}
+
+// ─────────────────────────────────────────────────────────────
+//  TOGGLE CONTROLS
+// ─────────────────────────────────────────────────────────────
+function toggleShuffle() {
+  state.shuffle = !state.shuffle;
+  document.getElementById('shuffleBtn').classList.toggle('active', state.shuffle);
+}
+
+function toggleTimer() {
+  state.timerOn = !state.timerOn;
+  document.getElementById('timerBtn').classList.toggle('active', state.timerOn);
+  document.getElementById('timerDisplay').style.display = state.timerOn ? 'flex' : 'none';
+}
+
+// ─────────────────────────────────────────────────────────────
+//  TIMER
+// ─────────────────────────────────────────────────────────────
+function startTimer() {
+  stopTimer();
+  state.seconds = 0;
+  if (!state.timerOn) return;
+  state.timerHandle = setInterval(() => {
+    state.seconds++;
+    const tv = document.getElementById('timerVal');
+    const td = document.getElementById('timerDisplay');
+    if (tv) tv.textContent = fmtTime(state.seconds);
+    if (td) td.classList.toggle('warning', state.seconds > 600);
+    document.getElementById('statTimer').textContent = fmtTime(state.seconds);
+  }, 1000);
+}
+
+function stopTimer() {
+  if (state.timerHandle) { clearInterval(state.timerHandle); state.timerHandle = null; }
+}
+
+// ─────────────────────────────────────────────────────────────
+//  START / RESET
+// ─────────────────────────────────────────────────────────────
+function startQuiz() {
+  stopTimer();
+  let pool = state.filter === 'all'
+    ? ALL_QUESTIONS
+    : ALL_QUESTIONS.filter(q => q.subject === state.filter);
+
+  if (pool.length === 0) {
+    alert('No hay preguntas para esta materia todavía.');
+    return;
+  }
+
+  state.questions = state.shuffle ? shuffle(pool) : [...pool];
+  state.answers   = new Array(state.questions.length).fill(null);
+  state.current   = 0;
+  state.correct   = 0;
+  state.wrong     = 0;
+  state.seconds   = 0;
+  state.finished  = false;
+
+  document.getElementById('resultsScreen').style.display = 'none';
+  document.getElementById('questionCard').style.display  = 'block';
+  document.getElementById('navRow').style.display        = 'flex';
+
+  updateStats();
+  renderQuestion();
+  startTimer();
+}
+
+// ─────────────────────────────────────────────────────────────
+//  RENDER QUESTION
+// ─────────────────────────────────────────────────────────────
+function renderQuestion() {
+  const q   = state.questions[state.current];
+  const ans = state.answers[state.current];
+  const answered = ans !== null;
+
+  // subject color
+  const tagClass = { ml:'tag-ml', mn:'tag-mn', mh:'tag-mh', ad:'tag-ad', bd:'tag-bd' }[q.subject] || '';
+
+  // Build options HTML
+  let optsHtml = '';
+  q.options.forEach((opt, i) => {
+    let cls = 'option-btn';
+    if (answered) {
+      if (i === q.correct)       cls += ' reveal-correct';
+      if (i === ans && ans !== q.correct) cls += ' wrong';
+      if (i === ans && ans === q.correct) cls += ' correct';
+    }
+    const disabled = answered ? 'disabled' : '';
+    optsHtml += `
+      <button class="${cls}" ${disabled} onclick="selectAnswer(${i})">
+        <span class="opt-letter">${letters(i)}</span>
+        <span>${opt}</span>
+      </button>`;
+  });
+
+  // Feedback
+  let feedbackHtml = '';
+  if (answered) {
+    const isCorrect = ans === q.correct;
+    feedbackHtml = `
+      <div class="feedback-box ${isCorrect ? 'correct-fb' : 'wrong-fb'}">
+        <div class="fb-title">${isCorrect ? '✅ ¡Correcto!' : `❌ Incorrecto — La respuesta correcta es ${letters(q.correct)}: ${q.options[q.correct]}`}</div>
+        <div class="fb-explanation"><strong>📖 Explicación:</strong> ${q.explanation}</div>
+      </div>`;
+  }
+
+  document.getElementById('questionCard').innerHTML = `
+    <div class="q-meta">
+      <span class="q-num">Pregunta ${state.current + 1} de ${state.questions.length}</span>
+      <span class="q-subject-tag ${tagClass}">${q.subjectLabel}</span>
+    </div>
+    <div class="q-text">${q.question}</div>
+    <div class="options-list">${optsHtml}</div>
+    ${feedbackHtml}
+  `;
+
+  // Nav buttons
+  const btnPrev = document.getElementById('btnPrev');
+  const btnNext = document.getElementById('btnNext');
+  btnPrev.disabled = state.current === 0;
+
+  const isLast = state.current === state.questions.length - 1;
+  if (isLast && answered) {
+    btnNext.textContent = '🏁 Ver resultados';
+  } else {
+    btnNext.textContent = 'Siguiente →';
+  }
+  btnNext.disabled = !answered;
+
+  updateProgress();
+}
+
+// ─────────────────────────────────────────────────────────────
+//  SELECT ANSWER
+// ─────────────────────────────────────────────────────────────
+function selectAnswer(i) {
+  if (state.answers[state.current] !== null) return;
+  state.answers[state.current] = i;
+
+  const q = state.questions[state.current];
+  if (i === q.correct) state.correct++;
+  else                 state.wrong++;
+
+  updateStats();
+  renderQuestion();
+}
+
+// ─────────────────────────────────────────────────────────────
+//  NAVIGATION
+// ─────────────────────────────────────────────────────────────
+function nextQuestion() {
+  const isLast = state.current === state.questions.length - 1;
+  if (isLast) {
+    showResults();
+    return;
+  }
+  state.current++;
+  renderQuestion();
+}
+
+function prevQuestion() {
+  if (state.current > 0) {
+    state.current--;
+    renderQuestion();
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+//  STATS & PROGRESS
+// ─────────────────────────────────────────────────────────────
+function updateStats() {
+  document.getElementById('statTotal').textContent   = state.questions.length;
+  document.getElementById('statCorrect').textContent = state.correct;
+  document.getElementById('statWrong').textContent   = state.wrong;
+}
+
+function updateProgress() {
+  const answered = state.answers.filter(a => a !== null).length;
+  const total    = state.questions.length;
+  const pct      = total > 0 ? Math.round(answered / total * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progLabel').textContent    = `Pregunta ${state.current + 1} de ${total}`;
+  document.getElementById('progPct').textContent      = pct + '%';
+}
+
+// ─────────────────────────────────────────────────────────────
+//  RESULTS SCREEN
+// ─────────────────────────────────────────────────────────────
+function showResults() {
+  stopTimer();
+  state.finished = true;
+
+  document.getElementById('questionCard').style.display  = 'none';
+  document.getElementById('navRow').style.display        = 'none';
+  document.getElementById('resultsScreen').style.display = 'block';
+
+  const total   = state.questions.length;
+  const correct = state.correct;
+  const wrong   = state.wrong;
+  const pct     = Math.round(correct / total * 100);
+
+  document.getElementById('resFinalScore').textContent = pct + '%';
+  document.getElementById('resSubLabel').textContent   =
+    `${correct} correctas de ${total} preguntas · ${getGrade(pct)}`;
+  document.getElementById('resCorrect').textContent = correct;
+  document.getElementById('resWrong').textContent   = wrong;
+  document.getElementById('resTime').textContent    = fmtTime(state.seconds);
+
+  // Color score
+  const scoreEl = document.getElementById('resFinalScore');
+  if (pct >= 80) scoreEl.style.color = 'var(--green)';
+  else if (pct >= 60) scoreEl.style.color = 'var(--amber)';
+  else scoreEl.style.color = 'var(--red)';
+
+  // Review list
+  let reviewHtml = '<h3>Revisión detallada</h3>';
+  state.questions.forEach((q, idx) => {
+    const chosen    = state.answers[idx];
+    const isCorrect = chosen === q.correct;
+    const chosenTxt = chosen !== null ? `${letters(chosen)}: ${q.options[chosen]}` : 'Sin respuesta';
+    const cls = isCorrect ? 'ri-correct' : 'ri-wrong';
+    const icon = isCorrect ? '✅' : '❌';
+    reviewHtml += `
+      <div class="review-item ${cls}">
+        <span class="review-icon">${icon}</span>
+        <div>
+          <div class="ri-q">${idx + 1}. ${q.question}</div>
+          <div class="ri-ans">Tu respuesta: ${chosenTxt}</div>
+          ${!isCorrect ? `<div class="ri-ans" style="color:var(--green);">Correcta: ${letters(q.correct)}: ${q.options[q.correct]}</div>` : ''}
+        </div>
+      </div>`;
+  });
+  document.getElementById('reviewList').innerHTML = reviewHtml;
+}
+
+function getGrade(pct) {
+  if (pct >= 90) return '🏆 Excelente';
+  if (pct >= 80) return '🥇 Muy bien';
+  if (pct >= 70) return '👍 Bien';
+  if (pct >= 60) return '⚠️ Aprobado';
+  return '📚 Necesitas repasar';
+}
+
+// ─────────────────────────────────────────────────────────────
+//  INIT — Pre-select Machine Learning filter on page load
+// ─────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  const mlBtn = document.querySelector('.tab-ml');
+  if (mlBtn) filterSubject('ml', mlBtn);
+  updateStats();
+});
+</script>
+</body>
+</html>
